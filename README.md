@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# herz-ui
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Herz UI is a design system containing a styleguide(colors, grid, icons, typography) and library of UI components
 
 ## Available Scripts
 
