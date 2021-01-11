@@ -17,8 +17,8 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npx styleguidist server",
+    "build": "npx styleguidist build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -39,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-styleguidist": "^11.1.5"
   }
 }
