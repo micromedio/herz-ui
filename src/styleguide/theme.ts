@@ -2,18 +2,17 @@ import { Theme } from "theme-ui"
 
 import { base } from "@theme-ui/presets"
 
-interface CustomTheme extends Omit<Theme, "colors"> {
-  colors?: any
-}
-
-export const theme: CustomTheme = {
+export const theme: Theme = {
   ...base,
-  buttons: {
-    primary: {
-      color: "#f09",
-      background: "red",
-    },
+  colors: {
+    background: "#FFF2F2", // light red bg
+    text: "#86868B", // gray text
+    accent: "#FC000A", // brand red
+    highlight: "#0066CC", // links
+    primary: "#FF3C3C", // primary button
+    secondary: "#02BFFE", // hovers (brand blue)
   },
+
   styles: {
     ...base.styles,
   },
