@@ -1,6 +1,6 @@
 # herz-ui
 
-Herz UI is a design system containing a styleguide(colors, grid, icons, typography) and library of UI components
+Herz UI (/hɛrʦ/ - Hérts) is a design system containing a styleguide(colors, grid, icons, typography) and library of UI components
 
 ## Available Scripts
 
