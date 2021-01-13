@@ -1,7 +1,18 @@
 {
-  "name": "herz-ui",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@micromed/herz-ui",
+  "version": "0.1.1",
+  "description": "Herz UI (/hɛrʦ/ - Hérts) is a design system containing a styleguide(colors, grid, icons, typography) and library of UI components",
+  "main": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/micromed-dev/herz-ui.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/micromed-dev/herz-ui/issues"
+  },
+  "homepage": "https://github.com/micromed-dev/herz-ui#readme",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -16,9 +27,12 @@
   },
   "scripts": {
     "dev": "npx styleguidist server",
-    "build": "npx styleguidist build",
+    "build": "yarn compile && npx styleguidist build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "compile:components": "BABEL_ENV=production babel src/components --out-dir ./lib --extensions \".ts,.tsx\" --ignore '@types,*.md'",
+    "compile:styleguide": "BABEL_ENV=production babel src/styleguide --out-dir ./lib --extensions \".ts,.tsx\" --ignore '@types,*.md'",
+    "compile": "yarn compile:components && yarn compile:styleguide"
   },
   "eslintConfig": {
     "extends": [
@@ -39,6 +53,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-react": "^7.12.10",
+    "@babel/preset-typescript": "^7.12.7",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.20",
     "@types/react": "^17.0.0",
