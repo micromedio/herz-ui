@@ -6,7 +6,7 @@ Herz UI (/hɛrʦ/ - Hérts) is a design system containing a styleguide(colors, g
 
 In the project directory, you can run:
 
-### `yarn start`
+### `yarn dev`
 
 Runs the app in the development mode.\
 Open [http://localhost:6060](http://localhost:6060) to view it in the browser.
