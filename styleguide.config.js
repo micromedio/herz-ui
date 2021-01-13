@@ -1,6 +1,5 @@
 const path = require("path")
 
-// styleguide.config.js
 module.exports = {
   components: "src/components/**/*.tsx",
   styleguideComponents: {

@@ -13,6 +13,26 @@ export const theme: Theme = {
     secondary: "#02BFFE", // hovers (brand blue)
   },
 
+  buttons: {
+    primary: {
+      color: "background",
+      bg: "primary",
+      "&:hover": {
+        opacity: 0.7,
+      },
+      cursor: "pointer",
+      transition: "all .3s linear",
+    },
+    secondary: {
+      color: "background",
+      bg: "secondary",
+      "&:hover": {
+        opacity: 0.7,
+      },
+      cursor: "pointer",
+      transition: "all .3s linear",
+    },
+  },
   styles: {
     ...base.styles,
   },

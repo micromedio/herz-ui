@@ -1,18 +1,16 @@
-# Button
-
-### primary:
+#### primary:
 
 ```js
 <Button mr={2}>Beep</Button>
 ```
 
-### secondary:
+#### secondary:
 
 ```js
 <Button variant="secondary">Boop</Button>
 ```
 
-## variants
+### variants
 
 Button variants can be defined in the `theme.buttons` object. The Button component uses `theme.buttons.primary` as its default variant style.
 
