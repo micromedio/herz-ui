@@ -1,13 +1,37 @@
-### Default button
+# Button
 
-Default:
+### primary:
 
 ```js
-<Button>Click me!</Button>
+<Button mr={2}>Beep</Button>
 ```
 
-Large:
+### secondary:
 
 ```js
-<Button size="large">Larger!!</Button>
+<Button variant="secondary">Boop</Button>
+```
+
+## variants
+
+Button variants can be defined in the `theme.buttons` object. The Button component uses `theme.buttons.primary` as its default variant style.
+
+```markup
+// example theme variants
+{
+  buttons: {
+    primary: {
+      color: 'background',
+      bg: 'primary',
+      '&:hover': {
+        bg: 'text',
+      }
+    },
+    secondary: {
+      color: 'background',
+      bg: 'secondary',
+    },
+  },
+}
+
 ```
