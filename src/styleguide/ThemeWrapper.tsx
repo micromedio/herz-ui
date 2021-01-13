@@ -7,7 +7,9 @@ export interface IThemeWrapperProps {
   children: React.ReactChildren
 }
 
-export default function (props: IThemeWrapperProps) {
+const ThemeWrapper = function (props: IThemeWrapperProps) {
   const { children } = props
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>
 }
+
+export default ThemeWrapper
