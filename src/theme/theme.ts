@@ -4,6 +4,8 @@ import { base } from "@theme-ui/presets"
 
 export const theme: Theme = {
   ...base,
+  space: Array(17).fill(0).map((_, i) => i*4),
+  radii: Array(17).fill(0).map((_, i) => i*4),
   colors: {
     background: "#FFF2F2", // light red bg
     text: "#86868B", // gray text
