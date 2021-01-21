@@ -24,4 +24,5 @@ yarn-error.log*
 
 .eslintcache
 /styleguide
-/lib
+/components
+/theme

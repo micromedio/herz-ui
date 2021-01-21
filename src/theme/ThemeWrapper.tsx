@@ -9,6 +9,7 @@ export interface IThemeWrapperProps {
 
 const ThemeWrapper = function (props: IThemeWrapperProps) {
   const { children } = props
+  
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>
 }
 

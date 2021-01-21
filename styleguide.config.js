@@ -4,7 +4,7 @@ const { version } = require("./package.json")
 module.exports = {
   version: `${version}`,
   styleguideComponents: {
-    Wrapper: path.join(__dirname, "src/styleguide/ThemeWrapper"),
+    Wrapper: path.join(__dirname, "src/theme/ThemeWrapper"),
   },
   propsParser: require("react-docgen-typescript").parse,
   sections: [
