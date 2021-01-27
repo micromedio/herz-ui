@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import { jsx, Flex } from "theme-ui"
 import { ChangeEvent, forwardRef } from "react"
+import Input from "../Input/Input"
 
 export interface TextFieldProps {
   /** Input type */
@@ -21,7 +22,7 @@ export interface TextFieldProps {
   error?: boolean
   /** If `true`, the `input` element will be disabled */
   disabled?: boolean
-  /** If `true`, the */
+  /** If `true`, the `input` is required */
   required?: boolean
 
   /** Text to show after label if field is required */
@@ -89,69 +90,18 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           </Flex>
         )}
 
-        <Flex
-          sx={{
-            width: "100%",
-            position: "relative",
-            justifyContent: "center",
-          }}
-        >
-          <input
-            id={id}
-            type={type}
-            ref={ref}
-            placeholder={placeholder}
-            value={value}
-            disabled={disabled}
-            onChange={onChange}
-            aria-describedby={helperTextId}
-            aria-invalid={error}
-            sx={{
-              width: "100%",
-              paddingY: 2,
-              paddingX: 3,
-              paddingRight: unit ? 6 : 3,
-
-              backgroundColor: value ? "#F5F9FD" : "#F5F5F7", // TODO: remove fixed colors, use shade from theme
-              outline: 0,
-              borderRadius: 2,
-              border: "2px solid transparent",
-
-              transition: "all 0.2s",
-              "&:focus, &:hover": {
-                borderColor: "highlight",
-                boxShadow: "0px 0px 0px 4px #EBF3FB", // TODO: remove fixed colors, use shade from theme
-                backgroundColor: "#FFFFFF", // TODO: remove fixed colors, use shade from theme
-              },
-
-              // TODO: use typography styles
-              color: "text",
-              fontWeight: 500,
-              fontSize: 14,
-            }}
-          />
-
-          {unit && (
-            <span
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                position: "absolute",
-                right: 0,
-                padding: 2,
-                pointerEvents: "none",
-
-                // TODO: use typography styles
-                color: "muted",
-                fontWeight: 500,
-                fontSize: 14,
-              }}
-            >
-              {unit}
-            </span>
-          )}
-        </Flex>
+        <Input
+          id={id}
+          type={type}
+          ref={ref}
+          placeholder={placeholder}
+          value={value}
+          disabled={disabled}
+          onChange={onChange}
+          error={error}
+          unit={unit}
+          aria-describedby={helperTextId}
+        />
 
         {helperText && (
           <span
