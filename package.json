@@ -2,10 +2,9 @@
   "name": "@micromed/herz-ui",
   "version": "0.1.3",
   "description": "Herz UI (/hɛrʦ/ - Hérts) is a design system containing a styleguide(colors, grid, icons, typography) and library of UI components",
-  "main": "./components/index.js",
+  "main": "./lib/components/index.js",
   "files": [
-    "components/",
-    "theme/"
+    "lib/"
   ],
   "repository": {
     "type": "git",
@@ -37,9 +36,10 @@
     "dev": "npx styleguidist server & npm-watch compile",
     "build": "yarn compile && npx styleguidist build",
     "test": "react-scripts test",
-    "compile:components": "BABEL_ENV=production babel src/components --out-dir ./components --extensions \".ts,.tsx\" --ignore '@types,*.md'",
-    "compile:theme": "BABEL_ENV=production babel src/theme --out-dir ./theme --extensions \".ts,.tsx\" --ignore '@types,*.md'",
-    "compile": "yarn compile:components && yarn compile:theme",
+    "compile:components": "BABEL_ENV=production babel src/components --out-dir ./lib/components --extensions \".ts,.tsx\" --ignore '@types,*.md'",
+    "compile:theme": "BABEL_ENV=production babel src/theme --out-dir ./lib/theme --extensions \".ts,.tsx\" --ignore '@types,*.md'",
+    "build:types": "tsc --emitDeclarationOnly",
+    "compile": "yarn compile:components && yarn compile:theme && yarn build:types",
     "release": "yarn compile && release-it"
   },
   "eslintConfig": {
