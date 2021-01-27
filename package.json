@@ -40,7 +40,13 @@
     "compile:theme": "BABEL_ENV=production babel src/theme --out-dir ./lib/theme --extensions \".ts,.tsx\" --ignore '@types,*.md'",
     "build:types": "tsc --emitDeclarationOnly",
     "compile": "yarn compile:components && yarn compile:theme && yarn build:types",
-    "release": "yarn compile && release-it"
+    "release": "yarn compile && release-it",
+    "pretest": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pretest"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -73,6 +79,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/theme-ui": "^0.3.7",
+    "husky": "^4.3.8",
     "npm-watch": "^0.7.0",
     "react-docgen-typescript": "^1.20.5",
     "react-styleguidist": "^11.1.5",
