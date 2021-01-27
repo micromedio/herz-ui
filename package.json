@@ -25,8 +25,16 @@
     "theme-ui": "^0.3.5",
     "web-vitals": "^0.2.4"
   },
+  "watch": {
+    "compile": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "ts"
+    }
+  },
   "scripts": {
-    "dev": "npx styleguidist server",
+    "dev": "npx styleguidist server & npm-watch compile",
     "build": "yarn compile && npx styleguidist build",
     "test": "react-scripts test",
     "compile:components": "BABEL_ENV=production babel src/components --out-dir ./components --extensions \".ts,.tsx\" --ignore '@types,*.md'",
@@ -65,6 +73,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/theme-ui": "^0.3.7",
+    "npm-watch": "^0.7.0",
     "react-docgen-typescript": "^1.20.5",
     "react-styleguidist": "^11.1.5",
     "release-it": "^14.2.2",
