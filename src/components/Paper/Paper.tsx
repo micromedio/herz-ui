@@ -14,15 +14,19 @@ export interface PaperProps {
 
 const Paper = ({ elevation = 1, children }: PaperProps) => {
   const boxShadow = useMemo(() => {
-    if (elevation) return '0px 0px 8px rgba(0, 0, 0, 0.04)'
-    return 'none'
+    if (elevation) return "0px 0px 8px rgba(0, 0, 0, 0.04)"
+    return "none"
   }, [elevation])
 
   return (
-    <Box padding={6} bg="#FFF" sx={{
-      borderRadius: 4,
-      boxShadow
-    }} >
+    <Box
+      padding={6}
+      bg="#FFF"
+      sx={{
+        borderRadius: 4,
+        boxShadow,
+      }}
+    >
       {children}
     </Box>
   )

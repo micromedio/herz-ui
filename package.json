@@ -41,7 +41,8 @@
     "build:types": "tsc --emitDeclarationOnly",
     "compile": "yarn compile:components && yarn compile:theme && yarn build:types",
     "release": "yarn compile && release-it",
-    "pretest": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix"
+    "pretest": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },
   "husky": {
     "hooks": {
@@ -81,6 +82,14 @@
     "@types/theme-ui": "^0.3.7",
     "husky": "^4.3.8",
     "npm-watch": "^0.7.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-unicorn": "^26.0.1",
+    "prettier": "^2.2.1",
     "react-docgen-typescript": "^1.20.5",
     "react-styleguidist": "^11.1.5",
     "release-it": "^14.2.2",
