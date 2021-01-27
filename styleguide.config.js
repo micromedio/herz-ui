@@ -19,11 +19,4 @@ module.exports = {
       components: "src/components/**/*.tsx",
     },
   ],
-  styles: {
-    Playground: {
-      preview: {
-        background: "#FBFBFD",
-      },
-    },
-  },
 }
