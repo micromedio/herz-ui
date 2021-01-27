@@ -33,7 +33,12 @@ module.exports = {
       rules: {
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
+        "react/self-closing-comp": ["error"],
         "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          { varsIgnorePattern: "(^jsx$)" },
+        ],
         "unicorn/filename-case": [
           "error",
           {
@@ -48,6 +53,7 @@ module.exports = {
           {
             replacements: {
               props: false,
+              ref: false,
             },
           },
         ],
