@@ -19,6 +19,17 @@ module.exports = {
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended",
   ],
+  rules: {
+    "unicorn/filename-case": [
+      "error",
+      {
+        cases: {
+          camelCase: true,
+          pascalCase: true,
+        },
+      },
+    ],
+  },
   overrides: [
     {
       files: ["**/*.ts", "**/*.tsx"],
@@ -39,15 +50,7 @@ module.exports = {
           "error",
           { varsIgnorePattern: "(^jsx$)" },
         ],
-        "unicorn/filename-case": [
-          "error",
-          {
-            cases: {
-              camelCase: true,
-              pascalCase: true,
-            },
-          },
-        ],
+
         "unicorn/prevent-abbreviations": [
           "error",
           {
