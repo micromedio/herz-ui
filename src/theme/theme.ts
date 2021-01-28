@@ -12,7 +12,8 @@ export const theme: Theme = {
     .map((_, index) => index * 4),
   colors: {
     background: "#FFF2F2", // light red bg
-    text: "#86868B", // gray text
+    text: "#1D1D1F", // dark text
+    muted: "#86868B", // gray text
     accent: "#FC000A", // brand red
     highlight: "#0066CC", // links
     primary: "#FF3C3C", // primary button
