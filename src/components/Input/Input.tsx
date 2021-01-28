@@ -42,7 +42,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     unit,
     ...htmlProps
   }: InputProps,
-  reference
+  ref
 ) {
   return (
     <Flex
@@ -55,7 +55,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       <input
         id={id}
         type={type}
-        ref={reference}
+        ref={ref}
         required={required}
         placeholder={placeholder}
         value={value}

@@ -56,7 +56,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       // Icon, //TODO: icon library to be defined
       unit,
     }: TextFieldProps,
-    reference
+    ref
   ) {
     const helperTextId = helperText && id ? `${id}-helper-text` : undefined
     const inputLabelId = label && id ? `${id}-label` : undefined
@@ -93,7 +93,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         <Input
           id={id}
           type={type}
-          ref={reference}
+          ref={ref}
           placeholder={placeholder}
           value={value}
           disabled={disabled}
