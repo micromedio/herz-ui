@@ -42,7 +42,9 @@
     "compile": "yarn compile:components && yarn compile:theme && yarn build:types",
     "release": "yarn compile && release-it",
     "pretest": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix",
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "husky": {
     "hooks": {
@@ -72,6 +74,12 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
+    "@storybook/addon-actions": "^6.1.15",
+    "@storybook/addon-essentials": "^6.1.15",
+    "@storybook/addon-links": "^6.1.15",
+    "@storybook/node-logger": "^6.1.15",
+    "@storybook/preset-create-react-app": "^3.1.5",
+    "@storybook/react": "^6.1.15",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
@@ -80,8 +88,6 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/theme-ui": "^0.3.7",
-    "husky": "^4.3.8",
-    "npm-watch": "^0.7.0",
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
     "eslint-config-prettier": "^7.2.0",
@@ -89,6 +95,8 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-unicorn": "^26.0.1",
+    "husky": "^4.3.8",
+    "npm-watch": "^0.7.0",
     "prettier": "^2.2.1",
     "react-docgen-typescript": "^1.20.5",
     "react-styleguidist": "^11.1.5",
