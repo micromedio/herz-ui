@@ -40,6 +40,7 @@ module.exports = {
             cases: {
               camelCase: true,
               pascalCase: true,
+              kebabCase: true,
             },
           },
         ],
@@ -49,6 +50,7 @@ module.exports = {
             replacements: {
               props: false,
             },
+            checkFilenames: false,
           },
         ],
       },
