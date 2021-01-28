@@ -19,6 +19,18 @@ module.exports = {
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended",
   ],
+  rules: {
+    "unicorn/filename-case": [
+      "error",
+      {
+        cases: {
+          camelCase: true,
+          pascalCase: true,
+          kebabCase: true,
+        },
+      },
+    ],
+  },
   overrides: [
     {
       files: ["**/*.ts", "**/*.tsx"],
@@ -33,22 +45,19 @@ module.exports = {
       rules: {
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
+        "react/self-closing-comp": ["error"],
         "@typescript-eslint/explicit-module-boundary-types": "off",
-        "unicorn/filename-case": [
+        "@typescript-eslint/no-unused-vars": [
           "error",
-          {
-            cases: {
-              camelCase: true,
-              pascalCase: true,
-              kebabCase: true,
-            },
-          },
+          { varsIgnorePattern: "(^jsx$)" },
         ],
+
         "unicorn/prevent-abbreviations": [
           "error",
           {
             replacements: {
               props: false,
+              ref: false,
             },
             checkFilenames: false,
           },
