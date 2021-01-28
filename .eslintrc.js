@@ -26,6 +26,7 @@ module.exports = {
         cases: {
           camelCase: true,
           pascalCase: true,
+          kebabCase: true,
         },
       },
     ],
@@ -58,6 +59,7 @@ module.exports = {
               props: false,
               ref: false,
             },
+            checkFilenames: false,
           },
         ],
       },

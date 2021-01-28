@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import React, { useMemo } from "react"
 import { Box } from "theme-ui"
 
 export interface PaperProps {
