@@ -44,7 +44,8 @@
     "pretest": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic"
   },
   "husky": {
     "hooks": {
@@ -90,6 +91,7 @@
     "@types/theme-ui": "^0.3.7",
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
+    "chromatic": "^5.6.1",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
