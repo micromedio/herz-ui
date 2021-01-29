@@ -41,16 +41,19 @@
     "build:types": "tsc --emitDeclarationOnly --noEmit false",
     "compile": "yarn compile:components && yarn compile:theme && yarn build:types",
     "release": "yarn compile && release-it",
-    "pretest": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix",
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
+    "lint:fix": "yarn lint --fix",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "chromatic": "npx chromatic"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run pretest"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.(js|jsx|ts|tsx)": ["./node_modules/.bin/eslint --fix", "git add"]
   },
   "eslintConfig": {
     "extends": [
@@ -98,6 +101,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-unicorn": "^26.0.1",
     "husky": "^4.3.8",
+    "lint-staged": "^10.5.3",
     "npm-watch": "^0.7.0",
     "prettier": "^2.2.1",
     "react-docgen-typescript": "^1.20.5",
