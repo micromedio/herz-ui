@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /*
 /** @jsx jsx */
 import React from "react"
-import { jsx } from "theme-ui"
+import { Flex, jsx } from "theme-ui"
 import { useSelect } from "downshift"
 
 interface DropdownSelectProps {
@@ -21,8 +21,23 @@ const DropdownSelect = ({ label, options }: DropdownSelectProps) => {
     getItemProps,
   } = useSelect({ items: options })
   return (
-    <div>
-      {label && <label {...getLabelProps()}>{label}</label>}
+    <Flex
+      sx={{
+        alignItems: "center",
+        position: "relative",
+      }}
+    >
+      {label && (
+        <label
+          sx={{
+            marginRight: 2,
+            cursor: "pointer",
+          }}
+          {...getLabelProps()}
+        >
+          {label}
+        </label>
+      )}
       <button
         sx={{
           display: "flex",
@@ -56,6 +71,9 @@ const DropdownSelect = ({ label, options }: DropdownSelectProps) => {
             maxWidth: 300,
             position: "absolute",
             overflowY: "scroll",
+            left: 0,
+            top: 35,
+            marginTop: 3,
             padding: 4,
             borderRadius: 4,
             outline: 0,
@@ -63,6 +81,7 @@ const DropdownSelect = ({ label, options }: DropdownSelectProps) => {
             border: "1px solid #E9EBED",
             backgroundColor: "#fff",
             boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
+            zIndex: 9,
           }}
         >
           {options.map((item, index) => (
@@ -83,7 +102,7 @@ const DropdownSelect = ({ label, options }: DropdownSelectProps) => {
           ))}
         </ul>
       )}
-    </div>
+    </Flex>
   )
 }
 
