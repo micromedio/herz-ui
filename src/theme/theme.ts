@@ -18,6 +18,8 @@ export const theme: Theme = {
     highlight: "#0066CC", // links
     primary: "#FF3C3C", // primary button
     secondary: "#02BFFE", // hovers (brand blue)
+    low_emphasis: "#F5F5F7",
+    medium_emphasis: "#F5F9FD",
   },
 
   buttons: {

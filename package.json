@@ -34,7 +34,7 @@
     }
   },
   "scripts": {
-    "dev": "npx styleguidist server & npm-watch compile",
+    "dev": "FAST_REFRESH=false styleguidist server & npm-watch compile",
     "build": "yarn compile && npx styleguidist build",
     "test": "react-scripts test",
     "compile:components": "BABEL_ENV=production babel src/components --out-dir ./lib/components --extensions \".ts,.tsx\" --ignore '@types,*.md'",

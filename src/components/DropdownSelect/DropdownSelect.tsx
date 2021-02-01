@@ -23,34 +23,66 @@ const DropdownSelect = ({ label, options }: DropdownSelectProps) => {
   return (
     <div>
       {label && <label {...getLabelProps()}>{label}</label>}
-      <button type="button" {...getToggleButtonProps()}>
-        {selectedItem || "Elements"}
-      </button>
-      <ul
-        {...getMenuProps()}
+      <button
         sx={{
-          maxHeight: 80,
-          maxWidth: 300,
-          overflowY: "scroll",
-          backgroundColor: "#eee",
-          padding: 0,
-          listStyle: "none",
-          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          borderRadius: 2,
+          border: "2px solid transparent",
+          cursor: "pointer",
+          padding: 2,
+          backgroundColor: "low_emphasis",
+          justifyContent: "center",
+          alignItems: "center",
+          outline: 0,
+          color: "muted",
+
+          "&:focus, &:hover": {
+            boxShadow: "0px 0px 0px 4px #ebf3fb",
+            borderColor: "highlight",
+            backgroundColor: "#fff",
+          },
         }}
+        type="button"
+        {...getToggleButtonProps()}
       >
-        {isOpen &&
-          options.map((item, index) => (
+        {selectedItem || "Select an option"}
+      </button>
+      {isOpen && (
+        <ul
+          {...getMenuProps()}
+          sx={{
+            maxHeight: 350,
+            maxWidth: 300,
+            position: "absolute",
+            overflowY: "scroll",
+            padding: 4,
+            borderRadius: 4,
+            outline: 0,
+            listStyle: "none",
+            border: "1px solid #E9EBED",
+            backgroundColor: "#fff",
+            boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
+          }}
+        >
+          {options.map((item, index) => (
             <li
-              style={
-                highlightedIndex === index ? { backgroundColor: "#bde4ff" } : {}
-              }
               key={`${item}${index}`}
+              sx={{
+                padding: 2,
+                cursor: "pointer",
+                borderRadius: 2,
+                color: highlightedIndex === index ? "#fff" : "muted",
+                backgroundColor:
+                  highlightedIndex === index ? "highlight" : "#fff",
+              }}
               {...getItemProps({ item, index })}
             >
               {item}
             </li>
           ))}
-      </ul>
+        </ul>
+      )}
     </div>
   )
 }
