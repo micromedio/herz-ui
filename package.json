@@ -39,16 +39,22 @@
     "test": "react-scripts test",
     "compile:components": "BABEL_ENV=production babel src/components --out-dir ./lib/components --extensions \".ts,.tsx\" --ignore '@types,*.md'",
     "compile:theme": "BABEL_ENV=production babel src/theme --out-dir ./lib/theme --extensions \".ts,.tsx\" --ignore '@types,*.md'",
-    "build:types": "tsc --emitDeclarationOnly",
+    "build:types": "tsc --emitDeclarationOnly --noEmit false",
     "compile": "yarn compile:components && yarn compile:theme && yarn build:types",
     "release": "yarn compile && release-it",
-    "pretest": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix",
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
+    "lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
+    "lint:fix": "yarn lint --fix",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run pretest"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.(js|jsx|ts|tsx)": ["./node_modules/.bin/eslint --fix", "git add"]
   },
   "eslintConfig": {
     "extends": [
@@ -73,22 +79,33 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
+    "@storybook/addon-a11y": "^6.1.15",
+    "@storybook/addon-actions": "^6.1.15",
+    "@storybook/addon-essentials": "^6.1.15",
+    "@storybook/addon-links": "^6.1.15",
+    "@storybook/node-logger": "^6.1.15",
+    "@storybook/preset-create-react-app": "^3.1.5",
+    "@storybook/react": "^6.1.15",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
     "@types/jest": "^26.0.20",
+    "@types/jest-axe": "^3.5.1",
     "@types/node": "^14.14.20",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/theme-ui": "^0.3.7",
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
+    "chromatic": "^5.6.1",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-unicorn": "^26.0.1",
     "husky": "^4.3.8",
+    "jest-axe": "^4.1.0",
+    "lint-staged": "^10.5.3",
     "npm-watch": "^0.7.0",
     "prettier": "^2.2.1",
     "react-docgen-typescript": "^1.20.5",
