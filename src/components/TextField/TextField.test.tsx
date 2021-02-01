@@ -1,5 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
+import { axe } from "jest-axe"
 import TextField from "./TextField"
 
 describe("TextField", () => {
@@ -33,5 +34,14 @@ describe("TextField", () => {
 
     // Assert
     expect(screen.getByLabelText("INPUT_LABEL")).toBeDisabled()
+  })
+
+  test("passes a11y check", async () => {
+    // Arrange
+    const { container } = render(<TextField label="INPUT_LABEL" id="TEST_ID" />)
+    const results = await axe(container)
+
+    // Assert
+    expect(results).toHaveNoViolations()
   })
 })
