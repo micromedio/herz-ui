@@ -3,35 +3,7 @@ import React from "react"
 import { fireEvent, render } from "@testing-library/react"
 
 import { DropdownSelect } from ".."
-
-const mockedOptions = [
-  "Neptunium",
-  "Plutonium",
-  "Americium",
-  "Curium",
-  "Berkelium",
-  "Californium",
-  "Einsteinium",
-  "Fermium",
-  "Mendelevium",
-  "Nobelium",
-  "Lawrencium",
-  "Rutherfordium",
-  "Dubnium",
-  "Seaborgium",
-  "Bohrium",
-  "Hassium",
-  "Meitnerium",
-  "Darmstadtium",
-  "Roentgenium",
-  "Copernicium",
-  "Nihonium",
-  "Flerovium",
-  "Moscovium",
-  "Livermorium",
-  "Tennessine",
-  "Oganesson",
-]
+import { mockedOptions } from "./__mocks__/options"
 
 describe("DropdownSelect", () => {
   it("renders successfully", () => {

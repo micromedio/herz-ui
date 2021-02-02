@@ -4,7 +4,7 @@ import React from "react"
 import { Flex, jsx } from "theme-ui"
 import { useSelect, UseSelectStateChange } from "downshift"
 
-interface DropdownSelectProps {
+export interface DropdownSelectProps {
   /** Label text to be placed before the element */
   label?: string
   /** Options to be selected */
