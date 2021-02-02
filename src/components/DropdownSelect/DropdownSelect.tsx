@@ -32,6 +32,7 @@ const DropdownSelect = ({ label, options }: DropdownSelectProps) => {
           sx={{
             marginRight: 2,
             cursor: "pointer",
+            color: "muted",
           }}
           {...getLabelProps()}
         >
@@ -51,11 +52,13 @@ const DropdownSelect = ({ label, options }: DropdownSelectProps) => {
           alignItems: "center",
           outline: 0,
           color: "muted",
+          transition: "all .2s linear",
 
           "&:focus, &:hover": {
             boxShadow: "0px 0px 0px 4px #ebf3fb",
             borderColor: "highlight",
             backgroundColor: "#fff",
+            color: "text",
           },
         }}
         type="button"
@@ -82,6 +85,7 @@ const DropdownSelect = ({ label, options }: DropdownSelectProps) => {
             backgroundColor: "#fff",
             boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
             zIndex: 9,
+            transition: "all .2s linear",
           }}
         >
           {options.map((item, index) => (
@@ -91,9 +95,14 @@ const DropdownSelect = ({ label, options }: DropdownSelectProps) => {
                 padding: 2,
                 cursor: "pointer",
                 borderRadius: 2,
-                color: highlightedIndex === index ? "#fff" : "muted",
+                color: selectedItem === item ? "#fff" : "text",
                 backgroundColor:
-                  highlightedIndex === index ? "highlight" : "#fff",
+                  selectedItem === item
+                    ? "highlight"
+                    : highlightedIndex === index
+                    ? "medium_emphasis"
+                    : "#fff",
+                transition: "all .2s linear",
               }}
               {...getItemProps({ item, index })}
             >
