@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import React, { useMemo } from "react"
-import { jsx } from "theme-ui"
+import { Box, jsx } from "theme-ui"
 
 export interface PaginationItemProps {
   /** Type of pagination item */
@@ -39,27 +39,45 @@ const PaginationItem = ({
     if (type === "ellipsis") return "..."
   }, [type, page, firstText, lastText])
 
+  const focusBorderColor = useMemo(() => {
+    if (disabled || type === "ellipsis") return "transparent"
+    if (selected) return "#0082FC"
+    return "muted"
+  }, [disabled, selected, type])
+
   return (
-    <span
+    <Box
+      as={type === "ellipsis" ? "span" : "button"}
       sx={{
         display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         px: 1,
         py: 2,
-        transition: "all 0.2s",
 
+        transition: "all 0.2s",
         border: "2px solid",
         backgroundColor: selected ? "#E6F3FF" : "transparent", // TODO: remove fixed colors, use shade from theme
         borderColor: selected ? "#0082FC" : "transparent", // TODO: remove fixed colors, use shade from theme
         borderRadius: 2,
         color: selected ? "#0082FC" : "#777779", // TODO: remove fixed colors, use shade from theme
         opacity: disabled ? 0.3 : 1,
-        cursor: disabled ? "default" : "pointer",
+        cursor: disabled || type === "ellipsis" ? "default" : "pointer",
+
+        outline: "none",
+        "&:focus, &:hover": {
+          borderColor: focusBorderColor,
+        },
 
         // TODO: use typography styles
+        fontFamily: "body",
         fontWeight: selected ? 600 : 500,
         fontSize: 14,
       }}
       onClick={onClick}
+      aria-disabled={disabled}
+      aria-current={selected || undefined}
+      tabIndex={0}
     >
       <span
         sx={{
@@ -71,7 +89,7 @@ const PaginationItem = ({
       >
         {content}
       </span>
-    </span>
+    </Box>
   )
 }
 
