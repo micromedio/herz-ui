@@ -3,7 +3,7 @@
 import React from "react"
 import { jsx } from "theme-ui"
 import usePagination from "./usePagination"
-import PaginationItem from "./PaginationItem"
+import PaginationItem from "../PaginationItem/PaginationItem"
 
 export interface PaginationProps {
   /** The page selected by default when the component is uncontrolled */
@@ -22,6 +22,11 @@ export interface PaginationProps {
   boundaryCount?: number
   /** Number of always visible pages before and after the current page */
   siblingCount?: number
+
+  /** Text to show for the `first` button */
+  firstText?: string
+  /** Text to show for the `last` button */
+  lastText?: string
 }
 
 const Pagination = ({
@@ -32,6 +37,8 @@ const Pagination = ({
   defaultPage = 1,
   boundaryCount,
   siblingCount,
+  firstText = "First",
+  lastText = "Last",
 }: PaginationProps) => {
   const { items } = usePagination({
     page,
@@ -57,7 +64,9 @@ const Pagination = ({
           selected={item.selected}
           disabled={item.disabled}
           onClick={() => item.onClick()}
-          key={`${index}-${item.page}-${item.type}`}
+          key={index}
+          firstText={firstText}
+          lastText={lastText}
         />
       ))}
     </div>

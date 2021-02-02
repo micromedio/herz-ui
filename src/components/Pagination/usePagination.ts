@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { PaginationItemProps } from "./PaginationItem"
+import { PaginationItemProps } from "../PaginationItem/PaginationItem"
 
 interface UsePaginationProps {
   /** The page selected by default when the component is uncontrolled */
@@ -158,7 +158,6 @@ const usePagination = ({
       page: pageNumber,
       selected,
       disabled,
-      "aria-current": item === page ? "true" : undefined,
     }
   })
 
