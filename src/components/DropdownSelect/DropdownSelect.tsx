@@ -26,6 +26,7 @@ const DropdownSelect = ({ label, options }: DropdownSelectProps) => {
         alignItems: "center",
         position: "relative",
       }}
+      data-testid="dropdown-select"
     >
       {label && (
         <label
@@ -61,6 +62,7 @@ const DropdownSelect = ({ label, options }: DropdownSelectProps) => {
             color: "text",
           },
         }}
+        data-testid="dropdown-select-button"
         type="button"
         {...getToggleButtonProps()}
       >
