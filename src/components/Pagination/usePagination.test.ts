@@ -190,7 +190,6 @@ describe("usePagination", () => {
         showLastButton: false,
       })
     ).result.current.items
-    console.log(serialize(items))
     expect(serialize(items)).toEqual([
       "previous",
       "ellipsis",

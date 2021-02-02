@@ -84,7 +84,7 @@ const usePagination = ({
   page: pageProp,
   defaultPage = 1,
   count = 1,
-  disabled = false,
+  disabled: disabledProp = false,
   onChange,
   boundaryCount = 3,
   siblingCount = 1,
@@ -98,7 +98,7 @@ const usePagination = ({
   const [page, setPage] = useState(pageProp ?? defaultPage)
 
   const handleClick = (value?: number) => {
-    if (value !== undefined) {
+    if (value) {
       if (!isControlled) {
         setPage(value)
       }
@@ -127,35 +127,38 @@ const usePagination = ({
       case "last":
         return count
       default:
-        return
+        return 0
     }
   }
 
   const items = itemList.map((item) => {
+    let type: PaginationItemProps["type"]
+    let selected: boolean
+    let disabled: boolean
+    let pageNumber: number
+
     if (typeof item === "number") {
-      return {
-        onClick: () => {
-          handleClick(item)
-        },
-        type: "page",
-        page: item,
-        selected: item === page,
-        disabled,
-        "aria-current": item === page ? "true" : undefined,
-      }
+      type = "page"
+      selected = item === page
+      pageNumber = item
+      disabled = disabledProp
+    } else {
+      type = item
+      selected = false
+      pageNumber = buttonPage(item)
+      disabled =
+        disabledProp ||
+        (item !== "ellipsis" &&
+          (item === "next" || item === "last" ? page >= count : page <= 1))
     }
 
     return {
-      onClick: () => {
-        handleClick(buttonPage(item))
-      },
-      type: item,
-      page: buttonPage(item),
-      selected: false,
-      disabled:
-        disabled ||
-        (!item.includes("ellipsis") &&
-          (item === "next" || item === "last" ? page >= count : page <= 1)),
+      onClick: () => handleClick(pageNumber),
+      type,
+      page: pageNumber,
+      selected,
+      disabled,
+      "aria-current": item === page ? "true" : undefined,
     }
   })
 
