@@ -6,24 +6,6 @@ const options = [
   "Plutonium",
   "Americium",
   "Curium",
-  "Berkelium",
-  "Californium",
-  "Einsteinium",
-  "Fermium",
-  "Mendelevium",
-  "Nobelium",
-  "Lawrencium",
-  "Rutherfordium",
-  "Dubnium",
-  "Seaborgium",
-  "Bohrium",
-  "Hassium",
-  "Meitnerium",
-  "Darmstadtium",
-  "Roentgenium",
-  "Copernicium",
-  "Nihonium",
-  "Flerovium",
   "Moscovium",
   "Livermorium",
   "Tennessine",
@@ -45,25 +27,30 @@ const options = [
   "Californium",
   "Einsteinium",
   "Fermium",
-  "Mendelevium",
-  "Nobelium",
-  "Lawrencium",
-  "Rutherfordium",
-  "Dubnium",
-  "Seaborgium",
-  "Bohrium",
-  "Hassium",
-  "Meitnerium",
-  "Darmstadtium",
-  "Roentgenium",
-  "Copernicium",
-  "Nihonium",
-  "Flerovium",
-  "Moscovium",
-  "Livermorium",
-  "Tennessine",
-  "Oganesson",
 ]
 
 return <DropdownSelect label="Select an element:" options={options} />
+```
+
+DropdownSelect with onChange event:
+
+```js
+const options = [
+  "Neptunium",
+  "Plutonium",
+  "Americium",
+  "Curium",
+  "Berkelium",
+  "Californium",
+  "Einsteinium",
+  "Fermium",
+]
+
+return (
+  <DropdownSelect
+    onChange={({ selectedItem }) => alert("You selected: " + selectedItem)}
+    label="Select an element:"
+    options={options}
+  />
+)
 ```

@@ -2,24 +2,40 @@
 /** @jsx jsx */
 import React from "react"
 import { Flex, jsx } from "theme-ui"
-import { useSelect } from "downshift"
+import { useSelect, UseSelectStateChange } from "downshift"
 
 interface DropdownSelectProps {
+  /** Label text to be placed before the element */
   label?: string
+  /** Options to be selected */
   options: Array<string>
+  /** The value of the `input` element, required for a controlled component */
+  value?: string
+  /** Callback fired when the value is changed */
+  onChange?: (changes: UseSelectStateChange<string>) => void
 }
 
 /** Component responsible for rendering a select dropdown from given options */
-const DropdownSelect = ({ label, options }: DropdownSelectProps) => {
+const DropdownSelect = ({
+  label,
+  options,
+  value,
+  onChange,
+}: DropdownSelectProps) => {
   const {
     isOpen,
-    selectedItem,
     getToggleButtonProps,
     getLabelProps,
     getMenuProps,
     highlightedIndex,
     getItemProps,
-  } = useSelect({ items: options })
+    selectedItem,
+  } = useSelect({
+    items: options,
+    selectedItem: value,
+    onSelectedItemChange: onChange,
+  })
+
   return (
     <Flex
       sx={{
