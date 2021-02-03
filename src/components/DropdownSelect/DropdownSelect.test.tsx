@@ -24,8 +24,9 @@ describe("DropdownSelect", () => {
   })
 
   it("renders all the options and allows to select", () => {
+    const onChangeMock = jest.fn()
     const { getByText, queryByTitle, getByTestId } = render(
-      <DropdownSelect options={mockedOptions} />
+      <DropdownSelect onChange={onChangeMock} options={mockedOptions} />
     )
 
     /** Act: enable the options by clicking on the button */
@@ -47,5 +48,7 @@ describe("DropdownSelect", () => {
     /** Try to select an option */
     const option = getByText("Tennessine")
     fireEvent.click(option)
+
+    expect(onChangeMock).toHaveBeenCalled()
   })
 })
