@@ -20,7 +20,7 @@ describe("DropdownSelect", () => {
       <DropdownSelect label="Select an element:" options={mockedOptions} />
     )
 
-    getByText("Select an element:")
+    expect(getByText("Select an element:")).toBeInTheDocument()
   })
 
   it("renders all the options and allows to select", () => {
