@@ -57,6 +57,7 @@ module.exports = {
           "error",
           {
             replacements: {
+              prop: false,
               props: false,
               ref: false,
             },
