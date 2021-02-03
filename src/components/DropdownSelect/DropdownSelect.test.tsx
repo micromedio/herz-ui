@@ -42,7 +42,7 @@ describe("DropdownSelect", () => {
     /**
      * Check for an invalid option
      */
-    expect(queryByTitle("Random")).toBeNull()
+    expect(queryByTitle("Random")).not.toBeInTheDocument()
 
     /** Try to select an option */
     const option = getByText("Tennessine")
