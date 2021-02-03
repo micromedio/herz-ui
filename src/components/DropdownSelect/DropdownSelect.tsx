@@ -48,6 +48,7 @@ const DropdownSelect = ({
         <label
           sx={{
             marginRight: 2,
+            fontSize: 14,
             cursor: "pointer",
             color: "muted",
           }}
