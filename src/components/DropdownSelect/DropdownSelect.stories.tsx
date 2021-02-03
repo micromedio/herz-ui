@@ -25,10 +25,3 @@ WithLabel.args = {
   options: mockedOptions,
   label: "Select an element: ",
 }
-
-export const WithOnChange = Template.bind({})
-
-WithOnChange.args = {
-  options: mockedOptions,
-  onChange: ({ selectedItem }) => alert(selectedItem),
-}
