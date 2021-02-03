@@ -12,7 +12,7 @@ describe("DropdownSelect", () => {
     /**
      * Check if the element exists
      */
-    getByTestId("dropdown-select")
+    expect(getByTestId("dropdown-select")).toBeInTheDocument()
   })
 
   it("renders the label succesfully", () => {
@@ -20,7 +20,7 @@ describe("DropdownSelect", () => {
       <DropdownSelect label="Select an element:" options={mockedOptions} />
     )
 
-    getByText("Select an element:")
+    expect(getByText("Select an element:")).toBeInTheDocument()
   })
 
   it("renders all the options and allows to select", () => {
@@ -36,13 +36,13 @@ describe("DropdownSelect", () => {
      * Check if the options are rendered
      */
     mockedOptions.forEach((option) => {
-      getByText(option)
+      expect(getByText(option)).toBeInTheDocument()
     })
 
     /**
      * Check for an invalid option
      */
-    expect(queryByTitle("Random")).toBeNull()
+    expect(queryByTitle("Random")).not.toBeInTheDocument()
 
     /** Try to select an option */
     const option = getByText("Tennessine")
