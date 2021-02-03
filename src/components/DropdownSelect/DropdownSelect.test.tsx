@@ -12,7 +12,7 @@ describe("DropdownSelect", () => {
     /**
      * Check if the element exists
      */
-    getByTestId("dropdown-select")
+    expect(getByTestId("dropdown-select")).toBeInTheDocument()
   })
 
   it("renders the label succesfully", () => {
