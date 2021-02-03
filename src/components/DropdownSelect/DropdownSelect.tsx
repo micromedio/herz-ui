@@ -84,51 +84,50 @@ const DropdownSelect = ({
       >
         {selectedItem || "Select an option"}
       </button>
-      {isOpen && (
-        <ul
-          {...getMenuProps()}
-          sx={{
-            maxHeight: 350,
-            maxWidth: 300,
-            position: "absolute",
-            overflowY: "scroll",
-            left: 0,
-            top: 35,
-            marginTop: 3,
-            padding: 4,
-            borderRadius: 4,
-            outline: 0,
-            listStyle: "none",
-            border: "1px solid #E9EBED",
-            backgroundColor: "#fff",
-            boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
-            zIndex: 9,
-            transition: "all .2s linear",
-          }}
-        >
-          {options.map((item, index) => (
-            <li
-              key={`${item}${index}`}
-              sx={{
-                padding: 2,
-                cursor: "pointer",
-                borderRadius: 2,
-                color: selectedItem === item ? "#fff" : "text",
-                backgroundColor:
-                  selectedItem === item
-                    ? "highlight"
-                    : highlightedIndex === index
-                    ? "medium_emphasis"
-                    : "#fff",
-                transition: "all .2s linear",
-              }}
-              {...getItemProps({ item, index })}
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul
+        {...getMenuProps()}
+        sx={{
+          maxHeight: 350,
+          maxWidth: 300,
+          position: "absolute",
+          overflowY: "scroll",
+          display: isOpen ? "block" : "none",
+          left: 0,
+          top: 35,
+          marginTop: 3,
+          padding: 4,
+          borderRadius: 4,
+          outline: 0,
+          listStyle: "none",
+          border: "1px solid #E9EBED",
+          backgroundColor: "#fff",
+          boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
+          zIndex: 9,
+          transition: "all .2s linear",
+        }}
+      >
+        {options.map((item, index) => (
+          <li
+            key={`${item}${index}`}
+            sx={{
+              padding: 2,
+              cursor: "pointer",
+              borderRadius: 2,
+              color: selectedItem === item ? "#fff" : "text",
+              backgroundColor:
+                selectedItem === item
+                  ? "highlight"
+                  : highlightedIndex === index
+                  ? "medium_emphasis"
+                  : "#fff",
+              transition: "all .2s linear",
+            }}
+            {...getItemProps({ item, index })}
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
     </Flex>
   )
 }
