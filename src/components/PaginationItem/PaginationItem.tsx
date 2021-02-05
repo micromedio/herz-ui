@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import React, { useMemo } from "react"
-import { Box, jsx } from "theme-ui"
+import { Box, Text, jsx } from "theme-ui"
 
 export interface PaginationItemProps {
   /** Type of pagination item */
@@ -68,18 +68,15 @@ const PaginationItem = ({
         "&:focus, &:hover": {
           borderColor: focusBorderColor,
         },
-
-        // TODO: use typography styles
-        fontFamily: "body",
-        fontWeight: selected ? 600 : 500,
-        fontSize: 14,
       }}
       onClick={onClick}
       aria-disabled={disabled}
       aria-current={selected || undefined}
       tabIndex={0}
     >
-      <span
+      <Text
+        as="span"
+        variant={selected ? "heading3" : "body1"}
         sx={{
           display: "flex",
           justifyContent: "center",
@@ -88,7 +85,7 @@ const PaginationItem = ({
         }}
       >
         {content}
-      </span>
+      </Text>
     </Box>
   )
 }
