@@ -20,6 +20,11 @@ module.exports = {
       components: "src/components/**/*.tsx",
     },
   ],
+  theme: {
+    fontFamily: {
+      base: "Gilroy",
+    },
+  },
   template: {
     head: {
       links: [
