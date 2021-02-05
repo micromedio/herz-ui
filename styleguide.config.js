@@ -20,4 +20,14 @@ module.exports = {
       components: "src/components/**/*.tsx",
     },
   ],
+  template: {
+    head: {
+      links: [
+        {
+          rel: "stylesheet",
+          href: "https://storage.googleapis.com/cndcdn/stylesheet.css",
+        },
+      ],
+    },
+  },
 }
