@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import React, { useMemo } from "react"
-import { Box, Text, jsx } from "theme-ui"
+import { Box, jsx } from "theme-ui"
 
 export interface PaginationItemProps {
   /** Type of pagination item */
@@ -69,18 +69,17 @@ const PaginationItem = ({
       aria-current={selected || undefined}
       tabIndex={disabled || type === "ellipsis" ? -1 : 0}
     >
-      <Text
-        as="span"
-        variant={selected ? "heading3" : "body1"}
+      <span
         sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           minWidth: 20,
+          variant: selected ? "text.heading3" : "text.body1",
         }}
       >
         {content}
-      </Text>
+      </span>
     </Box>
   )
 }
