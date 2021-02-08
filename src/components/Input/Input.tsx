@@ -87,6 +87,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           outline: 0,
           backgroundColor: "transparent",
           border: "none",
+          p: 0,
 
           color: "text",
           variant: "text.body1",
