@@ -6,10 +6,10 @@ export const theme: Theme = {
   ...base,
   space: Array.from({ length: 17 })
     .fill(0)
-    .map((_, index) => index * 4),
+    .map((_, index) => index * 4), // results in [0, 4, 8, 12, ..., 60, 64]
   radii: Array.from({ length: 17 })
     .fill(0)
-    .map((_, index) => index * 4),
+    .map((_, index) => index * 4), // results in [0, 4, 8, 12, ..., 60, 64]
   colors: {
     background: "#FFF2F2", // light red bg
     text: "#1D1D1F", // dark text
@@ -20,6 +20,82 @@ export const theme: Theme = {
     secondary: "#02BFFE", // hovers (brand blue)
     low_emphasis: "#F5F5F7",
     medium_emphasis: "#F5F9FD",
+  },
+
+  // Typography
+  fonts: {
+    body: "Gilroy",
+  },
+
+  fontSizes: {
+    large: 18,
+    medium: 15,
+    base: 14,
+    small: 13,
+    xsmall: 12,
+  },
+
+  fontWeights: {
+    bold: 700,
+    semibold: 600,
+    medium: 500,
+  },
+
+  text: {
+    default: {
+      fontFamily: "body",
+      color: "text",
+    },
+    heading1: {
+      fontFamily: "body",
+      fontSize: "large",
+      fontWeight: "bold",
+      lineHeight: 36 / 18, // 36px
+      letterSpacing: "-2%",
+    },
+    heading2: {
+      fontFamily: "body",
+      fontSize: "medium",
+      fontWeight: "semibold",
+      lineHeight: 24 / 15, // 24px
+    },
+    heading3: {
+      fontFamily: "body",
+      fontSize: "base",
+      fontWeight: "semibold",
+      lineHeight: 20 / 14, // 20px
+    },
+    heading4: {
+      fontFamily: "body",
+      fontSize: "small",
+      fontWeight: "semibold",
+      lineHeight: 20 / 13, // 20px
+    },
+
+    body1: {
+      fontFamily: "body",
+      fontSize: "base",
+      fontWeight: "medium",
+      lineHeight: 20 / 14, // 20px
+    },
+    body2: {
+      fontFamily: "body",
+      fontSize: "small",
+      fontWeight: "medium",
+      lineHeight: 20 / 13, // 20px
+    },
+    body3: {
+      fontFamily: "body",
+      fontSize: "small",
+      fontWeight: "medium",
+      lineHeight: 16 / 13, // 16px
+    },
+    caption: {
+      fontFamily: "body",
+      fontSize: "xsmall",
+      fontWeight: "medium",
+      lineHeight: 20 / 12, // 20px
+    },
   },
 
   buttons: {
