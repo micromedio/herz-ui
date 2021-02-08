@@ -1,5 +1,6 @@
 import * as React from "react"
 import { ThemeProvider } from "theme-ui"
+import "normalize.css"
 
 import { theme } from "./theme"
 
