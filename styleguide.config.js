@@ -20,4 +20,19 @@ module.exports = {
       components: "src/components/**/*.tsx",
     },
   ],
+  theme: {
+    fontFamily: {
+      base: "Gilroy",
+    },
+  },
+  template: {
+    head: {
+      links: [
+        {
+          rel: "stylesheet",
+          href: "https://storage.googleapis.com/cndcdn/stylesheet.css",
+        },
+      ],
+    },
+  },
 }
