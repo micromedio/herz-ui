@@ -69,20 +69,16 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               htmlFor={id}
               id={inputLabelId}
               sx={{
-                // TODO: use typography styles
                 color: "text",
-                fontWeight: 500,
-                fontSize: 14,
+                variant: "text.body1",
               }}
             >
               {label}
             </label>
             <span
               sx={{
-                // TODO: use typography styles
                 color: "muted",
-                fontWeight: 500,
-                fontSize: 13,
+                variant: "text.body2",
               }}
             >
               ({required ? requiredText : optionalText})
@@ -107,10 +103,8 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           <span
             id={helperTextId}
             sx={{
-              // TODO: use typography styles
               color: "muted",
-              fontWeight: 500,
-              fontSize: 13,
+              variant: "text.body2",
             }}
           >
             {helperText}

@@ -69,22 +69,25 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           paddingX: 3,
           paddingRight: unit ? 6 : 3,
 
-          backgroundColor: value ? "#F5F9FD" : "#F5F5F7", // TODO: remove fixed colors, use shade from theme
+          backgroundColor: value
+            ? "rgba(0, 130, 252, 0.06)"
+            : "rgba(0, 0, 0, 0.04)", // TODO: remove fixed colors, use shade from theme
           outline: 0,
           borderRadius: 2,
           border: "2px solid transparent",
 
           transition: "all 0.2s",
-          "&:focus, &:hover": {
+          "&:hover": {
+            backgroundColor: "rgba(0, 0, 0, 0.09)", // TODO: remove fixed colors, use shade from theme
+          },
+          "&:focus": {
             borderColor: "highlight",
             boxShadow: "0px 0px 0px 4px #EBF3FB", // TODO: remove fixed colors, use shade from theme
             backgroundColor: "#FFFFFF", // TODO: remove fixed colors, use shade from theme
           },
 
-          // TODO: use typography styles
           color: "text",
-          fontWeight: 500,
-          fontSize: 14,
+          variant: "text.body1",
         }}
       />
 
@@ -99,10 +102,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             padding: 2,
             pointerEvents: "none",
 
-            // TODO: use typography styles
             color: "muted",
-            fontWeight: 500,
-            fontSize: 14,
+            variant: "text.body1",
           }}
         >
           {unit}
