@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { jsx, Flex } from "theme-ui"
+import { jsx } from "theme-ui"
 import { ChangeEvent, forwardRef, InputHTMLAttributes } from "react"
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -45,11 +45,30 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   ref
 ) {
   return (
-    <Flex
+    <div
       sx={{
+        display: "flex",
         width: "100%",
         position: "relative",
         justifyContent: "center",
+        gap: 2,
+
+        paddingY: 2,
+        paddingX: 3,
+        backgroundColor: value ? "#0082FC0F" : "#0000000A", // TODO: remove fixed colors, use shade from theme
+        outline: 0,
+        borderRadius: 2,
+        border: "2px solid transparent",
+
+        transition: "all 0.2s",
+        "&:hover": {
+          backgroundColor: "#00000017", // TODO: remove fixed colors, use shade from theme
+        },
+        "&:focus-within": {
+          borderColor: "highlight",
+          boxShadow: "0px 0px 0px 4px #EBF3FB", // TODO: remove fixed colors, use shade from theme
+          backgroundColor: "#FFFFFF", // TODO: remove fixed colors, use shade from theme
+        },
       }}
     >
       <input
@@ -64,27 +83,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         aria-invalid={error}
         {...htmlProps}
         sx={{
-          width: "100%",
-          paddingY: 2,
-          paddingX: 3,
-          paddingRight: unit ? 6 : 3,
-
-          backgroundColor: value
-            ? "rgba(0, 130, 252, 0.06)"
-            : "rgba(0, 0, 0, 0.04)", // TODO: remove fixed colors, use shade from theme
+          flexGrow: 1,
           outline: 0,
-          borderRadius: 2,
-          border: "2px solid transparent",
-
-          transition: "all 0.2s",
-          "&:hover": {
-            backgroundColor: "rgba(0, 0, 0, 0.09)", // TODO: remove fixed colors, use shade from theme
-          },
-          "&:focus": {
-            borderColor: "highlight",
-            boxShadow: "0px 0px 0px 4px #EBF3FB", // TODO: remove fixed colors, use shade from theme
-            backgroundColor: "#FFFFFF", // TODO: remove fixed colors, use shade from theme
-          },
+          backgroundColor: "transparent",
+          border: "none",
 
           color: "text",
           variant: "text.body1",
@@ -92,24 +94,21 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       />
 
       {unit && (
-        <span
+        <label
+          htmlFor={id}
           sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            position: "absolute",
-            right: 0,
-            padding: 2,
-            pointerEvents: "none",
 
             color: "muted",
             variant: "text.body1",
           }}
         >
           {unit}
-        </span>
+        </label>
       )}
-    </Flex>
+    </div>
   )
 })
 
