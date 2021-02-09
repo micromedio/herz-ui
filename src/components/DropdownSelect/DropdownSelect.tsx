@@ -11,6 +11,8 @@ export interface DropdownSelectProps {
   options: Array<string>
   /** The value of the `input` element, required for a controlled component */
   value?: string
+  /** Wether the component is disabled or not */
+  disabled?: boolean
   /** Callback fired when the value is changed */
   onChange?: (changes: UseSelectStateChange<string>) => void
 }
@@ -20,6 +22,7 @@ const DropdownSelect = ({
   label,
   options,
   value,
+  disabled = false,
   onChange,
 }: DropdownSelectProps) => {
   const {
@@ -36,11 +39,34 @@ const DropdownSelect = ({
     onSelectedItemChange: onChange,
   })
 
-  const activeStateStyles = {
-    boxShadow: "0px 0px 0px 4px #ebf3fb",
-    borderColor: "highlight",
-    backgroundColor: "#fff",
-    color: "text",
+  /** @TODO add colors to theme file */
+  const stateStyles = {
+    resting: {
+      backgroundColor: "#F4F4F4",
+      color: "#777779",
+      boxShadow: "unset",
+      borderColor: "transparent",
+    },
+    hover: {
+      backgroundColor: "#E8E8E9",
+      color: "text",
+      boxShadow: "unset",
+      borderColor: "transparent",
+    },
+    active: {
+      backgroundColor: "#fff",
+      color: "text",
+      boxShadow: "0px 0px 0px 4px rgba(0, 130, 252, 0.06)",
+      borderColor: "#0082FC",
+      fontWeight: 600,
+    },
+    filled: {
+      backgroundColor: "rgba(0, 130, 252, 0.06)",
+      color: "text",
+      boxShadow: "unset",
+      borderColor: "#0082FC",
+      fontWeight: 600,
+    },
   }
 
   return (
@@ -48,6 +74,7 @@ const DropdownSelect = ({
       sx={{
         alignItems: "center",
         position: "relative",
+        opacity: disabled ? 0.3 : 1,
       }}
       data-testid="dropdown-select"
     >
@@ -64,86 +91,91 @@ const DropdownSelect = ({
           {label}
         </label>
       )}
-      <button
+      <div
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          borderRadius: 2,
-          border: "2px solid transparent",
-          cursor: "pointer",
-          paddingX: 3,
-          paddingY: 2,
-          backgroundColor: "low_emphasis",
-          justifyContent: "center",
-          alignItems: "center",
-          outline: 0,
-          color: "muted",
-          transition: "all .2s linear",
-          ...(selectedItem ? activeStateStyles : {}),
-
-          "&:hover": {
-            ...(!selectedItem ? { borderColor: "#00000017" } : {}), // @TODO: add color to theme
-          },
-
-          "&:focus": {
-            ...activeStateStyles,
-          },
-        }}
-        data-testid="dropdown-select-button"
-        type="button"
-        {...getToggleButtonProps()}
-      >
-        {selectedItem || "Select an option"}
-      </button>
-      <ul
-        {...getMenuProps()}
-        sx={{
-          maxHeight: 350,
-          maxWidth: 300,
-          position: "absolute",
-          overflowY: "scroll",
-          display: isOpen ? "block" : "none",
-          left: 0,
-          top: 35,
-          marginTop: 3,
-          padding: 4,
-          borderRadius: 4,
-          outline: 0,
-          listStyle: "none",
-          border: "1px solid #E9EBED",
-          backgroundColor: "#fff",
-          boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
-          zIndex: 9,
-          transition: "all .2s linear",
+          position: "relative",
         }}
       >
-        {options.map((item, index) => (
-          <li
-            key={`${item}${index}`}
-            sx={{
-              padding: 2,
-              cursor: "pointer",
-              borderRadius: 2,
-              color:
-                selectedItem === item
-                  ? "#fff"
-                  : highlightedIndex === index
-                  ? "#0082FC" // @TODO: move color to theme
-                  : "text",
-              backgroundColor:
-                selectedItem === item
-                  ? "highlight"
-                  : highlightedIndex === index
-                  ? "medium_emphasis"
-                  : "#fff",
-              transition: "all .2s linear",
-            }}
-            {...getItemProps({ item, index })}
-          >
-            {item}
-          </li>
-        ))}
-      </ul>
+        <button
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            borderRadius: 2,
+            cursor: "pointer",
+            paddingX: 3,
+            paddingY: 2,
+            justifyContent: "center",
+            alignItems: "center",
+            outline: 0,
+            border: "2px solid transparent",
+            transition: "all .2s linear",
+            ...(selectedItem ? stateStyles.filled : stateStyles.resting),
+
+            "&:hover": {
+              /** If there's a selectedItem, it means the element is on the active state */
+              ...(selectedItem ? stateStyles.filled : stateStyles.hover),
+            },
+
+            "&:focus": {
+              ...(selectedItem ? stateStyles.filled : stateStyles.active),
+            },
+          }}
+          data-testid="dropdown-select-button"
+          type="button"
+          {...getToggleButtonProps()}
+        >
+          {selectedItem || "Select an option"}
+        </button>
+        <ul
+          {...getMenuProps()}
+          sx={{
+            maxHeight: 350,
+            maxWidth: 300,
+            position: "absolute",
+            overflowY: "scroll",
+            display: isOpen ? "block" : "none",
+            left: 0,
+            top: 35,
+            marginTop: 3,
+            padding: 4,
+            borderRadius: 4,
+            outline: 0,
+            listStyle: "none",
+            border: "1px solid #E9EBED",
+            backgroundColor: "#fff",
+            boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
+            zIndex: 9,
+            transition: "all .2s linear",
+          }}
+        >
+          {options.map((item, index) => (
+            <li
+              key={`${item}${index}`}
+              sx={{
+                padding: 2,
+                cursor: "pointer",
+                borderRadius: 2,
+                color:
+                  selectedItem === item
+                    ? "#fff"
+                    : highlightedIndex === index
+                    ? "#0082FC" // @TODO move color to theme
+                    : "text",
+                backgroundColor:
+                  selectedItem === item
+                    ? "highlight"
+                    : highlightedIndex === index
+                    ? "medium_emphasis"
+                    : "#fff",
+                transition: "all .2s linear",
+              }}
+              {...getItemProps({ item, index })}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
     </Flex>
   )
 }
