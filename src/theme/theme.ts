@@ -41,6 +41,10 @@ export const theme: Theme = {
     medium: 500,
   },
 
+  lineHeights: {
+    body: 20 / 14,
+  },
+
   text: {
     default: {
       fontFamily: "body",
@@ -63,7 +67,7 @@ export const theme: Theme = {
       fontFamily: "body",
       fontSize: "base",
       fontWeight: "semibold",
-      lineHeight: 20 / 14, // 20px
+      lineHeight: "body",
     },
     heading4: {
       fontFamily: "body",
@@ -76,7 +80,7 @@ export const theme: Theme = {
       fontFamily: "body",
       fontSize: "base",
       fontWeight: "medium",
-      lineHeight: 20 / 14, // 20px
+      lineHeight: "body",
     },
     body2: {
       fontFamily: "body",
@@ -124,7 +128,7 @@ export const theme: Theme = {
       fontFamily: "body",
       fontSize: "base",
       fontWeight: "medium",
-      lineHeight: 20 / 14, // 20px
+      lineHeight: "body",
     },
   },
 }
