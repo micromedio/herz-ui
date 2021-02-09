@@ -13,5 +13,6 @@ const Template: Story<ITooltipProps> = (props) => <Tooltip {...props} />
 export const Default = Template.bind({})
 
 Default.args = {
-  children: "Tooltip content",
+  children: <button>I am the reference</button>,
+  title: "I'm the title",
 }
