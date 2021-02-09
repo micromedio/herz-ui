@@ -86,7 +86,7 @@ const DropdownSelect = ({
             cursor: "pointer",
             color: "muted",
           }}
-          {...getLabelProps()}
+          {...getLabelProps({ disabled })}
         >
           {label}
         </label>
@@ -122,12 +122,12 @@ const DropdownSelect = ({
           }}
           data-testid="dropdown-select-button"
           type="button"
-          {...getToggleButtonProps()}
+          {...getToggleButtonProps({ disabled })}
         >
           {selectedItem || "Select an option"}
         </button>
         <ul
-          {...getMenuProps()}
+          {...getMenuProps({ disabled })}
           sx={{
             maxHeight: 350,
             maxWidth: 300,
@@ -169,7 +169,7 @@ const DropdownSelect = ({
                     : "#fff",
                 transition: "all .2s linear",
               }}
-              {...getItemProps({ item, index })}
+              {...getItemProps({ item, index, disabled })}
             >
               {item}
             </li>

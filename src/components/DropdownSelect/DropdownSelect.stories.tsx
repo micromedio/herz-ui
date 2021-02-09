@@ -25,3 +25,11 @@ WithLabel.args = {
   options: mockedOptions,
   label: "Select an element: ",
 }
+
+export const Disabled = Template.bind({})
+
+Disabled.args = {
+  options: mockedOptions,
+  label: "Select an element: ",
+  disabled: true,
+}
