@@ -120,5 +120,11 @@ export const theme: Theme = {
   },
   styles: {
     ...base.styles,
+    root: {
+      fontFamily: "body",
+      fontSize: "base",
+      fontWeight: "medium",
+      lineHeight: 20 / 14, // 20px
+    },
   },
 }

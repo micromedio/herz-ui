@@ -36,6 +36,13 @@ const DropdownSelect = ({
     onSelectedItemChange: onChange,
   })
 
+  const activeStateStyles = {
+    boxShadow: "0px 0px 0px 4px #ebf3fb",
+    borderColor: "highlight",
+    backgroundColor: "#fff",
+    color: "text",
+  }
+
   return (
     <Flex
       sx={{
@@ -64,19 +71,22 @@ const DropdownSelect = ({
           borderRadius: 2,
           border: "2px solid transparent",
           cursor: "pointer",
-          padding: 2,
+          paddingX: 3,
+          paddingY: 2,
           backgroundColor: "low_emphasis",
           justifyContent: "center",
           alignItems: "center",
           outline: 0,
           color: "muted",
           transition: "all .2s linear",
+          ...(selectedItem ? activeStateStyles : {}),
 
-          "&:focus, &:hover": {
-            boxShadow: "0px 0px 0px 4px #ebf3fb",
-            borderColor: "highlight",
-            backgroundColor: "#fff",
-            color: "text",
+          "&:hover": {
+            ...(!selectedItem ? { borderColor: "#00000017" } : {}), // @TODO: add color to theme
+          },
+
+          "&:focus": {
+            ...activeStateStyles,
           },
         }}
         data-testid="dropdown-select-button"
@@ -114,7 +124,12 @@ const DropdownSelect = ({
               padding: 2,
               cursor: "pointer",
               borderRadius: 2,
-              color: selectedItem === item ? "#fff" : "text",
+              color:
+                selectedItem === item
+                  ? "#fff"
+                  : highlightedIndex === index
+                  ? "#0082FC" // @TODO: move color to theme
+                  : "text",
               backgroundColor:
                 selectedItem === item
                   ? "highlight"
