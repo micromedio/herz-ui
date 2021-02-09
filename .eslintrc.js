@@ -43,6 +43,7 @@ module.exports = {
         "plugin:prettier/recommended",
       ],
       rules: {
+        "unicorn/no-nested-ternary": "off",
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
         "react/self-closing-comp": ["error"],
@@ -56,6 +57,7 @@ module.exports = {
           "error",
           {
             replacements: {
+              prop: false,
               props: false,
               ref: false,
             },

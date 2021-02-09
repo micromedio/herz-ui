@@ -1,6 +1,5 @@
 import React from "react";
 import ThemeWrapper from '../src/theme/ThemeWrapper';
-import "./styles.css"
 
 export const decorators = [
   (Story) => (
@@ -12,4 +11,7 @@ export const decorators = [
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
+  backgrounds: {
+    default: 'light'
+  }
 }

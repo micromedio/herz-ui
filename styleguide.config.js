@@ -8,6 +8,7 @@ module.exports = {
     Wrapper: path.join(__dirname, "src/theme/ThemeWrapper"),
   },
   propsParser: require("react-docgen-typescript").parse,
+  skipComponentsWithoutExample: true,
   sections: [
     {
       name: "introduction",
@@ -16,8 +17,22 @@ module.exports = {
     {
       name: "components",
       content: "./docs/components.md",
-      skipComponentsWithoutExample: true,
       components: "src/components/**/*.tsx",
     },
   ],
+  theme: {
+    fontFamily: {
+      base: "Gilroy",
+    },
+  },
+  template: {
+    head: {
+      links: [
+        {
+          rel: "stylesheet",
+          href: "https://storage.googleapis.com/cndcdn/stylesheet.css",
+        },
+      ],
+    },
+  },
 }
