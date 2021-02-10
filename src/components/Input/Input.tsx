@@ -53,7 +53,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         justifyContent: "center",
         gap: 2,
 
-        paddingY: 2,
+        paddingY: 1,
         paddingX: 3,
         backgroundColor: value ? "#0082FC0F" : "#0000000A", // TODO: remove fixed colors, use shade from theme
         outline: 0,
@@ -87,10 +87,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           outline: 0,
           backgroundColor: "transparent",
           border: "none",
-          p: 0,
-
+          p: 1,
           color: "text",
-          variant: "text.body1",
         }}
       />
 
@@ -101,9 +99,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-
             color: "muted",
-            variant: "text.body1",
           }}
         >
           {unit}
