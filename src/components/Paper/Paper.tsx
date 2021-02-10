@@ -6,13 +6,15 @@ export interface PaperProps {
    * Paper elevation
    */
   elevation?: number
+  /** Paper inside padding */
+  padding?: number
   /**
    * The content of the component
    */
   children?: React.ReactNode
 }
 
-const Paper = ({ elevation = 1, children }: PaperProps) => {
+const Paper = ({ elevation = 1, padding = 6, children }: PaperProps) => {
   const boxShadow = useMemo(() => {
     if (elevation) return "0px 0px 8px rgba(0, 0, 0, 0.04)"
     return "none"
@@ -20,7 +22,7 @@ const Paper = ({ elevation = 1, children }: PaperProps) => {
 
   return (
     <Box
-      padding={6}
+      p={padding}
       bg="#FFF"
       sx={{
         borderRadius: 4,
