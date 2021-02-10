@@ -32,6 +32,29 @@ const options = [
 return <DropdownSelect label="Select an element:" options={options} />
 ```
 
+DropdownSelect disabled:
+
+```js
+const options = [
+  "Neptunium",
+  "Plutonium",
+  "Americium",
+  "Curium",
+  "Berkelium",
+  "Californium",
+  "Einsteinium",
+  "Fermium",
+]
+
+return (
+  <DropdownSelect
+    disabled={true}
+    label="Select an element:"
+    options={options}
+  />
+)
+```
+
 DropdownSelect with onChange event:
 
 ```js

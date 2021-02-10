@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import React, { useMemo } from "react"
-import { Box, Text, jsx } from "theme-ui"
+import { Box, jsx } from "theme-ui"
 
 export interface PaginationItemProps {
   /** Type of pagination item */
@@ -39,12 +39,6 @@ const PaginationItem = ({
     if (type === "ellipsis") return "..."
   }, [type, page, firstText, lastText])
 
-  const focusBorderColor = useMemo(() => {
-    if (disabled || type === "ellipsis") return "transparent"
-    if (selected) return "#0082FC"
-    return "muted"
-  }, [disabled, selected, type])
-
   return (
     <Box
       as={type === "ellipsis" ? "span" : "button"}
@@ -60,32 +54,32 @@ const PaginationItem = ({
         backgroundColor: selected ? "#E6F3FF" : "transparent", // TODO: remove fixed colors, use shade from theme
         borderColor: selected ? "#0082FC" : "transparent", // TODO: remove fixed colors, use shade from theme
         borderRadius: 2,
-        color: selected ? "#0082FC" : "#777779", // TODO: remove fixed colors, use shade from theme
+        color: selected ? "text" : "#777779", // TODO: remove fixed colors, use shade from theme
         opacity: disabled ? 0.3 : 1,
         cursor: disabled || type === "ellipsis" ? "default" : "pointer",
+        pointerEvents: type === "ellipsis" ? "none" : undefined,
 
         outline: "none",
-        "&:focus, &:hover": {
-          borderColor: focusBorderColor,
+        "&:hover, &:focus": {
+          backgroundColor: selected ? undefined : "#00000017", // TODO: remove fixed colors, use shade from theme
         },
       }}
       onClick={onClick}
       aria-disabled={disabled}
       aria-current={selected || undefined}
-      tabIndex={0}
+      tabIndex={disabled || type === "ellipsis" ? -1 : 0}
     >
-      <Text
-        as="span"
-        variant={selected ? "heading3" : "body1"}
+      <span
         sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           minWidth: 20,
+          variant: selected ? "text.heading3" : "text.body1",
         }}
       >
         {content}
-      </Text>
+      </span>
     </Box>
   )
 }
