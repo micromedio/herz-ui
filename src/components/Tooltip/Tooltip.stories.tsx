@@ -16,3 +16,11 @@ Default.args = {
   children: <button>I am the reference</button>,
   title: "I'm the title",
 }
+
+export const TopPlacement = Template.bind({})
+
+TopPlacement.args = {
+  children: <button>I am the reference</button>,
+  title: "I'm the title",
+  placement: "top",
+}

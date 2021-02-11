@@ -60,6 +60,7 @@ export default function Tooltip({
           },
         }}
         ref={setReferenceElement}
+        data-testid="tooltip"
       >
         {children}
       </span>
