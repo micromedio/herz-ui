@@ -103,22 +103,15 @@ export const theme: Theme = {
   },
 
   buttons: {
-    primary: {
-      color: "background",
-      bg: "primary",
-      "&:hover": {
-        opacity: 0.7,
-      },
+    filled: {
+      cursor: "pointer",
+      transition: "all .2s linear",
+    },
+    plain: {
       cursor: "pointer",
       transition: "all .3s linear",
     },
-    secondary: {
-      color: "background",
-      bg: "secondary",
-      "&:hover": {
-        opacity: 0.7,
-      },
-      cursor: "pointer",
+    disabled: {
       transition: "all .3s linear",
     },
   },

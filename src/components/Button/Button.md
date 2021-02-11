@@ -1,35 +1,53 @@
-#### primary:
+#### filled primary:
 
 ```js
-<Button mr={2}>Beep</Button>
+const onClick = () => {alert("clicked")};
+<Button variant="filled" color="primary" onClick={onClick}>
+  Tatooine
+</Button>
 ```
 
-#### secondary:
+#### filled primary disabled:
 
 ```js
-<Button variant="secondary">Boop</Button>
+const children = "Mustafar";
+<Button variant="filled" color="primary" disabled>
+  {children}
+</Button>
 ```
 
-### variants
 
-Button variants can be defined in the `theme.buttons` object. The Button component uses `theme.buttons.primary` as its default variant style.
+#### filled gray:
 
-```markup
-// example theme variants
-{
-  buttons: {
-    primary: {
-      color: 'background',
-      bg: 'primary',
-      '&:hover': {
-        bg: 'text',
-      }
-    },
-    secondary: {
-      color: 'background',
-      bg: 'secondary',
-    },
-  },
-}
+```js
+const onClick = () => {alert("clicked")};
+const children = "Tatooine";
+<Button variant="filled" color="muted" onClick={onClick}>
+  {children}
+</Button>
+```
 
+#### filled gray disabled:
+
+```js
+const children = "Tatooine";
+<Button variant="filled" color="muted" disabled>
+  {children}
+</Button>
+```
+
+#### plain:
+
+```js
+const onClick = () => {alert("clicked")};
+const children = "Alderaan";
+<Button variant="plain" color="secondary" onClick={onClick}>
+  {children}
+</Button>
+```
+
+#### plain disabled:
+
+```js
+<Button variant="plain" color="secondary" disabled>Mustafar</Button>
 ```
