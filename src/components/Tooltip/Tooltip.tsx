@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /*
 /** @jsx jsx */
 import React, { Fragment, useState } from "react"
-import { jsx } from "theme-ui"
+import { jsx, Text } from "theme-ui"
 import { usePopper } from "react-popper"
 
 export interface ITooltipProps {
@@ -27,17 +27,25 @@ export default function Tooltip({ children, title }: ITooltipProps) {
       <span ref={setReferenceElement}>{children}</span>
       <div
         sx={{
-          backgroundColor: "#333",
-          color: "white",
-          padding: "5px 10px",
-          borderRadius: "4px",
-          fontSize: "13px",
+          paddingY: 1,
+          paddingX: 2,
+          borderRadius: "6px",
+          backgroundColor: "text",
+          boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.2)",
         }}
         ref={setPopperElement}
         style={styles.popper}
         {...attributes.popper}
       >
-        {title}
+        <Text
+          variant="body2"
+          sx={{
+            color: "#fff",
+            fontWeight: 600,
+          }}
+        >
+          {title}
+        </Text>
         <div ref={setArrowElement} style={styles.arrow} />
       </div>
     </Fragment>
