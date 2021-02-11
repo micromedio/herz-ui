@@ -28,11 +28,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   ref
 ) {
   const filled: SxStyleProp = {
-    paddingX: "0.75rem",
-    paddingY: "0.5rem",
+    paddingX: 3,
+    paddingY: 2,
     backgroundColor: color,
     position: "relative",
-    borderRadius: "0.5rem !important",
+    borderRadius: 2,
     "&:hover": {
       backgroundColor: shade(color, 0.1),
     },
@@ -44,12 +44,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 
   const plain: SxStyleProp = {
     variant: "text.body1",
-    paddingX: "0.25rem",
-    paddingY: "0.5rem",
+    paddingX: 1,
+    paddingY: 2,
     backgroundColor: "transparent",
     color: "#0082FC",
     position: "relative",
-    borderRadius: "0.5rem !important",
+    borderRadius: 2,
     "&:hover": {
       backgroundColor: "#0082FC0F",
     },
