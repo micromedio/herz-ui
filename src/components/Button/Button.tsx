@@ -28,6 +28,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   ref
 ) {
   const filled: SxStyleProp = {
+    variant: "text.button1",
     paddingX: 3,
     paddingY: 2,
     backgroundColor: color,
@@ -43,7 +44,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   }
 
   const plain: SxStyleProp = {
-    variant: "text.body1",
+    variant: "text.button1",
     paddingX: 1,
     paddingY: 2,
     backgroundColor: "transparent",

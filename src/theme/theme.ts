@@ -100,6 +100,12 @@ export const theme: Theme = {
       fontWeight: "medium",
       lineHeight: 20 / 12, // 20px
     },
+    button1: {
+      fontFamily: "body",
+      fontSize: "base",
+      fontWeight: "semibold",
+      lineHeight: "body",
+    },
   },
 
   buttons: {
