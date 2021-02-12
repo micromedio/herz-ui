@@ -7,7 +7,7 @@ import { shade } from "@theme-ui/color"
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: string
 
-  variant?: string
+  variant?: "filled" | "plain"
 
   color?: string
 
