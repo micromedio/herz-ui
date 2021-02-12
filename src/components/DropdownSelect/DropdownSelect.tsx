@@ -8,7 +8,10 @@ export interface DropdownSelectProps {
   /** Label text to be placed before the element */
   label?: string
   /** Options to be selected */
-  options: Array<string>
+  options: Array<{
+    value: string | number
+    label: string
+  }>
   /** The value of the `input` element, required for a controlled component */
   value?: string
   /** Wether the component is disabled or not */
@@ -34,7 +37,7 @@ const DropdownSelect = ({
     getItemProps,
     selectedItem,
   } = useSelect({
-    items: options,
+    items: options.map((option) => option.value.toString()),
     selectedItem: value,
     onSelectedItemChange: onChange,
   })
@@ -68,6 +71,11 @@ const DropdownSelect = ({
       fontWeight: 600,
     },
   }
+
+  const selectedOption =
+    (selectedItem &&
+      options.find(({ value }) => value.toString() === selectedItem)) ||
+    undefined
 
   return (
     <Flex
@@ -124,7 +132,7 @@ const DropdownSelect = ({
           type="button"
           {...getToggleButtonProps({ disabled })}
         >
-          {selectedItem || "Select an option"}
+          {(selectedItem && selectedOption?.label) || "Select an option"}
         </button>
         <ul
           {...getMenuProps({ disabled })}
@@ -156,22 +164,26 @@ const DropdownSelect = ({
                 cursor: "pointer",
                 borderRadius: 2,
                 color:
-                  selectedItem === item
+                  selectedItem === item.value?.toString()
                     ? "#fff"
                     : highlightedIndex === index
                     ? "#0082FC" // @TODO move color to theme
                     : "text",
                 backgroundColor:
-                  selectedItem === item
+                  selectedItem === item.value?.toString()
                     ? "highlight"
                     : highlightedIndex === index
                     ? "medium_emphasis"
                     : "#fff",
                 transition: "all .2s linear",
               }}
-              {...getItemProps({ item, index, disabled })}
+              {...getItemProps({
+                item: item.value?.toString(),
+                index,
+                disabled,
+              })}
             >
-              {item}
+              {item.label}
             </li>
           ))}
         </ul>

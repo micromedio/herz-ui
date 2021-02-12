@@ -2,14 +2,14 @@ DropdownSelect default:
 
 ```js
 const options = [
-  "Neptunium",
-  "Plutonium",
-  "Americium",
-  "Curium",
-  "Moscovium",
-  "Livermorium",
-  "Tennessine",
-  "Oganesson",
+  { value: 1, label: "Neptunium" },
+  { value: 2, label: "Plutonium" },
+  { value: 3, label: "Americium" },
+  { value: 4, label: "Curium" },
+  { value: 5, label: "Moscovium" },
+  { value: 6, label: "Livermorium" },
+  { value: 7, label: "Tennessine" },
+  { value: 8, label: "Oganesson" },
 ]
 
 return <DropdownSelect options={options} />
@@ -19,14 +19,14 @@ DropdownSelect with label:
 
 ```js
 const options = [
-  "Neptunium",
-  "Plutonium",
-  "Americium",
-  "Curium",
-  "Berkelium",
-  "Californium",
-  "Einsteinium",
-  "Fermium",
+  { value: 1, label: "Neptunium" },
+  { value: 2, label: "Plutonium" },
+  { value: 3, label: "Americium" },
+  { value: 4, label: "Curium" },
+  { value: 5, label: "Moscovium" },
+  { value: 6, label: "Livermorium" },
+  { value: 7, label: "Tennessine" },
+  { value: 8, label: "Oganesson" },
 ]
 
 return <DropdownSelect label="Select an element:" options={options} />
@@ -36,14 +36,14 @@ DropdownSelect disabled:
 
 ```js
 const options = [
-  "Neptunium",
-  "Plutonium",
-  "Americium",
-  "Curium",
-  "Berkelium",
-  "Californium",
-  "Einsteinium",
-  "Fermium",
+  { value: 1, label: "Neptunium" },
+  { value: 2, label: "Plutonium" },
+  { value: 3, label: "Americium" },
+  { value: 4, label: "Curium" },
+  { value: 5, label: "Moscovium" },
+  { value: 6, label: "Livermorium" },
+  { value: 7, label: "Tennessine" },
+  { value: 8, label: "Oganesson" },
 ]
 
 return (
@@ -59,14 +59,14 @@ DropdownSelect with onChange event:
 
 ```js
 const options = [
-  "Neptunium",
-  "Plutonium",
-  "Americium",
-  "Curium",
-  "Berkelium",
-  "Californium",
-  "Einsteinium",
-  "Fermium",
+  { value: 1, label: "Neptunium" },
+  { value: 2, label: "Plutonium" },
+  { value: 3, label: "Americium" },
+  { value: 4, label: "Curium" },
+  { value: 5, label: "Moscovium" },
+  { value: 6, label: "Livermorium" },
+  { value: 7, label: "Tennessine" },
+  { value: 8, label: "Oganesson" },
 ]
 
 return (
