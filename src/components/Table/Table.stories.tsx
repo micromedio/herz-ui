@@ -1,16 +1,13 @@
-import React, { useMemo, useState } from "react"
+import React, { useCallback, useMemo, useState } from "react"
 import Table, { TableProps } from "./Table"
 import { Meta, Story } from "@storybook/react/types-6-0"
+import data from "./__mocks__/data"
+import _ from "lodash"
 
 export default {
   title: "Design System/Table",
   component: Table,
 } as Meta
-
-const Template: Story<TableProps> = (props) => <Table {...props} />
-
-// Each story then reuses that template
-export const Example = Template.bind({})
 
 const columns = [
   {
@@ -45,81 +42,33 @@ const columns = [
     Cell: ({ value }: { value: Date }) => value.toLocaleDateString(),
   },
 ]
-const data = [
-  {
-    id: "HBPM037",
-    patient: {
-      name: "Gregory C. Leonard",
-      ssn: "42318026",
-    },
-    physician: {
-      name: "Allie Sanchez",
-    },
-    status: "draft",
-    startDate: new Date("12/23/2020"),
-  },
-  {
-    id: "HBPM036",
-    patient: {
-      name: "Patricia V. Carroll",
-      ssn: "547759769",
-    },
-    physician: {
-      name: "Steven Nissen",
-    },
-    status: "pending",
-    startDate: new Date("12/23/2020"),
-  },
-  {
-    id: "HBPM035",
-    patient: {
-      name: "Glen A. Ortiz",
-      ssn: "609513889",
-    },
-    physician: {
-      name: "Allie Sanchez",
-    },
-    status: "pre-registered",
-    startDate: new Date("12/22/2020"),
-  },
-  ...Array.from({ length: 50 })
-    .fill("")
-    .map(() => ({
-      id: "HBPM035",
-      patient: {
-        name: `Glen A. Ortiz ${(Math.random() * 100).toFixed(0)}`,
-        ssn: `${(Math.random() * 100000000).toFixed(0)}`,
-      },
-      physician: {
-        name: "Allie Sanchez",
-      },
-      status: "pre-registered",
-      startDate: new Date("12/22/2020"),
-    })),
-]
+const Template: Story<TableProps> = (props) => <Table {...props} />
+
+// Each story then reuses that template
+export const Example = Template.bind({})
 
 Example.args = {
-  title: "Table Title",
   columns,
   data,
-  pageSize: 5,
 }
 
 const ControlledPaginationTemplate: Story<TableProps> = (props: TableProps) => {
-  const [pageSize, setPageSize] = useState(props.pageSize ?? 10)
-  const [currentPage, setCurrentPage] = useState(1)
+  const [paginatedData, setPaginatedData] = useState(props.data.slice(0, 10))
+  const [pageSize, setPageSize] = useState(10)
 
   const pageCount = useMemo(() => {
     const size = props.data.length
     return Math.ceil(size / pageSize)
   }, [props.data, pageSize])
 
-  const paginatedData = useMemo(() => {
-    return props.data.slice(
-      (currentPage - 1) * pageSize,
-      currentPage * pageSize
+  const onTableChange = useCallback(({ pageIndex, pageSize }) => {
+    setPageSize(pageSize)
+
+    // simulating server-side pagination
+    setPaginatedData(
+      data.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
     )
-  }, [props.data, currentPage, pageSize])
+  }, [])
 
   return (
     <Table
@@ -127,21 +76,52 @@ const ControlledPaginationTemplate: Story<TableProps> = (props: TableProps) => {
       data={paginatedData}
       manualPagination
       pageCount={pageCount}
-      pageSize={pageSize}
-      currentPage={currentPage}
       totalCount={data.length}
-      onChangePagination={({ currentPage, pageSize }) => {
-        setPageSize(pageSize)
-        setCurrentPage(currentPage)
-      }}
+      onTableChange={onTableChange}
     />
   )
 }
 export const ControlledPaginationExample = ControlledPaginationTemplate.bind({})
 
 ControlledPaginationExample.args = {
-  title: "Table Title",
   columns,
   data,
-  pageSize: 10,
+}
+
+const ControlledSortingTemplate: Story<TableProps> = (props: TableProps) => {
+  const [sortedData, setSortedData] = useState(props.data)
+
+  const onTableChange = useCallback(
+    ({ sortBy }) => {
+      let temporaryData = props.data
+      // simulating server-side sorting
+      if (sortBy) {
+        temporaryData = _.sortBy(temporaryData, (item) =>
+          _.get(item, sortBy.id)
+        )
+        if (sortBy.desc) temporaryData = temporaryData.reverse()
+      }
+      setSortedData(temporaryData)
+    },
+    [props.data]
+  )
+
+  return (
+    <Table
+      {...props}
+      manualSorting
+      data={sortedData}
+      onTableChange={onTableChange}
+    />
+  )
+}
+export const ControlledSortingExample = ControlledSortingTemplate.bind({})
+
+ControlledSortingExample.args = {
+  columns,
+  data,
+  initialSortBy: {
+    id: "patient.name",
+    desc: true,
+  },
 }
