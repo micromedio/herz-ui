@@ -33,7 +33,7 @@ export interface TableProps {
   /** If `true`, the table pagination will be controlled by the parent */
   manualPagination?: boolean
   /** Used if manualPagination is `true`. The total count of items in the table */
-  totalCount: number
+  totalCount?: number
   /** Used if manualPagination is `true`. The total count of pages in the table */
   pageCount?: number
   /** Initial page size */
@@ -200,11 +200,17 @@ const Table = ({
                         {...cellProps}
                         key={key}
                         sx={{
-                          px: 5,
-                          py: 2,
+                          display: "flex",
+                          px: 6,
+                          py: 3,
                           color: cell.column.highlight ? "#0082FC" : "text", // TODO: use theme colors
                           variant: "text.body1",
-                          textAlign: cell.column.align ?? "start",
+                          justifyContent: {
+                            start: "flex-start",
+                            end: "flex-end",
+                            center: "center",
+                          }[cell.column.align || "start"],
+                          alignItems: "center",
                         }}
                       >
                         {cell.render("Cell")}
