@@ -1,3 +1,6 @@
+/** @jsxRuntime classic /
+/** @jsx jsx */
+import { jsx } from "theme-ui"
 import React, { useCallback, useMemo, useState } from "react"
 import Table, { TableProps } from "./Table"
 import { Meta, Story } from "@storybook/react/types-6-0"
@@ -18,6 +21,26 @@ const columns = [
   {
     Header: "Patient",
     accessor: "patient.name",
+    Cell({
+      row,
+    }: {
+      row: { original: { patient: { name: string; ssn: string } } }
+    }) {
+      return (
+        <div
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 1,
+          }}
+        >
+          <span>{row.original?.patient?.name}</span>
+          <span sx={{ variant: "text.body2", color: "#777777" }}>
+            SSN {row.original?.patient?.ssn}
+          </span>
+        </div>
+      )
+    },
   },
   {
     Header: "Referring physician",
