@@ -1,14 +1,17 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { useTable, Column, usePagination, useFlexLayout } from "react-table"
-import { Pagination, Paper, DropdownSelect } from "../"
+import {
+  useTable,
+  Column,
+  usePagination,
+  useFlexLayout,
+  useSortBy,
+} from "react-table"
+import { Pagination, DropdownSelect } from "../"
 import { memo, useEffect, useMemo } from "react"
 
 export interface TableProps {
-  /** Table title */
-  title?: string
-
   /** Definition of the table columns */
   columns: Column<Record<string, unknown>>[]
   /** Data to be displayed in the table */
@@ -18,7 +21,13 @@ export interface TableProps {
   loading?: boolean
 
   // filter
+
   // sorting
+  manualSorting?: boolean
+  initialSortBy?: {
+    id: string
+    desc?: boolean
+  }
 
   /** If `true`, the table pagination will be controlled by the parent */
   manualPagination?: boolean
@@ -26,32 +35,41 @@ export interface TableProps {
   totalCount: number
   /** Used if manualPagination is `true`. The total count of pages in the table */
   pageCount?: number
-  /** Used if manualPagination is `true`. The current page being displayed */
-  currentPage?: number
-  /** If manualPagination is `true` it is the controlled page size of the table. If manualPagination is `false` it defines the initial pageSize of the table */
-  pageSize?: number
-  /** Callback called when the page size or current page of the table changes */
-  onChangePagination?: ({
+  /** Initial page size */
+  initialPageSize?: number
+  /** Initial page index */
+  initialPageIndex?: number
+
+  /** Callback called when pagination or sorting changes, if either `manualPagination` or `manualSorting` is `true` */
+  onTableChange?: ({
+    pageIndex,
     pageSize,
-    currentPage,
+    sortBy,
   }: {
+    pageIndex: number
     pageSize: number
-    currentPage: number
+    sortBy?: TableProps["sortBy"]
   }) => void
 }
 
-const Table = memo(function Table({
+const Table = ({
   columns,
   data,
-  title,
   // loading,
-  manualPagination,
-  onChangePagination,
-  pageSize: controlledPageSize,
+
+  // sorting
+  manualSorting = false,
+  initialSortBy,
+
+  // pagination
+  manualPagination = false,
   pageCount: controlledPageCount,
-  totalCount: controlledTotalCount,
-  currentPage: controlledPage,
-}: TableProps) {
+  totalCount: controlledTotalCount = data.length,
+  initialPageSize = 10,
+  initialPageIndex = 0,
+
+  onTableChange,
+}: TableProps) => {
   const {
     getTableBodyProps,
     getTableProps,
@@ -62,30 +80,36 @@ const Table = memo(function Table({
     pageCount,
     gotoPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize, sortBy },
   } = useTable(
     {
       columns,
       data,
+
+      manualSortBy: manualSorting,
       manualPagination,
+      autoResetPage: false,
+      autoResetSortBy: false,
+      autoResetFilters: false,
       ...(controlledPageCount ? { pageCount: controlledPageCount } : {}), // unexpected behaviour from react-table if pageCount is passed as undefined instead of not passed at all
       initialState: {
-        pageSize: controlledPageSize ?? 10,
-        pageIndex: controlledPage ? controlledPage - 1 : 0,
+        pageSize: initialPageSize,
+        pageIndex: initialPageIndex,
+        ...(initialSortBy ? { sortBy: [initialSortBy] } : {}),
       },
     },
+    useSortBy,
     usePagination,
     useFlexLayout
   )
 
   useEffect(() => {
-    if (onChangePagination) {
-      onChangePagination({
-        pageSize,
-        currentPage: pageIndex + 1,
-      })
-    }
-  }, [onChangePagination, pageIndex, pageSize])
+    onTableChange?.({
+      pageIndex,
+      pageSize,
+      sortBy: sortBy?.[0],
+    })
+  }, [onTableChange, pageIndex, pageSize, sortBy])
 
   const totalCount = useMemo(() => {
     if (manualPagination) return controlledTotalCount
@@ -93,17 +117,7 @@ const Table = memo(function Table({
   }, [manualPagination, controlledTotalCount, data])
 
   return (
-    <Paper padding={0} elevation={1}>
-      <div
-        sx={{
-          px: 5,
-          py: 6,
-          variant: "text.heading2",
-        }}
-      >
-        {title}
-      </div>
-
+    <div>
       <div
         {...getTableProps()}
         sx={{
@@ -125,7 +139,10 @@ const Table = memo(function Table({
                 }}
               >
                 {headerGroup.headers.map((column) => {
-                  const { key, ...headerProps } = column.getHeaderProps()
+                  const { key, ...headerProps } = column.getHeaderProps(
+                    column.getSortByToggleProps()
+                  )
+
                   return (
                     <div
                       {...headerProps}
@@ -139,6 +156,13 @@ const Table = memo(function Table({
                       }}
                     >
                       {column.render("Header")}
+                      <span>
+                        {column.isSorted
+                          ? column.isSortedDesc
+                            ? " 🔽"
+                            : " 🔼"
+                          : ""}
+                      </span>
                     </div>
                   )
                 })}
@@ -225,8 +249,8 @@ const Table = memo(function Table({
           onChange={(page) => gotoPage(page - 1)}
         />
       </div>
-    </Paper>
+    </div>
   )
-})
+}
 
-export default Table
+export default memo(Table)
