@@ -7,6 +7,7 @@ import {
   usePagination,
   useFlexLayout,
   useSortBy,
+  SortingRule,
 } from "react-table"
 import { Pagination, DropdownSelect } from "../"
 import { memo, useEffect, useMemo } from "react"
@@ -48,7 +49,7 @@ export interface TableProps {
   }: {
     pageIndex: number
     pageSize: number
-    sortBy?: TableProps["sortBy"]
+    sortBy?: SortingRule<string>
   }) => void
 }
 
