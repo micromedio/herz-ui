@@ -1,4 +1,5 @@
 import faker from "faker"
+faker.seed(0) // so that mocks are always equal
 
 export default [
   ...Array.from({ length: 100 })
