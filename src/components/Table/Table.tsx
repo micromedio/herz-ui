@@ -135,6 +135,7 @@ const Table = ({
                 key={key}
                 sx={{
                   borderBottom: "1px solid #E8E8E9", // TODO: use theme colors
+                  px: 1,
                 }}
               >
                 {headerGroup.headers.map((column) => {
@@ -200,7 +201,7 @@ const Table = ({
                         sx={{
                           display: "flex",
                           px: 6,
-                          py: 3,
+                          py: 2,
                           color: cell.column.highlight ? "#0082FC" : "text", // TODO: use theme colors
                           variant: "text.body1",
                           justifyContent: {
