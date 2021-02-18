@@ -108,19 +108,6 @@ export const theme: Theme = {
     },
   },
 
-  buttons: {
-    filled: {
-      cursor: "pointer",
-      transition: "all .2s linear",
-    },
-    plain: {
-      cursor: "pointer",
-      transition: "all .3s linear",
-    },
-    disabled: {
-      transition: "all .3s linear",
-    },
-  },
   styles: {
     ...base.styles,
     root: {

@@ -27,13 +27,19 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   }: ButtonProps,
   ref
 ) {
-  const filled: SxStyleProp = {
+  const baseButton = {
     variant: "text.button1",
+    borderRadius: 2,
+    cursor: "pointer",
+    position: "relative",
+    transition: "all .2s linear",
+  }
+
+  const filled: SxStyleProp = {
+    ...baseButton,
     paddingX: 3,
     paddingY: 2,
     backgroundColor: color,
-    position: "relative",
-    borderRadius: 2,
     "&:hover": {
       backgroundColor: shade(color, 0.1),
     },
@@ -44,13 +50,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   }
 
   const plain: SxStyleProp = {
-    variant: "text.button1",
+    ...baseButton,
     paddingX: 1,
     paddingY: 2,
     backgroundColor: "transparent",
     color: "#0082FC",
-    position: "relative",
-    borderRadius: 2,
     "&:hover": {
       backgroundColor: "#0082FC0F",
     },
