@@ -17,7 +17,7 @@ export interface DropdownSelectProps {
   /** Wether the component is disabled or not */
   disabled?: boolean
   /** Callback fired when the value is changed */
-  onChange?: (changes: UseSelectStateChange<string>) => void
+  onChange?: (changes: UseSelectStateChange<string | number>) => void
 }
 
 /** Component responsible for rendering a select dropdown from given options */
@@ -36,8 +36,8 @@ const DropdownSelect = ({
     highlightedIndex,
     getItemProps,
     selectedItem,
-  } = useSelect({
-    items: options.map((option) => option.value.toString()),
+  } = useSelect<string | number>({
+    items: options.map((option) => option.value),
     selectedItem: value,
     onSelectedItemChange: onChange,
   })
@@ -73,8 +73,7 @@ const DropdownSelect = ({
   }
 
   const selectedOption =
-    (selectedItem &&
-      options.find(({ value }) => value.toString() === selectedItem)) ||
+    (selectedItem && options.find(({ value }) => value === selectedItem)) ||
     undefined
 
   return (
@@ -164,13 +163,13 @@ const DropdownSelect = ({
                 cursor: "pointer",
                 borderRadius: 2,
                 color:
-                  selectedItem === item.value?.toString()
+                  selectedItem === item.value
                     ? "#fff"
                     : highlightedIndex === index
                     ? "#0082FC" // @TODO move color to theme
                     : "text",
                 backgroundColor:
-                  selectedItem === item.value?.toString()
+                  selectedItem === item.value
                     ? "highlight"
                     : highlightedIndex === index
                     ? "medium_emphasis"
@@ -178,7 +177,7 @@ const DropdownSelect = ({
                 transition: "all .2s linear",
               }}
               {...getItemProps({
-                item: item.value?.toString(),
+                item: item.value,
                 index,
                 disabled,
               })}
