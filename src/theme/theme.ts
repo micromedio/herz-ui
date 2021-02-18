@@ -1,6 +1,18 @@
 import { Theme } from "theme-ui"
-
 import { base } from "@theme-ui/presets"
+
+import { generateColorsPalette } from "../helpers/colors"
+
+const baseColors = {
+  primary: "#FF3C3C" /** Red */,
+  secondary: "#0082FC" /** Blue */,
+  text: "#1D1D1D",
+  success: "#30D158" /** Green */,
+}
+
+const palette = generateColorsPalette(baseColors)
+
+console.log(palette)
 
 export const theme: Theme = {
   ...base,
