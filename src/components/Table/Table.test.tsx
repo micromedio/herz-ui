@@ -31,7 +31,7 @@ describe("Table", () => {
     },
   ]
 
-  test("label is shown", async () => {
+  test("rows are shown", async () => {
     // Arrange
     const { getByText } = render(<Table columns={columns} data={data} />)
 
@@ -90,15 +90,17 @@ describe("Table", () => {
 
   test("shown items change on page change", async () => {
     // Arrange
+    const data = Array.from({ length: 15 })
+      .fill("")
+      .map((_, index) => ({
+        id: `ID_${index}`,
+        name: `TEST_NAME_${index}`,
+      }))
+
     const { getByText, queryByText } = render(
       <Table
         columns={columns}
-        data={Array.from({ length: 15 })
-          .fill("")
-          .map((_, index) => ({
-            id: `ID_${index}`,
-            name: `TEST_NAME_${index}`,
-          }))}
+        data={data}
         initialPageIndex={0}
         initialPageSize={5}
       />
