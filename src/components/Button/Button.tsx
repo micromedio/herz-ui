@@ -20,7 +20,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     children,
     onClick,
-    variant,
+    variant = "filled",
     color = "primary",
     disabled,
     ...htmlProps
