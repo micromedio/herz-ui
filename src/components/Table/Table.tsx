@@ -21,8 +21,6 @@ export interface TableProps {
   /** If `true`, the table will be displayed in a loading state */
   loading?: boolean
 
-  // filter
-
   // sorting
   manualSorting?: boolean
   initialSortBy?: {
@@ -161,7 +159,7 @@ const Table = ({
                         {column.isSorted
                           ? column.isSortedDesc
                             ? " 🔽"
-                            : " 🔼"
+                            : " 🔼" // TODO: use arrow icons instead of unicode text
                           : ""}
                       </span>
                     </div>
