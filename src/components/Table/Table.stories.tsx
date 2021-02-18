@@ -64,7 +64,8 @@ const columns = [
     accessor: "startDate",
     Cell: ({ value }: { value: Date }) => value.toLocaleDateString(),
   },
-]
+] as TableProps["columns"]
+
 const Template: Story<TableProps> = (props) => <Table {...props} />
 
 // Each story then reuses that template
@@ -84,14 +85,17 @@ const ControlledPaginationTemplate: Story<TableProps> = (props: TableProps) => {
     return Math.ceil(size / pageSize)
   }, [props.data, pageSize])
 
-  const onTableChange = useCallback(({ pageIndex, pageSize }) => {
-    setPageSize(pageSize)
+  const onTableChange = useCallback(
+    ({ pageIndex, pageSize }) => {
+      setPageSize(pageSize)
 
-    // simulating server-side pagination
-    setPaginatedData(
-      data.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
-    )
-  }, [])
+      // simulating server-side pagination
+      setPaginatedData(
+        props.data.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
+      )
+    },
+    [props.data]
+  )
 
   return (
     <Table

@@ -11,11 +11,11 @@ module.exports = {
   skipComponentsWithoutExample: true,
   sections: [
     {
-      name: "introduction",
+      name: "Introduction",
       content: "./docs/index.md",
     },
     {
-      name: "components",
+      name: "Components",
       content: "./docs/components.md",
       components: "src/components/**/*.tsx",
     },

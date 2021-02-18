@@ -1,28 +1,28 @@
 import {
   UseColumnOrderInstanceProps,
   UseColumnOrderState,
-  UseExpandedHooks,
-  UseExpandedInstanceProps,
-  UseExpandedOptions,
-  UseExpandedRowProps,
-  UseExpandedState,
-  UseFiltersColumnOptions,
-  UseFiltersColumnProps,
-  UseFiltersInstanceProps,
-  UseFiltersOptions,
-  UseFiltersState,
-  UseGlobalFiltersColumnOptions,
-  UseGlobalFiltersInstanceProps,
-  UseGlobalFiltersOptions,
-  UseGlobalFiltersState,
-  UseGroupByCellProps,
-  UseGroupByColumnOptions,
-  UseGroupByColumnProps,
-  UseGroupByHooks,
-  UseGroupByInstanceProps,
-  UseGroupByOptions,
-  UseGroupByRowProps,
-  UseGroupByState,
+  // UseExpandedHooks,
+  // UseExpandedInstanceProps,
+  // UseExpandedOptions,
+  // UseExpandedRowProps,
+  // UseExpandedState,
+  // UseFiltersColumnOptions,
+  // UseFiltersColumnProps,
+  // UseFiltersInstanceProps,
+  // UseFiltersOptions,
+  // UseFiltersState,
+  // UseGlobalFiltersColumnOptions,
+  // UseGlobalFiltersInstanceProps,
+  // UseGlobalFiltersOptions,
+  // UseGlobalFiltersState,
+  // UseGroupByCellProps,
+  // UseGroupByColumnOptions,
+  // UseGroupByColumnProps,
+  // UseGroupByHooks,
+  // UseGroupByInstanceProps,
+  // UseGroupByOptions,
+  // UseGroupByRowProps,
+  // UseGroupByState,
   UsePaginationInstanceProps,
   UsePaginationOptions,
   UsePaginationState,
@@ -53,11 +53,11 @@ declare module "react-table" {
 
   export interface TableOptions<
     D extends Record<string, unknown>
-  > extends UseExpandedOptions<D>,
-      UseFiltersOptions<D>,
-      UseGlobalFiltersOptions<D>,
-      UseGroupByOptions<D>,
-      UsePaginationOptions<D>,
+  > extends UsePaginationOptions<D>,
+      // UseFiltersOptions<D>,
+      // UseGlobalFiltersOptions<D>,
+      // UseGroupByOptions<D>,
+      // UseExpandedOptions<D>,
       UseResizeColumnsOptions<D>,
       UseRowSelectOptions<D>,
       UseRowStateOptions<D>,
@@ -69,19 +69,19 @@ declare module "react-table" {
 
   export interface Hooks<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseExpandedHooks<D>,
-      UseGroupByHooks<D>,
-      UseRowSelectHooks<D>,
-      UseSortByHooks<D> {}
+  > extends UseSortByHooks<D>,
+      // UseGroupByHooks<D>,
+      // UseExpandedHooks<D>,
+      UseRowSelectHooks<D> {}
 
   export interface TableInstance<
     D extends Record<string, unknown> = Record<string, unknown>
   > extends UseColumnOrderInstanceProps<D>,
-      UseExpandedInstanceProps<D>,
-      UseFiltersInstanceProps<D>,
-      UseGlobalFiltersInstanceProps<D>,
-      UseGroupByInstanceProps<D>,
       UsePaginationInstanceProps<D>,
+      // UseExpandedInstanceProps<D>,
+      // UseFiltersInstanceProps<D>,
+      // UseGlobalFiltersInstanceProps<D>,
+      // UseGroupByInstanceProps<D>,
       UseRowSelectInstanceProps<D>,
       UseRowStateInstanceProps<D>,
       UseSortByInstanceProps<D> {}
@@ -89,10 +89,10 @@ declare module "react-table" {
   export interface TableState<
     D extends Record<string, unknown> = Record<string, unknown>
   > extends UseColumnOrderState<D>,
-      UseExpandedState<D>,
-      UseFiltersState<D>,
-      UseGlobalFiltersState<D>,
-      UseGroupByState<D>,
+      // UseExpandedState<D>,
+      // UseFiltersState<D>,
+      // UseGlobalFiltersState<D>,
+      // UseGroupByState<D>,
       UsePaginationState<D>,
       UseResizeColumnsState<D>,
       UseRowSelectState<D>,
@@ -101,31 +101,34 @@ declare module "react-table" {
 
   export interface ColumnInterface<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseFiltersColumnOptions<D>,
-      UseGlobalFiltersColumnOptions<D>,
-      UseGroupByColumnOptions<D>,
-      UseResizeColumnsColumnOptions<D>,
-      UseSortByColumnOptions<D> {
+  > extends UseSortByColumnOptions<D>,
+      // UseFiltersColumnOptions<D>,
+      // UseGlobalFiltersColumnOptions<D>,
+      // UseGroupByColumnOptions<D>,
+      UseResizeColumnsColumnOptions<D> {
+    /**
+     * @enum start Aligns column text to the start of the column
+     */
     align?: "start" | "end" | "center"
     highlight?: boolean
   }
 
   export interface ColumnInstance<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseFiltersColumnProps<D>,
-      UseGroupByColumnProps<D>,
-      UseResizeColumnsColumnProps<D>,
-      UseSortByColumnProps<D> {}
+  > extends UseSortByColumnProps<D>,
+      // UseFiltersColumnProps<D>,
+      // UseGroupByColumnProps<D>,
+      UseResizeColumnsColumnProps<D> {}
 
-  export interface Cell<
+  export type Cell<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseGroupByCellProps<D>,
-      UseRowStateCellProps<D> {}
+  > = UseRowStateCellProps<D>
+  // UseGroupByCellProps<D> {}
 
   export interface Row<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseExpandedRowProps<D>,
-      UseGroupByRowProps<D>,
-      UseRowSelectRowProps<D>,
+  > extends UseRowSelectRowProps<D>,
+      // UseGroupByRowProps<D>,
+      // UseExpandedRowProps<D>,
       UseRowStateRowProps<D> {}
 }

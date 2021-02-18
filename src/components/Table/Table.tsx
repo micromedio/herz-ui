@@ -14,15 +14,17 @@ import { memo, useEffect, useMemo } from "react"
 
 export interface TableProps {
   /** Definition of the table columns */
-  columns: Column<Record<string, unknown>>[]
+  columns: Array<Column<Record<string, unknown>>>
   /** Data to be displayed in the table */
-  data: Record<string, unknown>[]
+  data: Array<Record<string, unknown>>
 
   /** If `true`, the table will be displayed in a loading state */
   loading?: boolean
 
-  // sorting
+  // If `true`, the table sorting will be controlled by the parent */
   manualSorting?: boolean
+
+  /** Initial sorting rules */
   initialSortBy?: {
     id: string
     desc?: boolean
@@ -39,7 +41,7 @@ export interface TableProps {
   /** Initial page index */
   initialPageIndex?: number
 
-  /** Callback called when pagination or sorting changes, if either `manualPagination` or `manualSorting` is `true` */
+  /** Callback called when pagination or sorting changes */
   onTableChange?: ({
     pageIndex,
     pageSize,
@@ -56,11 +58,11 @@ const Table = ({
   data,
   // loading,
 
-  // sorting
+  // Sorting
   manualSorting = false,
   initialSortBy,
 
-  // pagination
+  // Pagination
   manualPagination = false,
   pageCount: controlledPageCount,
   totalCount: controlledTotalCount = data.length,
@@ -73,7 +75,6 @@ const Table = ({
     getTableBodyProps,
     getTableProps,
     headerGroups,
-    // rows,
     page,
     prepareRow,
     pageCount,
@@ -116,118 +117,113 @@ const Table = ({
   }, [manualPagination, controlledTotalCount, data])
 
   return (
-    <div>
-      <div
-        {...getTableProps()}
-        sx={{
-          width: "100%",
-        }}
-      >
-        <div>
-          {headerGroups.map((headerGroup) => {
-            const {
-              key,
-              ...headerGroupProps
-            } = headerGroup.getHeaderGroupProps()
-            return (
+    <div
+      {...getTableProps()}
+      sx={{
+        width: "100%",
+      }}
+    >
+      <div>
+        {headerGroups.map((headerGroup) => {
+          const { key, ...headerGroupProps } = headerGroup.getHeaderGroupProps()
+          return (
+            <div
+              {...headerGroupProps}
+              key={key}
+              sx={{
+                borderBottom: "1px solid #E8E8E9", // TODO: use theme colors
+                px: 1,
+              }}
+            >
+              {headerGroup.headers.map((column) => {
+                const { key, ...headerProps } = column.getHeaderProps(
+                  column.getSortByToggleProps()
+                )
+
+                return (
+                  <div
+                    {...headerProps}
+                    key={key}
+                    sx={{
+                      pl: 6,
+                      pb: 3,
+                      color: "#777777", // TODO: use theme colors
+                      variant: "text.body1",
+                      textAlign: column.align ?? "start",
+                    }}
+                  >
+                    {column.render("Header")}
+                    <span>
+                      {column.isSorted
+                        ? column.isSortedDesc
+                          ? " 🔽"
+                          : " 🔼" // TODO: use arrow icons instead of unicode text
+                        : ""}
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+          )
+        })}
+      </div>
+      <div {...getTableBodyProps()}>
+        {page.map((row) => {
+          prepareRow(row)
+          const { key, ...rowProps } = row.getRowProps()
+          return (
+            <div
+              key={key}
+              sx={{
+                p: 1,
+                borderBottom: "1px solid #E8E8E9", // TODO: use theme colors
+              }}
+            >
               <div
-                {...headerGroupProps}
-                key={key}
+                {...rowProps}
                 sx={{
-                  borderBottom: "1px solid #E8E8E9", // TODO: use theme colors
-                  px: 1,
+                  borderRadius: 3,
+                  transition: "all 0.2s ease-out",
+                  "&:hover": {
+                    backgroundColor: "rgba(0, 130, 252, 0.06)",
+                  },
                 }}
               >
-                {headerGroup.headers.map((column) => {
-                  const { key, ...headerProps } = column.getHeaderProps(
-                    column.getSortByToggleProps()
-                  )
-
+                {row.cells.map((cell) => {
+                  const { key, ...cellProps } = cell.getCellProps()
                   return (
                     <div
-                      {...headerProps}
+                      {...cellProps}
                       key={key}
                       sx={{
-                        px: 6,
-                        pb: 3,
-                        color: "#777777", // TODO: use theme colors
+                        display: "flex",
+                        pl: 6,
+                        py: 2,
+                        color: cell.column.highlight ? "#0082FC" : "text", // TODO: use theme colors
                         variant: "text.body1",
-                        textAlign: column.align ?? "start",
+                        justifyContent: {
+                          start: "flex-start",
+                          end: "flex-end",
+                          center: "center",
+                        }[cell.column.align || "start"],
+                        alignItems: "center",
                       }}
                     >
-                      {column.render("Header")}
-                      <span>
-                        {column.isSorted
-                          ? column.isSortedDesc
-                            ? " 🔽"
-                            : " 🔼" // TODO: use arrow icons instead of unicode text
-                          : ""}
-                      </span>
+                      {cell.render("Cell")}
                     </div>
                   )
                 })}
               </div>
-            )
-          })}
-        </div>
-        <div {...getTableBodyProps()}>
-          {page.map((row) => {
-            prepareRow(row)
-            const { key, ...rowProps } = row.getRowProps()
-            return (
-              <div
-                key={key}
-                sx={{
-                  p: 1,
-                  borderBottom: "1px solid #E8E8E9", // TODO: use theme colors
-                }}
-              >
-                <div
-                  {...rowProps}
-                  sx={{
-                    borderRadius: 3,
-                    transition: "all 0.2s ease-out",
-                    "&:hover": {
-                      backgroundColor: "rgba(0, 130, 252, 0.06)",
-                    },
-                  }}
-                >
-                  {row.cells.map((cell) => {
-                    const { key, ...cellProps } = cell.getCellProps()
-                    return (
-                      <div
-                        {...cellProps}
-                        key={key}
-                        sx={{
-                          display: "flex",
-                          px: 6,
-                          py: 2,
-                          color: cell.column.highlight ? "#0082FC" : "text", // TODO: use theme colors
-                          variant: "text.body1",
-                          justifyContent: {
-                            start: "flex-start",
-                            end: "flex-end",
-                            center: "center",
-                          }[cell.column.align || "start"],
-                          alignItems: "center",
-                        }}
-                      >
-                        {cell.render("Cell")}
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            )
-          })}
-        </div>
+            </div>
+          )
+        })}
       </div>
-
       <div
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          p: 6,
+          px: 6,
+          pt: 6,
         }}
       >
         <div
@@ -240,13 +236,15 @@ const Table = ({
           }}
         >
           <span>Showing</span>
-          <DropdownSelect
-            options={["5", "10", "25", "50"]}
-            value={`${pageSize}`}
-            onChange={({ selectedItem }) =>
-              setPageSize(Number.parseInt(selectedItem ?? "10"))
-            }
-          />
+          <div sx={{ flexShrink: 0 }}>
+            <DropdownSelect
+              options={["5", "10", "25", "50"]}
+              value={`${pageSize}`}
+              onChange={({ selectedItem }) =>
+                setPageSize(Number.parseInt(selectedItem ?? "10"))
+              }
+            />
+          </div>
           <span>results per page from a total of {totalCount} results</span>
         </div>
         <Pagination
