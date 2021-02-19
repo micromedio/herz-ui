@@ -1,5 +1,5 @@
 import React from "react"
-import { render, fireEvent } from "../../theme/ThemeWrapper"
+import { render, fireEvent } from "../../theme/CustomRender"
 import { cleanup } from "@testing-library/react"
 import Button from "./Button"
 
