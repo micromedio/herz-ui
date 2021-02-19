@@ -1,17 +1,23 @@
-import * as React from "react"
+import React, { FC, ReactElement, ReactNode } from "react"
+import { render, RenderOptions } from "@testing-library/react"
 import { ThemeProvider } from "theme-ui"
-import "normalize.css"
 
 import { theme } from "./theme"
 
 export interface IThemeWrapperProps {
-  children: React.ReactChildren
+  children?: ReactNode
 }
 
-const ThemeWrapper = function (props: IThemeWrapperProps) {
+const AllTheProviders: FC = (props: IThemeWrapperProps) => {
   const { children } = props
-
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>
 }
 
-export default ThemeWrapper
+const customRender = (
+  ui: ReactElement,
+  options?: Omit<RenderOptions, "queries">
+) => render(ui, { wrapper: AllTheProviders, ...options })
+
+export * from "@testing-library/react"
+
+export { customRender as render }

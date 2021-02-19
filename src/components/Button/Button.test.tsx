@@ -1,5 +1,6 @@
 import React from "react"
-import { cleanup, fireEvent, render } from "@testing-library/react"
+import { render, fireEvent } from "../../theme/ThemeWrapper"
+import { cleanup } from "@testing-library/react"
 import Button from "./Button"
 
 afterEach(cleanup)
