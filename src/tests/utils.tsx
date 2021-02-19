@@ -2,7 +2,7 @@ import React, { FC, ReactElement, ReactNode } from "react"
 import { render, RenderOptions } from "@testing-library/react"
 import { ThemeProvider } from "theme-ui"
 
-import { theme } from "./theme"
+import { theme } from "../theme/theme"
 
 export interface IThemeWrapperProps {
   children?: ReactNode

@@ -1,9 +1,6 @@
 import React from "react"
-import { render, fireEvent } from "../../theme/CustomRender"
-import { cleanup } from "@testing-library/react"
+import { render, fireEvent } from "../../tests/utils"
 import Button from "./Button"
-
-afterEach(cleanup)
 
 describe("Button", () => {
   test("children is Shown", async () => {
