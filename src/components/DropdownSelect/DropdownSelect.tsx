@@ -8,13 +8,16 @@ export interface DropdownSelectProps {
   /** Label text to be placed before the element */
   label?: string
   /** Options to be selected */
-  options: Array<string>
+  options: Array<{
+    value: string | number
+    label: string
+  }>
   /** The value of the `input` element, required for a controlled component */
   value?: string
   /** Wether the component is disabled or not */
   disabled?: boolean
   /** Callback fired when the value is changed */
-  onChange?: (changes: UseSelectStateChange<string>) => void
+  onChange?: (changes: UseSelectStateChange<string | number>) => void
 }
 
 /** Component responsible for rendering a select dropdown from given options */
@@ -33,8 +36,8 @@ const DropdownSelect = ({
     highlightedIndex,
     getItemProps,
     selectedItem,
-  } = useSelect({
-    items: options,
+  } = useSelect<string | number>({
+    items: options.map((option) => option.value),
     selectedItem: value,
     onSelectedItemChange: onChange,
   })
@@ -68,6 +71,10 @@ const DropdownSelect = ({
       fontWeight: 600,
     },
   }
+
+  const selectedOption =
+    (selectedItem && options.find(({ value }) => value === selectedItem)) ||
+    undefined
 
   return (
     <Flex
@@ -124,7 +131,7 @@ const DropdownSelect = ({
           type="button"
           {...getToggleButtonProps({ disabled })}
         >
-          {selectedItem || "Select an option"}
+          {(selectedItem && selectedOption?.label) || "Select an option"}
         </button>
         <ul
           {...getMenuProps({ disabled })}
@@ -156,22 +163,26 @@ const DropdownSelect = ({
                 cursor: "pointer",
                 borderRadius: 2,
                 color:
-                  selectedItem === item
+                  selectedItem === item.value
                     ? "#fff"
                     : highlightedIndex === index
                     ? "#0082FC" // @TODO move color to theme
                     : "text",
                 backgroundColor:
-                  selectedItem === item
+                  selectedItem === item.value
                     ? "highlight"
                     : highlightedIndex === index
                     ? "medium_emphasis"
                     : "#fff",
                 transition: "all .2s linear",
               }}
-              {...getItemProps({ item, index, disabled })}
+              {...getItemProps({
+                item: item.value,
+                index,
+                disabled,
+              })}
             >
-              {item}
+              {item.label}
             </li>
           ))}
         </ul>
