@@ -49,7 +49,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       sx={{
         display: "flex",
         width: "100%",
-        position: "relative",
         justifyContent: "center",
         gap: 2,
 
@@ -81,8 +80,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         disabled={disabled}
         onChange={onChange}
         aria-invalid={error}
+        size={1}
         {...htmlProps}
         sx={{
+          width: "100%",
           flexGrow: 1,
           outline: 0,
           backgroundColor: "transparent",
