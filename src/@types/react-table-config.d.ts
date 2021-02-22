@@ -30,11 +30,11 @@ import {
   UseResizeColumnsColumnProps,
   UseResizeColumnsOptions,
   UseResizeColumnsState,
-  UseRowSelectHooks,
-  UseRowSelectInstanceProps,
-  UseRowSelectOptions,
-  UseRowSelectRowProps,
-  UseRowSelectState,
+  // UseRowSelectHooks,
+  // UseRowSelectInstanceProps,
+  // UseRowSelectOptions,
+  // UseRowSelectRowProps,
+  // UseRowSelectState,
   UseRowStateCellProps,
   UseRowStateInstanceProps,
   UseRowStateOptions,
@@ -59,7 +59,7 @@ declare module "react-table" {
       // UseGroupByOptions<D>,
       // UseExpandedOptions<D>,
       UseResizeColumnsOptions<D>,
-      UseRowSelectOptions<D>,
+      // UseRowSelectOptions<D>,
       UseRowStateOptions<D>,
       UseSortByOptions<D>,
       // note that having Record here allows you to add anything to the options, this matches the spirit of the
@@ -67,12 +67,9 @@ declare module "react-table" {
       // feature set, this is a safe default.
       Record<string, unknown> {}
 
-  export interface Hooks<
+  export type Hooks<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseSortByHooks<D>,
-      // UseGroupByHooks<D>,
-      // UseExpandedHooks<D>,
-      UseRowSelectHooks<D> {}
+  > = UseSortByHooks<D>
 
   export interface TableInstance<
     D extends Record<string, unknown> = Record<string, unknown>
@@ -82,7 +79,7 @@ declare module "react-table" {
       // UseFiltersInstanceProps<D>,
       // UseGlobalFiltersInstanceProps<D>,
       // UseGroupByInstanceProps<D>,
-      UseRowSelectInstanceProps<D>,
+      // UseRowSelectInstanceProps<D>,
       UseRowStateInstanceProps<D>,
       UseSortByInstanceProps<D> {}
 
@@ -95,7 +92,7 @@ declare module "react-table" {
       // UseGroupByState<D>,
       UsePaginationState<D>,
       UseResizeColumnsState<D>,
-      UseRowSelectState<D>,
+      // UseRowSelectState<D>,
       UseRowStateState<D>,
       UseSortByState<D> {}
 
@@ -125,10 +122,7 @@ declare module "react-table" {
   > = UseRowStateCellProps<D>
   // UseGroupByCellProps<D> {}
 
-  export interface Row<
+  export type Row<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseRowSelectRowProps<D>,
-      // UseGroupByRowProps<D>,
-      // UseExpandedRowProps<D>,
-      UseRowStateRowProps<D> {}
+  > = UseRowStateRowProps<D>
 }

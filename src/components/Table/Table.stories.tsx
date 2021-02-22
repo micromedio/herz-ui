@@ -152,3 +152,33 @@ ControlledSortingExample.args = {
     desc: true,
   },
 }
+
+const SelectRowsTemplate: Story<TableProps> = (props: TableProps) => {
+  const [selectedRowIds, setSeletedRowIds] = useState<Record<string, boolean>>({
+    HBPM557: true,
+    HBPM510: true,
+  })
+
+  const onRowSelectionChange = useCallback(
+    (rowIds) => setSeletedRowIds(rowIds),
+    [setSeletedRowIds]
+  )
+
+  return (
+    <React.Fragment>
+      <Table
+        {...props}
+        selectedRowIds={selectedRowIds}
+        onRowSelectionChange={onRowSelectionChange}
+      />
+    </React.Fragment>
+  )
+}
+export const SelectRowsExample = SelectRowsTemplate.bind({})
+
+SelectRowsExample.args = {
+  columns,
+  data,
+  initialPageSize: 5,
+  rowsSelectable: true,
+}
