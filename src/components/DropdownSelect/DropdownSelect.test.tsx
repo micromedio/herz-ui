@@ -37,7 +37,7 @@ describe("DropdownSelect", () => {
      * Check if the options are rendered
      */
     mockedOptions.forEach((option) => {
-      expect(getByText(option)).toBeInTheDocument()
+      expect(getByText(option.label)).toBeInTheDocument()
     })
 
     /**
