@@ -238,11 +238,17 @@ const Table = ({
           <span>Showing</span>
           <div sx={{ flexShrink: 0 }}>
             <DropdownSelect
-              options={["5", "10", "25", "50"]}
-              value={`${pageSize}`}
-              onChange={({ selectedItem }) =>
-                setPageSize(Number.parseInt(selectedItem ?? "10"))
-              }
+              options={[
+                { value: 5, label: "5" },
+                { value: 10, label: "10" },
+                { value: 25, label: "25" },
+                { value: 50, label: "50" },
+              ]}
+              value={pageSize}
+              onChange={({ selectedItem }) => {
+                if (selectedItem)
+                  setPageSize(Number.parseInt(selectedItem.toString() ?? "10"))
+              }}
             />
           </div>
           <span>results per page from a total of {totalCount} results</span>

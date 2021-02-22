@@ -13,7 +13,7 @@ export interface DropdownSelectProps {
     label: string
   }>
   /** The value of the `input` element, required for a controlled component */
-  value?: string
+  value?: string | number
   /** Wether the component is disabled or not */
   disabled?: boolean
   /** Callback fired when the value is changed */
