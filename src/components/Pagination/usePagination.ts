@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { PaginationItemProps } from "../PaginationItem/PaginationItem"
 
 interface UsePaginationProps {
@@ -95,7 +95,12 @@ const usePagination = ({
 }: UsePaginationProps = {}) => {
   const isControlled = pageProp !== undefined
 
-  const [page, setPage] = useState(pageProp ?? defaultPage)
+  const [pageState, setPage] = useState(pageProp ?? defaultPage)
+
+  const page = useMemo(() => {
+    if (pageProp !== undefined) return pageProp
+    return pageState
+  }, [pageState, pageProp])
 
   const handleClick = (value?: number) => {
     if (value) {
