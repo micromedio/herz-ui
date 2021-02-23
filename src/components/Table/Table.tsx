@@ -151,10 +151,6 @@ const Table = ({
     })
   }, [onTableChange, pageIndex, pageSize, sortBy])
 
-  useEffect(() => {
-    onRowSelectionChange?.(selectedRowIds)
-  }, [onRowSelectionChange, selectedRowIds])
-
   const totalCount = useMemo(() => {
     if (manualPagination) return controlledTotalCount
     return data.length
@@ -211,8 +207,8 @@ const Table = ({
                       alignItems: "center",
                       pl: 6,
                       pb: 3,
-                      color: "#777777", // TODO: use theme colors
-                      variant: "text.body1",
+                      color: column.isSorted ? "#1D1D1D" : "#777777", // TODO: use theme colors
+                      variant: column.isSorted ? "text.heading3" : "text.body1",
                       textAlign: column.align ?? "start",
                     }}
                   >
@@ -261,15 +257,22 @@ const Table = ({
               sx={{
                 p: 1,
                 borderBottom: "1px solid #E8E8E9", // TODO: use theme colors
+                transition: "all 0.2s",
+                backgroundColor: !!selectedRowIds[row.id]
+                  ? "rgba(0, 130, 252, 0.06)"
+                  : "transparent",
               }}
             >
               <div
                 {...rowProps}
                 sx={{
                   borderRadius: 3,
-                  transition: "all 0.2s ease-out",
+                  transition: "all 0.2s",
+
                   "&:hover": {
-                    backgroundColor: "rgba(0, 130, 252, 0.06)",
+                    backgroundColor: !selectedRowIds[row.id]
+                      ? "rgba(0, 130, 252, 0.06)"
+                      : "transparent",
                   },
                 }}
               >
