@@ -1,26 +1,28 @@
 import { useCallback, useMemo, useState } from "react"
 
 interface UseRowSelectionProps {
+  // initial selectedRowIds
   selectedRowIds?: Record<string, boolean>
+  // callback called when selectedRows change, hook is controlled if this is not undefined
   onChange?: (rowIds: Record<string, boolean>) => void
 }
 
 const useRowSelection = ({
-  selectedRowIds: controlledSelectedRowIds,
+  selectedRowIds: controlledSelectedRowIds = {},
   onChange,
-}: UseRowSelectionProps) => {
+}: UseRowSelectionProps = {}) => {
   const [internalSelectedRowIds, setInternalSelectedRowIds] = useState<
     Record<string, boolean>
-  >({})
-  const isControlled = controlledSelectedRowIds !== undefined
+  >(controlledSelectedRowIds)
+  const isControlled = onChange !== undefined
 
   const selectedRowIds = useMemo(() => {
-    if (controlledSelectedRowIds !== undefined) return controlledSelectedRowIds
+    if (isControlled) return controlledSelectedRowIds
     return internalSelectedRowIds
-  }, [internalSelectedRowIds, controlledSelectedRowIds])
+  }, [internalSelectedRowIds, controlledSelectedRowIds, isControlled])
 
   const toggleRowSelected = useCallback(
-    (rowId) => {
+    (rowId: string | number) => {
       const newValue = { ...selectedRowIds }
       if (newValue[rowId]) {
         delete newValue[rowId]
@@ -35,7 +37,7 @@ const useRowSelection = ({
   )
 
   const setRowsSelected = useCallback(
-    (rowIds, value) => {
+    (rowIds: Array<string | number>, value: boolean) => {
       const newValue = { ...selectedRowIds }
       for (const rowId of rowIds) {
         if (value) {
