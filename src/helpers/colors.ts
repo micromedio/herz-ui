@@ -1,39 +1,34 @@
-import Values from "values.js"
+import { tint } from "polished"
 
-type BaseColors = {
-  [key: string]: string
+export type BaseColor = {
+  name: string
+  /** Color hexadecimal */
+  color: string
+  /** Array of tints percentage to be generated */
+  tintPercentages: Array<number>
 }
 
-type PaletteColors = {
+export type PaletteColors = {
   [key: string]: Array<string>
 }
 
-/** How much tints must be generated from each color? */
-const TINTS_QUANTITY = 100
-
-/** Which tints must be used based on weight? (from 0 to ${TINTS_QUANTITY}) */
-const TARGET_WEIGHTS = [39, 89, 94, 96]
-
-const weight = Math.round(100 / TINTS_QUANTITY)
-
 /**
- * Generates tints from pre-defined baseColors
- * Check out https://noeldelgado.github.io/shadowlord/ for reference
+ * Generates tints from pre-defined baseColors.
+ * Tints are colors mixed with white.
  */
-function generateColorsPalette(baseColors: BaseColors) {
-  const colorKeys = Object.keys(baseColors)
-
+function generateColorsPalette(baseColors: BaseColor[]): PaletteColors {
   const generatedPalette: PaletteColors = {}
 
-  colorKeys.map((key) => {
-    const colorValues = new Values(baseColors[key])
-    const generatedColors = colorValues.tints(weight)
+  baseColors.map((baseColor) => {
+    const { tintPercentages, name, color } = baseColor
 
-    const tints = TARGET_WEIGHTS.map((weightToBeUsed) => {
-      return generatedColors[weightToBeUsed].hexString()
+    const generatedTints = tintPercentages.map((percentage) => {
+      const tintedBaseColor = tint(percentage, color)
+
+      return tintedBaseColor
     })
 
-    generatedPalette[key] = tints
+    generatedPalette[name] = generatedTints
   })
 
   return generatedPalette

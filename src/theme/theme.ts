@@ -1,18 +1,37 @@
 import { Theme } from "theme-ui"
 import { base } from "@theme-ui/presets"
 
-import { generateColorsPalette } from "../helpers/colors"
+import { generateColorsPalette, BaseColor } from "../helpers/colors"
 
-const baseColors = {
-  primary: "#FF3C3C" /** Red */,
-  secondary: "#0082FC" /** Blue */,
-  text: "#1D1D1D",
-  success: "#30D158" /** Green */,
-}
+const DEFAULT_TINTS = [0, 0.4, 0.9, 0.95, 0.97]
 
-const palette = generateColorsPalette(baseColors)
+const baseColors: Array<BaseColor> = [
+  {
+    name: "primary",
+    color: "#FF3C3C" /** Red */,
+    tintPercentages: DEFAULT_TINTS,
+  },
+  {
+    name: "secondary",
+    color: "#0082FC" /** Blue */,
+    tintPercentages: DEFAULT_TINTS,
+  },
+  {
+    name: "text",
+    color: "#1D1D1D" /** Gray */,
+    tintPercentages: DEFAULT_TINTS,
+  },
+  {
+    name: "success",
+    color: "#30D158" /** Green */,
+    tintPercentages: DEFAULT_TINTS,
+  },
+]
 
-console.log(palette)
+/** Generate color palette  */
+const tintPalette = generateColorsPalette(baseColors)
+
+console.log(tintPalette)
 
 export const theme: Theme = {
   ...base,
