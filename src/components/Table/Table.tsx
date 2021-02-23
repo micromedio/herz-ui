@@ -226,6 +226,11 @@ const Table = ({
                               !allPageRowsSelected
                             )
                           }
+                          aria-label={
+                            allPageRowsSelected
+                              ? "unselect all rows"
+                              : "select all rows"
+                          }
                         />
                       </Label>
                     ) : (
@@ -302,6 +307,7 @@ const Table = ({
                             sx={checkboxStyles}
                             checked={!!selectedRowIds[row.id]}
                             onChange={() => toggleRowSelected(row.id)}
+                            aria-label={`select row ${row.id}`}
                           />
                         </Label>
                       ) : (
