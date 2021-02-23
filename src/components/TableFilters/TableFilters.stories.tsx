@@ -46,3 +46,35 @@ Example.args = {
     },
   ],
 }
+
+export const WithoutSearch = Template.bind({})
+WithoutSearch.args = {
+  actions: [
+    {
+      label: "New Study",
+      onClick: action("newStudy"),
+    },
+  ],
+  hideSearch: true,
+  filters: [
+    {
+      key: "status",
+      label: "Study status",
+      options: [
+        { value: "all", label: "All" },
+        { value: "active", label: "Active" },
+        { value: "inactive", label: "Inactive" },
+        { value: "pending", label: "Pending" },
+      ],
+    },
+    {
+      key: "type",
+      label: "Study type",
+      options: [
+        { value: "all", label: "All" },
+        { value: "inactive", label: "Inactive" },
+        { value: "pending", label: "Pending" },
+      ],
+    },
+  ],
+}

@@ -333,3 +333,5 @@ const columns = React.useMemo(() => {
 ### Filtering
 
 As the filters will live outsite the table, this component doesn't handle any filtering logic at the moment. So to handle filtering you have to manually filter the data before passing it to the table.
+
+See the `TableFilters` component for more information.

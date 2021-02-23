@@ -101,20 +101,20 @@ const TableFilters = ({
           )
         )}
 
-      {!hideSearch && (
-        <div
-          sx={{
-            flexGrow: 1,
-            flexBasis: searchMinWidth,
-          }}
-        >
+      <div
+        sx={{
+          flexGrow: 1,
+          flexBasis: hideSearch ? 0 : searchMinWidth,
+        }}
+      >
+        {!hideSearch && (
           <Input
             placeholder={placeholder}
             value={searchValue}
             onChange={(event) => onSearchChange?.(event.target.value)}
           />
-        </div>
-      )}
+        )}
+      </div>
 
       {filters &&
         filters.map(({ key, options, label, value }, index) => (
