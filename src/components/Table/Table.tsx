@@ -107,7 +107,6 @@ const Table = ({
     pageCount,
     gotoPage,
     setPageSize,
-
     state: { pageIndex, pageSize, sortBy },
   } = useTable(
     {
@@ -119,7 +118,6 @@ const Table = ({
       autoResetPage: false,
       autoResetSortBy: false,
       autoResetFilters: false,
-      autoResetSelectedRows: false,
       ...(controlledPageCount ? { pageCount: controlledPageCount } : {}), // unexpected behaviour from react-table if pageCount is passed as undefined instead of not passed at all
       initialState: {
         pageSize: initialPageSize,
@@ -222,7 +220,6 @@ const Table = ({
                       <Label key={key}>
                         <Checkbox
                           sx={checkboxStyles}
-                          // checked={!!selectedRowIds[row.id]}
                           checked={allPageRowsSelected}
                           // indeterminate={
                           //   !allPageRowsSelected && somePageRowsSelected
@@ -278,7 +275,6 @@ const Table = ({
               >
                 {row.cells.map((cell) => {
                   const { key, ...cellProps } = cell.getCellProps()
-
                   return (
                     <div
                       {...cellProps}
