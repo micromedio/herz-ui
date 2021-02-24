@@ -49,7 +49,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       sx={{
         display: "flex",
         width: "100%",
-        position: "relative",
         justifyContent: "center",
         gap: 2,
 
@@ -62,7 +61,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
         transition: "all 0.2s",
         "&:hover": {
-          backgroundColor: "#00000017", // TODO: remove fixed colors, use shade from theme
+          backgroundColor: value ? " #0082FC1F" : "#00000017", // TODO: remove fixed colors, use shade from theme
         },
         "&:focus-within": {
           borderColor: "highlight",
@@ -81,8 +80,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         disabled={disabled}
         onChange={onChange}
         aria-invalid={error}
+        size={1} // Input has a default size property of 20, which limits it's minimum width. Setting it to 1 and handling width through the parent so that we can control the input width better.
         {...htmlProps}
         sx={{
+          width: "100%",
           flexGrow: 1,
           outline: 0,
           backgroundColor: "transparent",

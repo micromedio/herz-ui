@@ -135,28 +135,14 @@ export const theme: Theme = {
       fontWeight: "medium",
       lineHeight: 20 / 12, // 20px
     },
+    button1: {
+      fontFamily: "body",
+      fontSize: "base",
+      fontWeight: "semibold",
+      lineHeight: "body",
+    },
   },
 
-  buttons: {
-    primary: {
-      color: "background",
-      bg: "primary",
-      "&:hover": {
-        opacity: 0.7,
-      },
-      cursor: "pointer",
-      transition: "all .3s linear",
-    },
-    secondary: {
-      color: "background",
-      bg: "secondary",
-      "&:hover": {
-        opacity: 0.7,
-      },
-      cursor: "pointer",
-      transition: "all .3s linear",
-    },
-  },
   styles: {
     ...base.styles,
     root: {
