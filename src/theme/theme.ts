@@ -35,7 +35,6 @@ const baseColors: Array<BaseColor> = [
 /** Generate color palette  */
 const tintPalette = generateColorsPalette(baseColors)
 
-console.log(tintPalette)
 
 export const theme: Theme = {
   ...base,
