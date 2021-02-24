@@ -1,6 +1,39 @@
 import { Theme } from "theme-ui"
-
 import { base } from "@theme-ui/presets"
+
+import { generateColorsPalette, BaseColor } from "../helpers/colors"
+
+const DEFAULT_TINT_PERCENTAGES = [0, 40, 90, 95, 97]
+
+const baseColors: Array<BaseColor> = [
+  {
+    name: "primary",
+    color: "#FF3C3C" /** Red */,
+    tintPercentages: DEFAULT_TINT_PERCENTAGES,
+    alphaPercentages: DEFAULT_TINT_PERCENTAGES,
+  },
+  {
+    name: "secondary",
+    color: "#0082FC" /** Blue */,
+    tintPercentages: DEFAULT_TINT_PERCENTAGES,
+    alphaPercentages: DEFAULT_TINT_PERCENTAGES,
+  },
+  {
+    name: "text",
+    color: "#1D1D1D" /** Gray */,
+    tintPercentages: DEFAULT_TINT_PERCENTAGES,
+    alphaPercentages: DEFAULT_TINT_PERCENTAGES,
+  },
+  {
+    name: "success",
+    color: "#30D158" /** Green */,
+    tintPercentages: DEFAULT_TINT_PERCENTAGES,
+    alphaPercentages: DEFAULT_TINT_PERCENTAGES,
+  },
+]
+
+/** Generate color palette  */
+const colorPalette = generateColorsPalette(baseColors)
 
 export const theme: Theme = {
   ...base,
@@ -11,6 +44,7 @@ export const theme: Theme = {
     .fill(0)
     .map((_, index) => index * 4), // results in [0, 4, 8, 12, ..., 60, 64]
   colors: {
+    ...colorPalette,
     background: "#FFF2F2", // light red bg
     text: "#1D1D1F", // dark text
     muted: "#86868B", // gray text
