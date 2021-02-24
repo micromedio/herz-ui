@@ -24,7 +24,7 @@ type generatedColors = {
 }
 
 /**
- * Generates tints from pre-defined baseColors.
+ * Generates tints and alphas from pre-defined baseColors.
  * Tints are colors mixed with white.
  */
 function generateColorsPalette(baseColors: BaseColor[]): PaletteColors {

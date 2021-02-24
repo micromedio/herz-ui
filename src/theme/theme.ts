@@ -33,8 +33,7 @@ const baseColors: Array<BaseColor> = [
 ]
 
 /** Generate color palette  */
-const tintPalette = generateColorsPalette(baseColors)
-
+const colorPalette = generateColorsPalette(baseColors)
 
 export const theme: Theme = {
   ...base,
@@ -45,6 +44,7 @@ export const theme: Theme = {
     .fill(0)
     .map((_, index) => index * 4), // results in [0, 4, 8, 12, ..., 60, 64]
   colors: {
+    ...colorPalette,
     background: "#FFF2F2", // light red bg
     text: "#1D1D1F", // dark text
     muted: "#86868B", // gray text
