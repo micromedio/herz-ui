@@ -14,6 +14,9 @@ export default [
         name: faker.name.findName(),
       },
       status: faker.random.arrayElement(["draft", "pending", "pre-registered"]),
-      startDate: faker.date.past(),
+      startDate: faker.date.between(
+        new Date("01/01/2000"),
+        new Date("01/01/2021")
+      ),
     })),
 ]
