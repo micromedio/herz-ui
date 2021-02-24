@@ -3,28 +3,32 @@ import { base } from "@theme-ui/presets"
 
 import { generateColorsPalette, BaseColor } from "../helpers/colors"
 
-const DEFAULT_TINTS = [0, 0.4, 0.9, 0.95, 0.97]
+const DEFAULT_TINT_PERCENTAGES = [0, 40, 90, 95, 97]
 
 const baseColors: Array<BaseColor> = [
   {
     name: "primary",
     color: "#FF3C3C" /** Red */,
-    tintPercentages: DEFAULT_TINTS,
+    tintPercentages: DEFAULT_TINT_PERCENTAGES,
+    alphaPercentages: DEFAULT_TINT_PERCENTAGES,
   },
   {
     name: "secondary",
     color: "#0082FC" /** Blue */,
-    tintPercentages: DEFAULT_TINTS,
+    tintPercentages: DEFAULT_TINT_PERCENTAGES,
+    alphaPercentages: DEFAULT_TINT_PERCENTAGES,
   },
   {
     name: "text",
     color: "#1D1D1D" /** Gray */,
-    tintPercentages: DEFAULT_TINTS,
+    tintPercentages: DEFAULT_TINT_PERCENTAGES,
+    alphaPercentages: DEFAULT_TINT_PERCENTAGES,
   },
   {
     name: "success",
     color: "#30D158" /** Green */,
-    tintPercentages: DEFAULT_TINTS,
+    tintPercentages: DEFAULT_TINT_PERCENTAGES,
+    alphaPercentages: DEFAULT_TINT_PERCENTAGES,
   },
 ]
 

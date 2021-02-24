@@ -1,15 +1,26 @@
-import { tint } from "polished"
+import { tint, transparentize } from "polished"
 
 export type BaseColor = {
   name: string
   /** Color hexadecimal */
   color: string
-  /** Array of tints percentage to be generated */
+  /** Array of tint percentages to be generated */
   tintPercentages: Array<number>
+  /** Array of alpha percentages to be generated */
+  alphaPercentages: Array<number>
 }
 
 export type PaletteColors = {
-  [key: string]: Array<string>
+  [key: string]: generatedColors
+}
+
+type generatedColors = {
+  /** Generated tint variations */
+  [key: number]: string
+  alpha: {
+    /** Generated alpha variations */
+    [key: number]: string
+  }
 }
 
 /**
@@ -19,13 +30,25 @@ export type PaletteColors = {
 function generateColorsPalette(baseColors: BaseColor[]): PaletteColors {
   const generatedPalette: PaletteColors = {}
 
-  baseColors.map((baseColor) => {
-    const { tintPercentages, name, color } = baseColor
+  baseColors.forEach((baseColor) => {
+    const { name, color, tintPercentages, alphaPercentages } = baseColor
 
-    const generatedTints = tintPercentages.map((percentage) => {
-      const tintedBaseColor = tint(percentage, color)
+    const generatedTints: generatedColors = {
+      alpha: {},
+    }
 
-      return tintedBaseColor
+    tintPercentages.forEach((percentage) => {
+      const tintedBaseColor = tint(percentage / 100, color)
+
+      generatedTints[percentage] = tintedBaseColor
+    })
+
+    alphaPercentages.forEach((percentage) => {
+      const alphaBaseColor = transparentize(percentage / 100, color)
+
+      if (percentage > 0) {
+        generatedTints.alpha[percentage] = alphaBaseColor
+      }
     })
 
     generatedPalette[name] = generatedTints
