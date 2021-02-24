@@ -6,6 +6,7 @@ import Table, { TableProps } from "./Table"
 import { Meta, Story } from "@storybook/react/types-6-0"
 import data from "./__mocks__/data"
 import _ from "lodash"
+import { action } from "@storybook/addon-actions"
 
 export default {
   title: "Design System/Table",
@@ -151,4 +152,39 @@ ControlledSortingExample.args = {
     id: "patient.name",
     desc: true,
   },
+}
+
+const SelectRowsTemplate: Story<TableProps> = (props: TableProps) => {
+  const [selectedRowIds, setSeletedRowIds] = useState<Record<string, boolean>>({
+    HBPM557: true,
+    HBPM510: true,
+  })
+
+  const onRowSelectionChangeAction = action("onRowSelectionChange")
+
+  const onRowSelectionChange = useCallback(
+    (rowIds) => {
+      onRowSelectionChangeAction(rowIds)
+      setSeletedRowIds(rowIds)
+    },
+    [setSeletedRowIds, onRowSelectionChangeAction]
+  )
+
+  return (
+    <React.Fragment>
+      <Table
+        {...props}
+        selectedRowIds={selectedRowIds}
+        onRowSelectionChange={onRowSelectionChange}
+      />
+    </React.Fragment>
+  )
+}
+export const SelectRowsExample = SelectRowsTemplate.bind({})
+
+SelectRowsExample.args = {
+  columns,
+  data,
+  initialPageSize: 5,
+  rowsSelectable: true,
 }

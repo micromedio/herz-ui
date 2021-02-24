@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { jsx } from "theme-ui"
+import { jsx, Checkbox, Label } from "theme-ui"
 import {
   useTable,
   Column,
@@ -10,13 +10,27 @@ import {
   SortingRule,
 } from "react-table"
 import { Pagination, DropdownSelect } from "../"
-import { memo, useEffect, useMemo } from "react"
+import { memo, useEffect, useMemo, Fragment } from "react"
+import useRowSelection from "./useRowSelection"
+
+const INTERNAL_SELECTION_COLUMN_ID = "INTERNAL_SELECTION_COLUMN_ID"
+
+interface DataType extends Record<string, unknown> {
+  id: string
+}
 
 export interface TableProps {
   /** Definition of the table columns */
-  columns: Array<Column<Record<string, unknown>>>
+  columns: Array<Column<DataType>>
   /** Data to be displayed in the table */
-  data: Array<Record<string, unknown>>
+  data: Array<DataType>
+
+  /** If `true`, the table will have selectable rows with a checkbox */
+  rowsSelectable?: boolean
+  /** Selected row ids */
+  selectedRowIds?: Record<string, boolean>
+  /** Callback called when row selection changes */
+  onRowSelectionChange?: (selectedRowIds: Record<string, boolean>) => void
 
   /** If `true`, the table will be displayed in a loading state */
   loading?: boolean
@@ -58,6 +72,10 @@ const Table = ({
   data,
   // loading,
 
+  rowsSelectable = false,
+  selectedRowIds: controlledSelectedRowIds,
+  onRowSelectionChange,
+
   // Sorting
   manualSorting = false,
   initialSortBy,
@@ -71,6 +89,15 @@ const Table = ({
 
   onTableChange,
 }: TableProps) => {
+  const {
+    selectedRowIds,
+    setRowsSelected,
+    toggleRowSelected,
+  } = useRowSelection({
+    selectedRowIds: controlledSelectedRowIds,
+    onChange: onRowSelectionChange,
+  })
+
   const {
     getTableBodyProps,
     getTableProps,
@@ -97,10 +124,23 @@ const Table = ({
         pageIndex: initialPageIndex,
         ...(initialSortBy ? { sortBy: [initialSortBy] } : {}),
       },
+      getRowId: (row, relativeIndex) => row?.id ?? relativeIndex,
     },
     useSortBy,
     usePagination,
-    useFlexLayout
+    useFlexLayout,
+
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => {
+        const selectColumn = {
+          id: INTERNAL_SELECTION_COLUMN_ID,
+          width: 48,
+        }
+
+        if (rowsSelectable) return [selectColumn, ...columns]
+        return columns
+      })
+    }
   )
 
   useEffect(() => {
@@ -115,6 +155,24 @@ const Table = ({
     if (manualPagination) return controlledTotalCount
     return data.length
   }, [manualPagination, controlledTotalCount, data])
+
+  const checkboxStyles = {
+    "input:checked ~ &": {
+      color: "#0082FC", // TODO: use theme color
+    },
+    "input:focus ~ &": {
+      color: "#0082FC", // TODO: use theme color
+      bg: "transparent",
+    },
+  }
+
+  const allPageRowsSelected = useMemo(() => {
+    return !page.some((row) => !selectedRowIds[row.id])
+  }, [page, selectedRowIds])
+
+  // const somePageRowsSelected = useMemo(() => {
+  //   return page.some((row) => selectedRowIds[row.id])
+  // }, [page, selectedRowIds])
 
   return (
     <div
@@ -145,21 +203,48 @@ const Table = ({
                     {...headerProps}
                     key={key}
                     sx={{
+                      display: "flex",
+                      alignItems: "center",
                       pl: 6,
                       pb: 3,
-                      color: "#777777", // TODO: use theme colors
-                      variant: "text.body1",
+                      color: column.isSorted ? "#1D1D1D" : "#777777", // TODO: use theme colors
+                      variant: column.isSorted ? "text.heading3" : "text.body1",
                       textAlign: column.align ?? "start",
                     }}
                   >
-                    {column.render("Header")}
-                    <span>
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? " 🔽"
-                          : " 🔼" // TODO: use arrow icons instead of unicode text
-                        : ""}
-                    </span>
+                    {column.id === INTERNAL_SELECTION_COLUMN_ID ? (
+                      <Label key={key}>
+                        <Checkbox
+                          sx={checkboxStyles}
+                          checked={allPageRowsSelected}
+                          // indeterminate={
+                          //   !allPageRowsSelected && somePageRowsSelected
+                          // }
+                          onChange={() =>
+                            setRowsSelected(
+                              page.map((row) => row.id),
+                              !allPageRowsSelected
+                            )
+                          }
+                          aria-label={
+                            allPageRowsSelected
+                              ? "unselect all rows"
+                              : "select all rows"
+                          }
+                        />
+                      </Label>
+                    ) : (
+                      <Fragment>
+                        {column.render("Header")}
+                        <span>
+                          {column.isSorted
+                            ? column.isSortedDesc
+                              ? " 🔽"
+                              : " 🔼" // TODO: use arrow icons instead of unicode text
+                            : ""}
+                        </span>
+                      </Fragment>
+                    )}
                   </div>
                 )
               })}
@@ -177,15 +262,22 @@ const Table = ({
               sx={{
                 p: 1,
                 borderBottom: "1px solid #E8E8E9", // TODO: use theme colors
+                transition: "all 0.2s",
+                backgroundColor: !!selectedRowIds[row.id]
+                  ? "rgba(0, 130, 252, 0.06)"
+                  : "transparent",
               }}
             >
               <div
                 {...rowProps}
                 sx={{
                   borderRadius: 3,
-                  transition: "all 0.2s ease-out",
+                  transition: "all 0.2s",
+
                   "&:hover": {
-                    backgroundColor: "rgba(0, 130, 252, 0.06)",
+                    backgroundColor: !selectedRowIds[row.id]
+                      ? "rgba(0, 130, 252, 0.06)"
+                      : "transparent",
                   },
                 }}
               >
@@ -209,7 +301,18 @@ const Table = ({
                         alignItems: "center",
                       }}
                     >
-                      {cell.render("Cell")}
+                      {cell.column.id === INTERNAL_SELECTION_COLUMN_ID ? (
+                        <Label key={key}>
+                          <Checkbox
+                            sx={checkboxStyles}
+                            checked={!!selectedRowIds[row.id]}
+                            onChange={() => toggleRowSelected(row.id)}
+                            aria-label={`select row ${row.id}`}
+                          />
+                        </Label>
+                      ) : (
+                        cell.render("Cell")
+                      )}
                     </div>
                   )
                 })}
