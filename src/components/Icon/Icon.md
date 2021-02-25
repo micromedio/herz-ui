@@ -1,19 +1,13 @@
 #### Default:
 ```jsx
-import { useThemeUI } from 'theme-ui';
-const { theme } = useThemeUI();
-
-<Icon name="IconAlertTriangle" color={theme.colors.highlight} size={20} stroke={2} />
+<Icon name="IconAlertTriangle" color="highlight" size={20} stroke={2} />
 ```
 
 #### Thicker Icon:
 
 ```js
 
-import { useThemeUI } from 'theme-ui';
-const { theme } = useThemeUI();
-
-<Icon name="IconAlertTriangle" color={theme.colors.highlight} size={20} stroke={4} />
+<Icon name="IconAlertTriangle" color="highlight" size={20} stroke={4} />
 
 ```
 
@@ -21,10 +15,7 @@ const { theme } = useThemeUI();
 
 ```js
 
-import { useThemeUI } from 'theme-ui';
-const { theme } = useThemeUI();
-
-<Icon name="IconAlertTriangle" color={theme.colors.primary} size={20} stroke={2} />
+<Icon name="IconAlertTriangle" color="highlight" size={20} stroke={2} />
 
 ```
 
@@ -33,9 +24,6 @@ const { theme } = useThemeUI();
 
 ```js
 
-import { useThemeUI } from 'theme-ui';
-const { theme } = useThemeUI();
-
-<Icon name="IconAlertTriangle" color={theme.colors.primary} size={24} stroke={2} />
+<Icon name="IconAlertTriangle" color="highlight" size={24} stroke={2} />
 
 ```

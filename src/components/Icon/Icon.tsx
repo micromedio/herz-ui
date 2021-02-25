@@ -1,18 +1,17 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { createElement } from "react"
 import * as TablerIcons from "@tabler/icons"
 
 type IconType = typeof import("@tabler/icons")
 
 export interface IconProps {
-  name: string
+  name: keyof IconType
 
   // set custom `width` and `height`
   size?: number
 
   // set `stroke` color
-  color?: string
+  color?: "primary" | "highlight" | "muted"
 
   // set the thickness stroke
   stroke?: number
@@ -21,14 +20,20 @@ export interface IconProps {
 const Icon = ({
   name = "IconAlertTriangle",
   size = 20,
-  color = "blue",
+  color = "primary",
   stroke = 2,
 }: IconProps) => {
-  return createElement(TablerIcons[name as keyof IconType], {
-    size,
-    color,
-    stroke,
-  })
+  const Component = TablerIcons[name]
+
+  return (
+    <Component
+      size={size}
+      stroke={stroke}
+      sx={{
+        color,
+      }}
+    />
+  )
 }
 
 export default Icon
