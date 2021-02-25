@@ -7,15 +7,9 @@ export default {
   component: Breadcrumbs,
 } as Meta
 
-const Template: Story<BreadcrumbsProps> = (props: BreadcrumbsProps) => {
-  return (
-    <Breadcrumbs {...props}>
-      {/* <a href="#">Studies</a>
-      <a href="#">New Study</a>
-      <span>New patient</span> */}
-    </Breadcrumbs>
-  )
-}
+const Template: Story<BreadcrumbsProps> = (props: BreadcrumbsProps) => (
+  <Breadcrumbs {...props} />
+)
 
 export const Example = Template.bind({})
 Example.args = {
