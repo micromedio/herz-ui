@@ -1,5 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
+import { jsx } from "theme-ui"
 import * as TablerIcons from "@tabler/icons"
 
 type IconType = typeof import("@tabler/icons")
