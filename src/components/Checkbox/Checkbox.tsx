@@ -4,31 +4,27 @@ import { jsx, Label } from "theme-ui"
 import * as React from "react"
 
 export interface ICheckboxProps {
-  checked: boolean
+  checked?: boolean
   indeterminate?: boolean
   disabled?: boolean
   label?: string
   name?: string
-  onChange(): void
+  onChange?(): void
 }
 
 /** @TODO add colors to theme file */
 const stateStyles = {
   resting: {
     backgroundColor: "#F4F4F4",
-    borderColor: "transparent",
   },
   hover: {
     backgroundColor: "#E8E8E9",
-    borderColor: "transparent",
   },
   active: {
-    backgroundColor: "#fff",
-    borderColor: "#0082FC",
+    backgroundColor: "#E8E8E9",
   },
   filled: {
     backgroundColor: "#0082FC",
-    borderColor: "transparent",
   },
 }
 
@@ -76,6 +72,8 @@ export default function Checkbox(props: ICheckboxProps) {
     indeterminate = false,
     label,
     name,
+    onChange,
+    ...restProps
   } = props
 
   return (
@@ -90,10 +88,11 @@ export default function Checkbox(props: ICheckboxProps) {
         }}
       >
         <input
-          {...props}
+          {...restProps}
           type="checkbox"
           id={name}
           title={name}
+          onChange={(!disabled && onChange) || undefined}
           ref={(input) => {
             if (input) {
               input.checked = checked
@@ -138,6 +137,7 @@ export default function Checkbox(props: ICheckboxProps) {
               opacity: 1,
             },
           }}
+          data-testid="checkbox"
         />
         <div
           sx={{
