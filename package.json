@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/micromed-dev/herz-ui#readme",
   "dependencies": {
-    "@theme-ui/color": "0.6.0-alpha.6",
     "@popperjs/core": "^2.6.0",
     "@theme-ui/presets": "^0.3.5",
     "downshift": "^6.1.0",
