@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { jsx } from "theme-ui"
+import { HerzUITheme, jsx } from "theme-ui"
 import { ChangeEvent, forwardRef, InputHTMLAttributes } from "react"
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -54,19 +54,20 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
         paddingY: 1,
         paddingX: 3,
-        backgroundColor: value ? "#0082FC0F" : "#0000000A", // TODO: remove fixed colors, use shade from theme
+        backgroundColor: value ? "secondary.alpha.95" : "text.alpha.95",
         outline: 0,
         borderRadius: 2,
         border: "2px solid transparent",
 
         transition: "all 0.2s",
         "&:hover": {
-          backgroundColor: value ? " #0082FC1F" : "#00000017", // TODO: remove fixed colors, use shade from theme
+          backgroundColor: value ? "secondary.alpha.90" : "text.alpha.90",
         },
         "&:focus-within": {
-          borderColor: "highlight",
-          boxShadow: "0px 0px 0px 4px #EBF3FB", // TODO: remove fixed colors, use shade from theme
-          backgroundColor: "#FFFFFF", // TODO: remove fixed colors, use shade from theme
+          borderColor: "secondary.0",
+          boxShadow: (theme: HerzUITheme) =>
+            `0px 0px 0px 4px ${theme.colors.secondary.alpha[95]}`,
+          backgroundColor: "#FFF",
         },
       }}
     >
@@ -89,7 +90,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           backgroundColor: "transparent",
           border: "none",
           p: 1,
-          color: "text",
+          color: "text.0",
         }}
       />
 
@@ -100,7 +101,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            color: "muted",
+            color: "text.40",
           }}
         >
           {unit}

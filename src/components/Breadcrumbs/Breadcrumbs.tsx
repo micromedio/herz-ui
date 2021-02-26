@@ -31,7 +31,7 @@ const Breadcrumbs = ({ children }: BreadcrumbsProps) => {
       key={`child-${index}`}
       sx={
         index === allItems.length - 1
-          ? { color: "#1d1d1d", variant: "text.heading3" } // TODO: use "text.0" color from theme
+          ? { color: "text.0", variant: "text.heading3" }
           : {}
       }
     >
@@ -64,7 +64,7 @@ const Breadcrumbs = ({ children }: BreadcrumbsProps) => {
         alignItems: "center",
         p: 0,
         m: 0,
-        color: "#777777", // TODO: use "text.1" color from theme
+        color: "text.40",
         variant: "text.body1",
       }}
     >

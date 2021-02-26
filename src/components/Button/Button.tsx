@@ -1,15 +1,19 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { Button as ThemeUIButton, jsx, SxStyleProp } from "theme-ui"
+import {
+  Button as ThemeUIButton,
+  HerzUITheme,
+  jsx,
+  SxStyleProp,
+} from "theme-ui"
 import { MouseEvent, ButtonHTMLAttributes, forwardRef } from "react"
-import { shade } from "@theme-ui/color"
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: string
 
   variant?: "filled" | "plain"
 
-  color?: string
+  color?: "primary" | "secondary" | "success" | "text"
 
   disabled?: boolean
 
@@ -33,20 +37,21 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     cursor: "pointer",
     position: "relative",
     transition: "all .2s linear",
+    backgroundColor: (theme: HerzUITheme) =>
+      theme.colors[color][color === "text" ? 40 : 0],
+    "&:hover": {
+      backgroundColor: (theme: HerzUITheme) => theme.colors[color].shade[10],
+    },
+    "&:disabled": {
+      opacity: 0.3,
+      cursor: "default",
+    },
   }
 
   const filled: SxStyleProp = {
     ...baseButton,
     paddingX: 3,
     paddingY: 2,
-    backgroundColor: color,
-    "&:hover": {
-      backgroundColor: shade(color, 0.1),
-    },
-    "&:disabled": {
-      opacity: 0.3,
-      cursor: "default",
-    },
   }
 
   const plain: SxStyleProp = {
@@ -54,14 +59,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     paddingX: 1,
     paddingY: 2,
     backgroundColor: "transparent",
-    color: "#0082FC",
+    color: (theme: HerzUITheme) =>
+      theme.colors[color][color === "text" ? 40 : 0],
     "&:hover": {
-      backgroundColor: "#0082FC0F",
+      backgroundColor: (theme: HerzUITheme) => theme.colors[color].alpha[90],
     },
     "&:disabled": {
+      ...baseButton["&:disabled"],
       backgroundColor: "transparent",
-      opacity: 0.3,
-      cursor: "default",
     },
   }
 
@@ -69,7 +74,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     <ThemeUIButton
       ref={ref}
       onClick={onClick}
-      variant={variant}
       {...htmlProps}
       disabled={disabled}
       sx={variant === "filled" ? filled : plain}

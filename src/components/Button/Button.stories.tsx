@@ -25,7 +25,7 @@ export const Filled = Template.bind({})
 Filled.args = {
   ...Example.args,
   variant: "filled",
-  color: "primary",
+  color: "text",
 }
 
 export const Plain = Template.bind({})
