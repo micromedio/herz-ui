@@ -51,18 +51,26 @@ const PaginationItem = ({
 
         transition: "all 0.2s",
         border: "2px solid",
-        backgroundColor: selected ? "#E6F3FF" : "transparent", // TODO: remove fixed colors, use shade from theme
-        borderColor: selected ? "#0082FC" : "transparent", // TODO: remove fixed colors, use shade from theme
+        backgroundColor: "transparent",
+        borderColor: "transparent",
         borderRadius: 2,
-        color: selected ? "text" : "#777779", // TODO: remove fixed colors, use shade from theme
+        color: "text.40",
         opacity: disabled ? 0.3 : 1,
         cursor: disabled || type === "ellipsis" ? "default" : "pointer",
         pointerEvents: type === "ellipsis" ? "none" : undefined,
-
         outline: "none",
+
         "&:hover, &:focus": {
-          backgroundColor: selected ? undefined : "#00000017", // TODO: remove fixed colors, use shade from theme
+          backgroundColor: disabled ? undefined : "text.90",
         },
+        ...(selected
+          ? {
+              color: "text.0",
+              backgroundColor: "secondary.95",
+              borderColor: "secondary.0",
+              "&:hover, &:focus": {},
+            }
+          : {}),
       }}
       onClick={onClick}
       aria-disabled={disabled}

@@ -36,7 +36,7 @@ const columns = [
           }}
         >
           <span>{row.original?.patient?.name}</span>
-          <span sx={{ variant: "text.body2", color: "#777777" }}>
+          <span sx={{ variant: "text.body2", color: "text.40" }}>
             SSN {row.original?.patient?.ssn}
           </span>
         </div>
