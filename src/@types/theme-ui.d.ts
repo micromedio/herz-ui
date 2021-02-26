@@ -22,6 +22,8 @@ declare module "theme-ui" {
 
   export interface ThemeUIContext {
     theme: HerzUITheme
+    colorMode: string
+    setColorMode: React.Dispatch<React.SetStateAction<string>>
   }
 
   export function useThemeUI(): ThemeUIContext
