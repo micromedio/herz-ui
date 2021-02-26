@@ -1,17 +1,30 @@
-Default Checkbox example:
-
-```js
-<Checkbox />
-```
-
 Labeled Checkbox example:
 
 ```js
-<Checkbox label="I'm checked" checked={true} />
+const [checked, setChecked] = React.useState(false)
+
+;<Checkbox
+  label="Check me"
+  checked={checked}
+  onChange={() => setChecked((prev) => !prev)}
+/>
 ```
 
 Indeterminate Checkbox state example:
 
 ```js
-<Checkbox indeterminate={true} label="check me" />
+const [checked, setChecked] = React.useState(false)
+
+;<Checkbox
+  label={checked ? "I'm checked" : "I'm indeterminated"}
+  indeterminate={true}
+  checked={checked}
+  onChange={() => setChecked((prev) => !prev)}
+/>
+```
+
+Disabled Checkbox state example:
+
+```js
+;<Checkbox label="Uncheckable" disabled={true} />
 ```

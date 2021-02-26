@@ -9,7 +9,7 @@ export interface ICheckboxProps {
   disabled: boolean
   label: string
   name: string
-  onChange(): Event
+  onChange(): void
 }
 
 /** @TODO add colors to theme file */
@@ -40,7 +40,7 @@ const indeterminateSvg = (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <rect width="20" height="20" rx="4" fill="#0082FC" />
+    <rect width="20" height="20" rx="4" fill="none" />
     <path
       d="M6 10H10.2667H14"
       stroke="white"
@@ -85,9 +85,8 @@ export default function Checkbox(props: ICheckboxProps) {
         sx={{
           position: "relative",
           alignItems: "center",
-          "input:checked ~ &": {
-            color: "blue",
-          },
+          opacity: disabled ? 0.4 : 1,
+          cursor: disabled ? "auto" : "pointer",
         }}
       >
         <input
@@ -105,21 +104,27 @@ export default function Checkbox(props: ICheckboxProps) {
             position: "relative",
             width: 20,
             height: 20,
+            marginRight: 2,
             appearance: "none",
             borderRadius: 1,
             border: "2px solid transparent",
-            cursor: "pointer",
             outline: "none",
             transition: "all 0.2s",
 
-            ...(checked ? stateStyles.filled : stateStyles.resting),
+            ...(checked || indeterminate
+              ? stateStyles.filled
+              : stateStyles.resting),
 
             "&:hover": {
-              ...(checked ? stateStyles.filled : stateStyles.hover),
+              ...(checked || indeterminate
+                ? stateStyles.filled
+                : stateStyles.hover),
             },
 
             "&:focus": {
-              ...(checked ? stateStyles.filled : stateStyles.active),
+              ...(checked || indeterminate
+                ? stateStyles.filled
+                : stateStyles.active),
             },
 
             "&:checked": {
@@ -146,7 +151,9 @@ export default function Checkbox(props: ICheckboxProps) {
             cursor: "pointer",
           }}
         >
-          {(indeterminate && indeterminateSvg) || (checked && checkedSvg)}
+          {(checked && checkedSvg) ||
+            (indeterminate && indeterminateSvg) ||
+            null}
         </div>
         {label && label}
       </Label>
