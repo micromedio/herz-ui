@@ -6,7 +6,7 @@ const [checked, setChecked] = React.useState(false)
 ;<Checkbox
   label="Check me"
   checked={checked}
-  onChange={() => setChecked((prev) => !prev)}
+  onChange={() => setChecked((previousState) => !previousState)}
 />
 ```
 
@@ -19,7 +19,7 @@ const [checked, setChecked] = React.useState(false)
   label={checked ? "I'm checked" : "I'm indeterminated"}
   indeterminate={true}
   checked={checked}
-  onChange={() => setChecked((prev) => !prev)}
+  onChange={() => setChecked((previousState) => !previousState)}
 />
 ```
 

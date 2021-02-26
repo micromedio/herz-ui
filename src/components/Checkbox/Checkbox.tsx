@@ -5,10 +5,10 @@ import * as React from "react"
 
 export interface ICheckboxProps {
   checked: boolean
-  indeterminate: boolean
-  disabled: boolean
-  label: string
-  name: string
+  indeterminate?: boolean
+  disabled?: boolean
+  label?: string
+  name?: string
   onChange(): void
 }
 
@@ -93,6 +93,7 @@ export default function Checkbox(props: ICheckboxProps) {
           {...props}
           type="checkbox"
           id={name}
+          title={name}
           ref={(input) => {
             if (input) {
               input.checked = checked
