@@ -111,6 +111,7 @@ export default function Checkbox(props: ICheckboxProps) {
             border: "2px solid transparent",
             outline: "none",
             transition: "all 0.2s",
+            cursor: disabled ? "auto" : "pointer",
 
             ...(checked || indeterminate
               ? stateStyles.filled
