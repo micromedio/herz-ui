@@ -266,7 +266,7 @@ const Table = ({
                   `1px solid ${theme.colors.text[90]}`,
                 transition: "all 0.2s",
                 backgroundColor: !!selectedRowIds[row.id]
-                  ? "secondary.95"
+                  ? "secondary.alpha.95"
                   : "transparent",
               }}
             >
@@ -278,7 +278,7 @@ const Table = ({
 
                   "&:hover": {
                     backgroundColor: !selectedRowIds[row.id]
-                      ? "secondary.95"
+                      ? "secondary.alpha.95"
                       : "transparent",
                   },
                 }}
