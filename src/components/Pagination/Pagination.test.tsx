@@ -1,5 +1,5 @@
 import React from "react"
-import { render } from "@testing-library/react"
+import { render } from "../../tests/utils"
 import { axe } from "jest-axe"
 import Pagination from "./Pagination"
 
