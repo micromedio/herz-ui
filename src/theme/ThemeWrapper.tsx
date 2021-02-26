@@ -5,7 +5,7 @@ import "normalize.css"
 import { theme } from "./theme"
 
 export interface IThemeWrapperProps {
-  children: React.ReactChildren
+  children: React.ReactNode
 }
 
 const ThemeWrapper = function (props: IThemeWrapperProps) {
