@@ -20,7 +20,11 @@ export interface DropdownSelectProps {
   onChange?: (changes: UseSelectStateChange<string | number>) => void
 }
 
-/** Component responsible for rendering a select dropdown from given options */
+/**
+ * Component responsible for rendering a select drop-down from given options
+ *
+ * A drop-down list is a control element that allows the user to choose one (or multiple) value(s) from a list.
+ */
 const DropdownSelect = ({
   label,
   options,
