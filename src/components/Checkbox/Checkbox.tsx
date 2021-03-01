@@ -137,7 +137,7 @@ export default function Checkbox(props: ICheckboxProps) {
               opacity: 1,
             },
           }}
-          data-testid="checkbox"
+          role="checkbox"
         />
         <div
           sx={{

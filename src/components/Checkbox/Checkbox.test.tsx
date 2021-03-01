@@ -19,11 +19,9 @@ const CheckboxTemplate = (props: ICheckboxProps) => {
 describe("Checkbox", () => {
   it("can be checked", () => {
     const mockedFunction = jest.fn()
-    const { getByTestId } = render(
-      <CheckboxTemplate onChange={mockedFunction} />
-    )
+    const { getByRole } = render(<CheckboxTemplate onChange={mockedFunction} />)
 
-    const checkbox = getByTestId("checkbox")
+    const checkbox = getByRole("checkbox")
 
     expect(checkbox).toBeInTheDocument()
 
@@ -43,11 +41,11 @@ describe("Checkbox", () => {
 
   it("can be disabled", () => {
     const mockedFunction = jest.fn()
-    const { getByTestId } = render(
+    const { getByRole } = render(
       <CheckboxTemplate disabled={true} onChange={() => mockedFunction()} />
     )
 
-    const checkbox = getByTestId("checkbox")
+    const checkbox = getByRole("checkbox")
 
     act(() => {
       fireEvent.click(checkbox)
