@@ -25,9 +25,7 @@ describe("Checkbox", () => {
 
     expect(checkbox).toBeInTheDocument()
 
-    act(() => {
-      fireEvent.click(checkbox)
-    })
+    fireEvent.click(checkbox)
 
     expect(mockedFunction).toHaveBeenCalled()
   })
@@ -47,9 +45,7 @@ describe("Checkbox", () => {
 
     const checkbox = getByRole("checkbox")
 
-    act(() => {
-      fireEvent.click(checkbox)
-    })
+    fireEvent.click(checkbox)
 
     expect(mockedFunction).not.toHaveBeenCalled()
   })
