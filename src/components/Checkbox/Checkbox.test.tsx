@@ -47,9 +47,7 @@ describe("Checkbox", () => {
 
     const checkbox = getByTestId("checkbox")
 
-    act(() => {
-      fireEvent.click(checkbox)
-    })
+    fireEvent.click(checkbox)
 
     expect(mockedFunction).not.toHaveBeenCalled()
   })
