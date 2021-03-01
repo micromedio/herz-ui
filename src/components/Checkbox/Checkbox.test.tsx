@@ -27,9 +27,7 @@ describe("Checkbox", () => {
 
     expect(checkbox).toBeInTheDocument()
 
-    act(() => {
-      fireEvent.click(checkbox)
-    })
+    fireEvent.click(checkbox)
 
     expect(mockedFunction).toHaveBeenCalled()
   })
