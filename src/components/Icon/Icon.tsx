@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { jsx } from "theme-ui"
+import { HerzUITheme, jsx } from "theme-ui"
 import * as TablerIcons from "@tabler/icons"
 
 type IconType = typeof import("@tabler/icons")
@@ -12,7 +12,7 @@ export interface IconProps {
   size?: number
 
   // set `stroke` color
-  color?: "primary" | "highlight" | "muted"
+  color?: "primary" | "secondary" | "success" | "text"
 
   // set the thickness stroke
   stroke?: number
@@ -31,7 +31,7 @@ const Icon = ({
       size={size}
       stroke={stroke}
       sx={{
-        color,
+        color: (theme: HerzUITheme) => theme.colors[color][0],
       }}
     />
   )
