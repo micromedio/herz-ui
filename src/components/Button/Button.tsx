@@ -37,10 +37,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     cursor: "pointer",
     position: "relative",
     transition: "all .2s linear",
+    color: color === "text" ? "text.40" : "#fff",
     backgroundColor: (theme: HerzUITheme) =>
-      theme.colors[color][color === "text" ? 40 : 0],
+      color === "text" ? theme.colors.text.alpha[95] : theme.colors[color][0],
     "&:hover": {
-      backgroundColor: (theme: HerzUITheme) => theme.colors[color].shade[10],
+      backgroundColor: (theme: HerzUITheme) =>
+        color === "text"
+          ? theme.colors.text[90]
+          : theme.colors[color].shade[10],
     },
     "&:disabled": {
       opacity: 0.3,
