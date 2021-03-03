@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx, Flex } from "theme-ui"
 import { ChangeEvent, forwardRef } from "react"
-import Input from "../Input/Input"
+import Input, { InputProps } from "../Input/Input"
 
 export interface TextFieldProps {
   /** Input type */
@@ -35,7 +35,7 @@ export interface TextFieldProps {
   /** Text  */
   unit?: string
 
-  // Icon?: React.Component
+  iconName?: InputProps["iconName"]
 }
 
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
@@ -53,7 +53,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       required = false,
       requiredText = "required",
       optionalText = "optional",
-      // Icon, //TODO: icon library to be defined
+      iconName,
       unit,
     }: TextFieldProps,
     ref
@@ -91,6 +91,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           type={type}
           ref={ref}
           placeholder={placeholder}
+          iconName={iconName}
           value={value}
           disabled={disabled}
           onChange={onChange}

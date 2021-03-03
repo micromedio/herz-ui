@@ -7,6 +7,7 @@ import {
   SxStyleProp,
 } from "theme-ui"
 import { MouseEvent, ButtonHTMLAttributes, forwardRef } from "react"
+import Icon, { IconProps } from "../Icon/Icon"
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: string
@@ -18,6 +19,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean
 
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void
+
+  iconName?: IconProps["name"]
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
@@ -27,11 +30,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     variant = "filled",
     color = "primary",
     disabled,
+    iconName,
     ...htmlProps
   }: ButtonProps,
   ref
 ) {
   const baseButton = {
+    display: "flex",
+    gap: 2,
+    justifyContent: "center",
     variant: "text.button1",
     borderRadius: 2,
     cursor: "pointer",
@@ -82,7 +89,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
       disabled={disabled}
       sx={variant === "filled" ? filled : plain}
     >
-      {children}
+      {iconName && <Icon name={iconName} />}
+      {children && <span>{children}</span>}
     </ThemeUIButton>
   )
 })

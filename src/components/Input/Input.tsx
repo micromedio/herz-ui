@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import { HerzUITheme, jsx } from "theme-ui"
 import { ChangeEvent, forwardRef, InputHTMLAttributes } from "react"
+import Icon, { IconProps } from "../Icon/Icon"
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   /** Input type */
@@ -22,10 +23,10 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
   /** The id of the `input` element. Use this prop to make label and `helperText` accessible for screen readers */
   id?: string
-  /** Text  */
+  /** Text at the end of the input */
   unit?: string
-
-  // Icon?: React.Component
+  /** Name of the icon to be placed at the end of the input */
+  iconName?: IconProps["name"]
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
@@ -38,7 +39,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     disabled = false,
     error = false, //TODO: error state, needs design
     required = false,
-    // Icon, //TODO: icon library to be defined
+    iconName,
     unit,
     ...htmlProps
   }: InputProps,
@@ -49,7 +50,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       sx={{
         display: "flex",
         width: "100%",
-        justifyContent: "center",
+        alignItems: "center",
         gap: 2,
 
         paddingY: 1,
@@ -107,6 +108,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           {unit}
         </label>
       )}
+      {iconName && <Icon name={iconName} size={16} sx={{ color: "text.40" }} />}
     </div>
   )
 })
