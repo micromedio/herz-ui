@@ -3,6 +3,7 @@
 import React from "react"
 import { Flex, HerzUITheme, jsx } from "theme-ui"
 import { useSelect, UseSelectStateChange } from "downshift"
+import Icon from "../Icon/Icon"
 
 export interface DropdownSelectProps {
   /** Label text to be placed before the element */
@@ -106,7 +107,7 @@ const DropdownSelect = ({
         <button
           sx={{
             display: "flex",
-            flexDirection: "column",
+            gap: 2,
             borderRadius: 2,
             cursor: "pointer",
             paddingX: 3,
@@ -131,7 +132,10 @@ const DropdownSelect = ({
           type="button"
           {...getToggleButtonProps({ disabled })}
         >
-          {(selectedItem && selectedOption?.label) || "Select an option"}
+          <span>
+            {(selectedItem && selectedOption?.label) || "Select an option"}
+          </span>
+          <Icon name="IconChevronDown" size={12} stroke={3} />
         </button>
         <ul
           {...getMenuProps({ disabled })}
