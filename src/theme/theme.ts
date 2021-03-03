@@ -3,8 +3,8 @@ import { base } from "@theme-ui/presets"
 
 import { generateColorsPalette, BaseColor } from "../helpers/colors"
 
-const DEFAULT_TINT_PERCENTAGES = [40, 90, 95, 97]
-const DEFAULT_SHADE_PERCENTAGES = [10]
+export const DEFAULT_TINT_PERCENTAGES = [40, 90, 95, 97]
+export const DEFAULT_SHADE_PERCENTAGES = [10]
 
 const baseColors: Array<BaseColor> = [
   {
