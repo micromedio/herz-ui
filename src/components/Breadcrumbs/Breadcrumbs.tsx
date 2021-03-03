@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import React from "react"
 import { jsx } from "theme-ui"
+import Icon from "../Icon/Icon"
 
 export interface BreadcrumbsProps {
   children?: React.ReactNode
@@ -9,14 +10,8 @@ export interface BreadcrumbsProps {
 
 const BreadcrumbsSeparator = () => {
   return (
-    <li
-      sx={{
-        display: "flex",
-        userSelect: "none",
-        mx: 3,
-      }}
-    >
-      {">"} {/* TODO: use "arrow" icon */}
+    <li>
+      <Icon name="IconChevronRight" sx={{ color: "text.40", mx: 1 }} />
     </li>
   )
 }

@@ -11,22 +11,22 @@ the `stroke` prop has different possible values, it's default is going to be `2`
 
 #### Default:
 ```jsx
-<Icon name="IconAlertTriangle" color="highlight" size={20} stroke={2} />
+<Icon name="IconAlertTriangle" />
 ```
 
 #### Thicker Icon:
 
 ```js
 
-<Icon name="IconAlertTriangle" color="highlight" size={20} stroke={4} />
+<Icon name="IconAlertTriangle" stroke={4} />
 
 ```
 
-#### Primary Icon:
+#### Red Icon:
 
 ```js
 
-<Icon name="IconAlertTriangle" color="highlight" size={20} stroke={2} />
+<Icon name="IconAlertTriangle" style={{ color: 'red' }} />
 
 ```
 
@@ -35,6 +35,6 @@ the `stroke` prop has different possible values, it's default is going to be `2`
 
 ```js
 
-<Icon name="IconAlertTriangle" color="highlight" size={24} stroke={2} />
+<Icon name="IconAlertTriangle" size={24} />
 
 ```
