@@ -15,7 +15,7 @@ export const Example = Template.bind({})
 Example.args = {
   name: "IconMoodHappy",
   size: 20,
-  color: "highlight",
+  color: "secondary",
   stroke: 2,
 }
 

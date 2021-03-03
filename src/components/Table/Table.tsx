@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { jsx, Checkbox, Label } from "theme-ui"
+import { jsx, Checkbox, Label, HerzUITheme } from "theme-ui"
 import {
   useTable,
   Column,
@@ -158,10 +158,10 @@ const Table = ({
 
   const checkboxStyles = {
     "input:checked ~ &": {
-      color: "#0082FC", // TODO: use theme color
+      color: "secondary.0",
     },
     "input:focus ~ &": {
-      color: "#0082FC", // TODO: use theme color
+      color: "secondary.0",
       bg: "transparent",
     },
   }
@@ -189,7 +189,8 @@ const Table = ({
               {...headerGroupProps}
               key={key}
               sx={{
-                borderBottom: "1px solid #E8E8E9", // TODO: use theme colors
+                borderBottom: (theme: HerzUITheme) =>
+                  `1px solid ${theme.colors.text[90]}`,
                 px: 1,
               }}
             >
@@ -207,7 +208,7 @@ const Table = ({
                       alignItems: "center",
                       pl: 6,
                       pb: 3,
-                      color: column.isSorted ? "#1D1D1D" : "#777777", // TODO: use theme colors
+                      color: column.isSorted ? "text.0" : "text.40",
                       variant: column.isSorted ? "text.heading3" : "text.body1",
                       textAlign: column.align ?? "start",
                     }}
@@ -261,10 +262,11 @@ const Table = ({
               key={key}
               sx={{
                 p: 1,
-                borderBottom: "1px solid #E8E8E9", // TODO: use theme colors
+                borderBottom: (theme: HerzUITheme) =>
+                  `1px solid ${theme.colors.text[90]}`,
                 transition: "all 0.2s",
                 backgroundColor: !!selectedRowIds[row.id]
-                  ? "rgba(0, 130, 252, 0.06)"
+                  ? "secondary.alpha.95"
                   : "transparent",
               }}
             >
@@ -276,7 +278,7 @@ const Table = ({
 
                   "&:hover": {
                     backgroundColor: !selectedRowIds[row.id]
-                      ? "rgba(0, 130, 252, 0.06)"
+                      ? "secondary.alpha.95"
                       : "transparent",
                   },
                 }}
@@ -291,7 +293,7 @@ const Table = ({
                         display: "flex",
                         pl: 6,
                         py: 2,
-                        color: cell.column.highlight ? "#0082FC" : "text", // TODO: use theme colors
+                        color: cell.column.highlight ? "secondary.0" : "text.0",
                         variant: "text.body1",
                         justifyContent: {
                           start: "flex-start",
@@ -335,7 +337,7 @@ const Table = ({
             gap: 2,
             alignItems: "center",
             variant: "text.body1",
-            color: "muted",
+            color: "text.40",
           }}
         >
           <span>Showing</span>

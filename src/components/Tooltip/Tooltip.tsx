@@ -71,7 +71,7 @@ export default function Tooltip({
           paddingY: 1,
           paddingX: 2,
           borderRadius: "6px",
-          backgroundColor: "text",
+          backgroundColor: "text.0",
           boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.2)",
           transition: "all .2s linear",
           transitionDelay: ".2s",

@@ -69,7 +69,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               htmlFor={id}
               id={inputLabelId}
               sx={{
-                color: "text",
+                color: "text.0",
                 variant: "text.body1",
               }}
             >
@@ -77,7 +77,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             </label>
             <span
               sx={{
-                color: "muted",
+                color: "text.40",
                 variant: "text.body2",
               }}
             >
@@ -103,7 +103,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           <span
             id={helperTextId}
             sx={{
-              color: "muted",
+              color: "text.40",
               variant: "text.body2",
             }}
           >

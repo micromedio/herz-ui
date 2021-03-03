@@ -22,7 +22,7 @@ const children = "Mustafar";
 ```js
 const onClick = () => {alert("clicked")};
 const children = "Tatooine";
-<Button variant="filled" color="muted" onClick={onClick}>
+<Button variant="filled" color="text" onClick={onClick}>
   {children}
 </Button>
 ```
@@ -31,7 +31,7 @@ const children = "Tatooine";
 
 ```js
 const children = "Tatooine";
-<Button variant="filled" color="muted" disabled>
+<Button variant="filled" color="text" disabled>
   {children}
 </Button>
 ```
