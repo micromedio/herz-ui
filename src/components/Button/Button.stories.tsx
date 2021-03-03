@@ -19,6 +19,7 @@ Example.args = {
   variant: "filled",
   color: "primary",
   onClick: action("clicked"),
+  iconName: "IconPlus",
 }
 
 export const Filled = Template.bind({})
@@ -33,4 +34,10 @@ Plain.args = {
   ...Example.args,
   variant: "plain",
   color: "secondary",
+}
+
+export const Icon = Template.bind({})
+Icon.args = {
+  color: "text",
+  iconName: "IconPlus",
 }
