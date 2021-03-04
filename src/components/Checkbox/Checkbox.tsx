@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import { jsx, Label } from "theme-ui"
 import * as React from "react"
+import Icon from "../Icon/Icon"
 
 export interface ICheckboxProps {
   checked?: boolean
@@ -12,58 +13,20 @@ export interface ICheckboxProps {
   onChange?(): void
 }
 
-/** @TODO add colors to theme file */
 const stateStyles = {
   resting: {
-    backgroundColor: "#F4F4F4",
+    backgroundColor: "text.95",
   },
   hover: {
-    backgroundColor: "#E8E8E9",
+    backgroundColor: "text.90",
   },
   active: {
-    backgroundColor: "#E8E8E9",
+    backgroundColor: "text.90",
   },
   filled: {
-    backgroundColor: "#0082FC",
+    backgroundColor: "secondary.0",
   },
 }
-
-const indeterminateSvg = (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <rect width="20" height="20" rx="4" fill="none" />
-    <path
-      d="M6 10H10.2667H14"
-      stroke="white"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-)
-
-const checkedSvg = (
-  <svg
-    width="12"
-    height="12"
-    viewBox="0 0 12 12"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M2.5 6L5 8.5L10 3.5"
-      stroke="white"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-)
 
 export default function Checkbox(props: ICheckboxProps) {
   const {
@@ -129,7 +92,7 @@ export default function Checkbox(props: ICheckboxProps) {
             },
 
             "&:checked": {
-              background: "#0082FC",
+              background: "primary.0",
             },
 
             "&:checked ~ div, &:indeterminate ~ div": {
@@ -151,10 +114,11 @@ export default function Checkbox(props: ICheckboxProps) {
             left: "0",
             top: "0",
             cursor: "pointer",
+            color: "#fff",
           }}
         >
-          {(checked && checkedSvg) ||
-            (indeterminate && indeterminateSvg) ||
+          {(checked && <Icon name="IconCheck" size={12} stroke={4} />) ||
+            (indeterminate && <Icon name="IconMinus" size={12} stroke={4} />) ||
             null}
         </div>
         {label && label}
