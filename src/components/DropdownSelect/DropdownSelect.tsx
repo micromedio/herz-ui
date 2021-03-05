@@ -1,5 +1,6 @@
 /** @jsxRuntime classic /*
 /** @jsx jsx */
+import { UseSelectStateChange } from "downshift"
 import React from "react"
 import { jsx } from "theme-ui"
 
@@ -18,7 +19,7 @@ export interface DropdownSelectProps {
   multi?: boolean
   selectedItems?: Array<Option>
   /** Callback fired when the value is changed */
-  onChange?: (selectedItems: Array<Option>) => void
+  onChange?: (changes: Array<Option> | UseSelectStateChange<Option>) => void
 }
 
 export type Option = {
