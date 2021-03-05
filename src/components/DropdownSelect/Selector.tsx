@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /*
 /** @jsx jsx */
 import React from "react"
-import { Flex, jsx } from "theme-ui"
+import { Flex, HerzUITheme, jsx } from "theme-ui"
 import {
   useSelect,
   UseSelectStateChange,
@@ -29,7 +29,7 @@ export interface SelectorProps {
   disabled?: boolean
   onStateChange?(changes: UseSelectStateChange<Option>): void
   /** Callback fired when the value is changed */
-  onChange?: (selectedItems: Array<Option>) => void
+  onChange?: (changes: Array<Option> | UseSelectStateChange<Option>) => void
 
   /** Props for multi-select controls */
   multi?: boolean
@@ -85,30 +85,31 @@ const Selector = ({
   /** @TODO add colors to theme file */
   const stateStyles = {
     resting: {
-      backgroundColor: "#F4F4F4",
-      color: "#777779",
+      backgroundColor: "text.alpha.95",
+      color: "text.40",
       boxShadow: "unset",
       borderColor: "transparent",
     },
     hover: {
-      backgroundColor: "#E8E8E9",
-      color: "text",
+      backgroundColor: "text.alpha.90",
+      color: "text.0",
       boxShadow: "unset",
       borderColor: "transparent",
     },
     active: {
       backgroundColor: "#fff",
-      color: "text",
-      boxShadow: "0px 0px 0px 4px rgba(0, 130, 252, 0.06)",
-      borderColor: "#0082FC",
-      fontWeight: 600,
+      color: "text.0",
+      boxShadow: (theme: HerzUITheme) =>
+        `0px 0px 0px 4px ${theme.colors.secondary.alpha[95]}`,
+      borderColor: "secondary.0",
+      fontWeight: "semibold",
     },
     filled: {
-      backgroundColor: "rgba(0, 130, 252, 0.06)",
-      color: "text",
+      backgroundColor: "secondary.alpha.95",
+      color: "text.0",
       boxShadow: "unset",
-      borderColor: "#0082FC",
-      fontWeight: 600,
+      borderColor: "secondary.0",
+      fontWeight: "semibold",
     },
   }
 
@@ -131,7 +132,7 @@ const Selector = ({
           sx={{
             marginRight: 2,
             fontSize: 14,
-            color: "muted",
+            color: "text.40",
             ...(!disabled ? { cursor: "pointer" } : {}),
           }}
           {...getLabelProps({ disabled })}
@@ -214,9 +215,10 @@ const Selector = ({
             borderRadius: 4,
             outline: 0,
             listStyle: "none",
-            border: "1px solid #E9EBED",
+            border: (theme: HerzUITheme) =>
+              `1px solid ${theme.colors.text[90]}`,
             backgroundColor: "#fff",
-            boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
+            boxShadow: "0px 1px 12px rgba(0, 0, 0, 0.16)",
             zIndex: 9,
             transition: "all .2s linear",
           }}
@@ -231,18 +233,23 @@ const Selector = ({
                   padding: 2,
                   cursor: "pointer",
                   borderRadius: 2,
-                  color:
-                    selectedOption?.value === value
-                      ? "#fff"
-                      : highlightedIndex === index
-                      ? "#0082FC" // @TODO move color to theme
-                      : "text",
-                  backgroundColor:
-                    selectedOption?.value === value
-                      ? "highlight"
-                      : highlightedIndex === index
-                      ? "medium_emphasis"
-                      : "#fff",
+                  color: "text.0",
+                  backgroundColor: "#fff",
+
+                  ...(highlightedIndex === index
+                    ? {
+                        color: "secondary.0",
+                        backgroundColor: "secondary.alpha.95",
+                      }
+                    : {}),
+
+                  ...(selectedOption?.value === value
+                    ? {
+                        color: "#fff",
+                        backgroundColor: "secondary.0",
+                        fontWeight: "bold",
+                      }
+                    : {}),
                   transition: "all .2s linear",
                 }}
                 {...getItemProps({
