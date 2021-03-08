@@ -10,8 +10,9 @@ import {
   SortingRule,
 } from "react-table"
 import { Pagination, DropdownSelect } from "../"
-import { memo, useEffect, useMemo, Fragment } from "react"
+import { memo, useEffect, useMemo } from "react"
 import useRowSelection from "./useRowSelection"
+import Icon from "../Icon/Icon"
 
 const INTERNAL_SELECTION_COLUMN_ID = "INTERNAL_SELECTION_COLUMN_ID"
 
@@ -235,16 +236,28 @@ const Table = ({
                         />
                       </Label>
                     ) : (
-                      <Fragment>
+                      <div
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
                         {column.render("Header")}
-                        <span>
-                          {column.isSorted
-                            ? column.isSortedDesc
-                              ? " 🔽"
-                              : " 🔼" // TODO: use arrow icons instead of unicode text
-                            : ""}
-                        </span>
-                      </Fragment>
+                        {column.isSorted ? (
+                          column.isSortedDesc ? (
+                            <Icon
+                              name="IconArrowNarrowDown"
+                              size={16}
+                              sx={{ color: "text.0" }}
+                            />
+                          ) : (
+                            <Icon
+                              name="IconArrowNarrowUp"
+                              size={16}
+                              sx={{ color: "text.0" }}
+                            />
+                          )
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     )}
                   </div>
                 )

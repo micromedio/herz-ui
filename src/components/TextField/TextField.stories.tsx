@@ -27,6 +27,7 @@ Example.args = {
   id: "field-id",
   label: "Label",
   helperText: "Text to help explain the input",
+  iconName: "IconSearch",
 }
 
 export const WithoutLabels = Template.bind({})
