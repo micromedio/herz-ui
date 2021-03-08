@@ -4,28 +4,54 @@ import { Meta, Story } from "@storybook/react/types-6-0"
 export default {
   title: "Design System/Popover",
   component: Popover,
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: 900,
-          height: 900,
-        }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta
 
 const Template: Story<PopoverProps> = (props) => <Popover {...props} />
 
 // Each story then reuses that template
-export const Default = Template.bind({})
-Default.args = {
+export const LightTheme = Template.bind({})
+LightTheme.args = {
+  isVisible: true,
+  content: <div style={{ height: 50, width: 100 }}>Popover Content</div>,
+  children: <button>Reference Element</button>,
+  theme: "light",
+}
+
+export const DarkTheme = Template.bind({})
+DarkTheme.args = {
+  ...LightTheme.args,
+  theme: "dark",
+}
+
+export const WithArrow = Template.bind({})
+WithArrow.args = {
+  ...DarkTheme.args,
+  hasArrow: true,
+}
+
+export const WithBackgroundOverlay = Template.bind({})
+WithBackgroundOverlay.args = {
+  ...LightTheme.args,
+  hasBackgroundOverlay: true,
+}
+
+export const Playground = Template.bind({})
+Playground.decorators = [
+  (Story) => (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: 900,
+        height: 900,
+      }}
+    >
+      <Story />
+    </div>
+  ),
+]
+Playground.args = {
   children: (
     <div
       style={{
@@ -42,15 +68,5 @@ Default.args = {
       Scroll to see how the popover moves
     </div>
   ),
-  content: "tooltip",
-  // content: (
-  //   <div
-  //     style={{
-  //       height: 100,
-  //       width: 100,
-  //     }}
-  //   >
-  //     Custom content
-  //   </div>
-  // ),
+  content: <div style={{ height: 50, width: 100 }}>any kind of content</div>,
 }
