@@ -9,7 +9,7 @@ import {
   useSortBy,
   SortingRule,
 } from "react-table"
-import { Pagination, DropdownSelect } from "../"
+import { Pagination, Selector } from "../"
 import { memo, useEffect, useMemo, Fragment } from "react"
 import useRowSelection from "./useRowSelection"
 
@@ -342,7 +342,7 @@ const Table = ({
         >
           <span>Showing</span>
           <div sx={{ flexShrink: 0 }}>
-            <DropdownSelect
+            <Selector
               options={[
                 { value: 5, label: "5" },
                 { value: 10, label: "10" },

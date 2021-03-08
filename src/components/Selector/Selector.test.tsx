@@ -2,12 +2,12 @@ import "@testing-library/jest-dom/extend-expect"
 import React from "react"
 import { fireEvent, render } from "../../tests/utils"
 
-import { DropdownSelect } from ".."
+import { Selector } from ".."
 import { mockedOptions } from "./__mocks__/options"
 
-describe("DropdownSelect", () => {
+describe("Selector", () => {
   it("renders successfully", () => {
-    const { getByTestId } = render(<DropdownSelect options={mockedOptions} />)
+    const { getByTestId } = render(<Selector options={mockedOptions} />)
 
     /**
      * Check if the element exists
@@ -17,7 +17,7 @@ describe("DropdownSelect", () => {
 
   it("renders the label succesfully", () => {
     const { getByText } = render(
-      <DropdownSelect label="Select an element:" options={mockedOptions} />
+      <Selector label="Select an element:" options={mockedOptions} />
     )
 
     expect(getByText("Select an element:")).toBeInTheDocument()
@@ -26,7 +26,7 @@ describe("DropdownSelect", () => {
   it("renders all the options and allows to select", () => {
     const onChangeMock = jest.fn()
     const { getByText, queryByTitle, getByTestId } = render(
-      <DropdownSelect onChange={onChangeMock} options={mockedOptions} />
+      <Selector onChange={onChangeMock} options={mockedOptions} />
     )
 
     /** Act: enable the options by clicking on the button */

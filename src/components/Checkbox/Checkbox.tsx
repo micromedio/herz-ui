@@ -9,7 +9,7 @@ export interface ICheckboxProps {
   disabled?: boolean
   label?: string
   name?: string
-  onChange?(): void
+  onChange?(event: React.ChangeEvent<HTMLInputElement>): void
 }
 
 /** @TODO add colors to theme file */

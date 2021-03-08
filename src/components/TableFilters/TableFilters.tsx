@@ -2,9 +2,7 @@
 /** @jsx jsx */
 import React from "react"
 import { jsx } from "theme-ui"
-import DropdownSelect, {
-  DropdownSelectProps,
-} from "../DropdownSelect/DropdownSelect"
+import Selector, { SelectorProps } from "../Selector/Selector"
 import Button, { ButtonProps } from "../Button/Button"
 import Input, { InputProps } from "../Input/Input"
 
@@ -45,7 +43,7 @@ export interface TableFiltersProps {
     /** Value for the filter Select component */
     value?: string
     /** Options for the filter Select component */
-    options: DropdownSelectProps["options"]
+    options: SelectorProps["options"]
   }>
   onFilterChange?: ({ key, value }: { key: string; value?: string }) => void
 }
@@ -125,7 +123,7 @@ const TableFilters = ({
               flexGrow: 0,
             }}
           >
-            <DropdownSelect
+            <Selector
               options={options}
               label={label}
               value={value}
