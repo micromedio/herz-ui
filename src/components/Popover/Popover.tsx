@@ -27,13 +27,11 @@ export interface PopoverProps {
   noPadding?: boolean
   /** If `true` the popover will remain visible while the mouse is hovering over the content */
   isInteractive?: boolean
-  /** If `true` the popover will follow the reference element. Only use this if the reference element will move while the popover is visible */
-  isSticky?: boolean
   /** If `true` the popover has an arrow pointing to the reference element */
   hasArrow?: boolean
   /** If `true` shows a background overlay to fade the rest of the application when the popover is open */
   hasBackgroundOverlay?: boolean
-  /** `true` if popover should hide on click */
+  /** `true` if popover should hide on click. Only used if the element is not controlled (if `isVisible` is not used) */
   hideOnClick?: boolean
 
   /** Callback called when there's a click outside the popover */
@@ -42,6 +40,8 @@ export interface PopoverProps {
   onHide?: TippyProps["onHide"]
   /** Callback called when popover is shown */
   onShow?: TippyProps["onShow"]
+  /** Callback called when popover is created, can be used to access the underlying tippy.js instance */
+  onCreate?: TippyProps["onCreate"]
 
   /** z-index of the popover element */
   zIndexPopper?: number
@@ -58,10 +58,9 @@ const Popover = ({
   theme = "light",
   borderRadius = 4,
 
-  isVisible,
+  isVisible, // defaults to undefined, otherwise component is controlled
   noPadding = false,
   isInteractive = false,
-  isSticky = false,
   hasArrow = false,
   hasBackgroundOverlay = false,
   hideOnClick = false,
@@ -69,11 +68,13 @@ const Popover = ({
   onClickOutside,
   onHide,
   onShow,
+  onCreate,
 
   zIndexPopper = 9000,
   zIndexOverlay = 8000,
 }: PopoverProps) => {
   const overlayRef = useRef(document.createElement("div"))
+  const isControlled = isVisible !== undefined
 
   return (
     <React.Fragment>
@@ -81,15 +82,15 @@ const Popover = ({
         content={content}
         theme={theme}
         visible={isVisible}
-        sticky={isSticky}
         interactive={isInteractive}
         arrow={hasArrow}
-        hideOnClick={hideOnClick}
-        trigger={trigger.join(" ")}
+        hideOnClick={isControlled ? undefined : hideOnClick}
+        trigger={isControlled ? undefined : trigger.join(" ")}
         placement={placement}
         interactiveBorder={16}
         zIndex={zIndexPopper}
         onClickOutside={onClickOutside}
+        onCreate={onCreate}
         onShow={(instance) => {
           onShow?.(instance)
           overlayRef.current.style.opacity = "0"
