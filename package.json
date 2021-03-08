@@ -18,7 +18,6 @@
   "homepage": "https://github.com/micromed-dev/herz-ui#readme",
   "dependencies": {
     "@tabler/icons": "^1.39.1",
-    "@theme-ui/color": "0.6.0-alpha.6",
     "@theme-ui/presets": "^0.3.5",
     "@tippyjs/react": "^4.2.3",
     "downshift": "^6.1.0",
