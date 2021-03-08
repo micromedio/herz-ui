@@ -1,7 +1,7 @@
 import { useMultipleSelection, useSelect } from "downshift"
 import { useState } from "react"
 
-import { SelectorOption, SelectorProps } from "../Selector"
+import { SelectorProps, SelectedItems, SelectorValue } from "../Selector"
 
 export function useSelector({
   initialSelectedItems,
@@ -10,16 +10,16 @@ export function useSelector({
   value,
   onChange,
 }: SelectorProps) {
-  const [selectedItems, setSelectedItems] = useState<Array<SelectorOption>>([])
+  const [selectedItems, setSelectedItems] = useState<SelectedItems>([])
 
-  const handleRemoveSelectedItem = (selectedItem: SelectorOption) => {
-    setSelectedItems((previous: SelectorOption[]) =>
-      previous.filter((option) => option.value !== selectedItem?.value)
+  const handleRemoveSelectedItem = (selectedItem: SelectorValue) => {
+    setSelectedItems((previous: SelectedItems) =>
+      previous.filter((selectedOption) => selectedOption !== selectedItem)
     )
   }
 
-  const handleAddSelectedItem = (selectedItem: SelectorOption) => {
-    setSelectedItems((previous: SelectorOption[]) =>
+  const handleAddSelectedItem = (selectedItem: SelectorValue) => {
+    setSelectedItems((previous: SelectedItems) =>
       previous.concat([selectedItem])
     )
   }
@@ -37,8 +37,8 @@ export function useSelector({
     getMenuProps,
     highlightedIndex,
     getItemProps,
-  } = useSelect<SelectorOption>({
-    items: options,
+  } = useSelect<SelectorValue>({
+    items: options.map((option) => option.value),
     selectedItem: multi ? null : value,
     defaultHighlightedIndex: 0,
     ...(multi

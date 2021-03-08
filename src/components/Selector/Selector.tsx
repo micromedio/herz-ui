@@ -7,6 +7,9 @@ import { UseSelectStateChange } from "downshift"
 import Checkbox from "../Checkbox/Checkbox"
 import { useSelector } from "./hooks/useSelector"
 
+export type SelectorValue = string | number
+export type SelectedItems = Array<SelectorValue>
+
 export type SelectorOption = {
   value: string | number
   label: string
@@ -18,14 +21,14 @@ export interface SelectorProps {
   /** Options to be selected */
   options: Array<SelectorOption>
   /** The value of the `input` element, required for a controlled component */
-  value?: SelectorOption
+  value?: SelectorValue
   /** Wether the component is disabled or not */
   disabled?: boolean
   multi?: boolean
-  initialSelectedItems?: Array<SelectorOption>
+  initialSelectedItems?: SelectedItems
 
   /** Callback fired when the value is changed */
-  onChange?: (changes: UseSelectStateChange<SelectorOption>) => void
+  onChange?: (changes: UseSelectStateChange<SelectorValue>) => void
 }
 
 /** Component responsible for rendering a select dropdown from given options */
@@ -81,8 +84,7 @@ const Selector = ({
   }
 
   const selectedOption =
-    (selectedItem &&
-      options.find(({ value }) => value === selectedItem.value)) ||
+    (selectedItem && options.find(({ value }) => value === selectedItem)) ||
     undefined
 
   return (
@@ -170,7 +172,7 @@ const Selector = ({
           }}
         >
           {options.map((item, index) => {
-            const isSelected = multi && selectedItems.includes(item)
+            const isSelected = multi && selectedItems.includes(item.value)
 
             return (
               <li
@@ -189,7 +191,7 @@ const Selector = ({
                       }
                     : {}),
 
-                  ...(selectedItem?.value === item.value
+                  ...(selectedItem === item.value
                     ? {
                         color: "#fff",
                         backgroundColor: "secondary.0",
@@ -199,7 +201,7 @@ const Selector = ({
                   transition: "all .2s linear",
                 }}
                 {...getItemProps({
-                  item,
+                  item: item.value,
                   index,
                   disabled,
                 })}
