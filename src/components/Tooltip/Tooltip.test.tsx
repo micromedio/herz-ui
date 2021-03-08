@@ -1,31 +1,27 @@
-import "@testing-library/jest-dom/extend-expect"
-import React from "react"
-import { render, waitFor } from "../../tests/utils"
-
+import { render, screen } from "../../tests/utils"
 import Tooltip from "./Tooltip"
+import userEvent from "@testing-library/user-event"
 
 describe("Tooltip", () => {
-  it("renders successfully", async () => {
-    const { getByTestId } = render(
-      <Tooltip title="Title">
-        <button>hover me</button>
+  test("tooltip shows on hover", async () => {
+    render(
+      <Tooltip title="TOOLTIP_TITLE">
+        <button>BUTTON_TEXT</button>
       </Tooltip>
     )
 
-    /**
-     * Check if the element exists
-     */
-
-    await waitFor(() => expect(getByTestId("tooltip")).toBeInTheDocument())
+    expect(screen.queryByText("TOOLTIP_TITLE")).not.toBeInTheDocument()
+    userEvent.hover(screen.getByRole("button", { name: "BUTTON_TEXT" }))
+    expect(screen.getByText("TOOLTIP_TITLE")).toBeInTheDocument()
   })
 
-  it("renders the children succesfully", async () => {
-    const { getByText } = render(
+  test("renders the children succesfully", async () => {
+    render(
       <Tooltip title="Title">
         <button>hover me</button>
       </Tooltip>
     )
 
-    await waitFor(() => expect(getByText("hover me")).toBeInTheDocument())
+    expect(screen.getByText("hover me")).toBeInTheDocument()
   })
 })
