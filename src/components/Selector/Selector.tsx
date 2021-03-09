@@ -4,8 +4,8 @@ import React from "react"
 import { Flex, HerzUITheme, jsx } from "theme-ui"
 import { UseSelectStateChange } from "downshift"
 
-import Checkbox from "../Checkbox/Checkbox"
 import { useSelector } from "./hooks/useSelector"
+import Checkbox from "../Checkbox/Checkbox"
 
 export type SelectorValue = string | number
 export type SelectedItems = Array<SelectorValue>
@@ -38,7 +38,8 @@ const Selector = ({
   value,
   disabled = false,
   multi = false,
-  initialSelectedItems = [],
+  /** @TODO: add funtionality for initialSelectedITems */
+  initialSelectedItems = [1, 2],
   onChange,
 }: SelectorProps) => {
   const {
@@ -149,7 +150,21 @@ const Selector = ({
           {(selectedItem && selectedOption?.label) || "Select an option"}
         </button>
         <ul
-          {...getMenuProps({ disabled })}
+          {...getMenuProps({
+            disabled,
+            onBlurCapture: (event) => {
+              console.log(event)
+              event.stopPropagation()
+
+              return false
+            },
+            onBlur: (event) => {
+              console.log(event)
+              event.stopPropagation()
+
+              return false
+            },
+          })}
           sx={{
             maxHeight: 350,
             maxWidth: 300,

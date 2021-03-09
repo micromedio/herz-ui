@@ -25,6 +25,7 @@ const Template: Story<InputProps> = (props: InputProps) => {
 export const Example = Template.bind({})
 Example.args = {
   placeholder: "Placeholder text",
+  iconName: "IconSearch",
 }
 
 export const Filled = Template.bind({})
