@@ -1,4 +1,8 @@
-import { useMultipleSelection, useSelect } from "downshift"
+import {
+  useMultipleSelection,
+  useSelect,
+  UseSelectStateChange,
+} from "downshift"
 import { useEffect, useState } from "react"
 
 import { SelectorProps, SelectedItems, SelectorValue } from "../Selector"
@@ -14,8 +18,10 @@ export function useSelector({
 
   /** Call onChange whenever selectedItems from multi-select changes */
   useEffect(() => {
-    onChange?.(selectedItems)
-  }, [selectedItems, onChange])
+    if (multi) {
+      onChange?.(selectedItems)
+    }
+  }, [selectedItems, multi, onChange])
 
   const handleRemoveSelectedItem = (selectedItem: SelectorValue) => {
     setSelectedItems((previous: SelectedItems) =>
@@ -27,6 +33,13 @@ export function useSelector({
     setSelectedItems((previous: SelectedItems) =>
       previous.concat([selectedItem])
     )
+  }
+
+  /** Handler for single selector item change */
+  const handleSelectedItemChange = ({
+    selectedItem,
+  }: UseSelectStateChange<SelectorValue>) => {
+    onChange?.(selectedItem || "")
   }
 
   const { getDropdownProps } = useMultipleSelection({
@@ -85,7 +98,7 @@ export function useSelector({
           },
         }
       : {
-          onSelectedItemChange: onChange,
+          onSelectedItemChange: handleSelectedItemChange,
         }),
   })
 

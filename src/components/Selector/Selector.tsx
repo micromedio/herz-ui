@@ -2,7 +2,6 @@
 /** @jsx jsx */
 import React from "react"
 import { Flex, HerzUITheme, jsx } from "theme-ui"
-import { UseSelectStateChange } from "downshift"
 
 import { useSelector } from "./hooks/useSelector"
 import Checkbox from "../Checkbox/Checkbox"
@@ -28,9 +27,7 @@ export interface SelectorProps {
   initialSelectedItems?: SelectedItems
 
   /** Callback fired when the value is changed */
-  onChange?: (
-    changes: UseSelectStateChange<SelectorValue> | SelectedItems
-  ) => void
+  onChange?: (changes: SelectorValue | SelectedItems) => void
 }
 
 /** Component responsible for rendering a select dropdown from given options */

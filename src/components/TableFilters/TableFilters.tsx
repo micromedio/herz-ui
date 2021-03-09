@@ -127,7 +127,7 @@ const TableFilters = ({
               options={options}
               label={label}
               value={value}
-              onChange={({ selectedItem }) =>
+              onChange={(selectedItem) =>
                 onFilterChange?.({
                   key,
                   value: selectedItem?.toString() || undefined,
