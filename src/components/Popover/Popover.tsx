@@ -89,7 +89,7 @@ const Popover = ({
         placement={placement}
         interactiveBorder={16}
         zIndex={zIndexPopper}
-        onClickOutside={onClickOutside}
+        onClickOutside={(instance, event) => onClickOutside?.(instance, event)}
         onCreate={onCreate}
         onShow={(instance) => {
           onShow?.(instance)
