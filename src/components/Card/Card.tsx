@@ -29,19 +29,17 @@ export interface CardProps {
 
 const Card = ({ title, children, actions }: CardProps) => {
   return (
-    <Paper padding={0} sx={{ display: "grid", gap: 1 }}>
+    <Paper padding={0} sx={{ display: "grid", gap: 2, p: 6 }}>
       <div
         sx={{
-          px: 6,
-          pt: 6,
-          variant: "text.heading1",
+          variant: "text.heading3",
         }}
       >
         {title}
       </div>
       <div
         sx={{
-          px: 6,
+          variant: "text.body1",
         }}
       >
         {children}
@@ -49,8 +47,7 @@ const Card = ({ title, children, actions }: CardProps) => {
       <div
         sx={{
           display: "flex",
-          px: 5,
-          pb: 5,
+          pt: 1,
           gap: 5,
           flexWrap: "wrap",
           alignItems: "center",
