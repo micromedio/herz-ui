@@ -47,7 +47,6 @@ const Card = ({ title, children, actions }: CardProps) => {
       <div
         sx={{
           display: "flex",
-          pt: 1,
           gap: 5,
           flexWrap: "wrap",
           alignItems: "center",
