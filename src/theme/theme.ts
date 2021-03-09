@@ -1,9 +1,10 @@
-import { Theme } from "theme-ui"
+import { HerzUITheme } from "theme-ui"
 import { base } from "@theme-ui/presets"
 
 import { generateColorsPalette, BaseColor } from "../helpers/colors"
 
-const DEFAULT_TINT_PERCENTAGES = [0, 40, 90, 95, 97]
+export const DEFAULT_TINT_PERCENTAGES = [40, 90, 95, 97]
+export const DEFAULT_SHADE_PERCENTAGES = [10]
 
 const baseColors: Array<BaseColor> = [
   {
@@ -11,31 +12,35 @@ const baseColors: Array<BaseColor> = [
     color: "#FF3C3C" /** Red */,
     tintPercentages: DEFAULT_TINT_PERCENTAGES,
     alphaPercentages: DEFAULT_TINT_PERCENTAGES,
+    shadePercentages: DEFAULT_SHADE_PERCENTAGES,
   },
   {
     name: "secondary",
     color: "#0082FC" /** Blue */,
     tintPercentages: DEFAULT_TINT_PERCENTAGES,
     alphaPercentages: DEFAULT_TINT_PERCENTAGES,
+    shadePercentages: DEFAULT_SHADE_PERCENTAGES,
   },
   {
     name: "text",
-    color: "#1D1D1D" /** Gray */,
+    color: "#1D1D1D" /** Black */,
     tintPercentages: DEFAULT_TINT_PERCENTAGES,
     alphaPercentages: DEFAULT_TINT_PERCENTAGES,
+    shadePercentages: DEFAULT_SHADE_PERCENTAGES,
   },
   {
     name: "success",
     color: "#30D158" /** Green */,
     tintPercentages: DEFAULT_TINT_PERCENTAGES,
     alphaPercentages: DEFAULT_TINT_PERCENTAGES,
+    shadePercentages: DEFAULT_SHADE_PERCENTAGES,
   },
 ]
 
 /** Generate color palette  */
 const colorPalette = generateColorsPalette(baseColors)
 
-export const theme: Theme = {
+export const theme: HerzUITheme = {
   ...base,
   space: Array.from({ length: 17 })
     .fill(0)
@@ -44,16 +49,11 @@ export const theme: Theme = {
     .fill(0)
     .map((_, index) => index * 4), // results in [0, 4, 8, 12, ..., 60, 64]
   colors: {
-    ...colorPalette,
-    background: "#FFF2F2", // light red bg
-    text: "#1D1D1F", // dark text
-    muted: "#86868B", // gray text
-    accent: "#FC000A", // brand red
-    highlight: "#0066CC", // links
-    primary: "#FF3C3C", // primary button
-    secondary: "#02BFFE", // hovers (brand blue)
-    low_emphasis: "#F5F5F7",
-    medium_emphasis: "#F5F9FD",
+    background: "#F9F9F9", // light gray bg
+    primary: colorPalette.primary,
+    secondary: colorPalette.secondary,
+    text: colorPalette.text,
+    success: colorPalette.success,
   },
 
   // Typography
@@ -82,7 +82,7 @@ export const theme: Theme = {
   text: {
     default: {
       fontFamily: "body",
-      color: "text",
+      color: "text.0",
     },
     heading1: {
       fontFamily: "body",

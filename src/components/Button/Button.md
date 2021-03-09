@@ -2,7 +2,7 @@
 
 ```js
 const onClick = () => {alert("clicked")};
-<Button variant="filled" color="primary" onClick={onClick}>
+<Button variant="filled" color="primary" onClick={onClick} iconName="IconPlus">
   Tatooine
 </Button>
 ```
@@ -22,7 +22,7 @@ const children = "Mustafar";
 ```js
 const onClick = () => {alert("clicked")};
 const children = "Tatooine";
-<Button variant="filled" color="muted" onClick={onClick}>
+<Button variant="filled" color="text" onClick={onClick}>
   {children}
 </Button>
 ```
@@ -31,7 +31,7 @@ const children = "Tatooine";
 
 ```js
 const children = "Tatooine";
-<Button variant="filled" color="muted" disabled>
+<Button variant="filled" color="text" disabled>
   {children}
 </Button>
 ```
@@ -50,4 +50,10 @@ const children = "Alderaan";
 
 ```js
 <Button variant="plain" color="secondary" disabled>Mustafar</Button>
+```
+
+#### icon only:
+
+```js
+<Button variant="plain" color="secondary" iconName="IconPlus" />
 ```

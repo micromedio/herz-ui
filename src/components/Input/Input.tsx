@@ -1,7 +1,8 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { jsx } from "theme-ui"
+import { HerzUITheme, jsx } from "theme-ui"
 import { ChangeEvent, forwardRef, InputHTMLAttributes } from "react"
+import Icon, { IconProps } from "../Icon/Icon"
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   /** Input type */
@@ -22,10 +23,10 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
   /** The id of the `input` element. Use this prop to make label and `helperText` accessible for screen readers */
   id?: string
-  /** Text  */
+  /** Text at the end of the input */
   unit?: string
-
-  // Icon?: React.Component
+  /** Name of the icon to be placed at the end of the input */
+  iconName?: IconProps["name"]
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
@@ -38,7 +39,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     disabled = false,
     error = false, //TODO: error state, needs design
     required = false,
-    // Icon, //TODO: icon library to be defined
+    iconName,
     unit,
     ...htmlProps
   }: InputProps,
@@ -49,24 +50,25 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       sx={{
         display: "flex",
         width: "100%",
-        justifyContent: "center",
+        alignItems: "center",
         gap: 2,
 
         paddingY: 1,
         paddingX: 3,
-        backgroundColor: value ? "#0082FC0F" : "#0000000A", // TODO: remove fixed colors, use shade from theme
+        backgroundColor: value ? "secondary.alpha.95" : "text.alpha.95",
         outline: 0,
         borderRadius: 2,
         border: "2px solid transparent",
 
         transition: "all 0.2s",
         "&:hover": {
-          backgroundColor: value ? " #0082FC1F" : "#00000017", // TODO: remove fixed colors, use shade from theme
+          backgroundColor: value ? "secondary.alpha.90" : "text.alpha.90",
         },
         "&:focus-within": {
-          borderColor: "highlight",
-          boxShadow: "0px 0px 0px 4px #EBF3FB", // TODO: remove fixed colors, use shade from theme
-          backgroundColor: "#FFFFFF", // TODO: remove fixed colors, use shade from theme
+          borderColor: "secondary.0",
+          boxShadow: (theme: HerzUITheme) =>
+            `0px 0px 0px 4px ${theme.colors.secondary.alpha[95]}`,
+          backgroundColor: "#FFF",
         },
       }}
     >
@@ -89,7 +91,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           backgroundColor: "transparent",
           border: "none",
           p: 1,
-          color: "text",
+          color: "text.0",
         }}
       />
 
@@ -100,12 +102,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            color: "muted",
+            color: "text.40",
           }}
         >
           {unit}
         </label>
       )}
+      {iconName && <Icon name={iconName} size={16} sx={{ color: "text.40" }} />}
     </div>
   )
 })

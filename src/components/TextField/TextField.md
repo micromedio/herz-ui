@@ -29,3 +29,9 @@ return <TextField value={value} onChange={(event) => setValue(event.target.value
 ```js
 <TextField placeholder="Size of ruler" unit="in" />
 ```
+
+#### With Icon:
+
+```js
+<TextField placeholder="Search" iconName="IconSearch" />
+```

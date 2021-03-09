@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom/extend-expect"
 import React from "react"
-import { fireEvent, render } from "@testing-library/react"
+import { fireEvent, render } from "../../tests/utils"
 
 import { DropdownSelect } from ".."
 import { mockedOptions } from "./__mocks__/options"

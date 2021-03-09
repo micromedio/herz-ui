@@ -1,8 +1,6 @@
 import React, { FC, ReactElement, ReactNode } from "react"
 import { render, RenderOptions } from "@testing-library/react"
-import { ThemeProvider } from "theme-ui"
-
-import { theme } from "../theme/theme"
+import ThemeWrapper from "../theme/ThemeWrapper"
 
 export interface IThemeWrapperProps {
   children?: ReactNode
@@ -10,7 +8,7 @@ export interface IThemeWrapperProps {
 
 const AllTheProviders: FC = (props: IThemeWrapperProps) => {
   const { children } = props
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>
+  return <ThemeWrapper>{children}</ThemeWrapper>
 }
 
 const customRender = (
