@@ -1,5 +1,5 @@
 import { useMultipleSelection, useSelect } from "downshift"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { SelectorProps, SelectedItems, SelectorValue } from "../Selector"
 
@@ -11,6 +11,11 @@ export function useSelector({
   onChange,
 }: SelectorProps) {
   const [selectedItems, setSelectedItems] = useState<SelectedItems>([])
+
+  /** Call onChange whenever selectedItems from multi-select changes */
+  useEffect(() => {
+    onChange?.(selectedItems)
+  }, [selectedItems, onChange])
 
   const handleRemoveSelectedItem = (selectedItem: SelectorValue) => {
     setSelectedItems((previous: SelectedItems) =>

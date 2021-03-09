@@ -14,6 +14,7 @@ const Template: Story<ICheckboxProps> = (props) => {
   return (
     <Checkbox
       {...props}
+      name="checkbox"
       checked={checked}
       onChange={() => setChecked((previousState) => !previousState)}
     />

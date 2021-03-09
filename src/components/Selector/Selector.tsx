@@ -28,7 +28,9 @@ export interface SelectorProps {
   initialSelectedItems?: SelectedItems
 
   /** Callback fired when the value is changed */
-  onChange?: (changes: UseSelectStateChange<SelectorValue>) => void
+  onChange?: (
+    changes: UseSelectStateChange<SelectorValue> | SelectedItems
+  ) => void
 }
 
 /** Component responsible for rendering a select dropdown from given options */
@@ -152,18 +154,6 @@ const Selector = ({
         <ul
           {...getMenuProps({
             disabled,
-            onBlurCapture: (event) => {
-              console.log(event)
-              event.stopPropagation()
-
-              return false
-            },
-            onBlur: (event) => {
-              console.log(event)
-              event.stopPropagation()
-
-              return false
-            },
           })}
           sx={{
             maxHeight: 350,
@@ -222,8 +212,11 @@ const Selector = ({
                 })}
               >
                 <Flex>
-                  {multi && <Checkbox checked={isSelected} />}
-                  {item.label}
+                  {multi ? (
+                    <Checkbox checked={isSelected} label={item.label} />
+                  ) : (
+                    item.label
+                  )}
                 </Flex>
               </li>
             )
