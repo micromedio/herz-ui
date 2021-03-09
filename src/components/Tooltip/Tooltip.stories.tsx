@@ -29,4 +29,5 @@ AlwaysVisible.args = {
   title: "I'm the title",
   placement: "bottom",
   isVisible: true,
+  isInteractive: true,
 }

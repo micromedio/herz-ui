@@ -9,6 +9,7 @@ export interface TooltipProps {
   placement?: PopoverProps["placement"]
   trigger?: PopoverProps["trigger"]
   isVisible?: PopoverProps["isVisible"]
+  isInteractive?: PopoverProps["isInteractive"]
 }
 
 export default function Tooltip({
@@ -17,6 +18,7 @@ export default function Tooltip({
   placement,
   trigger,
   isVisible,
+  isInteractive,
 }: TooltipProps) {
   return (
     <Popover
@@ -24,6 +26,7 @@ export default function Tooltip({
       hasArrow={false}
       trigger={trigger}
       isVisible={isVisible}
+      isInteractive={isInteractive}
       content={
         <div sx={{ variant: "text.body2", fontWeight: 600 }}>{title}</div>
       }
