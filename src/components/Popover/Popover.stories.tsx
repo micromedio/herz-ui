@@ -12,6 +12,7 @@ const Template: Story<PopoverProps> = (props) => <Popover {...props} />
 export const LightTheme = Template.bind({})
 LightTheme.args = {
   isVisible: true,
+  isInteractive: true,
   content: <div style={{ height: 50, width: 100 }}>Popover Content</div>,
   children: <button>Reference Element</button>,
   theme: "light",
