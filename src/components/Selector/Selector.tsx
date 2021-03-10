@@ -208,7 +208,7 @@ const Selector = ({
                   padding: 2,
                   cursor: "pointer",
                   borderRadius: 2,
-                  color: "text.0",
+                  color: isSelected ? "text.0" : "text.40",
                   backgroundColor: "#fff",
 
                   ...(highlightedIndex === index

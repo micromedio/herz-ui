@@ -122,6 +122,7 @@ export default function Checkbox(props: ICheckboxProps) {
           sx={{
             marginLeft: 2,
             width: "auto",
+            color: checked ? "text" : "text.40",
             cursor: disabled ? "auto" : "pointer",
           }}
           htmlFor={name}
