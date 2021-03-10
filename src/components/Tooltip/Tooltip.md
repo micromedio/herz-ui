@@ -1,15 +1,23 @@
+Used to display information about an element, when hovering over a screen element or component.
+
+Given an element, such as a button, and the Tooltip component will automatically put itself in the right place near the button.
+
+The Tooltip will be positioned properly whenever it "pops out" from the flow of your document. And it will float back to the reference element.
+
 #### default example:
 
 ```js
-<Tooltip title="this is the actual tooltip">
-  <button>this is the reference element</button>
+import Button from "../Button/Button"
+;<Tooltip title="this is the actual tooltip">
+  <Button variant="plain">this is the reference element</Button>
 </Tooltip>
 ```
 
 #### placed on top example:
 
 ```js
-<Tooltip title="this tooltip is on the top of the reference" placement="top">
-  <button>this is the reference element</button>
+import Button from "../Button/Button"
+;<Tooltip title="this tooltip is on the top of the reference" placement="top">
+  <Button variant="plain">this is the reference element</Button>
 </Tooltip>
 ```

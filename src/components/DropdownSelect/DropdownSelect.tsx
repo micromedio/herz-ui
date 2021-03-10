@@ -21,7 +21,11 @@ export interface DropdownSelectProps {
   onChange?: (changes: UseSelectStateChange<string | number>) => void
 }
 
-/** Component responsible for rendering a select dropdown from given options */
+/**
+ * Component responsible for rendering a select drop-down from given options
+ *
+ * A drop-down list is a control element that allows the user to choose one (or multiple) value(s) from a list.
+ */
 const DropdownSelect = ({
   label,
   options,
@@ -91,8 +95,8 @@ const DropdownSelect = ({
           sx={{
             marginRight: 2,
             fontSize: 14,
-            cursor: "pointer",
             color: "text.40",
+            ...(!disabled ? { cursor: "pointer" } : {}),
           }}
           {...getLabelProps({ disabled })}
         >
@@ -109,7 +113,6 @@ const DropdownSelect = ({
             display: "flex",
             gap: 2,
             borderRadius: 2,
-            cursor: "pointer",
             paddingX: 3,
             paddingY: 2,
             justifyContent: "center",
@@ -118,15 +121,20 @@ const DropdownSelect = ({
             border: "2px solid transparent",
             transition: "all .2s linear",
             ...(selectedItem ? stateStyles.filled : stateStyles.resting),
+            ...(!disabled && { cursor: "pointer" }),
 
             "&:hover": {
               /** If there's a selectedItem, it means the element is on the active state */
-              ...(selectedItem ? stateStyles.filled : stateStyles.hover),
+              ...(selectedItem
+                ? stateStyles.filled
+                : !isOpen
+                ? stateStyles.hover
+                : {}),
             },
 
-            "&:focus": {
+            ...(isOpen && {
               ...(selectedItem ? stateStyles.filled : stateStyles.active),
-            },
+            }),
           }}
           data-testid="dropdown-select-button"
           type="button"
