@@ -1,7 +1,7 @@
-import React from "react"
+import React, { useState } from "react"
 import { Meta, Story } from "@storybook/react/types-6-0"
 
-import Selector, { SelectorProps } from "./Selector"
+import Selector, { SelectedItems, SelectorProps } from "./Selector"
 import { mockedOptions } from "./__mocks__/options"
 
 export default {
@@ -10,6 +10,21 @@ export default {
 } as Meta
 
 const Template: Story<SelectorProps> = (props) => <Selector {...props} />
+
+/** Multi selector controlled to make sure the selected items become persistent through state changes */
+const MultiTemplate: Story<SelectorProps> = (props) => {
+  const [selectedItems, setSelectedItems] = useState<SelectedItems>([])
+
+  return (
+    <Selector
+      {...props}
+      selectedItems={selectedItems}
+      onSelectedItemsChange={(newSelectedItems) => {
+        setSelectedItems(newSelectedItems)
+      }}
+    />
+  )
+}
 
 export const Default = Template.bind({})
 
@@ -24,9 +39,9 @@ WithLabel.args = {
   label: "Select an element: ",
 }
 
-export const Multiple = Template.bind({})
+export const MultipleSelection = MultiTemplate.bind({})
 
-Multiple.args = {
+MultipleSelection.args = {
   options: mockedOptions,
   label: "Select one or multiple elements: ",
   multi: true,

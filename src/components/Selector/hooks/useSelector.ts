@@ -3,36 +3,27 @@ import {
   useSelect,
   UseSelectStateChange,
 } from "downshift"
-import { useEffect, useState } from "react"
 
 import { SelectorProps, SelectedItems, SelectorValue } from "../Selector"
 
 export function useSelector({
-  initialSelectedItems,
   options,
   multi,
   value,
+  selectedItems = [],
   onChange,
+  onSelectedItemsChange,
 }: SelectorProps) {
-  const [selectedItems, setSelectedItems] = useState<SelectedItems>([])
-
-  /** Call onChange whenever selectedItems from multi-select changes */
-  useEffect(() => {
-    if (multi) {
-      onChange?.(selectedItems)
-    }
-  }, [selectedItems, multi, onChange])
-
   const handleRemoveSelectedItem = (selectedItem: SelectorValue) => {
-    setSelectedItems((previous: SelectedItems) =>
-      previous.filter((selectedOption) => selectedOption !== selectedItem)
+    const newSelected: SelectedItems = selectedItems.filter(
+      (previousSelected) => previousSelected !== selectedItem
     )
+    onSelectedItemsChange?.(newSelected)
   }
 
   const handleAddSelectedItem = (selectedItem: SelectorValue) => {
-    setSelectedItems((previous: SelectedItems) =>
-      previous.concat([selectedItem])
-    )
+    const newSelected: SelectedItems = selectedItems.concat([selectedItem])
+    onSelectedItemsChange?.(newSelected)
   }
 
   /** Handler for single selector item change */
@@ -44,7 +35,6 @@ export function useSelector({
 
   const { getDropdownProps } = useMultipleSelection({
     selectedItems,
-    initialSelectedItems,
   })
 
   const {
@@ -71,8 +61,10 @@ export function useSelector({
               case useSelect.stateChangeTypes.FunctionSelectItem:
                 return {
                   ...changes,
-                  isOpen: true, // keep the menu open after selection.
-                  // highlightedIndex: 5,
+                  /** Keep the menu open after selection */
+                  isOpen: true,
+                  /** Prevent highlightedIndex from changing */
+                  highlightedIndex: state.highlightedIndex,
                 }
             }
             return changes

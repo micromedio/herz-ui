@@ -21,13 +21,17 @@ export interface SelectorProps {
   options: Array<SelectorOption>
   /** The value of the `input` element, required for a controlled component */
   value?: SelectorValue
-  /** Wether the component is disabled or not */
+  /** Whether the component is disabled or not */
   disabled?: boolean
+  /** Whether the user can select multiple options or not */
   multi?: boolean
-  initialSelectedItems?: SelectedItems
+  /** Current selected items for multiple selection */
+  selectedItems?: SelectedItems
 
   /** Callback fired when the value is changed */
-  onChange?: (changes: SelectorValue | SelectedItems) => void
+  onChange?: (changes: SelectorValue) => void
+  /** Callback fired when the selected items change for multiple selection */
+  onSelectedItemsChange?: (changes: SelectedItems) => void
 }
 
 /** Component responsible for rendering a select dropdown from given options */
@@ -37,21 +41,27 @@ const Selector = ({
   value,
   disabled = false,
   multi = false,
-  /** @TODO: add funtionality for initialSelectedITems */
-  initialSelectedItems = [1, 2],
+  selectedItems = [],
   onChange,
+  onSelectedItemsChange,
 }: SelectorProps) => {
   const {
     isOpen,
     selectedItem,
-    selectedItems,
     getToggleButtonProps,
     getLabelProps,
     getMenuProps,
     highlightedIndex,
     getItemProps,
     getDropdownProps,
-  } = useSelector({ value, options, multi, initialSelectedItems, onChange })
+  } = useSelector({
+    value,
+    options,
+    multi,
+    selectedItems,
+    onChange,
+    onSelectedItemsChange,
+  })
 
   const stateStyles = {
     resting: {
@@ -86,6 +96,8 @@ const Selector = ({
   const selectedOption =
     (selectedItem && options.find(({ value }) => value === selectedItem)) ||
     undefined
+
+  const isSelectorFilled = selectedItem || selectedItems.length > 0
 
   return (
     <Flex
@@ -127,12 +139,12 @@ const Selector = ({
             outline: 0,
             border: "2px solid transparent",
             transition: "all .2s linear",
-            ...(selectedItem ? stateStyles.filled : stateStyles.resting),
+            ...(isSelectorFilled ? stateStyles.filled : stateStyles.resting),
             ...(!disabled && { cursor: "pointer" }),
 
             "&:hover": {
-              /** If there's a selectedItem, it means the element is on the active state */
-              ...(selectedItem
+              /** If there's a selectedItem, it means the element is on the filled state */
+              ...(isSelectorFilled
                 ? stateStyles.filled
                 : !isOpen
                 ? stateStyles.hover
@@ -140,7 +152,7 @@ const Selector = ({
             },
 
             ...(isOpen && {
-              ...(selectedItem ? stateStyles.filled : stateStyles.active),
+              ...(isSelectorFilled ? stateStyles.filled : stateStyles.active),
             }),
           }}
           data-testid="dropdown-select-button"
@@ -150,7 +162,13 @@ const Selector = ({
             disabled,
           })}
         >
-          {(selectedItem && selectedOption?.label) || "Select an option"}
+          {multi
+            ? selectedItems.length > 0
+              ? selectedItems.length === options.length
+                ? "All"
+                : selectedItems.length + " selected"
+              : "Select one or more options"
+            : (selectedItem && selectedOption?.label) || "Select an option"}
         </button>
         <ul
           {...getMenuProps({
@@ -178,11 +196,12 @@ const Selector = ({
           }}
         >
           {options.map((item, index) => {
-            const isSelected = multi && selectedItems.includes(item.value)
+            const { label, value } = item
+            const isSelected = multi && selectedItems.includes(value)
 
             return (
               <li
-                key={`${item}${index}`}
+                key={`${value}${index}`}
                 sx={{
                   padding: 2,
                   cursor: "pointer",
@@ -197,7 +216,7 @@ const Selector = ({
                       }
                     : {}),
 
-                  ...(selectedItem === item.value
+                  ...(selectedItem === value
                     ? {
                         color: "#fff",
                         backgroundColor: "secondary.0",
@@ -207,16 +226,16 @@ const Selector = ({
                   transition: "all .2s linear",
                 }}
                 {...getItemProps({
-                  item: item.value,
+                  item: value,
                   index,
                   disabled,
                 })}
               >
                 <Flex>
                   {multi ? (
-                    <Checkbox checked={isSelected} label={item.label} />
+                    <Checkbox checked={isSelected} label={label} />
                   ) : (
-                    item.label
+                    label
                   )}
                 </Flex>
               </li>
