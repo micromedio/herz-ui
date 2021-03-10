@@ -1,9 +1,26 @@
 import "@testing-library/jest-dom/extend-expect"
-import React from "react"
+import React, { useState } from "react"
 import { fireEvent, render } from "../../tests/utils"
 
 import { Selector } from ".."
 import { mockedOptions } from "./__mocks__/options"
+import { SelectedItems, SelectorProps } from "./Selector"
+
+const ControlledMultiSelectorTemplate = (props: SelectorProps) => {
+  const [selectedItems, setSelectedItems] = useState<SelectedItems>([])
+
+  return (
+    <Selector
+      selectedItems={selectedItems}
+      multi={true}
+      {...props}
+      onSelectedItemsChange={(selectedItems) => {
+        setSelectedItems(selectedItems)
+        props.onSelectedItemsChange?.(selectedItems)
+      }}
+    />
+  )
+}
 
 describe("Selector", () => {
   it("renders successfully", () => {
@@ -46,9 +63,36 @@ describe("Selector", () => {
     expect(queryByTitle("Random")).not.toBeInTheDocument()
 
     /** Try to select an option */
-    const option = getByText("Tennessine")
+    const option = getByText(mockedOptions[1].label)
     fireEvent.click(option)
 
     expect(onChangeMock).toHaveBeenCalled()
+  })
+
+  describe("onSelectedItemsChange", () => {
+    it("allows to add and remove a multi select item", () => {
+      const onSelectedItemsChangeMock = jest.fn()
+
+      const { getByText, getByTestId } = render(
+        <ControlledMultiSelectorTemplate
+          onSelectedItemsChange={onSelectedItemsChangeMock}
+          options={mockedOptions}
+        />
+      )
+
+      /** Act: enable the options by clicking on the button */
+      const button = getByTestId("dropdown-select-button")
+      fireEvent.click(button)
+
+      /** Try to select an option */
+      const option = getByText(mockedOptions[1].label)
+
+      fireEvent.click(option)
+
+      /** Select again to remove it */
+      fireEvent.click(option)
+
+      expect(onSelectedItemsChangeMock).toHaveBeenCalledTimes(2)
+    })
   })
 })

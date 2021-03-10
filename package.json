@@ -85,6 +85,16 @@
       "last 1 safari version"
     ]
   },
+  "jest": {
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "coveragePathIgnorePatterns": [
+      "stories"
+    ]
+  },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
