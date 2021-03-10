@@ -101,8 +101,8 @@ const Selector = ({
           sx={{
             marginRight: 2,
             fontSize: 14,
-            cursor: "pointer",
             color: "text.40",
+            ...(!disabled ? { cursor: "pointer" } : {}),
           }}
           {...getLabelProps({ disabled })}
         >
@@ -120,7 +120,6 @@ const Selector = ({
             display: "flex",
             flexDirection: "column",
             borderRadius: 2,
-            cursor: "pointer",
             paddingX: 3,
             paddingY: 2,
             justifyContent: "center",
@@ -129,15 +128,20 @@ const Selector = ({
             border: "2px solid transparent",
             transition: "all .2s linear",
             ...(selectedItem ? stateStyles.filled : stateStyles.resting),
+            ...(!disabled && { cursor: "pointer" }),
 
             "&:hover": {
               /** If there's a selectedItem, it means the element is on the active state */
-              ...(selectedItem ? stateStyles.filled : stateStyles.hover),
+              ...(selectedItem
+                ? stateStyles.filled
+                : !isOpen
+                ? stateStyles.hover
+                : {}),
             },
 
-            "&:focus": {
+            ...(isOpen && {
               ...(selectedItem ? stateStyles.filled : stateStyles.active),
-            },
+            }),
           }}
           data-testid="dropdown-select-button"
           type="button"

@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom/extend-expect"
 import React, { useState } from "react"
-import { act, fireEvent, render } from "@testing-library/react"
+import { fireEvent, render } from "@testing-library/react"
 
 import Checkbox, { ICheckboxProps } from "./Checkbox"
 
