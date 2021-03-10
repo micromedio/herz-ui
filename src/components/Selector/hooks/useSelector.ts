@@ -6,6 +6,11 @@ import {
 
 import { SelectorProps, SelectedItems, SelectorValue } from "../Selector"
 
+export enum SELECTOR_BULK_ACTIONS {
+  DESELECT_ALL,
+  SELECT_ALL,
+}
+
 export function useSelector({
   options,
   multi,
@@ -14,16 +19,24 @@ export function useSelector({
   onChange,
   onSelectedItemsChange,
 }: SelectorProps) {
-  const handleRemoveSelectedItem = (selectedItem: SelectorValue) => {
+  const handleRemoveSelectedItems = (selectedItem: SelectorValue[]) => {
     const newSelected: SelectedItems = selectedItems.filter(
-      (previousSelected) => previousSelected !== selectedItem
+      (previousSelected) => !selectedItem.includes(previousSelected)
     )
     onSelectedItemsChange?.(newSelected)
   }
 
-  const handleAddSelectedItem = (selectedItem: SelectorValue) => {
-    const newSelected: SelectedItems = selectedItems.concat([selectedItem])
+  const handleAddSelectedItems = (selectedItem: SelectorValue[]) => {
+    const newSelected: SelectedItems = selectedItems.concat(selectedItem)
     onSelectedItemsChange?.(newSelected)
+  }
+
+  const handleBulkAction = (type = SELECTOR_BULK_ACTIONS.SELECT_ALL) => {
+    if (type === SELECTOR_BULK_ACTIONS.SELECT_ALL) {
+      handleAddSelectedItems(options.map(({ value }) => value))
+    } else {
+      handleRemoveSelectedItems(selectedItems)
+    }
   }
 
   /** Handler for single selector item change */
@@ -78,9 +91,9 @@ export function useSelector({
                   const isSelected = selectedItems.includes(selectedItem)
 
                   if (isSelected) {
-                    handleRemoveSelectedItem(selectedItem)
+                    handleRemoveSelectedItems([selectedItem])
                   } else {
-                    handleAddSelectedItem(selectedItem)
+                    handleAddSelectedItems([selectedItem])
                   }
                 }
                 break
@@ -104,5 +117,6 @@ export function useSelector({
     highlightedIndex,
     getItemProps,
     getDropdownProps,
+    handleBulkAction,
   }
 }

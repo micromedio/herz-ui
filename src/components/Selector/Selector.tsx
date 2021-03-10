@@ -3,8 +3,9 @@
 import React from "react"
 import { Flex, HerzUITheme, jsx } from "theme-ui"
 
-import { useSelector } from "./hooks/useSelector"
+import { useSelector, SELECTOR_BULK_ACTIONS } from "./hooks/useSelector"
 import Checkbox from "../Checkbox/Checkbox"
+import { Button } from ".."
 
 export type SelectorValue = string | number
 export type SelectedItems = Array<SelectorValue>
@@ -54,6 +55,7 @@ const Selector = ({
     highlightedIndex,
     getItemProps,
     getDropdownProps,
+    handleBulkAction,
   } = useSelector({
     value,
     options,
@@ -241,6 +243,25 @@ const Selector = ({
               </li>
             )
           })}
+          <li>
+            <Button
+              variant="plain"
+              color="secondary"
+              sx={{
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                if (isSelectorFilled) {
+                  handleBulkAction(SELECTOR_BULK_ACTIONS.DESELECT_ALL)
+                  return true
+                }
+
+                handleBulkAction(SELECTOR_BULK_ACTIONS.SELECT_ALL)
+              }}
+            >
+              {isSelectorFilled ? "Deselect all" : "Select all"}
+            </Button>
+          </li>
         </ul>
       </div>
     </Flex>

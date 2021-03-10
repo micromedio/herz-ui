@@ -95,4 +95,30 @@ describe("Selector", () => {
       expect(onSelectedItemsChangeMock).toHaveBeenCalledTimes(2)
     })
   })
+
+  describe("handleBulkAction", () => {
+    it("allows to user to perform bulk actions to select and deselect items", () => {
+      const onSelectedItemsChangeMock = jest.fn()
+
+      const { getByText, getByTestId } = render(
+        <ControlledMultiSelectorTemplate
+          onSelectedItemsChange={onSelectedItemsChangeMock}
+          options={mockedOptions}
+        />
+      )
+
+      /** Act: enable the options by clicking on the button */
+      const button = getByTestId("dropdown-select-button")
+      fireEvent.click(button)
+
+      /** Trigger bulk actions */
+      const selectAllOption = getByText("Select all")
+      fireEvent.click(selectAllOption)
+
+      const deselectAllOptions = getByText("Deselect all")
+      fireEvent.click(deselectAllOptions)
+
+      expect(onSelectedItemsChangeMock).toHaveBeenCalledTimes(2)
+    })
+  })
 })
