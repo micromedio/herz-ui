@@ -15,7 +15,7 @@ export interface ICheckboxProps {
 
 const stateStyles = {
   resting: {
-    backgroundColor: "text.95",
+    backgroundColor: "text.alpha.95",
   },
   hover: {
     backgroundColor: "text.90",
@@ -117,6 +117,7 @@ export default function Checkbox(props: ICheckboxProps) {
           (indeterminate && <Icon name="IconMinus" size={12} stroke={4} />) ||
           null}
       </div>
+
       {label && (
         <Label
           sx={{

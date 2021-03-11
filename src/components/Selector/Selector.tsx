@@ -95,6 +95,16 @@ const Selector = ({
     },
   }
 
+  const getMultiSelectLabel = () => {
+    return selectedItems.length > 0
+      ? selectedItems.length === options.length
+        ? "All"
+        : selectedItems.length === 1
+        ? options.find(({ value }) => value === selectedItems[0])?.label
+        : selectedItems.length + " selected"
+      : "Select one or more options"
+  }
+
   const selectedOption =
     (selectedItem && options.find(({ value }) => value === selectedItem)) ||
     undefined
@@ -165,11 +175,7 @@ const Selector = ({
           })}
         >
           {multi
-            ? selectedItems.length > 0
-              ? selectedItems.length === options.length
-                ? "All"
-                : selectedItems.length + " selected"
-              : "Select one or more options"
+            ? getMultiSelectLabel()
             : (selectedItem && selectedOption?.label) || "Select an option"}
         </button>
         <ul
@@ -210,11 +216,12 @@ const Selector = ({
                   borderRadius: 2,
                   color: isSelected ? "text.0" : "text.40",
                   backgroundColor: "#fff",
+                  whiteSpace: "nowrap",
 
                   ...(highlightedIndex === index
                     ? {
-                        color: "secondary.0",
-                        backgroundColor: "secondary.alpha.95",
+                        color: "text.0",
+                        backgroundColor: "text.alpha.95",
                       }
                     : {}),
 
@@ -249,6 +256,8 @@ const Selector = ({
               color="secondary"
               sx={{
                 cursor: "pointer",
+                width: "100%",
+                justifyContent: "start",
               }}
               onClick={() => {
                 if (isSelectorFilled) {
