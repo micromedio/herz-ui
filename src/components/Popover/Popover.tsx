@@ -3,6 +3,7 @@
 import { jsx, SxStyleProp } from "theme-ui"
 import React, { useCallback, useRef } from "react"
 import Tippy, { TippyProps } from "@tippyjs/react"
+import { roundArrow } from "tippy.js"
 import ReactDOM from "react-dom"
 
 export interface PopoverProps {
@@ -76,49 +77,43 @@ const Popover = ({
   const isControlled = isVisible !== undefined
 
   const arrowStyles: SxStyleProp = {
-    ".tippy-arrow": {
+    ".tippy-svg-arrow": {
       width: 16,
       height: 16,
-      "&:before": {
+      textAlign: "initial",
+      "& > svg": {
         position: "absolute",
-        borderColor: "transparent",
-        borderStyle: "solid",
-        content: "''",
       },
     },
 
-    "&[data-placement^='top'] > .tippy-arrow": {
+    "&[data-placement^='top'] > .tippy-svg-arrow": {
       bottom: 0,
-      "&:before": {
-        bottom: "-7px",
-        left: 0,
-        borderWidth: "8px 8px 0",
-        transformOrigin: "center top",
+      "& > svg": {
+        top: "16px",
+        transform: "rotate(180deg) scale(1.2, 1.5)",
       },
     },
-    "&[data-placement^='bottom'] > .tippy-arrow": {
+    "&[data-placement^='bottom'] > .tippy-svg-arrow": {
       top: 0,
-      "&:before": {
-        top: "-7px",
-        left: 0,
-        borderWidth: "0 8px 8px",
-        transformOrigin: "center bottom",
+      "& > svg": {
+        bottom: "16px",
+        transform: "scale(1.2, 1.5)",
       },
     },
-    "&[data-placement^='left'] > .tippy-arrow": {
+    "&[data-placement^='left'] > .tippy-svg-arrow": {
       right: 0,
-      "&:before": {
-        right: "-7px",
-        borderWidth: "8px 0 8px 8px",
-        transformOrigin: "center left",
+      "& > svg": {
+        left: "11px",
+        top: "calc(50% - 3px)",
+        transform: "rotate(90deg) scale(1.1, 1.6)",
       },
     },
-    "&[data-placement^='right'] > .tippy-arrow": {
+    "&[data-placement^='right'] > .tippy-svg-arrow": {
       left: 0,
-      "&:before": {
-        left: "-7px",
-        borderWidth: "8px 8px 8px 0",
-        transformOrigin: "center right",
+      "& > svg": {
+        right: "11px",
+        top: "calc(50% - 3px)",
+        transform: "rotate(-90deg) scale(1.1, 1.6)",
       },
     },
   }
@@ -127,34 +122,16 @@ const Popover = ({
     "&[data-theme~='light']": {
       backgroundColor: "#fff",
       color: "text.0",
-      "&[data-placement^='top'] > .tippy-arrow::before": {
-        borderTopColor: "#fff",
-      },
-      "&[data-placement^='bottom'] > .tippy-arrow::before": {
-        borderBottomColor: "#fff",
-      },
-      "&[data-placement^='left'] > .tippy-arrow::before": {
-        borderLeftColor: "#fff",
-      },
-      "&[data-placement^='right'] > .tippy-arrow::before": {
-        borderRightColor: "#fff",
+      "& > .tippy-svg-arrow": {
+        fill: "#fff",
       },
     },
 
     "&[data-theme~='dark']": {
       backgroundColor: "text.0",
       color: "#fff",
-      "&[data-placement^='top'] > .tippy-arrow::before": {
-        borderTopColor: "text.0",
-      },
-      "&[data-placement^='bottom'] > .tippy-arrow::before": {
-        borderBottomColor: "text.0",
-      },
-      "&[data-placement^='left'] > .tippy-arrow::before": {
-        borderLeftColor: "text.0",
-      },
-      "&[data-placement^='right'] > .tippy-arrow::before": {
-        borderRightColor: "text.0",
+      "& > .tippy-svg-arrow": {
+        fill: "text.0",
       },
     },
   }
@@ -168,7 +145,7 @@ const Popover = ({
       placement: string
     }) => {
       const arrowSize = 16
-      const defaultPadding = (borderRadius + 1) * 2
+      const defaultPadding = (borderRadius + 2) * 2
       if (placement.startsWith("left") || placement.startsWith("right")) {
         return Math.min((popper.height - arrowSize) / 2, defaultPadding)
       }
@@ -187,7 +164,7 @@ const Popover = ({
         theme={theme}
         visible={isVisible}
         interactive={isInteractive}
-        arrow={hasArrow}
+        arrow={hasArrow && roundArrow}
         hideOnClick={isControlled ? undefined : hideOnClick}
         trigger={isControlled ? undefined : trigger.join(" ")}
         placement={placement}
