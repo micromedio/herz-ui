@@ -24,6 +24,7 @@
     "lodash": "^4.17.20",
     "normalize.css": "^8.0.1",
     "polished": "^4.1.1",
+    "rc-upload": "^4.2.0-alpha.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
