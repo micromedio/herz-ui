@@ -7,17 +7,26 @@ import Button from "../Button/Button"
 import { Instance } from "tippy.js"
 
 export interface FloatingCardProps {
+  /** Card title */
   title: string
+  /** Reference element, where the FloatingCard will point to and spawn from */
   children: PopoverProps["children"]
+  /** Card body content */
   body: ReactNode
+  /** Title text alignment */
+  titleAlign?: "start" | "center"
 
+  /** Placement of the card relative to the reference element */
   placement?: PopoverProps["placement"]
+  /** Controls if the card is visible or not. Use it if you need the visibility to be controlled by the parent */
   isVisible?: boolean
+  /** Callback called when the Popover spawning the card is closed */
   onClose?: () => void
 }
 
 const FloatingCard = ({
   title,
+  titleAlign = "start",
   children,
   body,
   placement = "bottom-start",
@@ -52,9 +61,9 @@ const FloatingCard = ({
           >
             <div
               sx={{
-                pl: 8,
+                pl: titleAlign === "start" ? 0 : 8,
                 flexGrow: 1,
-                textAlign: "center",
+                textAlign: titleAlign,
                 variant: "text.heading2",
               }}
             >
