@@ -9,7 +9,7 @@ import {
   useSortBy,
   SortingRule,
 } from "react-table"
-import { Pagination, DropdownSelect } from "../"
+import { Pagination, Selector } from "../"
 import { memo, useEffect, useMemo } from "react"
 import useRowSelection from "./useRowSelection"
 import Icon from "../Icon/Icon"
@@ -355,7 +355,7 @@ const Table = ({
         >
           <span>Showing</span>
           <div sx={{ flexShrink: 0 }}>
-            <DropdownSelect
+            <Selector
               options={[
                 { value: 5, label: "5" },
                 { value: 10, label: "10" },
@@ -363,7 +363,7 @@ const Table = ({
                 { value: 50, label: "50" },
               ]}
               value={pageSize}
-              onChange={({ selectedItem }) => {
+              onChange={(selectedItem) => {
                 if (selectedItem)
                   setPageSize(Number.parseInt(selectedItem.toString() ?? "10"))
               }}

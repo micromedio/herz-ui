@@ -1,6 +1,6 @@
 export { default as Button } from "./Button/Button"
 export { default as Paper } from "./Paper/Paper"
-export { default as DropdownSelect } from "./DropdownSelect/DropdownSelect"
+export { default as Selector } from "./Selector/Selector"
 export { default as Pagination } from "./Pagination/Pagination"
 export { default as Tooltip } from "./Tooltip/Tooltip"
 export { default as Table } from "./Table/Table"

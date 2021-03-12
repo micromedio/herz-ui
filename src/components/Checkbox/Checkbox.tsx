@@ -10,12 +10,12 @@ export interface ICheckboxProps {
   disabled?: boolean
   label?: string
   name?: string
-  onChange?(): void
+  onChange?(event: React.ChangeEvent<HTMLInputElement>): void
 }
 
 const stateStyles = {
   resting: {
-    backgroundColor: "text.95",
+    backgroundColor: "text.alpha.95",
   },
   hover: {
     backgroundColor: "text.90",
@@ -28,22 +28,22 @@ const stateStyles = {
   },
 }
 
-export default function Checkbox(props: ICheckboxProps) {
-  const {
-    checked = false,
-    disabled = false,
-    indeterminate = false,
-    label,
-    name,
-    onChange,
-    ...restProps
-  } = props
+const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
+  (props: ICheckboxProps, ref) => {
+    const {
+      checked = false,
+      disabled = false,
+      indeterminate = false,
+      label,
+      name,
+      onChange,
+      ...restProps
+    } = props
 
-  return (
-    <React.Fragment>
-      <Label
-        htmlFor={name}
+    return (
+      <div
         sx={{
+          display: "inline-flex",
           position: "relative",
           alignItems: "center",
           opacity: disabled ? 0.4 : 1,
@@ -54,20 +54,27 @@ export default function Checkbox(props: ICheckboxProps) {
           {...restProps}
           type="checkbox"
           id={name}
-          title={name}
+          name={name}
           onChange={(!disabled && onChange) || undefined}
           ref={(input) => {
             if (input) {
               input.checked = checked
               input.indeterminate = indeterminate
               input.disabled = disabled
+
+              if (ref) {
+                if (typeof ref === "function") {
+                  ref(input)
+                } else {
+                  ref.current = input
+                }
+              }
             }
           }}
           sx={{
             position: "relative",
             width: 20,
             height: 20,
-            marginRight: 2,
             appearance: "none",
             borderRadius: 1,
             border: "2px solid transparent",
@@ -80,19 +87,17 @@ export default function Checkbox(props: ICheckboxProps) {
               : stateStyles.resting),
 
             "&:hover": {
-              ...(checked || indeterminate
-                ? stateStyles.filled
-                : stateStyles.hover),
+              ...(!disabled &&
+                (checked || indeterminate
+                  ? stateStyles.filled
+                  : stateStyles.hover)),
             },
 
             "&:focus": {
-              ...(checked || indeterminate
-                ? stateStyles.filled
-                : stateStyles.active),
-            },
-
-            "&:checked": {
-              background: "primary.0",
+              ...(!disabled &&
+                (checked || indeterminate
+                  ? stateStyles.filled
+                  : stateStyles.active)),
             },
 
             "&:checked ~ div, &:indeterminate ~ div": {
@@ -115,14 +120,29 @@ export default function Checkbox(props: ICheckboxProps) {
             top: "0",
             cursor: "pointer",
             color: "#fff",
+            pointerEvents: "none",
           }}
         >
           {(checked && <Icon name="IconCheck" size={12} stroke={4} />) ||
             (indeterminate && <Icon name="IconMinus" size={12} stroke={4} />) ||
             null}
         </div>
-        {label && label}
-      </Label>
-    </React.Fragment>
-  )
-}
+
+        {label && (
+          <Label
+            sx={{
+              marginLeft: 2,
+              width: "auto",
+              cursor: disabled ? "auto" : "pointer",
+            }}
+            htmlFor={name}
+          >
+            {label}
+          </Label>
+        )}
+      </div>
+    )
+  }
+)
+
+export default Checkbox
