@@ -24,12 +24,14 @@ const ControlledMultiSelectorTemplate = (props: SelectorProps) => {
 
 describe("Selector", () => {
   it("renders successfully", () => {
-    const { getByTestId } = render(<Selector options={mockedOptions} />)
+    const { getByRole } = render(<Selector options={mockedOptions} />)
 
     /**
      * Check if the element exists
      */
-    expect(getByTestId("dropdown-select")).toBeInTheDocument()
+    expect(
+      getByRole("button", { name: "Select an option" })
+    ).toBeInTheDocument()
   })
 
   it("renders the label succesfully", () => {
@@ -42,12 +44,12 @@ describe("Selector", () => {
 
   it("renders all the options and allows to select", () => {
     const onChangeMock = jest.fn()
-    const { getByText, queryByTitle, getByTestId } = render(
+    const { getByText, queryByTitle, getByRole } = render(
       <Selector onChange={onChangeMock} options={mockedOptions} />
     )
 
     /** Act: enable the options by clicking on the button */
-    const button = getByTestId("dropdown-select-button")
+    const button = getByRole("button")
     fireEvent.click(button)
 
     /**
@@ -73,7 +75,7 @@ describe("Selector", () => {
     it("allows to add and remove a multi select item", () => {
       const onSelectedItemsChangeMock = jest.fn()
 
-      const { getByText, getByTestId } = render(
+      const { getByText, getByRole } = render(
         <ControlledMultiSelectorTemplate
           onSelectedItemsChange={onSelectedItemsChangeMock}
           options={mockedOptions}
@@ -81,7 +83,7 @@ describe("Selector", () => {
       )
 
       /** Act: enable the options by clicking on the button */
-      const button = getByTestId("dropdown-select-button")
+      const button = getByRole("button")
       fireEvent.click(button)
 
       /** Try to select an option */
@@ -100,7 +102,7 @@ describe("Selector", () => {
     it("allows to user to perform bulk actions to select and deselect items", () => {
       const onSelectedItemsChangeMock = jest.fn()
 
-      const { getByText, getByTestId } = render(
+      const { getByText, getByRole } = render(
         <ControlledMultiSelectorTemplate
           onSelectedItemsChange={onSelectedItemsChangeMock}
           options={mockedOptions}
@@ -108,7 +110,7 @@ describe("Selector", () => {
       )
 
       /** Act: enable the options by clicking on the button */
-      const button = getByTestId("dropdown-select-button")
+      const button = getByRole("button")
       fireEvent.click(button)
 
       /** Trigger bulk actions */

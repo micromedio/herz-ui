@@ -118,7 +118,6 @@ const Selector = ({
         position: "relative",
         opacity: disabled ? 0.3 : 1,
       }}
-      data-testid="dropdown-select"
     >
       {label && (
         <label
@@ -156,18 +155,18 @@ const Selector = ({
 
             "&:hover": {
               /** If there's a selectedItem, it means the element is on the filled state */
-              ...(isSelectorFilled
-                ? stateStyles.filled
-                : !isOpen
-                ? stateStyles.hover
-                : {}),
+              ...(!disabled &&
+                (isSelectorFilled
+                  ? stateStyles.filled
+                  : !isOpen
+                  ? stateStyles.hover
+                  : {})),
             },
 
             ...(isOpen && {
               ...(isSelectorFilled ? stateStyles.filled : stateStyles.active),
             }),
           }}
-          data-testid="dropdown-select-button"
           type="button"
           {...getToggleButtonProps({
             ...getDropdownProps({ preventKeyAction: isOpen }),

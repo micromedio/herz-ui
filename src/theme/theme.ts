@@ -84,11 +84,6 @@ export const theme: HerzUITheme = {
       fontFamily: "body",
       color: "text.0",
     },
-    secondary: {
-      color: "secondary.0",
-      fontSize: 14,
-      lineHeight: 1.45,
-    },
     heading1: {
       fontFamily: "body",
       fontSize: "large",
