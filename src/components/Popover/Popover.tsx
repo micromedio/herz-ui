@@ -1,9 +1,8 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { jsx } from "theme-ui"
-import React, { useRef } from "react"
+import { jsx, SxStyleProp } from "theme-ui"
+import React, { useCallback, useRef } from "react"
 import Tippy, { TippyProps } from "@tippyjs/react"
-import "tippy.js/dist/tippy.css"
 import ReactDOM from "react-dom"
 
 export interface PopoverProps {
@@ -76,6 +75,111 @@ const Popover = ({
   const overlayRef = useRef(document.createElement("div"))
   const isControlled = isVisible !== undefined
 
+  const arrowStyles: SxStyleProp = {
+    ".tippy-arrow": {
+      width: 16,
+      height: 16,
+      "&:before": {
+        position: "absolute",
+        borderColor: "transparent",
+        borderStyle: "solid",
+        content: "''",
+      },
+    },
+
+    "&[data-placement^='top'] > .tippy-arrow": {
+      bottom: 0,
+      "&:before": {
+        bottom: "-7px",
+        left: 0,
+        borderWidth: "8px 8px 0",
+        transformOrigin: "center top",
+      },
+    },
+    "&[data-placement^='bottom'] > .tippy-arrow": {
+      top: 0,
+      "&:before": {
+        top: "-7px",
+        left: 0,
+        borderWidth: "0 8px 8px",
+        transformOrigin: "center bottom",
+      },
+    },
+    "&[data-placement^='left'] > .tippy-arrow": {
+      right: 0,
+      "&:before": {
+        right: "-7px",
+        borderWidth: "8px 0 8px 8px",
+        transformOrigin: "center left",
+      },
+    },
+    "&[data-placement^='right'] > .tippy-arrow": {
+      left: 0,
+      "&:before": {
+        left: "-7px",
+        borderWidth: "8px 8px 8px 0",
+        transformOrigin: "center right",
+      },
+    },
+  }
+
+  const themeStyles: SxStyleProp = {
+    "&[data-theme~='light']": {
+      backgroundColor: "#fff",
+      color: "text.0",
+      "&[data-placement^='top'] > .tippy-arrow::before": {
+        borderTopColor: "#fff",
+      },
+      "&[data-placement^='bottom'] > .tippy-arrow::before": {
+        borderBottomColor: "#fff",
+      },
+      "&[data-placement^='left'] > .tippy-arrow::before": {
+        borderLeftColor: "#fff",
+      },
+      "&[data-placement^='right'] > .tippy-arrow::before": {
+        borderRightColor: "#fff",
+      },
+    },
+
+    "&[data-theme~='dark']": {
+      backgroundColor: "text.0",
+      color: "#fff",
+      "&[data-placement^='top'] > .tippy-arrow::before": {
+        borderTopColor: "text.0",
+      },
+      "&[data-placement^='bottom'] > .tippy-arrow::before": {
+        borderBottomColor: "text.0",
+      },
+      "&[data-placement^='left'] > .tippy-arrow::before": {
+        borderLeftColor: "text.0",
+      },
+      "&[data-placement^='right'] > .tippy-arrow::before": {
+        borderRightColor: "text.0",
+      },
+    },
+  }
+
+  const calculateArrowPadding = useCallback(
+    ({
+      popper,
+      placement,
+    }: {
+      popper: { width: number; height: number }
+      placement: string
+    }) => {
+      const arrowSize = 16
+      const defaultPadding = (borderRadius + 1) * 2
+      if (placement.startsWith("left") || placement.startsWith("right")) {
+        return Math.min((popper.height - arrowSize) / 2, defaultPadding)
+      }
+      if (placement.startsWith("top") || placement.startsWith("bottom")) {
+        return Math.min((popper.width - arrowSize) / 2, defaultPadding)
+      }
+      return defaultPadding
+    },
+    [borderRadius]
+  )
+
   return (
     <React.Fragment>
       <Tippy
@@ -109,83 +213,29 @@ const Popover = ({
             {
               name: "arrow",
               options: {
-                padding: ({
-                  popper,
-                  placement,
-                }: {
-                  popper: { width: number; height: number }
-                  placement: string
-                }) => {
-                  const arrowSize = 16
-                  const defaultPadding = (borderRadius + 1) * 2
-                  if (
-                    placement.startsWith("left") ||
-                    placement.startsWith("right")
-                  ) {
-                    return Math.min(
-                      (popper.height - arrowSize) / 2,
-                      defaultPadding
-                    )
-                  }
-                  if (
-                    placement.startsWith("top") ||
-                    placement.startsWith("bottom")
-                  ) {
-                    return Math.min(
-                      (popper.width - arrowSize) / 2,
-                      defaultPadding
-                    )
-                  }
-                  return defaultPadding
-                },
+                padding: calculateArrowPadding,
               },
             },
           ],
         }}
         sx={{
           "&&": {
+            position: "relative",
+            outline: 0,
+            transitionProperty: "transform,visibility,opacity",
             borderRadius,
             boxShadow: "0px 1px 12px rgba(0, 0, 0, 0.16)",
-            ".tippy-content": noPadding
-              ? { padding: 0 }
-              : {
-                  py: 1,
-                  px: 2,
-                },
-
-            "&[data-theme~='light']": {
-              backgroundColor: "#fff",
-              color: "text.0",
-              "&[data-placement^='top'] > .tippy-arrow::before": {
-                borderTopColor: "#fff",
-              },
-              "&[data-placement^='bottom'] > .tippy-arrow::before": {
-                borderBottomColor: "#fff",
-              },
-              "&[data-placement^='left'] > .tippy-arrow::before": {
-                borderLeftColor: "#fff",
-              },
-              "&[data-placement^='right'] > .tippy-arrow::before": {
-                borderRightColor: "#fff",
-              },
+            ".tippy-content": {
+              position: "relative",
+              ...(noPadding
+                ? { padding: 0 }
+                : {
+                    py: 1,
+                    px: 2,
+                  }),
             },
-
-            "&[data-theme~='dark']": {
-              backgroundColor: "text.0",
-              color: "#fff",
-              "&[data-placement^='top'] > .tippy-arrow::before": {
-                borderTopColor: "text.0",
-              },
-              "&[data-placement^='bottom'] > .tippy-arrow::before": {
-                borderBottomColor: "text.0",
-              },
-              "&[data-placement^='left'] > .tippy-arrow::before": {
-                borderLeftColor: "text.0",
-              },
-              "&[data-placement^='right'] > .tippy-arrow::before": {
-                borderRightColor: "text.0",
-              },
-            },
+            ...arrowStyles,
+            ...themeStyles,
           },
         }}
       >
