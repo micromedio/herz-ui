@@ -15,7 +15,17 @@ const Template: Story<FloatingCardProps> = (props) => (
 export const Default = Template.bind({})
 Default.args = {
   title: "Card Title",
-  body: "body",
+  titleAlign: "center",
+  body: "really long body text so that the card grows",
+  children: <Button>Open the Floating Card</Button>,
+  isVisible: true,
+}
+
+export const TitleAlignStart = Template.bind({})
+TitleAlignStart.args = {
+  title: "Card Title",
+  titleAlign: "start",
+  body: "really long body text so that the card grows",
   children: <Button>Open the Floating Card</Button>,
   isVisible: true,
 }
