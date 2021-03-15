@@ -27,3 +27,21 @@ export type { InputProps } from "./Input/Input"
 
 export { default as Popover } from "./Popover/Popover"
 export type { PopoverProps } from "./Popover/Popover"
+
+export { default as Icon } from "./Icon/Icon"
+export type { IconProps } from "./Icon/Icon"
+
+export { default as FloatingCard } from "./FloatingCard/FloatingCard"
+export type { FloatingCardProps } from "./FloatingCard/FloatingCard"
+
+export { default as Checkbox } from "./Checkbox/Checkbox"
+export type { ICheckboxProps as CheckboxProps } from "./Checkbox/Checkbox"
+
+export { default as Card } from "./Card/Card"
+export type { CardProps } from "./Card/Card"
+
+export { default as Breadcrumbs } from "./Breadcrumbs/Breadcrumbs"
+export type { BreadcrumbsProps } from "./Breadcrumbs/Breadcrumbs"
+
+export { default as ThemeWrapper } from "../theme/ThemeWrapper"
+export type { IThemeWrapperProps as ThemeWrapperProps } from "../theme/ThemeWrapper"
