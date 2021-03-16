@@ -1,39 +1,37 @@
+/** @jsxRuntime classic /*
+/** @jsx jsx */
+import { jsx, Text } from "theme-ui"
+
 import React from "react"
 import { Meta, Story } from "@storybook/react/types-6-0"
-import { UploadProps } from "rc-upload"
 
-import Uploader from "./Uploader"
+import Uploader, { IUploaderProps } from "./Uploader"
 
 export default {
   title: "Design System/Uploader",
   component: Uploader,
 } as Meta
 
-const Template: Story<UploadProps> = (props) => {
-  return <Uploader {...props} />
+const DefaultTemplate: Story<IUploaderProps> = (props) => {
+  return (
+    <Uploader {...props}>
+      <Text>
+        Drag & drop or{" "}
+        <span
+          sx={{
+            color: "secondary.0",
+          }}
+        >
+          browse
+        </span>{" "}
+        the activation file you received by e-mail here
+      </Text>
+    </Uploader>
+  )
 }
 
-export const Default = Template.bind({})
+export const Default = DefaultTemplate.bind({})
 
 Default.args = {
-  action: "/upload.do",
-  type: "drag",
-  accept: ".png",
-  beforeUpload(file) {
-    console.log("beforeUpload", file.name)
-
-    return file.name
-  },
-  onStart: (file) => {
-    console.log("onStart", file.name)
-  },
-  onSuccess(file) {
-    console.log("onSuccess", file)
-  },
-  onProgress(step, file) {
-    console.log("onProgress", Math.round(step.percent), file.name)
-  },
-  onError(error) {
-    console.log("onerroror", error)
-  },
+  multiple: true,
 }
