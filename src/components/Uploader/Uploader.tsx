@@ -41,9 +41,21 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
 
     console.log(fileRejections)
     const thumbs = files.map((file) => (
-      <div key={file.name}>
-        <Text>{file.name}</Text>
-      </div>
+      <Text
+        sx={{
+          color: "secondary.0",
+          fontSize: 13,
+          paddingX: 3,
+          paddingY: 2,
+          backgroundColor: "secondary.alpha.95",
+          borderRadius: 2,
+          textOverflow: "ellipsis",
+          overflow: "hidden",
+        }}
+        key={file.name}
+      >
+        {file.name}
+      </Text>
     ))
 
     useEffect(
@@ -104,9 +116,18 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
               justifyContent: "space-between",
               alignItems: "center",
               alignSelf: "stretch",
+              marginTop: 3,
+              marginBottom: 2,
             }}
           >
-            <Text>{files.length} files uploaded, 1 uploading...</Text>
+            <Text
+              sx={{
+                color: "text.40",
+                fontSize: 13,
+              }}
+            >
+              {files.length} files uploaded, 1 uploading...
+            </Text>
             <Button
               variant="plain"
               color="secondary"
@@ -117,7 +138,17 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
           </Flex>
         )}
 
-        {isPreviewOpen && <aside>{thumbs}</aside>}
+        {isPreviewOpen && (
+          <div
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 2,
+            }}
+          >
+            {thumbs}
+          </div>
+        )}
       </div>
     )
   }
