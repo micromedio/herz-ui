@@ -2,18 +2,54 @@
 /** @jsx jsx */
 import { Flex, jsx, Text } from "theme-ui"
 import React, { useEffect, useState } from "react"
-import { useDropzone } from "react-dropzone"
+import { DropzoneOptions, useDropzone } from "react-dropzone"
 
 import { Button } from ".."
 
 type PreviewFile = File & { preview: string }
 
-export interface IUploaderProps {
+export interface IUploaderProps extends DropzoneOptions {
   multiple?: boolean
+  name?: string
 }
 
+const stateStyles = {
+  resting: {
+    backgroundColor: "secondary.alpha.95",
+  },
+  hover: {
+    backgroundColor: "secondary.90",
+  },
+  active: {
+    backgroundColor: "secondary.90",
+  },
+  filled: {
+    backgroundColor: "secondary.0",
+  },
+}
+
+/**
+ * Component responsible for rendering a file input that accept files through dragging or browsing.
+ *
+ * The form that uses the Uploader must provide the logic to upload the file(s).
+ * Generally it is done through a form submit handler.
+ *
+ * The accepted files can be picked up through a controlled `files` prop
+ * or the input element value.
+ */
 const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
-  ({ multiple = false, children }, ref) => {
+  (
+    {
+      accept = "image/*",
+      multiple = false,
+      maxFiles,
+      minSize,
+      maxSize = 1048576,
+      name,
+      children,
+    },
+    ref
+  ) => {
     const [files, setFiles] = useState<PreviewFile[]>([])
     const [isPreviewOpen, setIsPreviewOpen] = useState(false)
     const {
@@ -23,11 +59,11 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
       getRootProps,
       getInputProps,
     } = useDropzone({
-      accept: "image/*",
+      accept,
       multiple,
-      maxFiles: 2,
-      minSize: 0,
-      maxSize: 1048576,
+      maxFiles,
+      minSize,
+      maxSize,
       onDrop: (acceptedFiles) => {
         const mapped = acceptedFiles.map((file) =>
           Object.assign(file, {
@@ -41,21 +77,28 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
 
     console.log(fileRejections)
     const thumbs = files.map((file) => (
-      <Text
+      <Flex
+        key={file.name}
         sx={{
-          color: "secondary.0",
-          fontSize: 13,
           paddingX: 3,
           paddingY: 2,
-          backgroundColor: "secondary.alpha.95",
           borderRadius: 2,
-          textOverflow: "ellipsis",
-          overflow: "hidden",
+          alignItems: "center",
+          backgroundColor: "secondary.alpha.95",
         }}
-        key={file.name}
       >
-        {file.name}
-      </Text>
+        <Text
+          sx={{
+            fontSize: 13,
+            color: "secondary.0",
+            textOverflow: "ellipsis",
+            verticalAlign: "middle",
+            overflow: "hidden",
+          }}
+        >
+          {file.name}
+        </Text>
+      </Flex>
     ))
 
     useEffect(
@@ -66,25 +109,10 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
       [files]
     )
 
-    const stateStyles = {
-      resting: {
-        backgroundColor: "secondary.alpha.95",
-      },
-      hover: {
-        backgroundColor: "secondary.90",
-      },
-      active: {
-        backgroundColor: "secondary.90",
-      },
-      filled: {
-        backgroundColor: "secondary.0",
-      },
-    }
-
     return (
       <div
         sx={{
-          display: "inline-flex",
+          display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
         }}
@@ -106,7 +134,13 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
           }}
           {...getRootProps({ className: "dropzone" })}
         >
-          <input ref={ref} {...getInputProps()} />
+          <input
+            type="file"
+            onChange={(event) => console.log(event)}
+            name={name}
+            ref={ref}
+            {...getInputProps()}
+          />
           {children}
         </div>
         {isDragReject && <Text>File type not accepted, sorry!</Text>}
@@ -142,8 +176,9 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
           <div
             sx={{
               display: "grid",
-              gridTemplateColumns: "1fr 1fr",
+              gridTemplateColumns: "50% 50%",
               gap: 2,
+              alignSelf: "stretch",
             }}
           >
             {thumbs}
