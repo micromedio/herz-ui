@@ -182,7 +182,11 @@ const Popover = ({
           })
         }}
         onHide={(instance) => {
-          overlayRef.current.remove()
+          overlayRef.current.style.transition = "opacity 200ms"
+          overlayRef.current.style.opacity = "0"
+          setTimeout(() => {
+            overlayRef.current.remove()
+          })
           onHide?.(instance)
         }}
         popperOptions={{
@@ -210,6 +214,9 @@ const Popover = ({
                     py: 1,
                     px: 2,
                   }),
+            },
+            "&[data-animation=fade][data-state=hidden]": {
+              opacity: 0,
             },
             ...arrowStyles,
             ...themeStyles,
