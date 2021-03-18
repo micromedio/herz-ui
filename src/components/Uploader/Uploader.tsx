@@ -71,7 +71,9 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
       },
     })
 
-    function handleFileRemove(event: React.MouseEvent<HTMLInputElement>): void {
+    function handleFileRemove(
+      event: React.MouseEvent<HTMLButtonElement>
+    ): void {
       const fileIndex = event.currentTarget.dataset.index
       if (!fileIndex) return
 
@@ -95,7 +97,8 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
           sx={{
             paddingY: 4,
             paddingX: 6,
-            border: "1px dashed #99CDFE",
+            border: "1px dashed",
+            borderColor: "secondary.40",
             borderRadius: " 12px",
             cursor: "pointer",
             transition: "all .2s linear",
@@ -178,11 +181,14 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
               >
                 {name}
               </span>
-              <span
+              <button
                 sx={{
                   display: "inline-flex",
                   ml: 2,
                   cursor: "pointer",
+                  background: "none",
+                  border: "none",
+                  padding: 0,
                 }}
                 data-index={index}
                 onClick={handleFileRemove}
@@ -195,7 +201,7 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
                   name="IconX"
                   size={16}
                 />
-              </span>
+              </button>
             </Flex>
           ))}
         </div>
