@@ -1,16 +1,16 @@
 /** @jsxRuntime classic /*
 /** @jsx jsx */
 import { Flex, jsx, Text } from "theme-ui"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { DropzoneOptions, useDropzone } from "react-dropzone"
 
 import { Button } from ".."
 
-type PreviewFile = File & { preview: string }
-
 export interface IUploaderProps extends DropzoneOptions {
-  multiple?: boolean
   name?: string
+  files?: File[]
+  onChange?(files: File[]): void
+  children: React.ReactNode
 }
 
 const stateStyles = {
@@ -42,18 +42,17 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
     {
       accept = "image/*",
       multiple = false,
-      maxFiles,
-      minSize,
       maxSize = 1048576,
       name,
+      files = [],
+      onChange,
       children,
+      ...restProps
     },
     ref
   ) => {
-    const [files, setFiles] = useState<PreviewFile[]>([])
     const [isPreviewOpen, setIsPreviewOpen] = useState(false)
     const {
-      fileRejections,
       isDragActive,
       isDragReject,
       getRootProps,
@@ -61,53 +60,14 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
     } = useDropzone({
       accept,
       multiple,
-      maxFiles,
-      minSize,
       maxSize,
+      ...restProps,
       onDrop: (acceptedFiles) => {
-        const mapped = acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
+        const newFiles = multiple ? files.concat(acceptedFiles) : acceptedFiles
 
-        setFiles((previous) => (multiple ? previous.concat(mapped) : mapped))
+        onChange?.(newFiles)
       },
     })
-
-    console.log(fileRejections)
-    const thumbs = files.map((file) => (
-      <Flex
-        key={file.name}
-        sx={{
-          paddingX: 3,
-          paddingY: 2,
-          borderRadius: 2,
-          alignItems: "center",
-          backgroundColor: "secondary.alpha.95",
-        }}
-      >
-        <Text
-          sx={{
-            fontSize: 13,
-            color: "secondary.0",
-            textOverflow: "ellipsis",
-            verticalAlign: "middle",
-            overflow: "hidden",
-          }}
-        >
-          {file.name}
-        </Text>
-      </Flex>
-    ))
-
-    useEffect(
-      () => () => {
-        // Make sure to revoke the data uris to avoid memory leaks
-        files.forEach((file) => URL.revokeObjectURL(file.preview))
-      },
-      [files]
-    )
 
     return (
       <div
@@ -134,16 +94,12 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
           }}
           {...getRootProps({ className: "dropzone" })}
         >
-          <input
-            type="file"
-            onChange={(event) => console.log(event)}
-            name={name}
-            ref={ref}
-            {...getInputProps()}
-          />
+          <input type="file" name={name} ref={ref} {...getInputProps()} />
           {children}
         </div>
+
         {isDragReject && <Text>File type not accepted, sorry!</Text>}
+
         {files.length > 0 && (
           <Flex
             sx={{
@@ -160,7 +116,7 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
                 fontSize: 13,
               }}
             >
-              {files.length} files uploaded, 1 uploading...
+              {files.length} files selected
             </Text>
             <Button
               variant="plain"
@@ -172,18 +128,43 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
           </Flex>
         )}
 
-        {isPreviewOpen && (
-          <div
-            sx={{
-              display: "grid",
-              gridTemplateColumns: "50% 50%",
-              gap: 2,
-              alignSelf: "stretch",
-            }}
-          >
-            {thumbs}
-          </div>
-        )}
+        <div
+          sx={{
+            display: "grid",
+            opacity: isPreviewOpen ? 1 : 0,
+            visibility: isPreviewOpen ? "visible" : "hidden",
+            maxHeight: isPreviewOpen ? "9999px" : 0,
+            gridTemplateColumns: "50% 50%",
+            gap: 2,
+            alignSelf: "stretch",
+            transition: "all.2s",
+          }}
+        >
+          {files.map(({ name }) => (
+            <Flex
+              key={name}
+              sx={{
+                paddingX: 3,
+                paddingY: 2,
+                borderRadius: 2,
+                alignItems: "center",
+                backgroundColor: "secondary.alpha.95",
+              }}
+            >
+              <Text
+                sx={{
+                  fontSize: 13,
+                  color: "secondary.0",
+                  textOverflow: "ellipsis",
+                  verticalAlign: "middle",
+                  overflow: "hidden",
+                }}
+              >
+                {name}
+              </Text>
+            </Flex>
+          ))}
+        </div>
       </div>
     )
   }
