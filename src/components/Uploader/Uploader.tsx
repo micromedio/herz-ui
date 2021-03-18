@@ -21,12 +21,6 @@ const stateStyles = {
   hover: {
     backgroundColor: "secondary.90",
   },
-  active: {
-    backgroundColor: "secondary.90",
-  },
-  filled: {
-    backgroundColor: "secondary.0",
-  },
 }
 
 /**
