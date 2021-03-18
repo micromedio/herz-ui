@@ -44,7 +44,7 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
       accept = "image/*",
       multiple = false,
       maxSize = 1048576,
-      name,
+      name = "files",
       files = [],
       onChange,
       children,
@@ -111,7 +111,13 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
           }}
           {...getRootProps({ className: "dropzone" })}
         >
-          <input type="file" name={name} ref={ref} {...getInputProps()} />
+          <input
+            type="file"
+            name={name}
+            ref={ref}
+            title="Drag & Drop or browse a file"
+            {...getInputProps()}
+          />
           {children}
         </div>
 
@@ -191,6 +197,7 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
                   padding: 0,
                 }}
                 data-index={index}
+                title="Remove file"
                 onClick={handleFileRemove}
               >
                 <Icon
