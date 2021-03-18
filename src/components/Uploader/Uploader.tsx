@@ -5,6 +5,7 @@ import React, { useState } from "react"
 import { DropzoneOptions, useDropzone } from "react-dropzone"
 
 import { Button } from ".."
+import Icon from "../Icon/Icon"
 
 export interface IUploaderProps extends DropzoneOptions {
   name?: string
@@ -62,6 +63,7 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
       multiple,
       maxSize,
       ...restProps,
+
       onDrop: (acceptedFiles) => {
         const newFiles = multiple ? files.concat(acceptedFiles) : acceptedFiles
 
@@ -69,12 +71,24 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
       },
     })
 
+    function handleFileRemove(event: React.MouseEvent<HTMLInputElement>): void {
+      const fileIndex = event.currentTarget.dataset.index
+      if (!fileIndex) return
+
+      const newFiles = files.filter(
+        (file, index) => index !== Number(fileIndex)
+      )
+      onChange?.(newFiles)
+    }
+
     return (
       <div
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
+          maxWidth: "460px",
+          textAlign: "center",
         }}
       >
         <div
@@ -140,28 +154,48 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
             transition: "all.2s",
           }}
         >
-          {files.map(({ name }) => (
+          {files.map(({ name }, index) => (
             <Flex
-              key={name}
+              key={index}
               sx={{
                 paddingX: 3,
                 paddingY: 2,
                 borderRadius: 2,
                 alignItems: "center",
+                justifyContent: "space-between",
                 backgroundColor: "secondary.alpha.95",
               }}
             >
-              <Text
+              <span
                 sx={{
                   fontSize: 13,
                   color: "secondary.0",
                   textOverflow: "ellipsis",
                   verticalAlign: "middle",
                   overflow: "hidden",
+                  whiteSpace: "nowrap",
                 }}
               >
                 {name}
-              </Text>
+              </span>
+              <span
+                sx={{
+                  display: "inline-flex",
+                  ml: 2,
+                  cursor: "pointer",
+                }}
+                data-index={index}
+                onClick={handleFileRemove}
+              >
+                <Icon
+                  sx={{
+                    color: "text.40",
+                    pointerEvents: "none",
+                  }}
+                  name="IconX"
+                  size={16}
+                />
+              </span>
             </Flex>
           ))}
         </div>
