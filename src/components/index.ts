@@ -47,4 +47,4 @@ export { default as ThemeWrapper } from "../theme/ThemeWrapper"
 export type { IThemeWrapperProps as ThemeWrapperProps } from "../theme/ThemeWrapper"
 
 export { default as Uploader } from "./Uploader/Uploader"
-export type { IUploaderProps } from "./Uploader/Uploader"
+export type { IUploaderProps as UploaderProps } from "./Uploader/Uploader"
