@@ -4,7 +4,7 @@ import { fireEvent, render } from "../../tests/utils"
 
 import Uploader, { IUploaderProps } from "./Uploader"
 
-export const DefaultTemplate = (props: IUploaderProps) => {
+const DefaultTemplate = (props: IUploaderProps) => {
   const [files, setFiles] = useState<File[]>([])
 
   return (
