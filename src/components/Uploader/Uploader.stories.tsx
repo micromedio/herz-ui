@@ -12,7 +12,7 @@ export default {
   component: Uploader,
 } as Meta
 
-export const DefaultTemplate: Story<IUploaderProps> = (props) => {
+const DefaultTemplate: Story<IUploaderProps> = (props) => {
   const [files, setFiles] = useState<File[]>([])
 
   return (
