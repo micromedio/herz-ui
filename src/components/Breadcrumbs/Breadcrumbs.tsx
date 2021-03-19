@@ -10,7 +10,7 @@ export interface BreadcrumbsProps {
 
 const BreadcrumbsSeparator = () => {
   return (
-    <li>
+    <li sx={{ display: "flex" }}>
       <Icon name="IconChevronRight" sx={{ color: "text.40", mx: 1 }} />
     </li>
   )
@@ -67,6 +67,9 @@ const Breadcrumbs = ({ children }: BreadcrumbsProps) => {
         sx={{
           display: "flex",
           listStyle: "none",
+          alignItems: "center",
+          margin: 0,
+          padding: 0,
           a: {
             color: "inherit",
             textDecoration: "none",
