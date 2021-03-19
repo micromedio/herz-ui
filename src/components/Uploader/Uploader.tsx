@@ -151,7 +151,7 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
             opacity: isPreviewOpen ? 1 : 0,
             visibility: isPreviewOpen ? "visible" : "hidden",
             maxHeight: isPreviewOpen ? "9999px" : 0,
-            gridTemplateColumns: "50% 50%",
+            gridTemplateColumns: "1fr 1fr",
             gap: 2,
             alignSelf: "stretch",
             transition: "all.2s",
