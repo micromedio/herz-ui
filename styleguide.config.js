@@ -7,6 +7,7 @@ module.exports = {
   styleguideComponents: {
     Wrapper: path.join(__dirname, "src/theme/ThemeWrapper"),
   },
+  require: ["normalize.css"],
   propsParser: require("react-docgen-typescript").parse,
   skipComponentsWithoutExample: true,
   sections: [
