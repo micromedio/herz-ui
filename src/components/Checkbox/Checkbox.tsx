@@ -8,7 +8,7 @@ export interface ICheckboxProps {
   checked?: boolean
   indeterminate?: boolean
   disabled?: boolean
-  label?: string
+  label?: string | React.ReactNode
   name?: string
   onChange?(event: React.ChangeEvent<HTMLInputElement>): void
 }

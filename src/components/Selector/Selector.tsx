@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import React from "react"
 import { Flex, HerzUITheme, jsx } from "theme-ui"
+import _ from "lodash"
 
 import { useSelector, SELECTOR_BULK_ACTIONS } from "./hooks/useSelector"
 import Checkbox from "../Checkbox/Checkbox"
@@ -12,7 +13,7 @@ export type SelectedItems = Array<SelectorValue>
 
 export type SelectorOption = {
   value: string | number
-  label: string
+  label: string | React.ReactNode
 }
 
 export interface SelectorProps {
@@ -22,13 +23,16 @@ export interface SelectorProps {
   options: Array<SelectorOption>
   /** The value of the `input` element, required for a controlled component */
   value?: SelectorValue
+  /** Value which will not trigger the `filled` select state */
+  initialValue?: SelectorValue
   /** Whether the component is disabled or not */
   disabled?: boolean
   /** Whether the user can select multiple options or not */
   multi?: boolean
   /** Current selected items for multiple selection */
   selectedItems?: SelectedItems
-
+  /** Items which will not trigger the `filled` select state */
+  initialSelectedItems?: SelectedItems
   /** Callback fired when the value is changed */
   onChange?: (changes: SelectorValue) => void
   /** Callback fired when the selected items change for multiple selection */
@@ -38,11 +42,13 @@ export interface SelectorProps {
 /** Component responsible for rendering a select dropdown from given options */
 const Selector = ({
   label,
-  options,
+  options = [],
   value,
+  initialValue,
   disabled = false,
   multi = false,
   selectedItems = [],
+  initialSelectedItems,
   onChange,
   onSelectedItemsChange,
 }: SelectorProps) => {
@@ -109,7 +115,15 @@ const Selector = ({
     (selectedItem && options.find(({ value }) => value === selectedItem)) ||
     undefined
 
-  const isSelectorFilled = selectedItem || selectedItems.length > 0
+  const areInitialItemsSelected =
+    initialSelectedItems && _.isEqual(initialSelectedItems, selectedItems)
+
+  const isInitialValueSelected = initialValue && initialValue === selectedItem
+
+  const isSelectorFilled =
+    !areInitialItemsSelected &&
+    !isInitialValueSelected &&
+    (selectedItem || selectedItems.length > 0)
 
   return (
     <Flex
@@ -249,27 +263,29 @@ const Selector = ({
               </li>
             )
           })}
-          <li>
-            <Button
-              variant="plain"
-              color="secondary"
-              sx={{
-                cursor: "pointer",
-                width: "100%",
-                justifyContent: "start",
-              }}
-              onClick={() => {
-                if (isSelectorFilled) {
-                  handleBulkAction(SELECTOR_BULK_ACTIONS.DESELECT_ALL)
-                  return true
-                }
+          {multi && (
+            <li>
+              <Button
+                variant="plain"
+                color="secondary"
+                sx={{
+                  cursor: "pointer",
+                  width: "100%",
+                  justifyContent: "start",
+                }}
+                onClick={() => {
+                  if (isSelectorFilled) {
+                    handleBulkAction(SELECTOR_BULK_ACTIONS.DESELECT_ALL)
+                    return true
+                  }
 
-                handleBulkAction(SELECTOR_BULK_ACTIONS.SELECT_ALL)
-              }}
-            >
-              {isSelectorFilled ? "Deselect all" : "Select all"}
-            </Button>
-          </li>
+                  handleBulkAction(SELECTOR_BULK_ACTIONS.SELECT_ALL)
+                }}
+              >
+                {isSelectorFilled ? "Deselect all" : "Select all"}
+              </Button>
+            </li>
+          )}
         </ul>
       </div>
     </Flex>
