@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /*
 /** @jsx jsx */
-import { jsx, Text } from "theme-ui"
+import { jsx } from "theme-ui"
 
 import React, { useState } from "react"
 import { Meta, Story } from "@storybook/react/types-6-0"
@@ -17,7 +17,11 @@ const DefaultTemplate: Story<IUploaderProps> = (props) => {
 
   return (
     <Uploader {...props} files={files} onChange={(files) => setFiles(files)}>
-      <Text>
+      <span
+        sx={{
+          color: "#777",
+        }}
+      >
         Drag & drop or{" "}
         <span
           sx={{
@@ -27,7 +31,7 @@ const DefaultTemplate: Story<IUploaderProps> = (props) => {
           browse
         </span>{" "}
         the activation file you received by e-mail here
-      </Text>
+      </span>
     </Uploader>
   )
 }
