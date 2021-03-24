@@ -13,7 +13,7 @@ export type SelectedItems = Array<SelectorValue>
 
 export type SelectorOption = {
   value: string | number
-  label: string | React.ReactNode
+  label: React.ReactNode
 }
 
 export interface SelectorProps {
