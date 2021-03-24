@@ -2,7 +2,6 @@
 /** @jsx jsx */
 import React from "react"
 import { Flex, HerzUITheme, jsx } from "theme-ui"
-import _ from "lodash"
 
 import { useSelector, SELECTOR_BULK_ACTIONS } from "./hooks/useSelector"
 import Checkbox from "../Checkbox/Checkbox"
@@ -37,6 +36,24 @@ export interface SelectorProps {
   onChange?: (changes: SelectorValue) => void
   /** Callback fired when the selected items change for multiple selection */
   onSelectedItemsChange?: (changes: SelectedItems) => void
+}
+
+function isArrayEqual(
+  value: Array<number | string>,
+  other: Array<number | string>
+): boolean {
+  const otherSorted = other.slice().sort()
+
+  const isEqual =
+    value.length === other.length &&
+    value
+      .slice()
+      .sort()
+      .every(function (value, index) {
+        return value === otherSorted[index]
+      })
+
+  return isEqual
 }
 
 /** Component responsible for rendering a select dropdown from given options */
@@ -116,7 +133,7 @@ const Selector = ({
     undefined
 
   const areInitialItemsSelected =
-    initialSelectedItems && _.isEqual(initialSelectedItems, selectedItems)
+    initialSelectedItems && isArrayEqual(initialSelectedItems, selectedItems)
 
   const isInitialValueSelected = initialValue && initialValue === selectedItem
 
