@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { jsx, Checkbox, Label, HerzUITheme } from "theme-ui"
+import { jsx, Label, HerzUITheme } from "theme-ui"
 import {
   useTable,
   Column,
@@ -13,6 +13,7 @@ import { Pagination, Selector } from "../"
 import { memo, useEffect, useMemo } from "react"
 import useRowSelection from "./useRowSelection"
 import Icon from "../Icon/Icon"
+import Checkbox from "../Checkbox/Checkbox"
 
 const INTERNAL_SELECTION_COLUMN_ID = "INTERNAL_SELECTION_COLUMN_ID"
 
@@ -171,175 +172,200 @@ const Table = ({
     return !page.some((row) => !selectedRowIds[row.id])
   }, [page, selectedRowIds])
 
-  // const somePageRowsSelected = useMemo(() => {
-  //   return page.some((row) => selectedRowIds[row.id])
-  // }, [page, selectedRowIds])
+  const somePageRowsSelected = useMemo(() => {
+    return page.some((row) => selectedRowIds[row.id])
+  }, [page, selectedRowIds])
 
   return (
     <div
       {...getTableProps()}
       sx={{
+        display: "grid",
+        gridTemplateRows: "1fr auto",
+        overflow: "auto",
         width: "100%",
       }}
     >
-      <div>
-        {headerGroups.map((headerGroup) => {
-          const { key, ...headerGroupProps } = headerGroup.getHeaderGroupProps()
-          return (
-            <div
-              {...headerGroupProps}
-              key={key}
-              sx={{
-                borderBottom: (theme: HerzUITheme) =>
-                  `1px solid ${theme.colors.text[90]}`,
-                px: 1,
-              }}
-            >
-              {headerGroup.headers.map((column) => {
-                const { key, ...headerProps } = column.getHeaderProps(
-                  column.getSortByToggleProps()
-                )
-
-                return (
-                  <div
-                    {...headerProps}
-                    key={key}
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      pl: 6,
-                      pb: 3,
-                      color: column.isSorted ? "text.0" : "text.40",
-                      variant: column.isSorted ? "text.heading3" : "text.body1",
-                      textAlign: column.align ?? "start",
-                    }}
-                  >
-                    {column.id === INTERNAL_SELECTION_COLUMN_ID ? (
-                      <Label key={key}>
-                        <Checkbox
-                          sx={checkboxStyles}
-                          checked={allPageRowsSelected}
-                          // indeterminate={
-                          //   !allPageRowsSelected && somePageRowsSelected
-                          // }
-                          onChange={() =>
-                            setRowsSelected(
-                              page.map((row) => row.id),
-                              !allPageRowsSelected
-                            )
-                          }
-                          aria-label={
-                            allPageRowsSelected
-                              ? "unselect all rows"
-                              : "select all rows"
-                          }
-                        />
-                      </Label>
-                    ) : (
-                      <div
-                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
-                      >
-                        {column.render("Header")}
-                        {column.isSorted ? (
-                          column.isSortedDesc ? (
-                            <Icon
-                              name="IconArrowNarrowDown"
-                              size={16}
-                              sx={{ color: "text.0" }}
-                            />
-                          ) : (
-                            <Icon
-                              name="IconArrowNarrowUp"
-                              size={16}
-                              sx={{ color: "text.0" }}
-                            />
-                          )
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          )
-        })}
-      </div>
-      <div {...getTableBodyProps()}>
-        {page.map((row) => {
-          prepareRow(row)
-          const { key, ...rowProps } = row.getRowProps()
-          return (
-            <div
-              key={key}
-              sx={{
-                p: 1,
-                borderBottom: (theme: HerzUITheme) =>
-                  `1px solid ${theme.colors.text[90]}`,
-                transition: "all 0.2s",
-                backgroundColor: !!selectedRowIds[row.id]
-                  ? "secondary.alpha.95"
-                  : "transparent",
-              }}
-            >
+      <div
+        sx={{
+          overflow: "auto",
+        }}
+      >
+        <div
+          sx={{
+            // position: "sticky",
+            // top: 0,
+            minWidth: "fit-content",
+            // backgroundColor: "",
+          }}
+        >
+          {headerGroups.map((headerGroup) => {
+            const {
+              key,
+              ...headerGroupProps
+            } = headerGroup.getHeaderGroupProps()
+            return (
               <div
-                {...rowProps}
+                {...headerGroupProps}
+                key={key}
                 sx={{
-                  borderRadius: 3,
-                  transition: "all 0.2s",
-
-                  "&:hover": {
-                    backgroundColor: !selectedRowIds[row.id]
-                      ? "secondary.alpha.95"
-                      : "transparent",
-                  },
+                  borderBottom: (theme: HerzUITheme) =>
+                    `1px solid ${theme.colors.text[90]}`,
+                  px: 1,
                 }}
               >
-                {row.cells.map((cell) => {
-                  const { key, ...cellProps } = cell.getCellProps()
+                {headerGroup.headers.map((column) => {
+                  const { key, ...headerProps } = column.getHeaderProps(
+                    column.getSortByToggleProps()
+                  )
+
                   return (
                     <div
-                      {...cellProps}
+                      {...headerProps}
                       key={key}
                       sx={{
                         display: "flex",
-                        pl: 6,
-                        py: 2,
-                        color: cell.column.highlight ? "secondary.0" : "text.0",
-                        variant: "text.body1",
-                        justifyContent: {
-                          start: "flex-start",
-                          end: "flex-end",
-                          center: "center",
-                        }[cell.column.align || "start"],
                         alignItems: "center",
+                        pl: 6,
+                        pb: 3,
+                        color: column.isSorted ? "text.0" : "text.40",
+                        variant: column.isSorted
+                          ? "text.heading3"
+                          : "text.body1",
+                        textAlign: column.align ?? "start",
                       }}
                     >
-                      {cell.column.id === INTERNAL_SELECTION_COLUMN_ID ? (
+                      {column.id === INTERNAL_SELECTION_COLUMN_ID ? (
                         <Label key={key}>
                           <Checkbox
                             sx={checkboxStyles}
-                            checked={!!selectedRowIds[row.id]}
-                            onChange={() => toggleRowSelected(row.id)}
-                            aria-label={`select row ${row.id}`}
+                            checked={allPageRowsSelected}
+                            indeterminate={
+                              !allPageRowsSelected && somePageRowsSelected
+                            }
+                            onChange={() =>
+                              setRowsSelected(
+                                page.map((row) => row.id),
+                                !allPageRowsSelected
+                              )
+                            }
+                            aria-label={
+                              allPageRowsSelected
+                                ? "unselect all rows"
+                                : "select all rows"
+                            }
                           />
                         </Label>
                       ) : (
-                        cell.render("Cell")
+                        <div
+                          sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                        >
+                          {column.render("Header")}
+                          {column.isSorted ? (
+                            column.isSortedDesc ? (
+                              <Icon
+                                name="IconArrowNarrowDown"
+                                size={16}
+                                sx={{ color: "text.0" }}
+                              />
+                            ) : (
+                              <Icon
+                                name="IconArrowNarrowUp"
+                                size={16}
+                                sx={{ color: "text.0" }}
+                              />
+                            )
+                          ) : (
+                            ""
+                          )}
+                        </div>
                       )}
                     </div>
                   )
                 })}
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
+        <div {...getTableBodyProps()} sx={{}}>
+          {page.map((row) => {
+            prepareRow(row)
+            const { key, ...rowProps } = row.getRowProps()
+            return (
+              <div
+                key={key}
+                sx={{
+                  p: 1,
+                  minWidth: "fit-content",
+                  borderBottom: (theme: HerzUITheme) =>
+                    `1px solid ${theme.colors.text[90]}`,
+                  transition: "all 0.2s",
+                  backgroundColor: !!selectedRowIds[row.id]
+                    ? "secondary.alpha.95"
+                    : "transparent",
+                }}
+              >
+                <div
+                  {...rowProps}
+                  sx={{
+                    borderRadius: 3,
+                    transition: "all 0.2s",
+
+                    "&:hover": {
+                      backgroundColor: !selectedRowIds[row.id]
+                        ? "secondary.alpha.95"
+                        : "transparent",
+                    },
+                  }}
+                >
+                  {row.cells.map((cell) => {
+                    const { key, ...cellProps } = cell.getCellProps()
+                    return (
+                      <div
+                        {...cellProps}
+                        key={key}
+                        sx={{
+                          display: "flex",
+                          pl: 6,
+                          py: 2,
+                          color: cell.column.highlight
+                            ? "secondary.0"
+                            : "text.0",
+                          variant: "text.body1",
+                          justifyContent: {
+                            start: "flex-start",
+                            end: "flex-end",
+                            center: "center",
+                          }[cell.column.align || "start"],
+                          alignItems: "center",
+                        }}
+                      >
+                        {cell.column.id === INTERNAL_SELECTION_COLUMN_ID ? (
+                          <Label key={key}>
+                            <Checkbox
+                              sx={checkboxStyles}
+                              checked={!!selectedRowIds[row.id]}
+                              onChange={() => toggleRowSelected(row.id)}
+                              aria-label={`select row ${row.id}`}
+                            />
+                          </Label>
+                        ) : (
+                          cell.render("Cell")
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })}
+        </div>
       </div>
       <div
         sx={{
           display: "flex",
           justifyContent: "space-between",
+          alignItems: "center",
           px: 6,
           pt: 6,
         }}

@@ -11,6 +11,13 @@ import { action } from "@storybook/addon-actions"
 export default {
   title: "Design System/Table",
   component: Table,
+  // decorators: [
+  //   (Story) => (
+  //     <div style={{ display: "grid", width: 600, height: 600 }}>
+  //       <Story />
+  //     </div>
+  //   ),
+  // ],
 } as Meta
 
 const columns = [
