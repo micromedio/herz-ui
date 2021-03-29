@@ -10,13 +10,15 @@ import { MouseEvent, ButtonHTMLAttributes, forwardRef } from "react"
 import Icon, { IconProps } from "../Icon/Icon"
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children?: string
+  children?: string | React.ReactNode
 
   variant?: "filled" | "plain"
 
   color?: "primary" | "secondary" | "success" | "text"
 
   disabled?: boolean
+
+  size?: "small" | "large"
 
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void
 
@@ -29,6 +31,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     onClick,
     variant = "filled",
     color = "primary",
+    size = "large",
     disabled,
     iconName,
     ...htmlProps
@@ -61,14 +64,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 
   const filled: SxStyleProp = {
     ...baseButton,
-    paddingX: 3,
-    paddingY: 2,
+    paddingX: size === "large" ? 3 : 1,
+    paddingY: size === "large" ? 2 : 1,
   }
 
   const plain: SxStyleProp = {
     ...baseButton,
+    paddingY: size === "large" ? 2 : 1,
     paddingX: 1,
-    paddingY: 2,
     backgroundColor: "transparent",
     color: (theme: HerzUITheme) =>
       theme.colors[color][color === "text" ? 40 : 0],
