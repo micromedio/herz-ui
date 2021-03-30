@@ -53,7 +53,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         alignItems: "center",
         gap: 2,
 
-        paddingY: 1,
+        paddingY: "6px", // the 2px border counts towards height, so we need 6px instead of 8px for the correct height
         paddingX: 3,
         backgroundColor: value ? "secondary.alpha.95" : "text.alpha.95",
         outline: 0,
@@ -90,8 +90,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           outline: 0,
           backgroundColor: "transparent",
           border: "none",
-          p: 1,
+          p: 0,
           color: "text.0",
+          variant: "text.body1",
         }}
       />
 
