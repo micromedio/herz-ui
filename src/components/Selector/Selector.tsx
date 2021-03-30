@@ -181,6 +181,7 @@ const Selector = ({
             outline: 0,
             border: "2px solid transparent",
             transition: "all .2s linear",
+            fontFamily: "body",
             ...(isSelectorFilled ? stateStyles.filled : stateStyles.resting),
             ...(!disabled && { cursor: "pointer" }),
 
