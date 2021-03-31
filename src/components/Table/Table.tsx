@@ -439,7 +439,7 @@ const Table = ({
                         ? {
                             backgroundColor: "primary.0",
                             boxShadow: (theme: HerzUITheme) =>
-                              `0px 1px 12px ${theme.colors.primary.alpha[40]}`,
+                              `0px 1px 12px ${theme.colors.primary.alpha[70]}`,
                             borderRadius: "4px 0px 0px 4px",
                           }
                         : {}),
