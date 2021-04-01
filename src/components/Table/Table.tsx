@@ -10,7 +10,7 @@ import {
   SortingRule,
 } from "react-table"
 import { Pagination, Selector } from "../"
-import { memo, useEffect, useMemo } from "react"
+import { HTMLAttributes, memo, useEffect, useMemo } from "react"
 import useRowSelection from "./useRowSelection"
 import Icon from "../Icon/Icon"
 import Checkbox from "../Checkbox/Checkbox"
@@ -75,6 +75,9 @@ export interface TableProps {
     pageSize: number
     sortBy?: SortingRule<string>
   }) => void
+
+  className?: HTMLAttributes<HTMLDivElement>["className"]
+  style?: HTMLAttributes<HTMLDivElement>["style"]
 }
 
 const Table = ({
@@ -102,6 +105,8 @@ const Table = ({
   initialPageIndex = 0,
 
   onTableChange,
+  className,
+  style,
 }: TableProps) => {
   const {
     selectedRowIds,
@@ -195,21 +200,22 @@ const Table = ({
       {...getTableProps()}
       sx={{
         display: "grid",
-        gridTemplateRows: "1fr auto",
+        gridTemplateRows: "minmax(0, 1fr) auto",
         overflow: "auto",
         width: "100%",
+        backgroundColor: "#fff",
       }}
+      className={className}
+      style={style}
     >
-      {/* Table */}
-      <div
-        sx={{
-          overflow: "auto",
-        }}
-      >
-        {/* Headers */}
+      <div sx={{ overflow: "auto", backgroundColor: "inherit" }}>
+        {/* Table Headers */}
         <div
           sx={{
             minWidth: "fit-content",
+            position: "sticky",
+            top: 0,
+            backgroundColor: "inherit",
           }}
         >
           {headerGroups.map((headerGroup) => {
@@ -317,8 +323,8 @@ const Table = ({
           })}
         </div>
 
-        {/* Table */}
-        <div {...getTableBodyProps()} sx={{}}>
+        {/* Table Body */}
+        <div {...getTableBodyProps()}>
           {/* Rows */}
           {page.map((row) => {
             prepareRow(row)

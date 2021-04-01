@@ -7,10 +7,18 @@ import { Meta, Story } from "@storybook/react/types-6-0"
 import data from "./__mocks__/data"
 import _ from "lodash"
 import { action } from "@storybook/addon-actions"
+import Paper from "../Paper/Paper"
 
 export default {
   title: "Design System/Table",
   component: Table,
+  decorators: [
+    (Story) => (
+      <Paper sx={{ display: "grid", height: 700 }}>
+        <Story />
+      </Paper>
+    ),
+  ],
 } as Meta
 
 const columns = [
