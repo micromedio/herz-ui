@@ -12,7 +12,7 @@ export enum SELECTOR_BULK_ACTIONS {
 }
 
 export function useSelector({
-  options,
+  options = [],
   multi,
   value,
   selectedItems = [],
