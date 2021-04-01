@@ -119,13 +119,17 @@ const Selector = ({
   }
 
   const getMultiSelectLabel = () => {
-    return selectedItems.length > 0
-      ? selectedItems.length === options.length
-        ? "All"
-        : selectedItems.length === 1
-        ? options.find(({ value }) => value === selectedItems[0])?.label
-        : selectedItems.length + " selected"
-      : "Select one or more options"
+    if (selectedItems.length > 0) {
+      if (selectedItems.length === options.length) {
+        return "All"
+      }
+      if (selectedItems.length === 1) {
+        return options.find(({ value }) => value === selectedItems[0])?.label
+      }
+      return selectedItems.length + " selected"
+    }
+
+    return "Select one or more options"
   }
 
   const selectedOption =
