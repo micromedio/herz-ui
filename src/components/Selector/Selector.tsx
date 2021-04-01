@@ -5,7 +5,7 @@ import { Flex, HerzUITheme, jsx } from "theme-ui"
 
 import { useSelector, SELECTOR_BULK_ACTIONS } from "./hooks/useSelector"
 import Checkbox from "../Checkbox/Checkbox"
-import { Button } from ".."
+import { Button, Popover } from ".."
 
 export type SelectorValue = string | number
 export type SelectedItems = Array<SelectorValue>
@@ -168,10 +168,96 @@ const Selector = ({
         </label>
       )}
 
-      <div
-        sx={{
-          position: "relative",
-        }}
+      <Popover
+        isVisible={isOpen}
+        isInteractive
+        placement="bottom-start"
+        noPadding
+        content={
+          <ul
+            {...getMenuProps({
+              disabled,
+            })}
+            sx={{
+              maxHeight: 350,
+              overflowY: "auto",
+              padding: 4,
+              outline: 0,
+              listStyle: "none",
+            }}
+          >
+            {options.map((item, index) => {
+              const { label, value } = item
+              const isSelected = multi && selectedItems.includes(value)
+
+              return (
+                <li
+                  key={`${value}${index}`}
+                  sx={{
+                    padding: 2,
+                    cursor: "pointer",
+                    borderRadius: 2,
+                    color: isSelected ? "text.0" : "text.40",
+                    backgroundColor: "#fff",
+                    whiteSpace: "nowrap",
+
+                    ...(highlightedIndex === index
+                      ? {
+                          color: "text.0",
+                          backgroundColor: "text.alpha.95",
+                        }
+                      : {}),
+
+                    ...(selectedItem === value
+                      ? {
+                          color: "#fff",
+                          backgroundColor: "secondary.0",
+                          fontWeight: "bold",
+                        }
+                      : {}),
+                    transition: "all .2s linear",
+                  }}
+                  {...getItemProps({
+                    item: value,
+                    index,
+                    disabled,
+                  })}
+                >
+                  <Flex>
+                    {multi ? (
+                      <Checkbox checked={isSelected} label={label} />
+                    ) : (
+                      label
+                    )}
+                  </Flex>
+                </li>
+              )
+            })}
+            {multi && (
+              <li>
+                <Button
+                  variant="plain"
+                  color="secondary"
+                  sx={{
+                    cursor: "pointer",
+                    width: "100%",
+                    justifyContent: "start",
+                  }}
+                  onClick={() => {
+                    if (isSelectorFilled) {
+                      handleBulkAction(SELECTOR_BULK_ACTIONS.DESELECT_ALL)
+                      return true
+                    }
+
+                    handleBulkAction(SELECTOR_BULK_ACTIONS.SELECT_ALL)
+                  }}
+                >
+                  {isSelectorFilled ? "Deselect all" : "Select all"}
+                </Button>
+              </li>
+            )}
+          </ul>
+        }
       >
         <button
           sx={{
@@ -213,103 +299,7 @@ const Selector = ({
             ? getMultiSelectLabel()
             : (selectedItem && selectedOption?.label) || "Select an option"}
         </button>
-        <ul
-          {...getMenuProps({
-            disabled,
-          })}
-          sx={{
-            maxHeight: 350,
-            maxWidth: 300,
-            position: "absolute",
-            overflowY: "scroll",
-            display: isOpen ? "block" : "none",
-            left: 0,
-            top: 35,
-            marginTop: 3,
-            padding: 4,
-            borderRadius: 4,
-            outline: 0,
-            listStyle: "none",
-            border: (theme: HerzUITheme) =>
-              `1px solid ${theme.colors.text[90]}`,
-            backgroundColor: "#fff",
-            boxShadow: "0px 1px 12px rgba(0, 0, 0, 0.16)",
-            zIndex: 9,
-            transition: "all .2s linear",
-          }}
-        >
-          {options.map((item, index) => {
-            const { label, value } = item
-            const isSelected = multi && selectedItems.includes(value)
-
-            return (
-              <li
-                key={`${value}${index}`}
-                sx={{
-                  padding: 2,
-                  cursor: "pointer",
-                  borderRadius: 2,
-                  color: isSelected ? "text.0" : "text.40",
-                  backgroundColor: "#fff",
-                  whiteSpace: "nowrap",
-
-                  ...(highlightedIndex === index
-                    ? {
-                        color: "text.0",
-                        backgroundColor: "text.alpha.95",
-                      }
-                    : {}),
-
-                  ...(selectedItem === value
-                    ? {
-                        color: "#fff",
-                        backgroundColor: "secondary.0",
-                        fontWeight: "bold",
-                      }
-                    : {}),
-                  transition: "all .2s linear",
-                }}
-                {...getItemProps({
-                  item: value,
-                  index,
-                  disabled,
-                })}
-              >
-                <Flex>
-                  {multi ? (
-                    <Checkbox checked={isSelected} label={label} />
-                  ) : (
-                    label
-                  )}
-                </Flex>
-              </li>
-            )
-          })}
-          {multi && (
-            <li>
-              <Button
-                variant="plain"
-                color="secondary"
-                sx={{
-                  cursor: "pointer",
-                  width: "100%",
-                  justifyContent: "start",
-                }}
-                onClick={() => {
-                  if (isSelectorFilled) {
-                    handleBulkAction(SELECTOR_BULK_ACTIONS.DESELECT_ALL)
-                    return true
-                  }
-
-                  handleBulkAction(SELECTOR_BULK_ACTIONS.SELECT_ALL)
-                }}
-              >
-                {isSelectorFilled ? "Deselect all" : "Select all"}
-              </Button>
-            </li>
-          )}
-        </ul>
-      </div>
+      </Popover>
     </Flex>
   )
 }
