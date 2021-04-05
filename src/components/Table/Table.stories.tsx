@@ -7,10 +7,18 @@ import { Meta, Story } from "@storybook/react/types-6-0"
 import data from "./__mocks__/data"
 import _ from "lodash"
 import { action } from "@storybook/addon-actions"
+import Paper from "../Paper/Paper"
 
 export default {
   title: "Design System/Table",
   component: Table,
+  decorators: [
+    (Story) => (
+      <Paper sx={{ display: "grid", height: 700 }}>
+        <Story />
+      </Paper>
+    ),
+  ],
 } as Meta
 
 const columns = [
@@ -75,6 +83,27 @@ export const Example = Template.bind({})
 Example.args = {
   columns,
   data,
+}
+
+const ActiveRowTemplate: Story<TableProps> = (props: TableProps) => {
+  const [activeRowIds, setActiveRowIds] = useState<TableProps["activeRowIds"]>({
+    HBPM457: true,
+  })
+
+  return (
+    <Table
+      {...props}
+      onRowClick={({ id }) => setActiveRowIds({ [id]: true })}
+      activeRowIds={activeRowIds}
+    />
+  )
+}
+export const ActiveRowExample = ActiveRowTemplate.bind({})
+
+ActiveRowExample.args = {
+  columns,
+  data,
+  rowClickable: true,
 }
 
 const ControlledPaginationTemplate: Story<TableProps> = (props: TableProps) => {
