@@ -28,6 +28,12 @@ Example.args = {
   iconName: "IconSearch",
 }
 
+export const Password = Template.bind({})
+Password.args = {
+  placeholder: "Insert your password",
+  type: "password",
+}
+
 export const Filled = Template.bind({})
 Filled.args = {
   value: "Filled input",

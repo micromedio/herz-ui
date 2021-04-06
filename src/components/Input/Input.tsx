@@ -1,7 +1,13 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import { HerzUITheme, jsx } from "theme-ui"
-import { ChangeEvent, forwardRef, InputHTMLAttributes } from "react"
+import {
+  ChangeEvent,
+  forwardRef,
+  InputHTMLAttributes,
+  useMemo,
+  useState,
+} from "react"
 import Icon, { IconProps } from "../Icon/Icon"
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -45,6 +51,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   }: InputProps,
   ref
 ) {
+  const [passwordVisible, setPasswordVisible] = useState(false)
+  const inputType = useMemo(() => {
+    if (type === "password") {
+      return passwordVisible ? "text" : "password"
+    }
+    return type
+  }, [passwordVisible, type])
+
   return (
     <div
       sx={{
@@ -74,7 +88,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     >
       <input
         id={id}
-        type={type}
+        type={inputType}
         ref={ref}
         required={required}
         placeholder={placeholder}
@@ -110,6 +124,18 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         </label>
       )}
       {iconName && <Icon name={iconName} size={16} sx={{ color: "text.40" }} />}
+      {type === "password" && (
+        <div
+          onClick={() => setPasswordVisible((value) => !value)}
+          sx={{
+            display: "flex",
+            color: passwordVisible ? "secondary.0" : "text.40",
+            cursor: "pointer",
+          }}
+        >
+          <Icon name={passwordVisible ? "IconEye" : "IconEyeOff"} size={16} />
+        </div>
+      )}
     </div>
   )
 })
