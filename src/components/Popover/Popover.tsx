@@ -1,10 +1,11 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import { jsx, SxStyleProp } from "theme-ui"
-import React, { useCallback, useEffect, useRef } from "react"
+import React, { useCallback, useRef } from "react"
 import Tippy, { TippyProps } from "@tippyjs/react"
 import { roundArrow } from "tippy.js"
 import ReactDOM from "react-dom"
+import { ssrSafeCreateDiv } from "../../helpers/ssr"
 
 export interface PopoverProps {
   /** Popover content */
@@ -73,10 +74,7 @@ const Popover = ({
   zIndexPopper = 9000,
   zIndexOverlay = 8000,
 }: PopoverProps) => {
-  const overlayRef = useRef<HTMLDivElement>()
-  useEffect(() => {
-    if (!overlayRef.current) overlayRef.current = document.createElement("div")
-  }, [])
+  const overlayRef = useRef<HTMLDivElement>(ssrSafeCreateDiv())
 
   const isControlled = isVisible !== undefined
 
@@ -233,23 +231,23 @@ const Popover = ({
       >
         {children}
       </Tippy>
-      {hasBackgroundOverlay &&
-        overlayRef.current &&
-        ReactDOM.createPortal(
-          <div
-            sx={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100vw",
-              height: "100vh",
-              backgroundColor: "rgba(0, 0, 0, 0.6)",
-              pointerEvents: "none",
-              zIndex: zIndexOverlay,
-            }}
-          />,
-          overlayRef.current
-        )}
+      {hasBackgroundOverlay && overlayRef.current
+        ? ReactDOM.createPortal(
+            <div
+              sx={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                pointerEvents: "none",
+                zIndex: zIndexOverlay,
+              }}
+            />,
+            overlayRef.current
+          )
+        : undefined}
     </React.Fragment>
   )
 }
