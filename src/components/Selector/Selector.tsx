@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /*
 /** @jsx jsx */
-import React from "react"
+import React, { useMemo } from "react"
 import { Flex, HerzUITheme, jsx } from "theme-ui"
 
 import { useSelector, SELECTOR_BULK_ACTIONS } from "./hooks/useSelector"
@@ -132,12 +132,18 @@ const Selector = ({
     return "Select one or more options"
   }
 
-  const selectedOption =
-    (selectedItem && options.find(({ value }) => value === selectedItem)) ||
-    undefined
+  const selectedOption = useMemo(() => {
+    return (
+      (selectedItem && options.find(({ value }) => value === selectedItem)) ||
+      undefined
+    )
+  }, [options, selectedItem])
 
-  const areInitialItemsSelected =
-    initialSelectedItems && isArrayEqual(initialSelectedItems, selectedItems)
+  const areInitialItemsSelected = useMemo(() => {
+    return (
+      initialSelectedItems && isArrayEqual(initialSelectedItems, selectedItems)
+    )
+  }, [initialSelectedItems, selectedItems])
 
   const isInitialValueSelected = initialValue && initialValue === selectedItem
 
@@ -145,6 +151,20 @@ const Selector = ({
     !areInitialItemsSelected &&
     !isInitialValueSelected &&
     (selectedItem || selectedItems.length > 0)
+
+  const hoverStyles = useMemo(() => {
+    if (disabled) return {}
+    if (isOpen) return stateStyles.active
+    if (isSelectorFilled) return stateStyles.filled
+    return stateStyles.hover
+  }, [
+    disabled,
+    isOpen,
+    isSelectorFilled,
+    stateStyles.active,
+    stateStyles.filled,
+    stateStyles.hover,
+  ])
 
   return (
     <Flex
@@ -175,9 +195,14 @@ const Selector = ({
         noPadding
         content={
           <ul
-            {...getMenuProps({
-              disabled,
-            })}
+            {...getMenuProps(
+              {
+                disabled,
+              },
+              {
+                suppressRefError: true,
+              }
+            )}
             sx={{
               maxHeight: 350,
               overflowY: "auto",
@@ -275,19 +300,8 @@ const Selector = ({
             ...(isSelectorFilled ? stateStyles.filled : stateStyles.resting),
             ...(!disabled && { cursor: "pointer" }),
 
-            "&:hover": {
-              /** If there's a selectedItem, it means the element is on the filled state */
-              ...(!disabled &&
-                (isSelectorFilled
-                  ? stateStyles.filled
-                  : !isOpen
-                  ? stateStyles.hover
-                  : {})),
-            },
-
-            ...(isOpen && {
-              ...(isSelectorFilled ? stateStyles.filled : stateStyles.active),
-            }),
+            "&:hover": hoverStyles,
+            ...(isOpen && stateStyles.active),
           }}
           type="button"
           {...getToggleButtonProps({
