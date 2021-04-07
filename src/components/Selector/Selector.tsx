@@ -208,6 +208,8 @@ const Selector = ({
               overflowY: "auto",
               padding: 4,
               outline: 0,
+              margin: 0,
+              marginTop: 1,
               listStyle: "none",
             }}
           >
