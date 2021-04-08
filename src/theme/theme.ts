@@ -55,19 +55,14 @@ export const theme: HerzUITheme = {
     text: colorPalette.text,
     success: colorPalette.success,
   },
+  breakpoints: ["64rem"],
 
   // Typography
   fonts: {
     body: "Gilroy",
   },
 
-  fontSizes: {
-    large: 18,
-    medium: 15,
-    base: 14,
-    small: 13,
-    xsmall: 12,
-  },
+  fontSizes: [12, 13, 14, 15, 16, 18, 20],
 
   fontWeights: {
     bold: 700,
@@ -76,6 +71,13 @@ export const theme: HerzUITheme = {
   },
 
   lineHeights: {
+    /**
+     * With the division we achieve a unitless value
+     * this is better for acessibility for people with cognitive concerns,
+     * when the page is zoomed the unitless value with allow the line-height
+     * to scale proportionately
+     * more in: https://developer.mozilla.org/en-US/docs/Web/CSS/line-height#accessibility_concerns
+     *  */
     body: 20 / 14,
   },
 
@@ -86,59 +88,59 @@ export const theme: HerzUITheme = {
     },
     heading1: {
       fontFamily: "body",
-      fontSize: "large",
+      fontSize: [6, 5],
       fontWeight: "bold",
-      lineHeight: 36 / 18, // 36px
+      lineHeight: [40 / 20, 36 / 18],
       letterSpacing: "-2%",
     },
     heading2: {
       fontFamily: "body",
-      fontSize: "medium",
+      fontSize: [4, 3],
       fontWeight: "semibold",
-      lineHeight: 24 / 15, // 24px
+      lineHeight: [24 / 16, 24 / 15],
     },
     heading3: {
       fontFamily: "body",
-      fontSize: "base",
+      fontSize: 2,
       fontWeight: "semibold",
       lineHeight: "body",
     },
     heading4: {
       fontFamily: "body",
-      fontSize: "small",
+      fontSize: 2,
       fontWeight: "semibold",
-      lineHeight: 20 / 13, // 20px
+      lineHeight: 20 / 13,
     },
 
     body1: {
       fontFamily: "body",
-      fontSize: "base",
+      fontSize: [4, 2],
       fontWeight: "medium",
-      lineHeight: "body",
+      lineHeight: [24 / 16, 20 / 14],
     },
     body2: {
       fontFamily: "body",
-      fontSize: "small",
+      fontSize: [2, 1],
       fontWeight: "medium",
-      lineHeight: 20 / 13, // 20px
+      lineHeight: [24 / 14, 20 / 13],
     },
     body3: {
       fontFamily: "body",
-      fontSize: "small",
+      fontSize: 2,
       fontWeight: "medium",
-      lineHeight: 16 / 13, // 16px
+      lineHeight: 16 / 13,
     },
     caption: {
       fontFamily: "body",
-      fontSize: "xsmall",
-      fontWeight: "medium",
-      lineHeight: 20 / 12, // 20px
+      fontSize: [2, 0],
+      fontWeight: ["semibold", "medium"],
+      lineHeight: [24 / 14, 20 / 12],
     },
     button1: {
       fontFamily: "body",
-      fontSize: "base",
+      fontSize: [4, 2],
       fontWeight: "semibold",
-      lineHeight: "body",
+      lineHeight: [24 / 16, 20 / 14],
     },
   },
 
@@ -146,7 +148,7 @@ export const theme: HerzUITheme = {
     ...base.styles,
     root: {
       fontFamily: "body",
-      fontSize: "base",
+      fontSize: 2,
       fontWeight: "medium",
       lineHeight: "body",
     },
