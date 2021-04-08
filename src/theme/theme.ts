@@ -101,7 +101,7 @@ export const theme: HerzUITheme = {
     },
     heading3: {
       fontFamily: "body",
-      fontSize: 3,
+      fontSize: 2,
       fontWeight: "semibold",
       lineHeight: "body",
     },
