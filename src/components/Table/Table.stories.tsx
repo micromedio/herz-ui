@@ -82,7 +82,17 @@ export const Example = Template.bind({})
 
 Example.args = {
   columns,
-  data,
+  data: [
+    {
+      ...data[0],
+      id: "WORD_BREAK_TEST",
+      physician: {
+        name:
+          "really_long_string_without_spaces_that_should_break_into_a_new_line",
+      },
+    },
+    ...data,
+  ],
 }
 
 const ActiveRowTemplate: Story<TableProps> = (props: TableProps) => {

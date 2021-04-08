@@ -411,6 +411,7 @@ const Table = ({
                             fontWeight: activeRowIds?.[row.id]
                               ? "bold"
                               : "medium",
+                            wordBreak: "break-all",
                           }}
                         >
                           {(() => {
