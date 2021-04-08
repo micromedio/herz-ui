@@ -5,6 +5,7 @@ import React, { useCallback, useRef } from "react"
 import Tippy, { TippyProps } from "@tippyjs/react"
 import { roundArrow } from "tippy.js"
 import ReactDOM from "react-dom"
+import { ssrSafeCreateDiv } from "../../helpers/ssr"
 
 export interface PopoverProps {
   /** Popover content */
@@ -73,7 +74,8 @@ const Popover = ({
   zIndexPopper = 9000,
   zIndexOverlay = 8000,
 }: PopoverProps) => {
-  const overlayRef = useRef(document.createElement("div"))
+  const overlayRef = useRef<HTMLDivElement>(ssrSafeCreateDiv())
+
   const isControlled = isVisible !== undefined
 
   const arrowStyles: SxStyleProp = {
@@ -174,18 +176,22 @@ const Popover = ({
         onCreate={onCreate}
         onShow={(instance) => {
           onShow?.(instance)
-          overlayRef.current.style.opacity = "0"
-          document.body.append(overlayRef.current)
-          overlayRef.current.style.transition = "opacity 200ms"
+          if (overlayRef.current) {
+            overlayRef.current.style.opacity = "0"
+            document.body.append(overlayRef.current)
+            overlayRef.current.style.transition = "opacity 200ms"
+          }
           setTimeout(() => {
-            overlayRef.current.style.opacity = "1"
+            if (overlayRef.current) overlayRef.current.style.opacity = "1"
           })
         }}
         onHide={(instance) => {
-          overlayRef.current.style.transition = "opacity 200ms"
-          overlayRef.current.style.opacity = "0"
+          if (overlayRef.current) {
+            overlayRef.current.style.transition = "opacity 200ms"
+            overlayRef.current.style.opacity = "0"
+          }
           setTimeout(() => {
-            overlayRef.current.remove()
+            if (overlayRef.current) overlayRef.current.remove()
           })
           onHide?.(instance)
         }}
@@ -225,22 +231,23 @@ const Popover = ({
       >
         {children}
       </Tippy>
-      {hasBackgroundOverlay &&
-        ReactDOM.createPortal(
-          <div
-            sx={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100vw",
-              height: "100vh",
-              backgroundColor: "rgba(0, 0, 0, 0.6)",
-              pointerEvents: "none",
-              zIndex: zIndexOverlay,
-            }}
-          />,
-          overlayRef.current
-        )}
+      {hasBackgroundOverlay && overlayRef.current
+        ? ReactDOM.createPortal(
+            <div
+              sx={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                pointerEvents: "none",
+                zIndex: zIndexOverlay,
+              }}
+            />,
+            overlayRef.current
+          )
+        : undefined}
     </React.Fragment>
   )
 }
