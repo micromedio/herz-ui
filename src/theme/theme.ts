@@ -148,7 +148,7 @@ export const theme: HerzUITheme = {
     ...base.styles,
     root: {
       fontFamily: "body",
-      fontSize: 3,
+      fontSize: 2,
       fontWeight: "medium",
       lineHeight: "body",
     },
