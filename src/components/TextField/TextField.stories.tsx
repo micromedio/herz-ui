@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import TextField, { TextFieldProps } from "./TextField"
 import { Meta, Story } from "@storybook/react/types-6-0"
+import { SelectorProps } from "../Selector/Selector"
 
 export default {
   title: "Design System/TextField",
@@ -22,6 +23,31 @@ const Template: Story<TextFieldProps> = (props: TextFieldProps) => {
   )
 }
 
+const SelectTemplate: Story<TextFieldProps> = (props: TextFieldProps) => {
+  const [value, setValue] = useState<SelectorProps["value"]>()
+
+  return (
+    <TextField
+      {...props}
+      selectProps={{
+        ...props.selectProps,
+        value: value,
+        options: [
+          {
+            label: "CPF",
+            value: "CPF",
+          },
+          {
+            label: "CNPJ",
+            value: "CNPJ",
+          },
+        ],
+        onChange: (newValue) => setValue(newValue),
+      }}
+    />
+  )
+}
+
 export const Example = Template.bind({})
 Example.args = {
   id: "field-id",
@@ -37,4 +63,24 @@ export const Filled = Template.bind({})
 Filled.args = {
   ...Example.args,
   value: "Filled input",
+}
+
+export const Select = SelectTemplate.bind({})
+Select.args = {
+  id: "field-id",
+  label: "Label",
+  helperText: "Text to help explain the input",
+  select: true,
+  selectProps: {
+    options: [
+      {
+        label: "CPF",
+        value: "CPF",
+      },
+      {
+        label: "CNPJ",
+        value: "CNPJ",
+      },
+    ],
+  },
 }
