@@ -14,13 +14,18 @@ export default {
 } as Meta
 
 const Template: Story<SelectorProps> = (props: SelectorProps) => {
-  const [value, setValue] = useState<SelectorValue>(props.initialValue || "")
+  const [value, setValue] = useState<SelectorValue>(
+    props.value || props.defaultValue || ""
+  )
 
   return (
     <Selector
       {...props}
       value={value}
-      onChange={(newValue) => setValue(newValue)}
+      onChange={(newValue) => {
+        props.onChange?.(newValue)
+        setValue(newValue)
+      }}
     />
   )
 }
@@ -28,7 +33,7 @@ const Template: Story<SelectorProps> = (props: SelectorProps) => {
 /** Multi selector controlled to make sure the selected items become persistent through state changes */
 const MultiTemplate: Story<SelectorProps> = (props: SelectorProps) => {
   const [selectedItems, setSelectedItems] = useState<SelectedItems>(
-    props.initialSelectedItems || []
+    props.selectedItems || props.defaultSelectedItems || []
   )
 
   return (
@@ -55,9 +60,9 @@ WithLabel.args = {
   label: "Select an element: ",
 }
 
-export const WithInitialValue = Template.bind({})
+export const WithDefaultValue = Template.bind({})
 
-WithInitialValue.args = {
+WithDefaultValue.args = {
   options: [
     {
       value: 200,
@@ -83,7 +88,7 @@ WithInitialValue.args = {
     },
     ...mockedOptions,
   ],
-  initialValue: 200,
+  defaultValue: 200,
 }
 
 export const MultipleSelection = MultiTemplate.bind({})
@@ -94,13 +99,13 @@ MultipleSelection.args = {
   multi: true,
 }
 
-export const WithInitialSelectedItems = MultiTemplate.bind({})
+export const WithDefaultSelectedItems = MultiTemplate.bind({})
 
-WithInitialSelectedItems.args = {
+WithDefaultSelectedItems.args = {
   options: mockedOptions,
   label: "Select one or multiple elements: ",
   multi: true,
-  initialSelectedItems: [1, 5],
+  defaultSelectedItems: [1, 5],
 }
 
 export const Disabled = Template.bind({})
