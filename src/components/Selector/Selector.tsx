@@ -17,6 +17,8 @@ export type SelectorOption = {
 }
 
 export interface SelectorProps {
+  /** The id of the Select. Use this prop to make label and `helperText` accessible for screen readers */
+  id?: string
   /** Label text to be placed before the element */
   label?: string
   /** The placeholder text, shown when there is no selected value */
@@ -65,6 +67,7 @@ function isArrayEqual(
 
 /** Component responsible for rendering a select dropdown from given options */
 const Selector = ({
+  id,
   label,
   options = [],
   value,
@@ -187,6 +190,7 @@ const Selector = ({
         alignItems: "center",
         position: "relative",
         opacity: disabled ? 0.3 : 1,
+        variant: "text.body1",
       }}
     >
       {label && (
@@ -197,7 +201,7 @@ const Selector = ({
             color: "text.40",
             ...(!disabled ? { cursor: "pointer" } : {}),
           }}
-          {...getLabelProps({ disabled })}
+          {...getLabelProps({ disabled, htmlFor: id })}
         >
           {label}
         </label>
@@ -306,14 +310,13 @@ const Selector = ({
             display: "flex",
             gap: 2,
             borderRadius: 2,
+            height: [40, 36],
             paddingX: 3,
-            paddingY: 2,
             justifyContent: "space-between",
             alignItems: "center",
             outline: 0,
             border: "2px solid transparent",
             transition: "all .2s linear",
-            fontFamily: "body",
             ...(fullWidth ? { flexGrow: 1 } : {}),
             ...(isSelectorFilled ? stateStyles.filled : stateStyles.resting),
             ...(!disabled && { cursor: "pointer" }),
@@ -323,15 +326,19 @@ const Selector = ({
           }}
           type="button"
           {...getToggleButtonProps({
+            id,
+            "aria-labelledby": "",
             ...getDropdownProps({ preventKeyAction: isOpen }),
             disabled,
           })}
         >
-          {multi
-            ? getMultiSelectLabel()
-            : (selectedItem && selectedOption?.label) ||
-              placeholder ||
-              "Select an option"}
+          <span>
+            {multi
+              ? getMultiSelectLabel()
+              : (selectedItem && selectedOption?.label) ||
+                (placeholder !== undefined && placeholder) ||
+                "Select an option"}
+          </span>
           <Icon name="IconChevronDown" size={12} stroke={3} />
         </button>
       </Popover>

@@ -48,20 +48,18 @@ const MultiTemplate: Story<SelectorProps> = (props: SelectorProps) => {
 }
 
 export const Default = Template.bind({})
-
 Default.args = {
+  id: "default",
   options: mockedOptions,
 }
 
 export const WithLabel = Template.bind({})
-
 WithLabel.args = {
   options: mockedOptions,
   label: "Select an element: ",
 }
 
 export const WithDefaultValue = Template.bind({})
-
 WithDefaultValue.args = {
   options: [
     {
@@ -92,7 +90,6 @@ WithDefaultValue.args = {
 }
 
 export const MultipleSelection = MultiTemplate.bind({})
-
 MultipleSelection.args = {
   options: mockedOptions,
   label: "Select one or multiple elements: ",
@@ -100,7 +97,6 @@ MultipleSelection.args = {
 }
 
 export const WithDefaultSelectedItems = MultiTemplate.bind({})
-
 WithDefaultSelectedItems.args = {
   options: mockedOptions,
   label: "Select one or multiple elements: ",
@@ -109,9 +105,15 @@ WithDefaultSelectedItems.args = {
 }
 
 export const Disabled = Template.bind({})
-
 Disabled.args = {
   options: mockedOptions,
   label: "Select an element: ",
   disabled: true,
+}
+
+export const WithoutPlaceholder = Template.bind({})
+WithoutPlaceholder.args = {
+  options: mockedOptions.slice(0, 5),
+  placeholder: " ",
+  fullWidth: true,
 }
