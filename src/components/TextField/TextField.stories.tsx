@@ -70,6 +70,7 @@ Select.args = {
   id: "field-id",
   label: "Label",
   helperText: "Text to help explain the input",
+  placeholder: " ",
   select: true,
   selectProps: {
     options: [
