@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /*
 /** @jsx jsx */
 import React, { useMemo } from "react"
-import { Flex, HerzUITheme, jsx } from "theme-ui"
+import { Flex as div, HerzUITheme, jsx } from "theme-ui"
 
 import { useSelector, SELECTOR_BULK_ACTIONS } from "./hooks/useSelector"
 import Checkbox from "../Checkbox/Checkbox"
@@ -41,6 +41,8 @@ export interface SelectorProps {
   onSelectedItemsChange?: (changes: SelectedItems) => void
   /** Highlight the select when it's in a `filled` state */
   hightlightFilled?: boolean
+  /** Select fills the width of  */
+  fullWidth?: boolean
 }
 
 function isArrayEqual(
@@ -75,6 +77,7 @@ const Selector = ({
   onChange,
   onSelectedItemsChange,
   hightlightFilled = true,
+  fullWidth,
 }: SelectorProps) => {
   const {
     isOpen,
@@ -178,8 +181,9 @@ const Selector = ({
   ])
 
   return (
-    <Flex
+    <div
       sx={{
+        display: "flex",
         alignItems: "center",
         position: "relative",
         opacity: disabled ? 0.3 : 1,
@@ -261,13 +265,13 @@ const Selector = ({
                     disabled,
                   })}
                 >
-                  <Flex>
+                  <div>
                     {multi ? (
                       <Checkbox checked={isSelected} label={label} />
                     ) : (
                       label
                     )}
-                  </Flex>
+                  </div>
                 </li>
               )
             })}
@@ -310,6 +314,7 @@ const Selector = ({
             border: "2px solid transparent",
             transition: "all .2s linear",
             fontFamily: "body",
+            ...(fullWidth ? { flexGrow: 1 } : {}),
             ...(isSelectorFilled ? stateStyles.filled : stateStyles.resting),
             ...(!disabled && { cursor: "pointer" }),
 
@@ -330,7 +335,7 @@ const Selector = ({
           <Icon name="IconChevronDown" size={12} stroke={3} />
         </button>
       </Popover>
-    </Flex>
+    </div>
   )
 }
 
