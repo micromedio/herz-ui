@@ -41,7 +41,7 @@ export interface SelectorProps {
   onSelectedItemsChange?: (changes: SelectedItems) => void
   /** Highlight the select when it's in a `filled` state */
   hightlightFilled?: boolean
-  /** Select fills the width of  */
+  /** Select grows to fill the width of the parent */
   fullWidth?: boolean
 }
 
