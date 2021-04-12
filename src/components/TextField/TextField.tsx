@@ -3,6 +3,7 @@
 import { jsx, Flex } from "theme-ui"
 import { ChangeEvent, forwardRef } from "react"
 import Input, { InputProps } from "../Input/Input"
+import Selector, { SelectorProps } from "../Selector/Selector"
 
 export interface TextFieldProps {
   /** Input type */
@@ -32,10 +33,15 @@ export interface TextFieldProps {
 
   /** The id of the `input` element. Use this prop to make label and `helperText` accessible for screen readers */
   id?: string
-  /** Text  */
+  /** Text at the end of the input */
   unit?: string
 
   iconName?: InputProps["iconName"]
+
+  /** Will render a Select instead of an Input if `true` */
+  select?: boolean
+  /** Props passed to the Select component when `select` is `true` */
+  selectProps?: Omit<SelectorProps, "fullWidth" | "hightlightFilled">
 }
 
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
@@ -55,6 +61,8 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       optionalText = "optional",
       iconName,
       unit,
+      select = false,
+      selectProps,
     }: TextFieldProps,
     ref
   ) {
@@ -86,19 +94,30 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           </Flex>
         )}
 
-        <Input
-          id={id}
-          type={type}
-          ref={ref}
-          placeholder={placeholder}
-          iconName={iconName}
-          value={value}
-          disabled={disabled}
-          onChange={onChange}
-          error={error}
-          unit={unit}
-          aria-describedby={helperTextId}
-        />
+        {select ? (
+          <Selector
+            id={id}
+            placeholder={placeholder}
+            {...selectProps}
+            options={selectProps?.options ?? []}
+            fullWidth={true}
+            hightlightFilled={false}
+          />
+        ) : (
+          <Input
+            id={id}
+            type={type}
+            ref={ref}
+            placeholder={placeholder}
+            iconName={iconName}
+            value={value}
+            disabled={disabled}
+            onChange={onChange}
+            error={error}
+            unit={unit}
+            aria-describedby={helperTextId}
+          />
+        )}
 
         {helperText && (
           <span

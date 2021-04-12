@@ -69,19 +69,19 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
         paddingY: "6px", // the 2px border counts towards height, so we need 6px instead of 8px for the correct height
         paddingX: 3,
-        backgroundColor: value ? "secondary.alpha.95" : "text.alpha.95",
+        backgroundColor: value ? "secondary.alpha.90" : "text.alpha.95",
         outline: 0,
         borderRadius: 2,
         border: "2px solid transparent",
 
         transition: "all 0.2s",
         "&:hover": {
-          backgroundColor: value ? "secondary.alpha.90" : "text.alpha.90",
+          backgroundColor: value ? "secondary.alpha.85" : "text.alpha.90",
         },
         "&:focus-within": {
           borderColor: "secondary.0",
           boxShadow: (theme: HerzUITheme) =>
-            `0px 0px 0px 4px ${theme.colors.secondary.alpha[95]}`,
+            `0px 0px 0px 4px ${theme.colors.secondary.alpha[90]}`,
           backgroundColor: "#FFF",
         },
       }}

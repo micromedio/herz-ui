@@ -40,8 +40,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 ) {
   const baseButton = {
     display: "flex",
-    gap: 2,
+    gap: size === "small" ? 1 : 2,
     justifyContent: "center",
+    alignItems: "center",
     variant: "text.button1",
     borderRadius: 2,
     cursor: "pointer",
@@ -92,7 +93,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
       disabled={disabled}
       sx={variant === "filled" ? filled : plain}
     >
-      {iconName && <Icon name={iconName} />}
+      {iconName && <Icon name={iconName} size={size === "small" ? 16 : 20} />}
       {children && <span>{children}</span>}
     </ThemeUIButton>
   )
