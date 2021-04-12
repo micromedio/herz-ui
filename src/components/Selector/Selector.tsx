@@ -1,11 +1,12 @@
 /** @jsxRuntime classic /*
 /** @jsx jsx */
 import React, { useMemo } from "react"
-import { Flex, HerzUITheme, jsx } from "theme-ui"
+import { Flex as div, HerzUITheme, jsx } from "theme-ui"
 
 import { useSelector, SELECTOR_BULK_ACTIONS } from "./hooks/useSelector"
 import Checkbox from "../Checkbox/Checkbox"
 import { Button, Popover } from ".."
+import Icon from "../Icon/Icon"
 
 export type SelectorValue = string | number
 export type SelectedItems = Array<SelectorValue>
@@ -16,26 +17,34 @@ export type SelectorOption = {
 }
 
 export interface SelectorProps {
+  /** The id of the Select. Use this prop to make label and `helperText` accessible for screen readers */
+  id?: string
   /** Label text to be placed before the element */
   label?: string
+  /** The placeholder text, shown when there is no selected value */
+  placeholder?: string
   /** Options to be selected */
   options: Array<SelectorOption>
-  /** The value of the `input` element, required for a controlled component */
+  /** The value of the `select` element, required for a controlled component */
   value?: SelectorValue
-  /** Value which will not trigger the `filled` select state */
-  initialValue?: SelectorValue
+  /** Default value which will not trigger the `filled` select state */
+  defaultValue?: SelectorValue
   /** Whether the component is disabled or not */
   disabled?: boolean
   /** Whether the user can select multiple options or not */
   multi?: boolean
   /** Current selected items for multiple selection */
   selectedItems?: SelectedItems
-  /** Items which will not trigger the `filled` select state */
-  initialSelectedItems?: SelectedItems
+  /** Default array of selected items which will not trigger the `filled` select state */
+  defaultSelectedItems?: SelectedItems
   /** Callback fired when the value is changed */
   onChange?: (changes: SelectorValue) => void
   /** Callback fired when the selected items change for multiple selection */
   onSelectedItemsChange?: (changes: SelectedItems) => void
+  /** Highlight the select when it's in a `filled` state */
+  hightlightFilled?: boolean
+  /** Select grows to fill the width of the parent */
+  fullWidth?: boolean
 }
 
 function isArrayEqual(
@@ -58,16 +67,20 @@ function isArrayEqual(
 
 /** Component responsible for rendering a select dropdown from given options */
 const Selector = ({
+  id,
   label,
   options = [],
   value,
-  initialValue,
+  defaultValue,
   disabled = false,
   multi = false,
+  placeholder,
   selectedItems = [],
-  initialSelectedItems,
+  defaultSelectedItems,
   onChange,
   onSelectedItemsChange,
+  hightlightFilled = true,
+  fullWidth,
 }: SelectorProps) => {
   const {
     isOpen,
@@ -113,8 +126,12 @@ const Selector = ({
       backgroundColor: "secondary.alpha.95",
       color: "text.0",
       boxShadow: "unset",
-      borderColor: "secondary.0",
-      fontWeight: "semibold",
+      ...(hightlightFilled
+        ? {
+            borderColor: "secondary.0",
+            fontWeight: "semibold",
+          }
+        : {}),
     },
   }
 
@@ -129,7 +146,7 @@ const Selector = ({
       return selectedItems.length + " selected"
     }
 
-    return "Select one or more options"
+    return placeholder || "Select one or more options"
   }
 
   const selectedOption = useMemo(() => {
@@ -141,11 +158,11 @@ const Selector = ({
 
   const areInitialItemsSelected = useMemo(() => {
     return (
-      initialSelectedItems && isArrayEqual(initialSelectedItems, selectedItems)
+      defaultSelectedItems && isArrayEqual(defaultSelectedItems, selectedItems)
     )
-  }, [initialSelectedItems, selectedItems])
+  }, [defaultSelectedItems, selectedItems])
 
-  const isInitialValueSelected = initialValue && initialValue === selectedItem
+  const isInitialValueSelected = defaultValue && defaultValue === selectedItem
 
   const isSelectorFilled =
     !areInitialItemsSelected &&
@@ -167,11 +184,13 @@ const Selector = ({
   ])
 
   return (
-    <Flex
+    <div
       sx={{
+        display: "flex",
         alignItems: "center",
         position: "relative",
         opacity: disabled ? 0.3 : 1,
+        variant: "text.body1",
       }}
     >
       {label && (
@@ -182,7 +201,7 @@ const Selector = ({
             color: "text.40",
             ...(!disabled ? { cursor: "pointer" } : {}),
           }}
-          {...getLabelProps({ disabled })}
+          {...getLabelProps({ disabled, htmlFor: id })}
         >
           {label}
         </label>
@@ -250,13 +269,13 @@ const Selector = ({
                     disabled,
                   })}
                 >
-                  <Flex>
+                  <div>
                     {multi ? (
                       <Checkbox checked={isSelected} label={label} />
                     ) : (
                       label
                     )}
-                  </Flex>
+                  </div>
                 </li>
               )
             })}
@@ -289,16 +308,16 @@ const Selector = ({
         <button
           sx={{
             display: "flex",
-            flexDirection: "column",
+            gap: 2,
             borderRadius: 2,
+            height: [40, 36],
             paddingX: 3,
-            paddingY: 2,
-            justifyContent: "center",
+            justifyContent: "space-between",
             alignItems: "center",
             outline: 0,
             border: "2px solid transparent",
             transition: "all .2s linear",
-            fontFamily: "body",
+            ...(fullWidth ? { flexGrow: 1 } : {}),
             ...(isSelectorFilled ? stateStyles.filled : stateStyles.resting),
             ...(!disabled && { cursor: "pointer" }),
 
@@ -307,16 +326,23 @@ const Selector = ({
           }}
           type="button"
           {...getToggleButtonProps({
+            id,
+            "aria-labelledby": "",
             ...getDropdownProps({ preventKeyAction: isOpen }),
             disabled,
           })}
         >
-          {multi
-            ? getMultiSelectLabel()
-            : (selectedItem && selectedOption?.label) || "Select an option"}
+          <span>
+            {multi
+              ? getMultiSelectLabel()
+              : (selectedItem && selectedOption?.label) ||
+                (placeholder !== undefined && placeholder) ||
+                "Select an option"}
+          </span>
+          <Icon name="IconChevronDown" size={12} stroke={3} />
         </button>
       </Popover>
-    </Flex>
+    </div>
   )
 }
 
