@@ -14,7 +14,7 @@ export default {
   component: Table,
   decorators: [
     (Story) => (
-      <Paper sx={{ display: "grid", height: 700 }}>
+      <Paper sx={{ display: "grid", height: 700, px: 0 }}>
         <Story />
       </Paper>
     ),
