@@ -29,3 +29,4 @@ build-storybook.log*
 /theme
 /lib
 .vscode
+/storybook-static
