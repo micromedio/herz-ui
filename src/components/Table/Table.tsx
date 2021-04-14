@@ -252,7 +252,7 @@ const Table = ({
                         sx={{
                           display: "flex",
                           alignItems: "center",
-                          pl: 6,
+                          pl: 7,
                           pb: 3,
                           color: column.isSorted ? "text.0" : "text.40",
                           variant: column.isSorted
@@ -379,8 +379,8 @@ const Table = ({
                               justifyContent: "flex-end",
                               alignItems: "center",
                               color: "secondary.0",
-                              pl: 6,
-                              pr: 6,
+                              pl: 7,
+                              pr: 7,
                             }}
                           >
                             {!!activeRowIds?.[row.id] && (
@@ -396,7 +396,7 @@ const Table = ({
                           key={key}
                           sx={{
                             display: "flex",
-                            pl: 6,
+                            pl: 7,
                             py: 2,
                             color: cell.column.highlight
                               ? "secondary.0"
@@ -465,7 +465,7 @@ const Table = ({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          px: 6,
+          px: 8,
           pt: 6,
         }}
       >
