@@ -31,3 +31,4 @@ build-storybook.log*
 .vscode
 
 .vercel
+/storybook-static
