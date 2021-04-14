@@ -3,7 +3,7 @@ Component to render a vertical list of label/value pairs
 ### Example
 ```jsx
 import Icon from '../Icon/Icon'
-;(<List items={[
+;(<ValueList items={[
     {
       label: "ECG Monitor",
       value: (
@@ -21,5 +21,5 @@ import Icon from '../Icon/Icon'
       ),
     },
   ]}>
-</List>)
+</ValueList>)
 ```
