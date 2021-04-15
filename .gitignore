@@ -29,4 +29,6 @@ build-storybook.log*
 /theme
 /lib
 .vscode
+
+.vercel
 /storybook-static
