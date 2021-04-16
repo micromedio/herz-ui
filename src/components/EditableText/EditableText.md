@@ -2,37 +2,69 @@ The EditableText component is used when you want to display values of an entity 
 
 ### Example
 ```jsx
-<EditableText
-  value="Herz-UI"
-/>
+const [value, setValue] = React.useState("Herz-UI")
+const [defaultValue, setDefaultValue] = React.useState("Herz-UI")
+
+return (
+  <EditableText
+    value={value}
+    defaultValue={defaultValue}
+    onChange={(newValue) => setValue(newValue)}
+    onSave={(newValue) => setDefaultValue(newValue)}
+  />
+);
 ```
 
 ### States
 
 #### Loading
 ```jsx
-<EditableText
-  value="Herz-UI"
-  status="loading"
-/>
+const [value, setValue] = React.useState("Herz-UI")
+const [defaultValue, setDefaultValue] = React.useState("Herz-UI")
+
+return (
+  <EditableText
+    value={value}
+    defaultValue={defaultValue}
+    onChange={(newValue) => setValue(newValue)}
+    onSave={(newValue) => setDefaultValue(newValue)}
+    status="loading"
+  />
+);
 ```
 
 #### Error
 ```jsx
-<EditableText
-  value="Herz-UI"
-  status="error"
-  helperText="Something went wrong"
-/>
+const [value, setValue] = React.useState("Herz-UI")
+const [defaultValue, setDefaultValue] = React.useState("Herz-UI")
+
+return (
+  <EditableText
+    value={value}
+    defaultValue={defaultValue}
+    onChange={(newValue) => setValue(newValue)}
+    onSave={(newValue) => setDefaultValue(newValue)}
+    status="error"
+    helperText="Something went wrong"
+  />
+);
 ```
 
 #### Success
 ```jsx
-<EditableText
-  value="Herz-UI"
-  status="success"
-  helperText="Changes have been saved"
-/>
+const [value, setValue] = React.useState("Herz-UI")
+const [defaultValue, setDefaultValue] = React.useState("Herz-UI")
+
+return (
+  <EditableText
+    value={value}
+    defaultValue={defaultValue}
+    onChange={(newValue) => setValue(newValue)}
+    onSave={(newValue) => setDefaultValue(newValue)}
+    status="success"
+    helperText="Changes have been saved"
+  />
+);
 ```
 
 ### Saving Changes
@@ -42,12 +74,15 @@ The component calls the `onSave` prop when the changes are supposed to be applie
 
 ```jsx
 const [value, setValue] = React.useState("Herz-UI")
+const [defaultValue, setDefaultValue] = React.useState("Herz-UI")
 
 return (
   <EditableText
     value={value}
+    defaultValue={defaultValue}
+    onChange={(newValue) => setValue(newValue)}
     onSave={(newValue) => {
-      setValue(newValue)
+      setDefaultValue(newValue)
       alert(`Saved value: ${newValue}`)
     }}
   />
@@ -60,31 +95,37 @@ By default the `onSave` callback is only called when the save (check) button is 
 
 ```jsx
 const [value, setValue] = React.useState("Herz-UI")
+const [defaultValue, setDefaultValue] = React.useState("Herz-UI")
 
 return (
   <EditableText
     value={value}
+    defaultValue={defaultValue}
+    onChange={(newValue) => setValue(newValue)}
     saveOnBlur
     onSave={(newValue) => {
-      setValue(newValue)
+      setDefaultValue(newValue)
       alert(`Saved value: ${newValue}`)
     }}
   />
 );
 ```
 
-#### Reset on Blur (Losing Focus)
+#### Disable Reset on Blur (Losing Focus)
 By default the input value is reset to the initial value when the input loses focus. However this can be changed with the `resetOnBlur` prop
 
 ```jsx
 const [value, setValue] = React.useState("Herz-UI")
+const [defaultValue, setDefaultValue] = React.useState("Herz-UI")
 
 return (
   <EditableText
     value={value}
+    defaultValue={defaultValue}
+    onChange={(newValue) => setValue(newValue)}
     resetOnBlur={false}
     onSave={(newValue) => {
-      setValue(newValue)
+      setDefaultValue(newValue)
       alert(`Saved value: ${newValue}`)
     }}
   />

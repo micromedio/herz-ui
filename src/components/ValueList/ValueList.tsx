@@ -16,6 +16,7 @@ const ValueList = ({ items, alignValues = "end" }: ValueListProps) => {
     <div
       sx={{
         display: "grid",
+        alignItems: "center",
         gridTemplateColumns: "1fr auto",
         variant: "text.body1",
         listStyle: "none",
@@ -40,10 +41,11 @@ const ValueList = ({ items, alignValues = "end" }: ValueListProps) => {
           <div
             sx={{
               display: "flex",
+              height: "100%",
               justifyContent:
                 alignValues === "start" ? "flex-start" : "flex-end",
+              alignItems: "center",
               color: "text.0",
-              py: 4,
               ...(index !== items.length - 1
                 ? {
                     borderBottom: (theme: HerzUITheme) =>

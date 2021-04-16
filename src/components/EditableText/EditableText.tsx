@@ -1,14 +1,23 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import { HerzUITheme, jsx, SxStyleProp } from "theme-ui"
-import { forwardRef, useEffect, useMemo, useRef, useState } from "react"
+import {
+  forwardRef,
+  HTMLAttributes,
+  useMemo,
+  useRef,
+  useImperativeHandle,
+  useCallback,
+} from "react"
 import Button from "../Button/Button"
 import Spinner from "../Spinner/Spinner"
 import Icon from "../Icon/Icon"
 
 export interface EditableTextProps {
   /** The text value and initial value of the `input` element */
+  defaultValue: string
   value: string
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 
   status?: "error" | "success" | "loading"
   helperText?: string
@@ -17,23 +26,30 @@ export interface EditableTextProps {
 
   saveOnBlur?: boolean
   resetOnBlur?: boolean
+  className?: HTMLAttributes<HTMLDivElement>["className"]
 }
 
 const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
   function EditableText(
     {
-      value: initialValue,
+      value,
+      defaultValue,
+      onChange,
       status,
       helperText = "",
       onSave,
       saveOnBlur = false,
       resetOnBlur = true,
+      className,
     }: EditableTextProps,
     ref
   ) {
     const containerRef = useRef<HTMLDivElement>(null)
-    const [value, setValue] = useState(initialValue)
-    useEffect(() => setValue(initialValue), [initialValue])
+    const inputRef = useRef<HTMLInputElement>(null)
+    useImperativeHandle<HTMLInputElement | null, HTMLInputElement | null>(
+      ref,
+      () => inputRef.current
+    )
 
     const state = useMemo(() => {
       if (status) return status
@@ -48,6 +64,19 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
         backgroundColor: "#FFF",
       },
     }
+
+    const handleOnChange = useCallback(
+      (value, _event) => {
+        const event = Object.create(_event)
+        event.type = "change"
+        event.target = inputRef.current
+        event.currentTarget = inputRef.current
+        if (inputRef.current) inputRef.current.value = defaultValue
+
+        onChange?.(event)
+      },
+      [defaultValue, onChange]
+    )
 
     return (
       <div
@@ -65,6 +94,7 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
             },
           }[state],
         }}
+        className={className}
       >
         <div
           ref={containerRef}
@@ -111,16 +141,20 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
               containerRef.current?.contains(event.relatedTarget as Element)
             if (blurredInside) return
 
-            if (saveOnBlur && value !== initialValue) onSave?.(value)
-            if (resetOnBlur) setValue(initialValue)
+            if (saveOnBlur) {
+              if (value !== defaultValue) onSave?.(value)
+            } else if (resetOnBlur) {
+              handleOnChange(defaultValue, event)
+            }
           }}
         >
           <input
             type="text"
-            ref={ref}
-            value={value}
-            placeholder={value}
-            onChange={(event) => setValue(event?.target?.value)}
+            ref={inputRef}
+            value={onChange ? value : undefined}
+            defaultValue={onChange ? undefined : value}
+            placeholder={defaultValue}
+            onChange={onChange}
             disabled={status === "loading"}
             aria-invalid={status === "error"}
             size={1} // input has a default size property of 20, which limits it's minimum width. Setting it to 1 and handling width through the parent so that we can control the input width better.
@@ -156,7 +190,7 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
               ),
             }[state]
           }
-          {value !== initialValue && (
+          {value !== defaultValue && (
             <div
               sx={{
                 display: "flex",
@@ -169,10 +203,10 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
                 color="text"
                 iconName="IconX"
                 aria-label="reset"
-                onClick={(event) => {
-                  setValue(initialValue)
-                  const target = event.currentTarget
-                  setTimeout(() => target.blur()) // unfocus input in the next tick, when value is already reset
+                onClick={(_event) => {
+                  handleOnChange(defaultValue, _event)
+                  const target = _event.currentTarget
+                  setTimeout(() => target.blur()) // unfocus element in the next tick, when value is already reset
                 }}
               />
               <Button
