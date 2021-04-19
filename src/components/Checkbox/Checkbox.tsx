@@ -18,13 +18,16 @@ const stateStyles = {
     backgroundColor: "text.alpha.95",
   },
   hover: {
-    backgroundColor: "text.90",
+    backgroundColor: "text.alpha.90",
   },
   active: {
-    backgroundColor: "text.90",
+    backgroundColor: "text.alpha.90",
   },
   filled: {
-    backgroundColor: "secondary.0",
+    backgroundColor: "secondary.alpha.90",
+  },
+  filledHover: {
+    backgroundColor: "secondary.alpha.85",
   },
 }
 
@@ -89,14 +92,14 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
             "&:hover": {
               ...(!disabled &&
                 (checked || indeterminate
-                  ? stateStyles.filled
+                  ? stateStyles.filledHover
                   : stateStyles.hover)),
             },
 
             "&:focus": {
               ...(!disabled &&
                 (checked || indeterminate
-                  ? stateStyles.filled
+                  ? stateStyles.filledHover
                   : stateStyles.active)),
             },
 
@@ -119,7 +122,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
             left: "0",
             top: "0",
             cursor: "pointer",
-            color: "#fff",
+            color: "secondary.0",
             pointerEvents: "none",
           }}
         >
