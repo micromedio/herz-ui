@@ -27,6 +27,7 @@ const ValueList = ({ items, alignValues = "end" }: ValueListProps) => {
           <div
             sx={{
               color: "text.40",
+              pr: 2,
               py: 4,
               ...(index !== items.length - 1
                 ? {
