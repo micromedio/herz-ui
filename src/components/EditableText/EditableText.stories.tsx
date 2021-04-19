@@ -1,14 +1,32 @@
 import EditableText, { EditableTextProps } from "./EditableText"
 import { Meta, Story } from "@storybook/react/types-6-0"
+import { useState } from "react"
 
 export default {
   title: "Design System/EditableText",
   component: EditableText,
 } as Meta
 
-const Template: Story<EditableTextProps> = (props) => (
-  <EditableText {...props} />
-)
+const Template: Story<EditableTextProps> = (props: EditableTextProps) => {
+  const [value, setValue] = useState(props.value)
+  const [defaultValue, setDefaultValue] = useState(props.value)
+
+  return (
+    <EditableText
+      {...props}
+      value={value}
+      defaultValue={defaultValue}
+      onChange={(event) => {
+        props.onChange?.(event)
+        setValue(event.target.value)
+      }}
+      onSave={(value) => {
+        props.onSave?.(value)
+        setDefaultValue(value)
+      }}
+    />
+  )
+}
 
 // Each story then reuses that template
 export const Default = Template.bind({})
