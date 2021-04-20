@@ -68,10 +68,10 @@ const ListSelect = ({
                 ":focus": {
                   backgroundColor: isSelected
                     ? "secondary.alpha.90"
-                    : "secondary.alpha.95",
+                    : "secondary.alpha.85",
                 },
                 ":hover": {
-                  backgroundColor: "secondary.alpha.95",
+                  backgroundColor: "secondary.alpha.85",
                 },
               }}
             >
