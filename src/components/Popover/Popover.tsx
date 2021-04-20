@@ -207,6 +207,7 @@ const Popover = ({
         }}
         sx={{
           "&&": {
+            maxWidth: "none !important",
             position: "relative",
             outline: 0,
             transitionProperty: "transform,visibility,opacity",
