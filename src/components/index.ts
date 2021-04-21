@@ -57,3 +57,5 @@ export type { ValueListProps } from "./ValueList/ValueList"
 
 export { default as Spinner } from "./Spinner/Spinner"
 export type { SpinnerProps } from "./Spinner/Spinner"
+
+export { default as Divider } from "./Divider/Divider"
