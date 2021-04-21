@@ -107,6 +107,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           p: 0,
           color: "text.0",
           variant: "text.body1",
+
+          // removes background color when input was filled with autofill in chromium
+          "&:-webkit-autofill": {
+            WebkitBackgroundClip: "text",
+          },
         }}
       />
 

@@ -123,7 +123,7 @@ const Selector = ({
       fontWeight: "semibold",
     },
     filled: {
-      backgroundColor: "secondary.alpha.95",
+      backgroundColor: "secondary.alpha.90",
       color: "text.0",
       boxShadow: "unset",
       ...(hightlightFilled
@@ -132,6 +132,9 @@ const Selector = ({
             fontWeight: "semibold",
           }
         : {}),
+    },
+    filledHover: {
+      backgroundColor: "secondary.alpha.85",
     },
   }
 
@@ -172,14 +175,15 @@ const Selector = ({
   const hoverStyles = useMemo(() => {
     if (disabled) return {}
     if (isOpen) return stateStyles.active
-    if (isSelectorFilled) return stateStyles.filled
+    if (isSelectorFilled) return stateStyles.filledHover
     return stateStyles.hover
   }, [
     disabled,
     isOpen,
     isSelectorFilled,
     stateStyles.active,
-    stateStyles.filled,
+    // stateStyles.filled,
+    stateStyles.filledHover,
     stateStyles.hover,
   ])
 
