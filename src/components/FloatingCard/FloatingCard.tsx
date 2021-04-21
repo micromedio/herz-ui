@@ -15,6 +15,8 @@ export interface FloatingCardProps {
   body: ReactNode
   /** Title text alignment */
   titleAlign?: "start" | "center"
+  /** Show the X (close) button */
+  showClose?: boolean
 
   /** Placement of the card relative to the reference element */
   placement?: PopoverProps["placement"]
@@ -30,6 +32,7 @@ const FloatingCard = ({
   children,
   body,
   placement = "bottom-start",
+  showClose = true,
 
   isVisible,
   onClose,
@@ -69,14 +72,17 @@ const FloatingCard = ({
             >
               {title}
             </div>
-            <Button
-              iconName="IconX"
-              color="text"
-              onClick={() => {
-                if (!isControlled) tippy?.hide()
-                onClose?.()
-              }}
-            />
+            {showClose && (
+              <Button
+                iconName="IconX"
+                color="text"
+                onClick={() => {
+                  if (!isControlled) tippy?.hide()
+                  onClose?.()
+                }}
+                size="small"
+              />
+            )}
           </div>
           <div>{body}</div>
         </div>
