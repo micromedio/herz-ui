@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import React from "react"
+import React, { HTMLAttributes } from "react"
 import { HerzUITheme, jsx } from "theme-ui"
 
 export interface ValueListProps {
@@ -9,9 +9,14 @@ export interface ValueListProps {
     value: React.ReactNode
   }>
   alignValues?: "start" | "end"
+  className?: HTMLAttributes<HTMLDivElement>["className"]
 }
 
-const ValueList = ({ items, alignValues = "end" }: ValueListProps) => {
+const ValueList = ({
+  items,
+  alignValues = "end",
+  className,
+}: ValueListProps) => {
   return (
     <div
       sx={{
@@ -21,12 +26,14 @@ const ValueList = ({ items, alignValues = "end" }: ValueListProps) => {
         variant: "text.body1",
         listStyle: "none",
       }}
+      className={className}
     >
       {items.map(({ label, value }, index) => (
         <React.Fragment key={index}>
           <div
             sx={{
               color: "text.40",
+              height: "100%",
               pr: 2,
               py: 4,
               ...(index !== items.length - 1
