@@ -315,6 +315,8 @@ const Table = ({
                   <div
                     sx={{
                       width: 4,
+                      borderBottom: (theme: HerzUITheme) =>
+                        `1px solid ${theme.colors.text[90]}`,
                     }}
                   />
                 )}
@@ -339,7 +341,7 @@ const Table = ({
               >
                 <div
                   sx={{
-                    p: 1,
+                    p: 2,
                     minWidth: "fit-content",
                     borderBottom: (theme: HerzUITheme) =>
                       `1px solid ${theme.colors.text[90]}`,
@@ -442,6 +444,8 @@ const Table = ({
                   <div
                     sx={{
                       width: 4,
+                      borderBottom: (theme: HerzUITheme) =>
+                        `1px solid ${theme.colors.text[90]}`,
                       ...(activeRowIds[row.id]
                         ? {
                             backgroundColor: "primary.0",
