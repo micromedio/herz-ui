@@ -244,6 +244,10 @@ const Selector = ({
                 <li
                   key={`${value}${index}`}
                   sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 2,
                     padding: 2,
                     cursor: "pointer",
                     borderRadius: 2,
@@ -260,9 +264,14 @@ const Selector = ({
 
                     ...(selectedItem === value
                       ? {
-                          color: "#fff",
-                          backgroundColor: "secondary.0",
+                          color: "secondary.0",
+                          backgroundColor: "secondary.90",
                           fontWeight: "bold",
+                          ...(highlightedIndex === index
+                            ? {
+                                backgroundColor: "secondary.alpha.85",
+                              }
+                            : {}),
                         }
                       : {}),
                     transition: "all .2s linear",
@@ -273,13 +282,26 @@ const Selector = ({
                     disabled,
                   })}
                 >
-                  <div>
-                    {multi ? (
-                      <Checkbox checked={isSelected} label={label} />
-                    ) : (
-                      label
-                    )}
-                  </div>
+                  {multi ? (
+                    <Checkbox checked={isSelected} label={label} />
+                  ) : (
+                    <React.Fragment>
+                      <span>{label}</span>
+                      <div
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          width: 20,
+                          height: 20,
+                          p: 1,
+                        }}
+                      >
+                        {selectedItem === value && (
+                          <Icon name="IconCheck" size={12} stroke={4} />
+                        )}
+                      </div>
+                    </React.Fragment>
+                  )}
                 </li>
               )
             })}
