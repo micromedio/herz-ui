@@ -492,6 +492,7 @@ const Table = ({
                 { value: 50, label: "50" },
               ]}
               value={pageSize}
+              defaultValue={initialPageSize}
               onChange={(selectedItem) => {
                 if (selectedItem)
                   setPageSize(Number.parseInt(selectedItem.toString() ?? "10"))
