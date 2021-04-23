@@ -409,7 +409,7 @@ const Table = ({
                             }[cell.column.align || "start"],
                             alignItems: "center",
                             fontWeight: activeRowIds?.[row.id]
-                              ? "bold"
+                              ? "semibold"
                               : "medium",
                             wordBreak: "break-all",
                           }}
