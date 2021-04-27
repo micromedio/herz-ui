@@ -37,7 +37,7 @@ export const CustomIcon = Template.bind({})
 
 CustomIcon.args = {
   ...Example.args,
-  iconName: "",
+  iconName: undefined,
   color: "warning",
   iconSVG: (
     <svg
