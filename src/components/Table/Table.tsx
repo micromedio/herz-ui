@@ -315,6 +315,8 @@ const Table = ({
                   <div
                     sx={{
                       width: 4,
+                      borderBottom: (theme: HerzUITheme) =>
+                        `1px solid ${theme.colors.text[90]}`,
                     }}
                   />
                 )}
@@ -339,7 +341,7 @@ const Table = ({
               >
                 <div
                   sx={{
-                    p: 1,
+                    p: 2,
                     minWidth: "fit-content",
                     borderBottom: (theme: HerzUITheme) =>
                       `1px solid ${theme.colors.text[90]}`,
@@ -409,7 +411,7 @@ const Table = ({
                             }[cell.column.align || "start"],
                             alignItems: "center",
                             fontWeight: activeRowIds?.[row.id]
-                              ? "bold"
+                              ? "semibold"
                               : "medium",
                             wordBreak: "break-all",
                           }}
@@ -442,6 +444,8 @@ const Table = ({
                   <div
                     sx={{
                       width: 4,
+                      borderBottom: (theme: HerzUITheme) =>
+                        `1px solid ${theme.colors.text[90]}`,
                       ...(activeRowIds[row.id]
                         ? {
                             backgroundColor: "primary.0",
@@ -488,6 +492,7 @@ const Table = ({
                 { value: 50, label: "50" },
               ]}
               value={pageSize}
+              defaultValue={initialPageSize}
               onChange={(selectedItem) => {
                 if (selectedItem)
                   setPageSize(Number.parseInt(selectedItem.toString() ?? "10"))

@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { ReactNode, useState } from "react"
+import { HTMLAttributes, ReactNode, useState } from "react"
 import Popover, { PopoverProps } from "../Popover/Popover"
 import Button from "../Button/Button"
 import { Instance } from "tippy.js"
@@ -24,6 +24,7 @@ export interface FloatingCardProps {
   isVisible?: boolean
   /** Callback called when the Popover spawning the card is closed */
   onClose?: () => void
+  className?: HTMLAttributes<HTMLDivElement>["className"]
 }
 
 const FloatingCard = ({
@@ -36,6 +37,7 @@ const FloatingCard = ({
 
   isVisible,
   onClose,
+  className,
 }: FloatingCardProps) => {
   const [tippy, setTippy] = useState<Instance>()
   const isControlled = isVisible !== undefined
@@ -54,6 +56,7 @@ const FloatingCard = ({
       content={
         <div
           sx={{ display: "flex", flexDirection: "column", gap: 2, padding: 6 }}
+          className={className}
         >
           <div
             sx={{
