@@ -119,8 +119,6 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
             alignItems: "center",
             height: "20px",
             width: "20px",
-            left: "0",
-            top: "0",
             cursor: "pointer",
             color: "secondary.0",
             pointerEvents: "none",
