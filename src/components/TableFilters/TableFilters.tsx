@@ -42,6 +42,8 @@ export interface TableFiltersProps {
     label?: string
     /** Value for the filter Select component */
     value?: string
+    /** Default value for the filter Select component */
+    defaultValue?: string
     /** Options for the filter Select component */
     options: SelectorProps["options"]
   }>
@@ -115,7 +117,7 @@ const TableFilters = ({
       </div>
 
       {filters &&
-        filters.map(({ key, options, label, value }, index) => (
+        filters.map(({ key, options, label, value, defaultValue }, index) => (
           <div
             key={`${key}-${index}`}
             sx={{
@@ -127,6 +129,7 @@ const TableFilters = ({
               options={options}
               label={label}
               value={value}
+              defaultValue={defaultValue}
               onChange={(selectedItem) =>
                 onFilterChange?.({
                   key,
