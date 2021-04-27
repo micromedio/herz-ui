@@ -258,7 +258,6 @@ const Table = ({
                           variant: column.isSorted
                             ? "text.heading3"
                             : "text.body1",
-                          textAlign: column.align ?? "start",
                         }}
                       >
                         {column.id === INTERNAL_SELECTION_COLUMN_ID ? (
@@ -285,6 +284,12 @@ const Table = ({
                               display: "flex",
                               alignItems: "center",
                               gap: 1,
+                              flexGrow: 1,
+                              justifyContent: {
+                                start: "flex-start",
+                                end: "flex-end",
+                                center: "center",
+                              }[column.align || "start"],
                             }}
                           >
                             {column.render("Header")}
