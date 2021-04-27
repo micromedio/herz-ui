@@ -66,6 +66,16 @@ const children = "Tatooine";
 </Button>
 ```
 
+#### filledLight:
+
+```js
+const onClick = () => {alert("clicked")};
+const children = "Alderaan";
+<Button variant="filledLight" color="secondary" onClick={onClick}>
+  {children}
+</Button>
+```
+
 #### plain:
 
 ```js

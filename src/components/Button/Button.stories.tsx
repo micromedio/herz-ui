@@ -2,18 +2,22 @@ import React from "react"
 import Button, { ButtonProps } from "./Button"
 import { action } from "@storybook/addon-actions"
 import { Meta, Story } from "@storybook/react/types-6-0"
+import ButtonExamples from "./ButtonExamples"
 
 export default {
   title: "Design System/Button",
   component: Button,
 } as Meta
 
-const Template: Story<ButtonProps> = (props: ButtonProps) => {
-  return <Button {...props} />
-}
+const ExamplesTemplate: Story = () => <ButtonExamples />
+export const Examples = ExamplesTemplate.bind({})
 
-export const Example = Template.bind({})
-Example.args = {
+const Template: Story<ButtonProps> = (props: ButtonProps) => (
+  <Button {...props} />
+)
+
+export const Basic = Template.bind({})
+Basic.args = {
   children: "Submit",
   disabled: false,
   variant: "filled",
@@ -25,46 +29,52 @@ Example.args = {
 
 export const Filled = Template.bind({})
 Filled.args = {
-  ...Example.args,
+  ...Basic.args,
   variant: "filled",
   color: "text",
 }
 
-const children = (
-  <>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="21"
-      height="21"
-      viewBox="0 0 21 21"
-    >
-      <title>MS-SymbolLockup</title>
-      <rect x="1" y="1" width="9" height="9" fill="#f25022" />
-      <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
-      <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
-      <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
-    </svg>
-  </>
-)
 export const FilledReactNode = Template.bind({})
 FilledReactNode.args = {
-  ...Example.args,
+  ...Basic.args,
   variant: "filled",
   color: "text",
-  children: children,
+  children: (
+    <>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="21"
+        height="21"
+        viewBox="0 0 21 21"
+      >
+        <title>MS-SymbolLockup</title>
+        <rect x="1" y="1" width="9" height="9" fill="#f25022" />
+        <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
+        <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
+        <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
+      </svg>
+    </>
+  ),
   iconName: undefined,
+}
+
+export const FilledLight = Template.bind({})
+FilledLight.args = {
+  ...Basic.args,
+  variant: "filledLight",
+  color: "secondary",
 }
 
 export const Plain = Template.bind({})
 Plain.args = {
-  ...Example.args,
+  ...Basic.args,
   variant: "plain",
   color: "secondary",
 }
 
 export const PlainSmall = Template.bind({})
 PlainSmall.args = {
-  ...Example.args,
+  ...Basic.args,
   variant: "plain",
   size: "small",
   color: "primary",
