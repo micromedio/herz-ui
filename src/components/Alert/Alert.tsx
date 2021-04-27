@@ -10,7 +10,7 @@ export interface AlertProps {
   title: string
 
   /** Description content */
-  children: string | ReactNode
+  children: ReactNode
 
   /** The alert icon from tabler */
   iconName?: IconProps["name"]
