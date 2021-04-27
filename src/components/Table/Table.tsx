@@ -237,7 +237,7 @@ const Table = ({
                   sx={{
                     borderBottom: (theme: HerzUITheme) =>
                       `1px solid ${theme.colors.text[90]}`,
-                    px: 1,
+                    px: 2,
                   }}
                 >
                   {headerGroup.headers.map((column) => {
