@@ -8,6 +8,7 @@ declare module "theme-ui" {
     secondary: GeneratedColors
     success: GeneratedColors
     text: GeneratedColors
+    warning: GeneratedColors
 
     background: CSS.Property.Color
   }
