@@ -16,7 +16,7 @@ import Icon from "../Icon/Icon"
 import Checkbox from "../Checkbox/Checkbox"
 
 const INTERNAL_SELECTION_COLUMN_ID = "INTERNAL_SELECTION_COLUMN_ID"
-const INTERNAL_ACTION_COLUMN_ID = "INTERNAL_ACTION_COLUMN_ID"
+const INTERNAL_ACTIVE_COLUMN_ID = "INTERNAL_ACTIVE_COLUMN_ID"
 
 interface DataType extends Record<string, unknown> {
   id: string
@@ -154,10 +154,12 @@ const Table = ({
         const selectColumn: Column<DataType> = {
           id: INTERNAL_SELECTION_COLUMN_ID,
           width: 48,
+          fixedWidth: true,
         }
         const activeColumn: Column<DataType> = {
-          id: INTERNAL_ACTION_COLUMN_ID,
-          width: 68,
+          id: INTERNAL_ACTIVE_COLUMN_ID,
+          width: 80,
+          fixedWidth: true,
         }
 
         let columns: Column<DataType>[] = [...allColumns]
@@ -237,13 +239,15 @@ const Table = ({
                   sx={{
                     borderBottom: (theme: HerzUITheme) =>
                       `1px solid ${theme.colors.text[90]}`,
-                    px: 1,
+                    px: 2,
                   }}
                 >
                   {headerGroup.headers.map((column) => {
-                    const { key, ...headerProps } = column.getHeaderProps(
-                      column.getSortByToggleProps()
-                    )
+                    const {
+                      key,
+                      style,
+                      ...headerProps
+                    } = column.getHeaderProps(column.getSortByToggleProps())
 
                     return (
                       <div
@@ -258,7 +262,8 @@ const Table = ({
                           variant: column.isSorted
                             ? "text.heading3"
                             : "text.body1",
-                          textAlign: column.align ?? "start",
+                          ...style,
+                          ...(column.fixedWidth ? { flexGrow: 0 } : {}),
                         }}
                       >
                         {column.id === INTERNAL_SELECTION_COLUMN_ID ? (
@@ -285,6 +290,12 @@ const Table = ({
                               display: "flex",
                               alignItems: "center",
                               gap: 1,
+                              flexGrow: 1,
+                              justifyContent: {
+                                start: "flex-start",
+                                end: "flex-end",
+                                center: "center",
+                              }[column.align || "start"],
                             }}
                           >
                             {column.render("Header")}
@@ -369,9 +380,9 @@ const Table = ({
                     }}
                   >
                     {row.cells.map((cell) => {
-                      const { key, ...cellProps } = cell.getCellProps()
+                      const { key, style, ...cellProps } = cell.getCellProps()
 
-                      if (cell.column.id === INTERNAL_ACTION_COLUMN_ID) {
+                      if (cell.column.id === INTERNAL_ACTIVE_COLUMN_ID) {
                         return (
                           <div
                             {...cellProps}
@@ -383,6 +394,10 @@ const Table = ({
                               color: "secondary.0",
                               pl: 7,
                               pr: 7,
+                              ...style,
+                              ...(cell.column.fixedWidth
+                                ? { flexGrow: 0 }
+                                : {}),
                             }}
                           >
                             {!!activeRowIds?.[row.id] && (
@@ -414,6 +429,8 @@ const Table = ({
                               ? "semibold"
                               : "medium",
                             wordBreak: "break-all",
+                            ...style,
+                            ...(cell.column.fixedWidth ? { flexGrow: 0 } : {}),
                           }}
                         >
                           {(() => {
