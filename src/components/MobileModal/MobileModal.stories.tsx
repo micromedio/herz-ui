@@ -94,7 +94,7 @@ const DismissibleTemplate: Story<MobileModalProps> = (
       </Button>
       <MobileModal
         {...props}
-        dismissible={() => {
+        onDismiss={() => {
           setIsOpen(false)
         }}
         open={isOpen}

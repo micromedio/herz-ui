@@ -19,10 +19,11 @@ enum MobileModalTypes {
 export interface MobileModalProps {
   backgroundStyles?: SxStyleProp
   children?: ReactNode
-  dismissible?: (() => void) | boolean
+  dismissible?: boolean
   draggable?: boolean
   modalStyles?: SxStyleProp
   onClose?: () => void
+  onDismiss?: () => void
   onOpen?: () => void
   open?: boolean
   overflowHeight?: number
@@ -37,6 +38,7 @@ export default function MobileModal({
   draggable = false,
   modalStyles,
   onClose,
+  onDismiss,
   onOpen,
   open = false,
   overflowHeight = 0,
@@ -137,9 +139,8 @@ export default function MobileModal({
   }, [topSpacing, open, overflowHeight])
 
   function handleDismiss(): void {
-    if (dismissible instanceof Function) {
-      dismissible()
-    } else if (dismissible) {
+    if (onDismiss) onDismiss()
+    if (dismissible && !open) {
       setSwipeState({
         ...swipeState,
         isAnimating: true,
@@ -258,10 +259,10 @@ export default function MobileModal({
     <React.Fragment>
       <div
         data-testid="test-background"
-        onTouchEnd={handleDismiss}
+        onTouchEnd={onDismiss || dismissible ? handleDismiss : undefined}
         ref={backgroundRef}
         sx={{
-          backgroundColor: `text.0`,
+          backgroundColor: `text.alpha.40`,
           display:
             swipeState.isAnimating ||
             swipeState.isDragging ||
@@ -271,8 +272,6 @@ export default function MobileModal({
               : `none`,
           height: `100vh`,
           left: 0,
-          // Computed opacity to match our text.40
-          opacity: 0.6017699115044248,
           position: `fixed`,
           top: 0,
           minWidth: `100vw`,

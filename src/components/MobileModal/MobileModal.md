@@ -57,7 +57,8 @@ const [isOpen, setIsOpen] = React.useState(false)
 ```
 
 #### With Spacing and Dismissible:
-##### The dismissible prop must be a function when the open state is controlled
+
+##### To turn a controlled modal into a dismissible one, you must inform the onDismiss property, the dismissible prop is not required in that case and will be ignored
 
 ```js
 import Button from '../Button/Button'
@@ -72,7 +73,7 @@ const [isOpen, setIsOpen] = React.useState(false)
     Toggle Open
   </Button>
   <MobileModal
-    dismissible={() => {
+    onDismiss={() => {
       setIsOpen(false)
     }}
     open={isOpen}
@@ -201,7 +202,6 @@ const [displayMobileModal, setDisplayMobileModal] = React.useState(false)
 ```
 
 #### Draggable With Spacing And Dismissible:
-##### The dismissible prop must be a boolean when the open state is uncontrolled
 
 ```js
 import Button from '../Button/Button'

@@ -12,7 +12,7 @@ const DismissibleWrapper = ({
 
   return (
     <MobileModal
-      dismissible={() => {
+      onDismiss={() => {
         setOpen(false)
       }}
       open={open}
