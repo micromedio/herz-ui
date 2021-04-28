@@ -248,6 +248,10 @@ const Table = ({
                     return (
                       <div
                         {...headerProps}
+                        style={{
+                          ...headerProps.style,
+                          ...(column.fixedWidth ? { flexGrow: 0 } : {}),
+                        }}
                         key={key}
                         sx={{
                           display: "flex",
@@ -255,6 +259,7 @@ const Table = ({
                           pl: 7,
                           pb: 3,
                           color: column.isSorted ? "text.0" : "text.40",
+                          flexGrow: 0,
                           variant: column.isSorted
                             ? "text.heading3"
                             : "text.body1",
@@ -400,6 +405,10 @@ const Table = ({
                       return (
                         <div
                           {...cellProps}
+                          style={{
+                            ...cellProps.style,
+                            ...(cell.column.fixedWidth ? { flexGrow: 0 } : {}),
+                          }}
                           key={key}
                           sx={{
                             display: "flex",
