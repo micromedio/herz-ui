@@ -439,6 +439,7 @@ const Table = ({
                             ) {
                               return (
                                 <div
+                                  sx={{ display: "flex" }}
                                   onClick={(event) => event.stopPropagation()} // So that checkbox click doesn't bubble up to the row and triggers onRowClick()
                                 >
                                   <Checkbox
