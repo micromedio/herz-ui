@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { jsx, SxStyleProp } from "theme-ui"
+import { HerzUITheme, jsx, SxStyleProp } from "theme-ui"
 import React, {
   ReactNode,
   TouchEvent,
@@ -62,14 +62,19 @@ export default function MobileModal({
   const [swipeState, setSwipeState] = useState<{
     isAnimating: boolean
     isDragging: boolean
+    isScrolling: boolean
     isOpen: boolean
   }>({
     isAnimating: false,
     isDragging: false,
+    isScrolling: false,
     isOpen: false,
   })
 
   useEffect(() => {
+    const bodyElement = bodyRef.current
+    const bodyOverflow = bodyOverflowRef.current
+    const portalElement = portalRef.current
     const modalElements = document.querySelectorAll(
       `body > div[data-divtype="${MobileModalTypes.WITH_OVERFLOW}"]`
     )
@@ -92,11 +97,10 @@ export default function MobileModal({
       top: `0`,
       zIndex: `1300`,
     })
-    const body = document.querySelector(`body`) as HTMLBodyElement
-    body.append(portalRef.current)
+    bodyElement.append(portalRef.current)
     return () => {
-      bodyRef.current.style.overflow = bodyOverflowRef.current
-      portalRef.current.remove()
+      bodyElement.style.overflow = bodyOverflow
+      portalElement.remove()
     }
   }, [overflowHeight])
 
@@ -158,38 +162,45 @@ export default function MobileModal({
 
   function handleTouchEnd(event: TouchEvent<HTMLDivElement>): void {
     event.stopPropagation()
+    if (swipeState.isScrolling) {
+      setSwipeState({
+        ...swipeState,
+        isScrolling: false,
+      })
+      return
+    }
     const averageSpeed =
       (currentY.current - startY.current) /
       (endTime.current.getTime() - startTime.current.getTime())
 
-    const openFraction =
-      (window.innerHeight - currentY.current) / window.innerHeight
+    const translatedDiff = currentY.current - startY.current
+
+    const thresholdInPixels = (window.innerHeight - topSpacing) * threshold
 
     /* istanbul ignore else */
     if (modalRef.current) {
       let isAnimating = true
       let isOpen = swipeState.isOpen
       if (
-        !swipeState.isOpen &&
-        (openFraction > threshold || averageSpeed < -0.5)
+        Math.abs(translatedDiff) > thresholdInPixels ||
+        Math.abs(averageSpeed) > 0.5
       ) {
-        isAnimating = currentY.current - startY.current !== 0
-        modalRef.current.style.transition = `transform 0.4s`
-        modalRef.current.style.transform = `translateY(${topSpacing}px)`
-        currentY.current = topSpacing
-        isOpen = true
-        if (onOpen) onOpen()
-      } else if (
-        swipeState.isOpen &&
-        (openFraction < 1 - threshold || averageSpeed > 0.5)
-      ) {
-        isAnimating = currentY.current - startY.current !== 0
-        modalRef.current.style.transition = `transform 0.4s`
-        modalRef.current.style.transform = `translateY(${
-          window.innerHeight - overflowHeight
-        }px)`
-        currentY.current = window.innerHeight - overflowHeight
-        isOpen = false
+        if (!swipeState.isOpen) {
+          isAnimating = currentY.current - startY.current !== 0
+          modalRef.current.style.transition = `transform 0.4s`
+          modalRef.current.style.transform = `translateY(${topSpacing}px)`
+          currentY.current = topSpacing
+          isOpen = true
+          if (onOpen) onOpen()
+        } else if (swipeState.isOpen) {
+          isAnimating = currentY.current - startY.current !== 0
+          modalRef.current.style.transition = `transform 0.4s`
+          modalRef.current.style.transform = `translateY(${
+            window.innerHeight - overflowHeight
+          }px)`
+          currentY.current = window.innerHeight - overflowHeight
+          isOpen = false
+        }
       } else {
         isAnimating = currentY.current - startY.current !== 0
         modalRef.current.style.transition = `transform 0.4s`
@@ -211,6 +222,14 @@ export default function MobileModal({
 
   function handleTouchMove(event: TouchEvent<HTMLDivElement>): void {
     event.stopPropagation()
+    if (swipeState.isScrolling) return
+    if (swipeState.isOpen && event.currentTarget.scrollTop !== 0) {
+      setSwipeState({
+        ...swipeState,
+        isScrolling: true,
+      })
+      return
+    }
     endTime.current = new Date()
 
     /* istanbul ignore else */
@@ -315,11 +334,12 @@ export default function MobileModal({
           borderWidth: `1px`,
           boxShadow: `0px 1px 12px rgba(0, 0, 0, 0.04)`,
           left: 0,
-          minHeight: window.innerHeight - topSpacing + 1,
+          height: `calc(100vh - ${topSpacing}px)`,
+          maxHeight: `calc(100vh - ${topSpacing}px)`,
           minWidth: `100vw`,
-          overflowY: `scroll`,
+          overflowY: swipeState.isOpen ? `auto` : `hidden`,
           padding: 8,
-          paddingTop: 4,
+          paddingTop: draggable ? 0 : 9,
           paddingBottom: 0,
           position: `fixed`,
           top: 0,
@@ -328,6 +348,35 @@ export default function MobileModal({
           ...modalStyles,
         }}
       >
+        {draggable && (
+          <header
+            onTouchEnd={draggable ? handleTouchEnd : undefined}
+            onTouchMove={draggable ? handleTouchMove : undefined}
+            onTouchStart={draggable ? handleTouchStart : undefined}
+            sx={{
+              backgroundColor: `#fff`,
+              height: 48,
+              position: `sticky`,
+              top: 0,
+              width: `100%`,
+              zIndex: 6,
+              "&::before": {
+                boxSizing: `border-box`,
+                border: (theme: HerzUITheme) =>
+                  `2px solid ${theme.colors.text[90]}`,
+                borderRadius: 1,
+                content: `""`,
+                display: `block`,
+                height: 0,
+                // 84 (20px half of this component width and 64px for lateral paddings)
+                left: `calc((100% - 40px) / 2)`,
+                position: `relative`,
+                top: 5,
+                width: 40,
+              },
+            }}
+          />
+        )}
         {children}
       </div>
     </React.Fragment>,
