@@ -59,3 +59,6 @@ export { default as Spinner } from "./Spinner/Spinner"
 export type { SpinnerProps } from "./Spinner/Spinner"
 
 export { default as Divider } from "./Divider/Divider"
+
+export { default as Alert } from "./Alert/Alert"
+export type { AlertProps } from "./Alert/Alert"
