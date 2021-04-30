@@ -261,16 +261,16 @@ const DismissibleTemplate: Story<MobileModalProps> = (
 
 export const Default = NonDismissibleTemplate.bind({})
 
-export const WithSpacing = NonDismissibleTemplate.bind({})
-WithSpacing.args = {
-  ...WithSpacing.args,
+export const DefaultOpen = NonDismissibleTemplate.bind({})
+DefaultOpen.args = {
+  ...DefaultOpen.args,
   topSpacing: 160,
   open: true,
 }
 
-export const WithSpacingAndDismissible = DismissibleTemplate.bind({})
-WithSpacingAndDismissible.args = {
-  ...WithSpacingAndDismissible.args,
+export const Dismissible = DismissibleTemplate.bind({})
+Dismissible.args = {
+  ...Dismissible.args,
   topSpacing: 160,
 }
 
@@ -295,19 +295,18 @@ DraggableAndScrollable.args = {
   topSpacing: 128,
 }
 
-export const DraggableWithSpacing = DraggableTemplate.bind({})
-DraggableWithSpacing.args = {
-  ...DraggableWithSpacing.args,
+export const DraggableFullscreen = DraggableAndScrolalbleTemplate.bind({})
+DraggableFullscreen.args = {
+  ...DraggableFullscreen.args,
   draggable: true,
   overflowHeight: 64,
-  topSpacing: 256,
+  topSpacing: 0,
 }
 
-export const DraggableWithSpacingAndDismissible = DraggableTemplate.bind({})
-DraggableWithSpacingAndDismissible.args = {
-  ...DraggableWithSpacingAndDismissible.args,
+export const DraggableAndDismissible = DraggableTemplate.bind({})
+DraggableAndDismissible.args = {
+  ...DraggableAndDismissible.args,
   dismissible: true,
   draggable: true,
   overflowHeight: 64,
-  topSpacing: 160,
 }

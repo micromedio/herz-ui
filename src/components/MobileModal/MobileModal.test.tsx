@@ -3,7 +3,16 @@ import { axe } from "jest-axe"
 import { fireEvent, render } from "../../tests/utils"
 import MobileModal from "./MobileModal"
 
-const defaultTopSpacing = 80
+const mockedClientRects = {
+  bottom: 619.5,
+  height: 265,
+  left: 455.578125,
+  right: 783.578125,
+  top: 354.5,
+  width: 328,
+  x: 455.578125,
+  y: 354.5,
+}
 
 const DismissibleWrapper = ({
   defaultOpen = false,
@@ -31,7 +40,13 @@ describe("MobileModal", () => {
 
   afterEach(() => (console.warn = originalWarn))
 
-  beforeEach(() => (console.warn = mockedWarn))
+  beforeEach(() => {
+    console.warn = mockedWarn
+    Object.defineProperty(HTMLElement.prototype, "getClientRects", {
+      configurable: true,
+      value: () => [mockedClientRects],
+    })
+  })
 
   test("It should render without errors", async () => {
     // Arrange
@@ -72,9 +87,8 @@ describe("MobileModal", () => {
   })
 
   test("It should be open and with top spacing", async () => {
-    const topSpacing = 128
     // Arrange
-    const { getByTestId } = render(<MobileModal open topSpacing={topSpacing} />)
+    const { getByTestId } = render(<MobileModal open />)
 
     const element = getByTestId(`test-modal`)
     const elementTopPosition = Number.parseInt(
@@ -85,7 +99,9 @@ describe("MobileModal", () => {
     )
 
     // Assert
-    expect(elementTopPosition).toEqual(topSpacing)
+    expect(elementTopPosition).toEqual(
+      window.innerHeight - element.getClientRects()[0].height
+    )
   })
 
   test("It should raise a dev warning when added two modals with overflowHeight and draggable", async () => {
@@ -105,6 +121,7 @@ describe("MobileModal", () => {
   })
 
   test("It should test the controlled open state", async () => {
+    const topLimit = window.innerHeight - mockedClientRects.height
     // Arrange
     const { getByTestId, rerender } = render(<MobileModal open={false} />)
 
@@ -121,7 +138,7 @@ describe("MobileModal", () => {
     )
 
     // Assert
-    expect(elementTopPositionAfterOpen).toEqual(defaultTopSpacing)
+    expect(elementTopPositionAfterOpen).toEqual(topLimit)
 
     // Closing the modal
     rerender(<MobileModal open={false} />)
@@ -138,6 +155,7 @@ describe("MobileModal", () => {
   })
 
   test("It should test the controlled open state with dismissing on background touch", async () => {
+    const topLimit = window.innerHeight - mockedClientRects.height
     // Arrange
     const { getByTestId } = render(<DismissibleWrapper defaultOpen />)
 
@@ -153,7 +171,7 @@ describe("MobileModal", () => {
     )
 
     // Assert
-    expect(elementTopPositionStartedOpen).toEqual(defaultTopSpacing)
+    expect(elementTopPositionStartedOpen).toEqual(topLimit)
 
     fireEvent.touchEnd(background)
 
@@ -195,9 +213,14 @@ describe("MobileModalDraggable", () => {
 
   beforeAll(() => {
     console.warn = mockedWarn
+    Object.defineProperty(HTMLElement.prototype, "getClientRects", {
+      configurable: true,
+      value: () => [mockedClientRects],
+    })
   })
 
   test("It should open and close", async () => {
+    const topLimit = window.innerHeight - mockedClientRects.height
     // Arrange
     const { getByTestId } = render(<MobileModal draggable />)
 
@@ -219,7 +242,7 @@ describe("MobileModalDraggable", () => {
     )
 
     // Assert
-    expect(elementTopPositionAfterOpen).toEqual(defaultTopSpacing)
+    expect(elementTopPositionAfterOpen).toEqual(topLimit)
 
     fireEvent.touchStart(element, {
       touches: [{ clientY: 15 }],
@@ -278,6 +301,7 @@ describe("MobileModalDraggable", () => {
 
   test("It should stay open when the swipes doesn't reach the height threshold", async () => {
     const viewportHeight = window.innerHeight
+    const topLimit = viewportHeight - mockedClientRects.height
     // Arrange
     const { getByTestId } = render(<MobileModal draggable />)
 
@@ -299,7 +323,7 @@ describe("MobileModalDraggable", () => {
     )
 
     // Assert
-    expect(elementTopPositionBeforeTryToClose).toEqual(defaultTopSpacing)
+    expect(elementTopPositionBeforeTryToClose).toEqual(topLimit)
 
     fireEvent.touchStart(element, {
       touches: [{ clientY: 20 }],
@@ -317,11 +341,12 @@ describe("MobileModalDraggable", () => {
     )
 
     // Assert
-    expect(elementTopPositionAfterTryToClose).toEqual(defaultTopSpacing)
+    expect(elementTopPositionAfterTryToClose).toEqual(topLimit)
   })
 
   test("It should dismiss the mobile modal when touching the background", async () => {
     const tabSpacing = 256
+    const topLimit = window.innerHeight - mockedClientRects.height
     // Arrange
     const { getByTestId } = render(
       <MobileModal dismissible draggable topSpacing={tabSpacing} />
@@ -347,7 +372,7 @@ describe("MobileModalDraggable", () => {
     )
 
     // Assert
-    expect(elementTopPositionBeforeClose).toEqual(tabSpacing)
+    expect(elementTopPositionBeforeClose).toEqual(topLimit)
 
     fireEvent.touchEnd(background)
 
@@ -417,15 +442,10 @@ describe("MobileModalDraggable", () => {
   test("It should block dragging greater than the specified top spacing", async () => {
     const onOpen = jest.fn()
     const viewport = window.innerHeight
-    const topSpacing = 256
+    const topLimit = viewport - mockedClientRects.height
     // Arrange
     const { getByTestId } = render(
-      <MobileModal
-        draggable
-        onOpen={onOpen}
-        overflowHeight={20}
-        topSpacing={topSpacing}
-      />
+      <MobileModal draggable onOpen={onOpen} overflowHeight={20} />
     )
 
     const element = getByTestId(`test-modal`)
@@ -434,7 +454,7 @@ describe("MobileModalDraggable", () => {
       touches: [{ clientY: viewport - 20 }],
     })
     fireEvent.touchMove(element, {
-      touches: [{ clientY: topSpacing }],
+      touches: [{ clientY: topLimit }],
     })
     fireEvent.touchMove(element, {
       touches: [{ clientY: viewport + 100 }],
@@ -448,7 +468,7 @@ describe("MobileModalDraggable", () => {
     )
 
     // Assert
-    expect(elementTopPosition).toEqual(topSpacing)
+    expect(elementTopPosition).toEqual(topLimit)
   })
 
   test("It should prevent transition end logic when the event was fired on any children", async () => {
@@ -470,6 +490,7 @@ describe("MobileModalDraggable", () => {
 
   test("It should prevent closing the modal when scrolled inside", async () => {
     const viewport = window.innerHeight
+    const maxTopPosition = window.innerHeight - mockedClientRects.height
     // Arrange
     const { getByTestId } = render(
       <MobileModal draggable overflowHeight={20} />
@@ -493,7 +514,7 @@ describe("MobileModalDraggable", () => {
     )
 
     // Assert
-    expect(elementTopPosition).toEqual(defaultTopSpacing)
+    expect(elementTopPosition).toEqual(maxTopPosition)
 
     Object.defineProperty(element, "scrollTop", {
       configurable: true,
@@ -516,6 +537,6 @@ describe("MobileModalDraggable", () => {
     )
 
     // Assert that element stills open
-    expect(elementTopPositionAfterScroll).toEqual(defaultTopSpacing)
+    expect(elementTopPositionAfterScroll).toEqual(maxTopPosition)
   })
 })

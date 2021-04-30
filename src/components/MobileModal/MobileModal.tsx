@@ -5,6 +5,7 @@ import React, {
   ReactNode,
   TouchEvent,
   TransitionEvent,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -45,6 +46,15 @@ export default function MobileModal({
   threshold = 0.7,
   topSpacing = 80,
 }: MobileModalProps) {
+  const topLimit = useCallback(() => {
+    if (modalRef.current) {
+      const clientHeight = modalRef.current.getClientRects()[0].height
+      const limitByClient = window.innerHeight - clientHeight
+      return limitByClient > topSpacing ? limitByClient : topSpacing
+    }
+    return topSpacing
+  }, [topSpacing])
+
   const bodyRef = useRef<HTMLBodyElement>(
     document.querySelector(`body`) as HTMLBodyElement
   )
@@ -113,34 +123,37 @@ export default function MobileModal({
   }, [draggable, swipeState.isOpen])
 
   useEffect(() => {
-    if (modalRef.current && !isFirstRender.current) {
-      if (open) {
-        modalRef.current.style.transition = `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`
-        modalRef.current.style.transform = `translateY(${topSpacing}px)`
-      } else {
-        modalRef.current.style.transition = `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`
-        modalRef.current.style.transform = `translateY(${
-          window.innerHeight - overflowHeight
-        }px)`
-      }
-      setSwipeState((previousState) => ({
-        ...previousState,
-        isAnimating: previousState.isAnimating || previousState.isOpen !== open,
-        isOpen: open,
-      }))
-    } else {
-      if (modalRef.current && open) {
-        modalRef.current.style.transition = `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`
-        modalRef.current.style.transform = `translateY(${topSpacing}px)`
+    if (modalRef.current) {
+      if (!isFirstRender.current) {
+        if (open) {
+          modalRef.current.style.transition = `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`
+          modalRef.current.style.transform = `translateY(${topLimit()}px)`
+        } else {
+          modalRef.current.style.transition = `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`
+          modalRef.current.style.transform = `translateY(${
+            window.innerHeight - overflowHeight
+          }px)`
+        }
         setSwipeState((previousState) => ({
           ...previousState,
-          isAnimating: true,
+          isAnimating:
+            previousState.isAnimating || previousState.isOpen !== open,
           isOpen: open,
         }))
+      } else {
+        if (open) {
+          modalRef.current.style.transition = `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`
+          modalRef.current.style.transform = `translateY(${topLimit()}px)`
+          setSwipeState((previousState) => ({
+            ...previousState,
+            isAnimating: true,
+            isOpen: open,
+          }))
+        }
+        isFirstRender.current = false
       }
-      isFirstRender.current = false
     }
-  }, [topSpacing, open, overflowHeight])
+  }, [open, overflowHeight, topLimit])
 
   function handleDismiss(): void {
     if (onDismiss) onDismiss()
@@ -169,30 +182,34 @@ export default function MobileModal({
       })
       return
     }
-    const averageSpeed =
-      (currentY.current - startY.current) /
-      (endTime.current.getTime() - startTime.current.getTime())
-
-    const translatedDiff = currentY.current - startY.current
-
-    const thresholdInPixels = (window.innerHeight - topSpacing) * threshold
-
     /* istanbul ignore else */
     if (modalRef.current) {
+      const averageSpeed =
+        (currentY.current - startY.current) /
+        (endTime.current.getTime() - startTime.current.getTime())
+
+      const translatedDiff = currentY.current - startY.current
+
+      const thresholdInPixels = topLimit() * threshold
+
+      const shouldTranslateUp = !swipeState.isOpen && translatedDiff < 0
+      const shouldTranslateDown = swipeState.isOpen && translatedDiff > 0
+
       let isAnimating = true
       let isOpen = swipeState.isOpen
       if (
-        Math.abs(translatedDiff) > thresholdInPixels ||
-        Math.abs(averageSpeed) > 0.5
+        (Math.abs(translatedDiff) > thresholdInPixels ||
+          Math.abs(averageSpeed) > 0.5) &&
+        (shouldTranslateUp || shouldTranslateDown)
       ) {
-        if (!swipeState.isOpen) {
+        if (shouldTranslateUp) {
           isAnimating = currentY.current - startY.current !== 0
           modalRef.current.style.transition = `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`
-          modalRef.current.style.transform = `translateY(${topSpacing}px)`
-          currentY.current = topSpacing
+          modalRef.current.style.transform = `translateY(${topLimit()}px)`
+          currentY.current = topLimit()
           isOpen = true
           if (onOpen) onOpen()
-        } else if (swipeState.isOpen) {
+        } else {
           isAnimating = currentY.current - startY.current !== 0
           modalRef.current.style.transition = `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`
           modalRef.current.style.transform = `translateY(${
@@ -204,11 +221,11 @@ export default function MobileModal({
       } else {
         isAnimating = currentY.current - startY.current !== 0
         modalRef.current.style.transform = `translateY(${
-          swipeState.isOpen ? topSpacing : window.innerHeight - overflowHeight
+          swipeState.isOpen ? topLimit() : window.innerHeight - overflowHeight
         }px)`
 
         currentY.current = swipeState.isOpen
-          ? topSpacing
+          ? topLimit()
           : window.innerHeight - overflowHeight
       }
       setSwipeState({
@@ -237,10 +254,10 @@ export default function MobileModal({
       const { clientY } = event.touches[0]
       const diff = clientY - startY.current
       const diffToTranslate =
-        (swipeState.isOpen ? topSpacing : window.innerHeight - overflowHeight) +
+        (swipeState.isOpen ? topLimit() : window.innerHeight - overflowHeight) +
         diff
       const shouldTranslate =
-        diffToTranslate >= topSpacing &&
+        diffToTranslate >= topLimit() &&
         diffToTranslate <= window.innerHeight - overflowHeight
       if (shouldTranslate)
         modalRef.current.style.transform = `translateY(${diffToTranslate}px)`
@@ -272,6 +289,15 @@ export default function MobileModal({
       })
       if (!swipeState.isOpen && onClose) onClose()
     }
+  }
+
+  function shouldDisplayBorders(): boolean {
+    return (
+      (swipeState.isOpen || open) &&
+      !!modalRef.current &&
+      modalRef.current.getClientRects()[0].height === window.innerHeight &&
+      !topSpacing
+    )
   }
 
   return ReactDOM.createPortal(
@@ -347,14 +373,14 @@ export default function MobileModal({
         sx={{
           backgroundColor: `#fff`,
           borderColor: `text.90`,
-          borderRadius: (swipeState.isOpen || open) && !topSpacing ? 0 : 8,
+          borderRadius: shouldDisplayBorders() ? 0 : 8,
           borderBottomLeftRadius: 0,
           borderBottomRightRadius: 0,
           borderStyle: `solid`,
           borderWidth: `1px`,
           boxShadow: `0px 1px 12px rgba(0, 0, 0, 0.04)`,
           left: 0,
-          height: `fit-content`,
+          height: !topSpacing ? `100vh` : `fit-content`,
           maxHeight: `calc(100vh - ${topSpacing}px)`,
           minWidth: `100vw`,
           overflowY: swipeState.isOpen ? `auto` : `hidden`,
