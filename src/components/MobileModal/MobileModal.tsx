@@ -43,7 +43,7 @@ export default function MobileModal({
   open = false,
   overflowHeight = 0,
   threshold = 0.7,
-  topSpacing = 0,
+  topSpacing = 80,
 }: MobileModalProps) {
   const bodyRef = useRef<HTMLBodyElement>(
     document.querySelector(`body`) as HTMLBodyElement
@@ -115,10 +115,10 @@ export default function MobileModal({
   useEffect(() => {
     if (modalRef.current && !isFirstRender.current) {
       if (open) {
-        modalRef.current.style.transition = `transform 0.6s ease-in-out`
+        modalRef.current.style.transition = `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`
         modalRef.current.style.transform = `translateY(${topSpacing}px)`
       } else {
-        modalRef.current.style.transition = `transform 0.6s ease-in-out`
+        modalRef.current.style.transition = `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`
         modalRef.current.style.transform = `translateY(${
           window.innerHeight - overflowHeight
         }px)`
@@ -130,7 +130,7 @@ export default function MobileModal({
       }))
     } else {
       if (modalRef.current && open) {
-        modalRef.current.style.transition = `transform 0.6s ease-in-out`
+        modalRef.current.style.transition = `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`
         modalRef.current.style.transform = `translateY(${topSpacing}px)`
         setSwipeState((previousState) => ({
           ...previousState,
@@ -152,7 +152,7 @@ export default function MobileModal({
       })
       /* istanbul ignore else */
       if (modalRef.current) {
-        modalRef.current.style.transition = `transform 0.4s`
+        modalRef.current.style.transition = `transform  0.6s cubic-bezier(0.16, 1, 0.3, 1)`
         modalRef.current.style.transform = `translateY(${
           window.innerHeight - overflowHeight
         }px)`
@@ -187,14 +187,14 @@ export default function MobileModal({
       ) {
         if (!swipeState.isOpen) {
           isAnimating = currentY.current - startY.current !== 0
-          modalRef.current.style.transition = `transform 0.4s`
+          modalRef.current.style.transition = `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`
           modalRef.current.style.transform = `translateY(${topSpacing}px)`
           currentY.current = topSpacing
           isOpen = true
           if (onOpen) onOpen()
         } else if (swipeState.isOpen) {
           isAnimating = currentY.current - startY.current !== 0
-          modalRef.current.style.transition = `transform 0.4s`
+          modalRef.current.style.transition = `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`
           modalRef.current.style.transform = `translateY(${
             window.innerHeight - overflowHeight
           }px)`
@@ -203,10 +203,10 @@ export default function MobileModal({
         }
       } else {
         isAnimating = currentY.current - startY.current !== 0
-        modalRef.current.style.transition = `transform 0.4s`
         modalRef.current.style.transform = `translateY(${
           swipeState.isOpen ? topSpacing : window.innerHeight - overflowHeight
         }px)`
+
         currentY.current = swipeState.isOpen
           ? topSpacing
           : window.innerHeight - overflowHeight
@@ -281,19 +281,39 @@ export default function MobileModal({
         onTouchEnd={onDismiss || dismissible ? handleDismiss : undefined}
         ref={backgroundRef}
         sx={{
+          "@keyframes fadeIn": {
+            "0%": {
+              opacity: 0,
+            },
+            "100%": {
+              opacity: 1,
+            },
+          },
+          "@keyframes fadeOut": {
+            "0%": {
+              opacity: 1,
+            },
+            "100%": {
+              opacity: 0,
+            },
+          },
+          animation:
+            swipeState.isOpen || open || swipeState.isDragging
+              ? `0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards fadeIn`
+              : `0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards fadeOut`,
           backgroundColor: `text.alpha.40`,
-          display:
-            swipeState.isAnimating ||
-            swipeState.isDragging ||
-            swipeState.isOpen ||
-            open
-              ? `block`
-              : `none`,
           height: `100vh`,
           left: 0,
           position: `fixed`,
           top: 0,
           minWidth: `100vw`,
+          visibility:
+            swipeState.isAnimating ||
+            swipeState.isDragging ||
+            swipeState.isOpen ||
+            open
+              ? `visible`
+              : `hidden`,
           zIndex: 4,
           ...backgroundStyles,
         }}
@@ -334,13 +354,12 @@ export default function MobileModal({
           borderWidth: `1px`,
           boxShadow: `0px 1px 12px rgba(0, 0, 0, 0.04)`,
           left: 0,
-          height: `calc(100vh - ${topSpacing}px)`,
+          height: `fit-content`,
           maxHeight: `calc(100vh - ${topSpacing}px)`,
           minWidth: `100vw`,
           overflowY: swipeState.isOpen ? `auto` : `hidden`,
           padding: 8,
           paddingTop: draggable ? 0 : 9,
-          paddingBottom: 0,
           position: `fixed`,
           top: 0,
           transform: `translateY(${window.innerHeight - overflowHeight}px)`,

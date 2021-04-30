@@ -3,6 +3,8 @@ import { axe } from "jest-axe"
 import { fireEvent, render } from "../../tests/utils"
 import MobileModal from "./MobileModal"
 
+const defaultTopSpacing = 80
+
 const DismissibleWrapper = ({
   defaultOpen = false,
 }: {
@@ -119,7 +121,7 @@ describe("MobileModal", () => {
     )
 
     // Assert
-    expect(elementTopPositionAfterOpen).toEqual(0)
+    expect(elementTopPositionAfterOpen).toEqual(defaultTopSpacing)
 
     // Closing the modal
     rerender(<MobileModal open={false} />)
@@ -151,7 +153,7 @@ describe("MobileModal", () => {
     )
 
     // Assert
-    expect(elementTopPositionStartedOpen).toEqual(0)
+    expect(elementTopPositionStartedOpen).toEqual(defaultTopSpacing)
 
     fireEvent.touchEnd(background)
 
@@ -187,9 +189,13 @@ describe("MobileModalDraggable", () => {
     consoleOutput.push(output)
   }
 
-  afterEach(() => (console.warn = originalWarn))
+  afterAll(() => {
+    console.warn = originalWarn
+  })
 
-  beforeEach(() => (console.warn = mockedWarn))
+  beforeAll(() => {
+    console.warn = mockedWarn
+  })
 
   test("It should open and close", async () => {
     // Arrange
@@ -213,7 +219,7 @@ describe("MobileModalDraggable", () => {
     )
 
     // Assert
-    expect(elementTopPositionAfterOpen).toEqual(0)
+    expect(elementTopPositionAfterOpen).toEqual(defaultTopSpacing)
 
     fireEvent.touchStart(element, {
       touches: [{ clientY: 15 }],
@@ -293,7 +299,7 @@ describe("MobileModalDraggable", () => {
     )
 
     // Assert
-    expect(elementTopPositionBeforeTryToClose).toEqual(0)
+    expect(elementTopPositionBeforeTryToClose).toEqual(defaultTopSpacing)
 
     fireEvent.touchStart(element, {
       touches: [{ clientY: 20 }],
@@ -311,7 +317,7 @@ describe("MobileModalDraggable", () => {
     )
 
     // Assert
-    expect(elementTopPositionAfterTryToClose).toEqual(0)
+    expect(elementTopPositionAfterTryToClose).toEqual(defaultTopSpacing)
   })
 
   test("It should dismiss the mobile modal when touching the background", async () => {
@@ -460,5 +466,56 @@ describe("MobileModalDraggable", () => {
 
     // Assert
     expect(onClose).toHaveBeenCalledTimes(0)
+  })
+
+  test("It should prevent closing the modal when scrolled inside", async () => {
+    const viewport = window.innerHeight
+    // Arrange
+    const { getByTestId } = render(
+      <MobileModal draggable overflowHeight={20} />
+    )
+
+    const element = getByTestId(`test-modal`)
+
+    fireEvent.touchStart(element, {
+      touches: [{ clientY: viewport - 20 }],
+    })
+    fireEvent.touchMove(element, {
+      touches: [{ clientY: viewport - 100 }],
+    })
+    fireEvent.touchEnd(element)
+
+    const elementTopPosition = Number.parseInt(
+      window
+        .getComputedStyle(element)
+        .transform.replace(/translateY\((\d+)px\)/, "$1"),
+      10
+    )
+
+    // Assert
+    expect(elementTopPosition).toEqual(defaultTopSpacing)
+
+    Object.defineProperty(element, "scrollTop", {
+      configurable: true,
+      value: 15,
+    })
+
+    fireEvent.touchStart(element, {
+      touches: [{ clientY: viewport + 20 }],
+    })
+    fireEvent.touchMove(element, {
+      touches: [{ clientY: viewport + 100 }],
+    })
+    fireEvent.touchEnd(element)
+
+    const elementTopPositionAfterScroll = Number.parseInt(
+      window
+        .getComputedStyle(element)
+        .transform.replace(/translateY\((\d+)px\)/, "$1"),
+      10
+    )
+
+    // Assert that element stills open
+    expect(elementTopPositionAfterScroll).toEqual(defaultTopSpacing)
   })
 })

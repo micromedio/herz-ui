@@ -185,7 +185,7 @@ const NonDismissibleTemplate: Story<MobileModalProps> = (
             display: `flex`,
             flexDirection: `column`,
             justifyContent: `space-evenly`,
-            "> button:first-child": {
+            "> button:first-of-type": {
               alignSelf: `flex-start`,
               marginBottom: 64,
             },
@@ -236,7 +236,7 @@ const DismissibleTemplate: Story<MobileModalProps> = (
             display: `flex`,
             flexDirection: `column`,
             justifyContent: `space-evenly`,
-            "> button:first-child": {
+            "> button:first-of-type": {
               alignSelf: `flex-start`,
               marginBottom: 64,
             },
