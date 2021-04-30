@@ -5,7 +5,7 @@ import { HerzUITheme, jsx } from "theme-ui"
 
 export interface ValueListProps {
   items: Array<{
-    label: string
+    label: React.ReactNode
     value: React.ReactNode
   }>
   alignValues?: "start" | "end"
