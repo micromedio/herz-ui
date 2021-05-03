@@ -218,6 +218,7 @@ const Table = ({
             position: "sticky",
             top: 0,
             backgroundColor: "inherit",
+            zIndex: 1,
           }}
         >
           {headerGroups.map((headerGroup) => {
