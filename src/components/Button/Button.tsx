@@ -12,7 +12,7 @@ import Icon, { IconProps } from "../Icon/Icon"
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: string | React.ReactNode
 
-  variant?: "filled" | "plain"
+  variant?: "filled" | "plain" | "filledLight"
 
   color?: "primary" | "secondary" | "success" | "text"
 
@@ -40,23 +40,19 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 ) {
   const baseButton = {
     display: "flex",
-    gap: size === "small" ? 1 : 2,
+    gap: size === "large" ? 2 : 1,
+    paddingX: size === "large" ? 3 : 1,
+    paddingY: size === "large" ? 2 : 1,
+
     justifyContent: "center",
     alignItems: "center",
-    variant: "text.button1",
+
     borderRadius: 2,
     cursor: "pointer",
     position: "relative",
     transition: "all .2s linear",
-    color: color === "text" ? "text.40" : "#fff",
-    backgroundColor: (theme: HerzUITheme) =>
-      color === "text" ? theme.colors.text.alpha[95] : theme.colors[color][0],
-    "&:hover": {
-      backgroundColor: (theme: HerzUITheme) =>
-        color === "text"
-          ? theme.colors.text[90]
-          : theme.colors[color].shade[10],
-    },
+    variant: "text.button1",
+
     "&:disabled": {
       opacity: 0.3,
       cursor: "default",
@@ -64,24 +60,39 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   }
 
   const filled: SxStyleProp = {
-    ...baseButton,
-    paddingX: size === "large" ? 3 : 1,
-    paddingY: size === "large" ? 2 : 1,
+    color: color === "text" ? "text.40" : "#fff",
+    backgroundColor: (theme: HerzUITheme) =>
+      color === "text" ? theme.colors.text.alpha[95] : theme.colors[color][0],
+    "&:not([disabled])": {
+      "&:hover": {
+        backgroundColor: (theme: HerzUITheme) =>
+          color === "text"
+            ? theme.colors.text[90]
+            : theme.colors[color].shade[10],
+      },
+    },
+  }
+
+  const filledLight: SxStyleProp = {
+    color: (theme: HerzUITheme) =>
+      theme.colors[color][color === "text" ? 40 : 0],
+    backgroundColor: (theme: HerzUITheme) => theme.colors[color].alpha[95],
+    "&:not([disabled])": {
+      "&:hover": {
+        backgroundColor: (theme: HerzUITheme) => theme.colors[color].alpha[90],
+      },
+    },
   }
 
   const plain: SxStyleProp = {
-    ...baseButton,
-    paddingY: size === "large" ? 2 : 1,
     paddingX: 1,
     backgroundColor: "transparent",
     color: (theme: HerzUITheme) =>
       theme.colors[color][color === "text" ? 40 : 0],
-    "&:hover": {
-      backgroundColor: (theme: HerzUITheme) => theme.colors[color].alpha[90],
-    },
-    "&:disabled": {
-      ...baseButton["&:disabled"],
-      backgroundColor: "transparent",
+    "&:not([disabled])": {
+      "&:hover": {
+        backgroundColor: (theme: HerzUITheme) => theme.colors[color].alpha[90],
+      },
     },
   }
 
@@ -91,7 +102,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
       onClick={onClick}
       {...htmlProps}
       disabled={disabled}
-      sx={variant === "filled" ? filled : plain}
+      sx={{
+        ...baseButton,
+        ...{
+          filled,
+          filledLight,
+          plain,
+        }[variant],
+      }}
     >
       {iconName && <Icon name={iconName} size={size === "small" ? 16 : 20} />}
       {children && <span>{children}</span>}

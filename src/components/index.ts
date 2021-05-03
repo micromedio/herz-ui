@@ -1,3 +1,6 @@
+export { default as Alert } from "./Alert/Alert"
+export type { AlertProps } from "./Alert/Alert"
+
 export { default as Breadcrumbs } from "./Breadcrumbs/Breadcrumbs"
 export type { BreadcrumbsProps } from "./Breadcrumbs/Breadcrumbs"
 

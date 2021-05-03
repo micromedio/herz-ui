@@ -108,6 +108,7 @@ declare module "react-table" {
      */
     align?: "start" | "end" | "center"
     highlight?: boolean
+    fixedWidth?: boolean
   }
 
   export interface ColumnInstance<

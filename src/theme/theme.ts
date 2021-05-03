@@ -35,6 +35,13 @@ const baseColors: Array<BaseColor> = [
     alphaPercentages: DEFAULT_TINT_PERCENTAGES,
     shadePercentages: DEFAULT_SHADE_PERCENTAGES,
   },
+  {
+    name: "warning",
+    color: "#FFE927" /** Yellow */,
+    tintPercentages: DEFAULT_TINT_PERCENTAGES,
+    alphaPercentages: DEFAULT_TINT_PERCENTAGES,
+    shadePercentages: DEFAULT_SHADE_PERCENTAGES,
+  },
 ]
 
 /** Generate color palette  */
@@ -54,6 +61,7 @@ export const theme: HerzUITheme = {
     secondary: colorPalette.secondary,
     text: colorPalette.text,
     success: colorPalette.success,
+    warning: colorPalette.warning,
   },
   breakpoints: ["64rem"],
 

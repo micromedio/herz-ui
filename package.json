@@ -1,6 +1,6 @@
 {
   "name": "@micromed/herz-ui",
-  "version": "0.4.3",
+  "version": "0.4.5",
   "description": "Herz UI (/hɛrʦ/ - Hérts) is a design system containing a styleguide(colors, grid, icons, typography) and library of UI components",
   "main": "./lib/components/index.js",
   "typings": "./lib/components/index.d.ts",
@@ -107,6 +107,7 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
+    "@release-it/keep-a-changelog": "^2.2.2",
     "@storybook/addon-a11y": "^6.1.20",
     "@storybook/addon-actions": "^6.1.20",
     "@storybook/addon-essentials": "^6.1.20",

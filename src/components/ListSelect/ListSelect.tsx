@@ -71,8 +71,11 @@ const ListSelect = ({
                     : "secondary.alpha.85",
                 },
                 ":hover": {
-                  backgroundColor: "secondary.alpha.85",
+                  backgroundColor: isSelected
+                    ? "secondary.alpha.85"
+                    : "text.alpha.95",
                 },
+                transition: "all .2s linear",
               }}
             >
               {suffix}
