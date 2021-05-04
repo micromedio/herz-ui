@@ -6,7 +6,13 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-const fullPageComponents = ["Popover", "Tooltip", "FloatingCard", "Selector"]
+const fullPageComponents = [
+  "FloatingCard",
+  "MobileModal",
+  "Popover",
+  "Selector",
+  "Tooltip",
+]
 
 initStoryshots({
   suite: "Image storyshots",
