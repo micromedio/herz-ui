@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { jsx, Flex } from "theme-ui"
+import { jsx } from "theme-ui"
 import { ChangeEvent, forwardRef } from "react"
 import Input, { InputProps } from "../Input/Input"
 import Selector, { SelectorProps } from "../Selector/Selector"
@@ -19,8 +19,8 @@ export interface TextFieldProps {
 
   /** The helper text content */
   helperText?: string
-  /** If `true`, the `input` will be displayed in an error state */
-  error?: boolean
+  /** Controls which state the `input` will be displayed in */
+  state?: "default" | "error" | "success"
   /** If `true`, the `input` element will be disabled */
   disabled?: boolean
   /** If `true`, the `input` is required */
@@ -54,7 +54,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       label,
       placeholder,
       disabled = false,
-      error = false, //TODO: error state, needs design
+      state = "default",
       helperText,
       required = false,
       requiredText = "required",
@@ -70,9 +70,9 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const inputLabelId = label && id ? `${id}-label` : undefined
 
     return (
-      <Flex sx={{ flexDirection: "column", gap: 2 }}>
+      <div sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         {label && (
-          <Flex sx={{ gap: 1 }}>
+          <div sx={{ display: "flex", gap: 1 }}>
             <label
               htmlFor={id}
               id={inputLabelId}
@@ -91,46 +91,80 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             >
               ({required ? requiredText : optionalText})
             </span>
-          </Flex>
+          </div>
         )}
 
-        {select ? (
-          <Selector
-            id={id}
-            placeholder={placeholder}
-            {...selectProps}
-            options={selectProps?.options ?? []}
-            fullWidth={true}
-            hightlightFilled={false}
-          />
-        ) : (
-          <Input
-            id={id}
-            type={type}
-            ref={ref}
-            placeholder={placeholder}
-            iconName={iconName}
-            value={value}
-            disabled={disabled}
-            onChange={onChange}
-            error={error}
-            unit={unit}
-            aria-describedby={helperTextId}
-          />
-        )}
+        <div
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            borderRadius: 2,
 
-        {helperText && (
-          <span
-            id={helperTextId}
-            sx={{
-              color: "text.40",
-              variant: "text.body2",
-            }}
-          >
-            {helperText}
-          </span>
-        )}
-      </Flex>
+            ...{
+              default: {},
+              success: {
+                backgroundColor: "success.alpha.95",
+              },
+              error: {
+                backgroundColor: "primary.alpha.95",
+              },
+            }[state],
+          }}
+        >
+          {select ? (
+            <Selector
+              id={id}
+              placeholder={placeholder}
+              {...selectProps}
+              options={selectProps?.options ?? []}
+              fullWidth={true}
+              hightlightFilled={false}
+            />
+          ) : (
+            <Input
+              id={id}
+              type={type}
+              ref={ref}
+              placeholder={placeholder}
+              iconName={iconName}
+              value={value}
+              disabled={disabled}
+              onChange={onChange}
+              state={state}
+              unit={unit}
+              aria-describedby={helperTextId}
+            />
+          )}
+          {helperText && (
+            <span
+              id={helperTextId}
+              sx={{
+                ...{
+                  default: {
+                    color: "text.40",
+                    variant: "text.body2",
+                  },
+                  success: {
+                    px: 3,
+                    pb: 2,
+                    color: "success.0",
+                    variant: "text.body1",
+                  },
+                  error: {
+                    px: 3,
+                    pb: 2,
+                    color: "primary.0",
+                    variant: "text.body1",
+                  },
+                }[state],
+              }}
+            >
+              {helperText}
+            </span>
+          )}
+        </div>
+      </div>
     )
   }
 )

@@ -46,7 +46,12 @@ Disabled.args = {
 
 export const WithError = Template.bind({})
 WithError.args = {
-  error: true,
+  state: "error",
+}
+
+export const WithSuccess = Template.bind({})
+WithSuccess.args = {
+  state: "success",
 }
 
 export const Required = Template.bind({})
