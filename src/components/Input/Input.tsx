@@ -3,6 +3,7 @@
 import { HerzUITheme, jsx } from "theme-ui"
 import {
   ChangeEvent,
+  FocusEvent,
   forwardRef,
   InputHTMLAttributes,
   useMemo,
@@ -17,6 +18,8 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   value?: string
   /** Callback fired when the value is changed */
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
+  /** Callback fired when the input is unfocused */
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void
   /** Placeholder text content */
   placeholder?: string
 
@@ -41,6 +44,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     type = "text",
     value,
     onChange,
+    onBlur,
     placeholder,
     disabled = false,
     state = "default",
@@ -116,6 +120,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         value={value}
         disabled={disabled}
         onChange={onChange}
+        onBlur={onBlur}
         aria-invalid={state === "error"}
         size={1} // Input has a default size property of 20, which limits it's minimum width. Setting it to 1 and handling width through the parent so that we can control the input width better.
         {...htmlProps}
