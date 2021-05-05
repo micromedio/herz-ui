@@ -85,3 +85,19 @@ Select.args = {
     ],
   },
 }
+
+export const Error = Template.bind({})
+Error.args = {
+  ...Example.args,
+  value: "Filled input",
+  state: "error",
+  helperText: "Text to explain the input error",
+}
+
+export const Success = Template.bind({})
+Success.args = {
+  ...Example.args,
+  value: "Filled input",
+  state: "success",
+  helperText: "Text to explain the success",
+}
