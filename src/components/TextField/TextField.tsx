@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { ChangeEvent, forwardRef } from "react"
+import { ChangeEvent, FocusEvent, forwardRef } from "react"
 import Input, { InputProps } from "../Input/Input"
 import Selector, { SelectorProps } from "../Selector/Selector"
 
@@ -14,6 +14,8 @@ export interface TextFieldProps {
   value?: string
   /** Callback fired when the value is changed */
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
+  /** Callback fired when the input is unfocused */
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void
   /** Placeholder text content */
   placeholder?: string
 
@@ -51,6 +53,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       type = "text",
       value,
       onChange,
+      onBlur,
       label,
       placeholder,
       disabled = false,
@@ -131,6 +134,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               value={value}
               disabled={disabled}
               onChange={onChange}
+              onBlur={onBlur}
               state={state}
               unit={unit}
               aria-describedby={helperTextId}
