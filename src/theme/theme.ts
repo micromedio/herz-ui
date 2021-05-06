@@ -99,7 +99,7 @@ export const theme: HerzUITheme = {
       fontSize: [6, 5],
       fontWeight: "bold",
       lineHeight: [40 / 20, 36 / 18],
-      letterSpacing: "-2%",
+      letterSpacing: "-0,023rem",
     },
     heading2: {
       fontFamily: "body",

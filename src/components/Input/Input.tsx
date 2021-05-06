@@ -20,8 +20,8 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   /** Placeholder text content */
   placeholder?: string
 
-  /** If `true`, the `input` will be displayed in an error state */
-  error?: boolean
+  /** Controls which state the input will be displayed in */
+  state?: "default" | "error" | "success"
   /** If `true`, the `input` element will be disabled */
   disabled?: boolean
   /** If `true`, the `input` is required */
@@ -43,7 +43,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     onChange,
     placeholder,
     disabled = false,
-    error = false, //TODO: error state, needs design
+    state = "default",
     required = false,
     iconName,
     unit,
@@ -69,15 +69,36 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
         paddingY: "6px", // the 2px border counts towards height, so we need 6px instead of 8px for the correct height
         paddingX: 3,
-        backgroundColor: value ? "secondary.alpha.90" : "text.alpha.95",
+        ...{
+          default: {
+            backgroundColor: value ? "secondary.alpha.90" : "text.alpha.95",
+          },
+          success: {
+            backgroundColor: "success.alpha.95",
+          },
+          error: {
+            backgroundColor: "primary.alpha.95",
+          },
+        }[state],
         outline: 0,
         borderRadius: 2,
         border: "2px solid transparent",
 
         transition: "all 0.2s",
         "&:hover": {
-          backgroundColor: value ? "secondary.alpha.85" : "text.alpha.90",
+          ...(state === "default" && {
+            backgroundColor: value ? "secondary.alpha.85" : "text.alpha.90",
+          }),
         },
+        ...{
+          default: {},
+          success: {
+            borderColor: "success.0",
+          },
+          error: {
+            borderColor: "primary.0",
+          },
+        }[state],
         "&:focus-within": {
           borderColor: "secondary.0",
           boxShadow: (theme: HerzUITheme) =>
@@ -95,7 +116,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         value={value}
         disabled={disabled}
         onChange={onChange}
-        aria-invalid={error}
+        aria-invalid={state === "error"}
         size={1} // Input has a default size property of 20, which limits it's minimum width. Setting it to 1 and handling width through the parent so that we can control the input width better.
         {...htmlProps}
         sx={{
