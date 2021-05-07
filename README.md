@@ -36,7 +36,7 @@ If you found a bug, have issues or feature proposals, feel free to open an Issue
 clonning the repo
 ```
 git clone https://github.com/micromedio/herz-ui.git
-git checkout herz-ui
+cd herz-ui
 ```
 
 installing dependencies with yarn
@@ -77,9 +77,9 @@ yarn test
 <br/><br/>
 
 ```
-yarn storybook-compile
+yarn build-storybook
 ```
-- Build storybook components
+- Build storybook as a static project
 <br/><br/>
 
 ```
