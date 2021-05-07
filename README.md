@@ -1,37 +1,95 @@
 # herz-ui
 
-Herz UI (/hɛrʦ/ - Hérts) is a design system containing a styleguide(colors, grid, icons, typography) and library of UI components
+> Herz UI (/hɛrʦ/ - Hérts) is an implementation of UI Components based on Micromed's design system called **Herz**
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+* ### [Installation](#installation)
+* ### [Want to Contribuite](#contribute)
+* ### [Getting started](#starting)
+* ### [Testing in another project](#testlocally)
+<br/>
 
-### `yarn dev`
+## <a name="installation"></a> Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:6060](http://localhost:6060) to view it in the browser.
+### Using Herz-UI in your project
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+You can easily install in your project using your favorite package manager
 
-### `yarn test`
+```
+// using npm
+npm i @micromed/herz-ui
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+// using yarn
+yarn add @micromed/herz-ui
+```
 
-### `yarn build`
+you'll find our component documentation on our [website](https://herz-ui.micromed.io/)
 
-Builds the app for production to the `styleguide/` folder. Also compiles the exported modules into `lib/` folder\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## <a name="contribute"></a> Want to contribute?
+If you found a bug, have issues or feature proposals, feel free to open an Issue or send us a Pull Request, you can also read more about our [contribution guidelines](https://github.com/micromedio/herz-ui/blob/master/CONTRIBUTING.md)
+## <a name="starting"></a>Getting started
+<br/>
 
+### **Setup**
 
-### `yarn compile`
+clonning the repo
+```
+git clone https://github.com/micromedio/herz-ui.git
+cd herz-ui
+```
 
-Compile modules into the `lib/` folder to be exported and imported from this project.
+installing dependencies with yarn
+```
+yarn 
+```
 
-## Developing
+### **Running in development:**
 
-### Testing in another project
+```
+yarn dev
+```
+
+- Runs the app in the development mode.
+
+- The page will reload if you make edits.
+
+- You will also see any lint errors in the console
+
+- Project will be available at [localhost:6060](http://localhost:6060)
+<br/><br/>
+
+### **Building for production**
+
+```
+yarn build
+```
+- Builds the app for production to the styleguide/ folder
+- Compiles the exported modules into lib/ folder
+- bundles react in production mode optimizing for best performance
+<br/><br/>
+
+### **Testing**
+```
+yarn test
+```
+- Launches the test runner in the interactive watch mode.
+<br/><br/>
+
+```
+yarn build-storybook
+```
+- Build storybook as a static project
+<br/><br/>
+
+```
+yarn storybook
+```
+- Runs storybook at [localhost:6006](http://localhost:6006)
+
+<br/><br/>
+
+## <a name="testlocally"></a>Testing in another project
 
 While developing you may want to test your changes in another project that has `herz-ui` as a dependency. To do that we can use `yarn link` to link your local version of `herz-ui` to your project.
 
@@ -55,9 +113,3 @@ yarn link "@micromed/herz-ui"
 ```
 
 Now the external project is using the local compiled version of `herz-ui` and there should be no react errors.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
