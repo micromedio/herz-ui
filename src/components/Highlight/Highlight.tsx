@@ -1,17 +1,22 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import React, { ReactNode } from "react"
+import React, { CSSProperties, ReactNode } from "react"
 import { jsx } from "theme-ui"
 
 export interface HighlightProps {
+  /** The background color to the Highlight Component */
+  backgroundColor?: CSSProperties["backgroundColor"]
   /** The Highlight Component string to be highlighted */
   search: string
-
   /** The Highlight Component text to be rendered */
   text: string
 }
 
-const Highlight = ({ search, text }: HighlightProps) => {
+const Highlight = ({
+  backgroundColor = "highlight.0",
+  search,
+  text,
+}: HighlightProps) => {
   const stringMatch = text.matchAll(new RegExp(search, `gi`))
   // eslint-disable-next-line unicorn/prefer-spread
   const regExpMatchToArray = Array.from(stringMatch)
@@ -34,7 +39,7 @@ const Highlight = ({ search, text }: HighlightProps) => {
         <span
           data-testid={`highlight-span`}
           sx={{
-            backgroundColor: "highlight.0",
+            backgroundColor: backgroundColor,
           }}
         >
           {text.slice(match.index, offset)}

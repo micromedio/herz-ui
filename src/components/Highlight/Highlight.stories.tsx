@@ -17,7 +17,14 @@ Example.args = {
   text: "This is a simple text for highlighting purposes",
 }
 
-// Each story then reuses that template
+export const ColorChange = Template.bind({})
+
+ColorChange.args = {
+  backgroundColor: "primary.0",
+  search: "highlight",
+  text: "This is a simple text for highlighting purposes",
+}
+
 export const DoubleHighlight = Template.bind({})
 
 DoubleHighlight.args = {

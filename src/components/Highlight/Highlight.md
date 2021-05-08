@@ -6,6 +6,10 @@ This component is designed to highlight text on search components, for instance,
 
 ### Props
 
+##### backgroundColor
+
+- The background color to the Highlight Component: default is highlight.0
+
 ##### text
 
 - The text to be rendered.
@@ -18,6 +22,12 @@ This component is designed to highlight text on search components, for instance,
 
 ```jsx
 <Highlight search="highlight" text="This is a simple text for highlighting purposes" />
+```
+
+#### Color Change
+
+```jsx
+<Highlight backgroundColor="primary.0" search="highlight" text="This is a simple text for highlighting purposes" />
 ```
 
 #### Double Highlight
