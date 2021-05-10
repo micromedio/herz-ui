@@ -1,12 +1,13 @@
 /** @jsxRuntime classic /*
 /** @jsx jsx */
-import React, { useMemo } from "react"
+import React, { useContext, useMemo } from "react"
 import { Flex as div, HerzUITheme, jsx } from "theme-ui"
 
 import { useSelector, SELECTOR_BULK_ACTIONS } from "./hooks/useSelector"
 import Checkbox from "../Checkbox/Checkbox"
 import { Button, Popover } from ".."
 import Icon from "../Icon/Icon"
+import { InputGroupContext } from "../InputGroup/Context"
 
 export type SelectorValue = string | number
 export type SelectedItems = Array<SelectorValue>
@@ -82,6 +83,9 @@ const Selector = ({
   hightlightFilled = true,
   fullWidth,
 }: SelectorProps) => {
+  const inputGroupContext = useContext(InputGroupContext)
+  const isGrouped = !!inputGroupContext
+
   const {
     isOpen,
     selectedItem,
@@ -195,6 +199,13 @@ const Selector = ({
         position: "relative",
         opacity: disabled ? 0.3 : 1,
         variant: "text.body1",
+        ...(isGrouped && {
+          ...(!inputGroupContext?.isLast && {
+            borderRight: "1px solid",
+            borderColor: "text.90",
+            flexGrow: 0,
+          }),
+        }),
       }}
     >
       {label && (
@@ -343,6 +354,18 @@ const Selector = ({
             outline: 0,
             border: "2px solid transparent",
             transition: "all .2s linear",
+
+            ...(isGrouped && {
+              ...(!inputGroupContext?.isFirst && {
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0,
+              }),
+              ...(!inputGroupContext?.isLast && {
+                borderTopRightRadius: 0,
+                borderBottomRightRadius: 0,
+              }),
+            }),
+
             ...(fullWidth ? { flexGrow: 1 } : {}),
             ...(isSelectorFilled ? stateStyles.filled : stateStyles.resting),
             ...(!disabled && { cursor: "pointer" }),
