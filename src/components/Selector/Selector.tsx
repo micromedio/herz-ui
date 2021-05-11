@@ -66,7 +66,10 @@ function isArrayEqual(
   return isEqual
 }
 
-/** Component responsible for rendering a select dropdown from given options */
+/**
+ * @deprecated Component depracated, use `Select` instead
+ * Component responsible for rendering a select dropdown from given options
+ */
 const Selector = ({
   id,
   label,
