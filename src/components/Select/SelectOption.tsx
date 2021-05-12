@@ -27,7 +27,7 @@ export const SelectOption = ({
   const {
     highlightedIndex,
     selectedItem,
-    selectedItems,
+    selectedItems = [],
     multi,
     getItemProps,
     index,

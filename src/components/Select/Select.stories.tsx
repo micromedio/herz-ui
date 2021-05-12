@@ -1,8 +1,14 @@
 import React, { useState } from "react"
 import { Meta, Story } from "@storybook/react/types-6-0"
 
-import Select, { SelectProps, SelectedItems } from "./Select"
+import Select, {
+  SelectProps,
+  SelectedItems,
+  SelectOption,
+  SelectValue,
+} from "./Select"
 import { mockedOptions } from "./__mocks__/options"
+import { SelectOptionCustom } from "./SelectOptionCustom"
 
 const mockedChildrenOptions = mockedOptions.map(({ label, value }) => (
   <Select.Option key={value} value={value}>
@@ -106,7 +112,7 @@ WithDefaultSelectedItems.args = {
   children: mockedChildrenOptions,
   label: "Select one or multiple elements: ",
   multi: true,
-  defaultSelectedItems: [1, 5],
+  defaultSelectedItems: mockedOptions.map(({ value }) => value),
 }
 
 export const Disabled = Template.bind({})
@@ -142,11 +148,25 @@ const TemplateObjectValues: Story<SelectProps> = (props: SelectProps) => {
 export const WithObjectValues = TemplateObjectValues.bind({})
 WithObjectValues.args = {
   children: [
-    <Select.Option
-      key={JSON.stringify({ from: "10/10/10", to: "12/12/12" })}
-      value={{ from: "10/10/10", to: "12/12/12" }}
-    >
+    <Select.Option key={1} value={{ from: "10/10/10", to: "12/12/12" }}>
       Today
     </Select.Option>,
+    <Select.Option key={2} value={{ from: "13/13/13", to: "12/12/12" }}>
+      A few days ago
+    </Select.Option>,
+    <SelectOptionCustom key={3} value={{ from: "11/11/11", to: "02/02/02" }}>
+      {() => (
+        <div>ggesrg serg sergsergse rgser gsergse rgse rgserg sergserg</div>
+      )}
+    </SelectOptionCustom>,
   ],
+  renderButtonLabel({
+    selectedOption,
+    value,
+  }: {
+    selectedOption?: SelectOption
+    value?: SelectValue
+  }) {
+    return <span>{selectedOption?.label ?? JSON.stringify(value)}</span>
+  },
 }

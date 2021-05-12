@@ -70,6 +70,9 @@ export function useSelect({
     getMenuProps,
     highlightedIndex,
     getItemProps,
+    selectItem,
+    closeMenu,
+    openMenu,
   } = useDownshiftSelect<SelectValue>({
     items: options.map((option) => option.value),
     selectedItem: multi ? null : value,
@@ -122,7 +125,6 @@ export function useSelect({
   return {
     isOpen,
     selectedItem,
-    selectedItems,
     getToggleButtonProps,
     getLabelProps,
     getMenuProps,
@@ -130,5 +132,8 @@ export function useSelect({
     getItemProps,
     getDropdownProps,
     handleBulkAction,
+    selectItem,
+    closeMenu,
+    openMenu,
   }
 }

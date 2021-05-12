@@ -1,13 +1,17 @@
 import { createContext } from "react"
 import { useSelect } from "./hooks/useSelect"
+import { SelectProps } from "./Select"
 
-interface SelectContext {
+export interface SelectContext {
   index: number
   highlightedIndex: ReturnType<typeof useSelect>["highlightedIndex"]
+  selectItem: ReturnType<typeof useSelect>["selectItem"]
   selectedItem: ReturnType<typeof useSelect>["selectedItem"]
-  selectedItems: ReturnType<typeof useSelect>["selectedItems"]
+  selectedItems: SelectProps["selectedItems"]
   multi: boolean
   getItemProps: ReturnType<typeof useSelect>["getItemProps"]
+  closeMenu: ReturnType<typeof useSelect>["closeMenu"]
+  openMenu: ReturnType<typeof useSelect>["openMenu"]
 }
 
 export const SelectContext = createContext<SelectContext | null>(null)
