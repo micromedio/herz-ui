@@ -46,6 +46,15 @@ export interface SelectProps {
   /** Select grows to fill the width of the parent */
   fullWidth?: boolean
   children: React.ReactNode
+  renderButtonLabel?: ({
+    value,
+    selectedOption,
+    selectedItems,
+  }: {
+    value?: SelectValue
+    selectedOption?: SelectOption
+    selectedItems?: SelectedItems
+  }) => React.ReactNode
 }
 
 /**
@@ -66,6 +75,7 @@ const Select = ({
   hightlightFilled = true,
   fullWidth,
   children,
+  renderButtonLabel,
 }: SelectProps) => {
   const inputGroupContext = useContext(InputGroupContext)
   const isGrouped = !!inputGroupContext
@@ -84,6 +94,9 @@ const Select = ({
     getItemProps,
     getDropdownProps,
     handleBulkAction,
+    selectItem,
+    closeMenu,
+    openMenu,
   } = useSelect({
     value,
     options,
@@ -178,6 +191,14 @@ const Select = ({
     stateStyles.hover,
   ])
 
+  function defaultRenderButtonLabel() {
+    return multi
+      ? getMultiSelectLabel()
+      : (selectedItem && selectedOption?.label) ||
+          (placeholder !== undefined && placeholder) ||
+          "Select an option"
+  }
+
   return (
     <div
       sx={{
@@ -231,7 +252,6 @@ const Select = ({
               outline: 0,
               margin: 0,
               marginTop: 1,
-              listStyle: "none",
             }}
           >
             {React.Children.map(children, (child, index) => {
@@ -242,10 +262,13 @@ const Select = ({
                   value={{
                     index,
                     highlightedIndex,
+                    selectItem,
                     selectedItem,
                     selectedItems,
                     multi,
                     getItemProps,
+                    closeMenu,
+                    openMenu,
                   }}
                 >
                   {child}
@@ -263,7 +286,7 @@ const Select = ({
                   justifyContent: "start",
                 }}
                 onClick={() => {
-                  if (isSelectFilled) {
+                  if (selectedItems.length > 0) {
                     handleBulkAction(SELECT_BULK_ACTIONS.DESELECT_ALL)
                     return true
                   }
@@ -271,28 +294,9 @@ const Select = ({
                   handleBulkAction(SELECT_BULK_ACTIONS.SELECT_ALL)
                 }}
               >
-                {isSelectFilled ? "Deselect all" : "Select all"}
+                {selectedItems.length > 0 ? "Deselect all" : "Select all"}
               </Button>
             )}
-            <Button
-              variant="plain"
-              color="secondary"
-              sx={{
-                cursor: "pointer",
-                width: "100%",
-                justifyContent: "start",
-              }}
-              // onClick={() => {
-              //   if (isSelectFilled) {
-              //     handleBulkAction(SELECT_BULK_ACTIONS.DESELECT_ALL)
-              //     return true
-              //   }
-
-              //   handleBulkAction(SELECT_BULK_ACTIONS.SELECT_ALL)
-              // }}
-            >
-              Custom...
-            </Button>
           </div>
         }
       >
@@ -336,11 +340,8 @@ const Select = ({
           })}
         >
           <span>
-            {multi
-              ? getMultiSelectLabel()
-              : (selectedItem && selectedOption?.label) ||
-                (placeholder !== undefined && placeholder) ||
-                "Select an option"}
+            {renderButtonLabel?.({ selectedItems, selectedOption, value }) ??
+              defaultRenderButtonLabel()}
           </span>
           <Icon name="IconChevronDown" size={12} stroke={3} />
         </button>

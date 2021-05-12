@@ -10,17 +10,18 @@ export function getDataFromChildren(nodes: React.ReactNode) {
       }
 
       const {
-        type: { isSelectOption },
-        props: { label, children, value },
+        type: { isSelectOption, isSelectOptionCustom },
+        props: { children, value, label: propLabel },
       } = node as React.ReactElement & {
-        type: { isSelectOption: boolean }
+        type: { isSelectOption: boolean; isSelectOptionCustom: boolean }
       }
-      if (!isSelectOption) return null
+      if (!isSelectOption && !isSelectOptionCustom) return null
 
-      // const { label, children, value } = node.props as SelectOptionProps
+      let label = children
+      if (isSelectOptionCustom) label = propLabel || "Custom..."
 
       return {
-        label: label ?? children,
+        label,
         value: value,
       } as SelectOption
     })

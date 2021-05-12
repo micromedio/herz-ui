@@ -4,7 +4,9 @@ import { fireEvent, render } from "../../tests/utils"
 import { mockedOptions } from "./__mocks__/options"
 import Select, { SelectProps } from "./Select"
 const children = mockedOptions.map(({ label, value }) => (
-  <Select.Option key={value} label={label} value={value} />
+  <Select.Option key={value} value={value}>
+    {label}
+  </Select.Option>
 ))
 
 const ControlledMultiSelectTemplate = (props: SelectProps) => {
