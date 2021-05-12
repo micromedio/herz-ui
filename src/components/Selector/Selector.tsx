@@ -330,7 +330,7 @@ const Selector = ({
                     justifyContent: "start",
                   }}
                   onClick={() => {
-                    if (isSelectorFilled) {
+                    if (selectedItems.length > 0) {
                       handleBulkAction(SELECTOR_BULK_ACTIONS.DESELECT_ALL)
                       return true
                     }
@@ -338,7 +338,7 @@ const Selector = ({
                     handleBulkAction(SELECTOR_BULK_ACTIONS.SELECT_ALL)
                   }}
                 >
-                  {isSelectorFilled ? "Deselect all" : "Select all"}
+                  {selectedItems.length > 0 ? "Deselect all" : "Select all"}
                 </Button>
               </li>
             )}
