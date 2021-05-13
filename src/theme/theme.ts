@@ -42,6 +42,13 @@ const baseColors: Array<BaseColor> = [
     alphaPercentages: DEFAULT_TINT_PERCENTAGES,
     shadePercentages: DEFAULT_SHADE_PERCENTAGES,
   },
+  {
+    name: "highlight",
+    color: "#FEFF99" /** Yellow */,
+    tintPercentages: DEFAULT_TINT_PERCENTAGES,
+    alphaPercentages: DEFAULT_TINT_PERCENTAGES,
+    shadePercentages: DEFAULT_SHADE_PERCENTAGES,
+  },
 ]
 
 /** Generate color palette  */
@@ -62,6 +69,7 @@ export const theme: HerzUITheme = {
     text: colorPalette.text,
     success: colorPalette.success,
     warning: colorPalette.warning,
+    highlight: colorPalette.highlight,
   },
   breakpoints: ["64rem"],
 

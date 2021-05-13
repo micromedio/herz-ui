@@ -21,6 +21,9 @@ export type { EditableTextProps } from "./EditableText/EditableText"
 export { default as FloatingCard } from "./FloatingCard/FloatingCard"
 export type { FloatingCardProps } from "./FloatingCard/FloatingCard"
 
+export { default as Highlight } from "./Highlight/Highlight"
+export type { HighlightProps } from "./Highlight/Highlight"
+
 export { default as Icon } from "./Icon/Icon"
 export type { IconProps } from "./Icon/Icon"
 
