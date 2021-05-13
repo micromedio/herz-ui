@@ -8,17 +8,17 @@ import Icon from "../Icon/Icon"
 import Checkbox from "../Checkbox/Checkbox"
 import { SelectValue } from "./Select"
 
-export interface SelectOptionProps {
-  value: SelectValue
+export interface SelectOptionProps<T = SelectValue> {
+  value: T
   children?: React.ReactNode
   disabled?: boolean
 }
 
-export const SelectOption = ({
+export function SelectOption<T = SelectValue>({
   children,
   value,
   disabled = false,
-}: SelectOptionProps) => {
+}: SelectOptionProps<T>) {
   const context = useContext(SelectContext)
   if (context === null) {
     throw "<Select.Option> needs to be inside a <Select> component"
@@ -33,7 +33,7 @@ export const SelectOption = ({
     index,
   } = context
 
-  const isSelected = multi && selectedItems.includes(value)
+  const isSelected = multi && selectedItems.includes(value as SelectValue)
 
   return (
     <div
@@ -73,7 +73,7 @@ export const SelectOption = ({
         transition: "all .2s linear",
       }}
       {...getItemProps({
-        item: value,
+        item: value as SelectValue,
         index,
         disabled,
       })}

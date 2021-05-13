@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { jsx } from "theme-ui"
 import Button from "../Button/Button"
 import Icon from "../Icon/Icon"
@@ -16,13 +16,17 @@ export interface SelectOptionCustomProps {
   }: Pick<SelectContext, "closeMenu" | "selectItem">) => React.ReactNode
   label?: React.ReactNode
   disabled?: boolean
+  onHide: () => void
 }
 
 export const SelectOptionCustom = ({
   value,
   children,
   disabled = false,
+  onHide,
 }: SelectOptionCustomProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+
   const context = useContext(SelectContext)
   if (context === null) {
     throw "<SelectOptionCustom> needs to be inside a <Select> component"
@@ -41,12 +45,17 @@ export const SelectOptionCustom = ({
 
   return (
     <Popover
+      isVisible={isOpen}
       isInteractive
       placement="right-end"
       noPadding
       boxStyle={{
         mx: 6,
         mb: -4,
+      }}
+      onHide={() => {
+        setIsOpen(false)
+        onHide()
       }}
       content={
         <div
@@ -66,17 +75,17 @@ export const SelectOptionCustom = ({
           display: "flex",
           width: "100%",
           p: 2,
-
+          ...(highlightedIndex === index
+            ? {
+                backgroundColor: "secondary.alpha.85",
+              }
+            : {}),
           ...(isSelected
             ? {
                 color: "secondary.0",
                 backgroundColor: "secondary.90",
                 fontWeight: "bold",
-                ...(highlightedIndex === index
-                  ? {
-                      backgroundColor: "secondary.alpha.85",
-                    }
-                  : {}),
+
                 "&&:hover": {
                   backgroundColor: "secondary.alpha.85",
                 },
@@ -92,8 +101,7 @@ export const SelectOptionCustom = ({
           disabled,
         })}
         onClick={() => {
-          selectItem(value)
-          setTimeout(() => closeMenu())
+          setIsOpen((value) => !value)
         }}
       >
         <div

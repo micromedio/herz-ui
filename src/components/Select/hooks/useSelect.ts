@@ -76,7 +76,7 @@ export function useSelect({
   } = useDownshiftSelect<SelectValue>({
     items: options.map((option) => option.value),
     selectedItem: multi ? null : value,
-    defaultHighlightedIndex: 0,
+
     ...(multi
       ? {
           stateReducer: (state, actionAndChanges) => {
@@ -118,6 +118,23 @@ export function useSelect({
           },
         }
       : {
+          stateReducer: (state, actionsAndChanges) => {
+            const { changes, type } = actionsAndChanges
+
+            switch (type) {
+              case useDownshiftSelect.stateChangeTypes.MenuKeyDownEnter:
+              case useDownshiftSelect.stateChangeTypes.MenuKeyDownSpaceButton:
+                const index = options.findIndex(({ value }) => {
+                  return (
+                    JSON.stringify(value) ===
+                    JSON.stringify(changes.selectedItem)
+                  )
+                })
+                if (options[index]?.isCustom) return state
+                break
+            }
+            return changes
+          },
           onSelectedItemChange: handleSelectedItemChange,
         }),
   })
