@@ -16,6 +16,7 @@ export type SelectedItems = Array<SelectValue>
 export type SelectOption = {
   value: SelectValue
   label: React.ReactNode
+  isCustom?: boolean
 }
 
 export interface SelectProps {
@@ -73,7 +74,7 @@ const Select = ({
   onChange,
   onSelectedItemsChange,
   hightlightFilled = true,
-  fullWidth,
+  fullWidth = false,
   children,
   renderButtonLabel,
 }: SelectProps) => {
@@ -170,7 +171,9 @@ const Select = ({
     )
   }, [defaultSelectedItems, selectedItems])
 
-  const isInitialValueSelected = defaultValue && defaultValue === selectedItem
+  const isInitialValueSelected =
+    defaultValue &&
+    JSON.stringify(defaultValue) === JSON.stringify(selectedItem)
 
   const isSelectFilled =
     !areInitialItemsSelected &&
@@ -245,6 +248,7 @@ const Select = ({
                 suppressRefError: true,
               }
             )}
+            onBlur={null}
             sx={{
               maxHeight: 350,
               overflowY: "auto",
