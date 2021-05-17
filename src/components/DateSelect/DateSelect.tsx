@@ -136,6 +136,7 @@ const DateSelect = ({
             }
             setCustomValue(value)
             selectItem(value)
+            onChange?.(value)
             closeMenu()
           }
 
