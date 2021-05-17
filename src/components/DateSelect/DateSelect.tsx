@@ -91,10 +91,11 @@ const DateSelect = ({
   const isFormValid = useMemo(() => {
     const dateFrom = parse(fromValue, dateFormat, new Date())
     const dateTo = parse(toValue, dateFormat, new Date())
-    if (!isDateFromValid || !isDateToValid || dateFrom > dateTo) return false
+    if (!isValid(dateFrom) || !isValid(dateTo) || dateFrom > dateTo)
+      return false
 
     return true
-  }, [dateFormat, fromValue, isDateFromValid, isDateToValid, toValue])
+  }, [dateFormat, fromValue, toValue])
 
   const [customValue, setCustomValue] = useState({ to: "", from: "" })
 
@@ -161,7 +162,8 @@ const DateSelect = ({
                   width: 180,
                 }}
               >
-                <span
+                <label
+                  htmlFor="dateFrom"
                   sx={{
                     variant: "text.body1",
                     color: "text.40",
@@ -169,7 +171,7 @@ const DateSelect = ({
                   }}
                 >
                   From
-                </span>
+                </label>
                 <Rifm
                   value={fromValue}
                   onChange={setFromValue}
@@ -177,6 +179,7 @@ const DateSelect = ({
                 >
                   {({ onChange, value }) => (
                     <TextField
+                      id="dateFrom"
                       value={value}
                       onChange={onChange}
                       placeholder={dateFormat.toLowerCase()}
@@ -184,7 +187,8 @@ const DateSelect = ({
                     />
                   )}
                 </Rifm>
-                <span
+                <label
+                  htmlFor="dateTo"
                   sx={{
                     variant: "text.body1",
                     color: "text.40",
@@ -192,11 +196,12 @@ const DateSelect = ({
                   }}
                 >
                   To
-                </span>
+                </label>
 
                 <Rifm value={toValue} onChange={setToValue} format={formatDate}>
                   {({ onChange, value }) => (
                     <TextField
+                      id="dateTo"
                       value={value}
                       onChange={onChange}
                       placeholder={dateFormat.toLowerCase()}
