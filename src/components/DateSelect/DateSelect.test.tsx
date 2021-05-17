@@ -28,7 +28,13 @@ describe("DateSelect", () => {
   test("onChange is called when an option is selected", async () => {
     const onChange = jest.fn()
     render(
-      <DateSelect onChange={onChange}>
+      <DateSelect
+        onChange={onChange}
+        value={{
+          from: "",
+          to: "",
+        }}
+      >
         <DateSelect.Option value={{ from: "12/05/2021", to: "12/05/2021" }}>
           Today
         </DateSelect.Option>
@@ -41,6 +47,18 @@ describe("DateSelect", () => {
       from: "12/05/2021",
       to: "12/05/2021",
     })
+  })
+
+  test("select button shows current selected item text", async () => {
+    const value = { from: "12/05/2021", to: "12/05/2021" }
+
+    render(
+      <DateSelect value={value}>
+        <DateSelect.Option value={value}>Today</DateSelect.Option>
+      </DateSelect>
+    )
+
+    expect(screen.getByText(/today/i)).toBeInTheDocument()
   })
 
   test("custom date range popover appears when custom option is clicked", async () => {
