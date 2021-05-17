@@ -150,7 +150,10 @@ const Select = ({
         return "All"
       }
       if (selectedItems.length === 1) {
-        return options.find(({ value }) => value === selectedItems[0])?.label
+        return options.find(
+          ({ value }) =>
+            JSON.stringify(selectedItems[0]) === JSON.stringify(value)
+        )?.label
       }
       return selectedItems.length + " selected"
     }
@@ -160,7 +163,10 @@ const Select = ({
 
   const selectedOption = useMemo(() => {
     return (
-      (selectedItem && options.find(({ value }) => value === selectedItem)) ||
+      (selectedItem &&
+        options.find(
+          ({ value }) => JSON.stringify(selectedItem) === JSON.stringify(value)
+        )) ||
       undefined
     )
   }, [options, selectedItem])
