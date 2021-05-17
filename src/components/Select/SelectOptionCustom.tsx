@@ -16,7 +16,7 @@ export interface SelectOptionCustomProps {
   }: Pick<SelectContext, "closeMenu" | "selectItem">) => React.ReactNode
   label?: React.ReactNode
   disabled?: boolean
-  onHide: () => void
+  onHide?: () => void
 }
 
 export const SelectOptionCustom = ({
@@ -55,7 +55,7 @@ export const SelectOptionCustom = ({
       }}
       onHide={() => {
         setIsOpen(false)
-        onHide()
+        onHide?.()
       }}
       content={
         <div
