@@ -27,14 +27,6 @@ const formatDate = (value: string) => {
   )
 }
 
-const addMask = (value: string) => {
-  const digits = parseDigits(value)
-  const days = digits.slice(0, 2).padEnd(2, "_")
-  const months = digits.slice(2, 4).padEnd(2, "_")
-  const years = digits.slice(4, 8).padEnd(4, "_")
-  return `${days}/${months}/${years}`
-}
-
 interface DateValue {
   to: string
   from: string
@@ -84,14 +76,25 @@ const DateSelect = ({
   const [fromValue, setFromValue] = useState("")
   const [toValue, setToValue] = useState("")
 
+  const isDateFromValid = useMemo(() => {
+    if (!fromValue) return true
+    const dateFrom = parse(fromValue, dateFormat, new Date())
+    return isValid(dateFrom)
+  }, [dateFormat, fromValue])
+
+  const isDateToValid = useMemo(() => {
+    if (!toValue) return true
+    const dateTo = parse(toValue, dateFormat, new Date())
+    return isValid(dateTo)
+  }, [dateFormat, toValue])
+
   const isFormValid = useMemo(() => {
     const dateFrom = parse(fromValue, dateFormat, new Date())
     const dateTo = parse(toValue, dateFormat, new Date())
-    if (!isValid(dateFrom) || !isValid(dateTo) || dateFrom > dateTo)
-      return false
+    if (!isDateFromValid || !isDateToValid || dateFrom > dateTo) return false
 
     return true
-  }, [dateFormat, fromValue, toValue])
+  }, [dateFormat, fromValue, isDateFromValid, isDateToValid, toValue])
 
   const [customValue, setCustomValue] = useState({ to: "", from: "" })
 
@@ -171,11 +174,14 @@ const DateSelect = ({
                   value={fromValue}
                   onChange={setFromValue}
                   format={formatDate}
-                  replace={addMask}
-                  mask
                 >
                   {({ onChange, value }) => (
-                    <TextField value={value} onChange={onChange} />
+                    <TextField
+                      value={value}
+                      onChange={onChange}
+                      placeholder={dateFormat.toLowerCase()}
+                      state={isDateFromValid ? "default" : "error"}
+                    />
                   )}
                 </Rifm>
                 <span
@@ -188,15 +194,14 @@ const DateSelect = ({
                   To
                 </span>
 
-                <Rifm
-                  value={toValue}
-                  onChange={setToValue}
-                  format={formatDate}
-                  replace={addMask}
-                  mask
-                >
+                <Rifm value={toValue} onChange={setToValue} format={formatDate}>
                   {({ onChange, value }) => (
-                    <TextField value={value} onChange={onChange} />
+                    <TextField
+                      value={value}
+                      onChange={onChange}
+                      placeholder={dateFormat.toLowerCase()}
+                      state={isDateToValid ? "default" : "error"}
+                    />
                   )}
                 </Rifm>
 
