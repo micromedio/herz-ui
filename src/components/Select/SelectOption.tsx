@@ -33,7 +33,8 @@ export function SelectOption<T = SelectValue>({
     index,
   } = context
 
-  const isSelected = multi && selectedItems.includes(value as SelectValue)
+  const isMultiSelected = multi && selectedItems.includes(value as SelectValue)
+  const isSelected = JSON.stringify(selectedItem) === JSON.stringify(value)
 
   return (
     <div
@@ -47,7 +48,7 @@ export function SelectOption<T = SelectValue>({
         cursor: disabled ? "default" : "pointer",
         opacity: disabled ? 0.3 : 1,
         borderRadius: 2,
-        color: isSelected ? "text.0" : "text.40",
+        color: isMultiSelected ? "text.0" : "text.40",
         backgroundColor: "#fff",
         whiteSpace: "nowrap",
 
@@ -58,7 +59,7 @@ export function SelectOption<T = SelectValue>({
             }
           : {}),
 
-        ...(selectedItem === value
+        ...(isSelected
           ? {
               color: "secondary.0",
               backgroundColor: "secondary.90",
@@ -79,7 +80,7 @@ export function SelectOption<T = SelectValue>({
       })}
     >
       {multi ? (
-        <Checkbox checked={isSelected} label={children} />
+        <Checkbox checked={isMultiSelected} label={children} />
       ) : (
         <React.Fragment>
           <span>{children}</span>
@@ -92,9 +93,7 @@ export function SelectOption<T = SelectValue>({
               p: 1,
             }}
           >
-            {selectedItem === value && (
-              <Icon name="IconCheck" size={12} stroke={4} />
-            )}
+            {isSelected && <Icon name="IconCheck" size={12} stroke={4} />}
           </div>
         </React.Fragment>
       )}
