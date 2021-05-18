@@ -3,6 +3,7 @@ import { fireEvent, render } from "../../tests/utils"
 
 import { Autocomplete } from ".."
 import { mockedOptions } from "./__mocks__/options"
+import { useCombobox } from "downshift"
 
 const mockedClientRects = {
   bottom: 619.5,
@@ -33,7 +34,7 @@ describe("Autocomplete", () => {
         options={mockedOptions}
         optionToString={(option) => (option ? option.label : "")}
         placeholder="Search by element's name or symbol"
-        renderOption={(_highlightedIndex, defaultStyles, option) => (
+        renderOption={({ defaultStyles, option }) => (
           <div sx={defaultStyles}>{option.label}</div>
         )}
         selectedOption={null}
@@ -58,7 +59,7 @@ describe("Autocomplete", () => {
         options={mockedOptions}
         optionToString={(option) => (option ? option.label : "")}
         placeholder="Search by element's name or symbol"
-        renderOption={(_highlightedIndex, defaultStyles, option) => (
+        renderOption={({ defaultStyles, option }) => (
           <div sx={defaultStyles}>{option.label}</div>
         )}
         selectedOption={null}
@@ -78,7 +79,7 @@ describe("Autocomplete", () => {
         onInputValueChange={jest.fn()}
         options={mockedOptions}
         optionToString={(option) => (option ? option.label : "")}
-        renderOption={(_highlightedIndex, defaultStyles, option) => (
+        renderOption={({ defaultStyles, option }) => (
           <div sx={defaultStyles}>{option.label}</div>
         )}
         renderSelectedItem={(selectedOption) => {
@@ -115,7 +116,13 @@ describe("Autocomplete", () => {
     const option = getByText(mockedOptions[1].label)
     fireEvent.click(option)
 
-    expect(onSelectedItemChange).toHaveBeenCalled()
+    expect(onSelectedItemChange).toHaveBeenCalledWith({
+      highlightedIndex: -1,
+      inputValue: mockedOptions[1].label,
+      isOpen: false,
+      selectedItem: mockedOptions[1],
+      type: useCombobox.stateChangeTypes.ItemClick,
+    })
   })
 
   it("should filter options based on input value", () => {
@@ -126,7 +133,7 @@ describe("Autocomplete", () => {
         onSelectedItemChange={jest.fn()}
         options={mockedOptions}
         optionToString={(option) => (option ? option.label : "")}
-        renderOption={(_highlightedIndex, defaultStyles, option) => (
+        renderOption={({ defaultStyles, option }) => (
           <div sx={defaultStyles}>{option.label}</div>
         )}
         renderSelectedItem={(selectedOption) => {
@@ -147,7 +154,7 @@ describe("Autocomplete", () => {
         onSelectedItemChange={jest.fn()}
         options={[mockedOptions[0]]}
         optionToString={(option) => (option ? option.label : "")}
-        renderOption={(_highlightedIndex, defaultStyles, option) => (
+        renderOption={({ defaultStyles, option }) => (
           <div sx={defaultStyles}>{option.label}</div>
         )}
         renderSelectedItem={(selectedOption) => {
@@ -171,7 +178,13 @@ describe("Autocomplete", () => {
 
     const menuElement = getByRole("listbox")
 
-    expect(onInputValueChange).toHaveBeenCalled()
+    expect(onInputValueChange).toHaveBeenCalledWith({
+      highlightedIndex: -1,
+      inputValue: mockedOptions[0].label,
+      isOpen: true,
+      selectedItem: null,
+      type: useCombobox.stateChangeTypes.InputChange,
+    })
     expect(menuElement.children).toHaveLength(1)
   })
 
@@ -191,7 +204,7 @@ describe("Autocomplete", () => {
         options={mockedOptions.slice(0, 5)}
         optionToString={(option) => (option ? option.label : "")}
         ref={{ current: null }}
-        renderOption={(_highlightedIndex, defaultStyles, option) => (
+        renderOption={({ defaultStyles, option }) => (
           <div sx={defaultStyles}>{option.label}</div>
         )}
         placeholder="Search by element's name or symbol"
@@ -215,7 +228,7 @@ describe("Autocomplete", () => {
         options={mockedOptions.slice(0, 5)}
         optionToString={(option) => (option ? option.label : "")}
         ref={{ current: null }}
-        renderOption={(_highlightedIndex, defaultStyles, option) => (
+        renderOption={({ defaultStyles, option }) => (
           <div sx={defaultStyles}>{option.label}</div>
         )}
         placeholder="Search by element's name or symbol"
@@ -231,7 +244,6 @@ describe("Autocomplete", () => {
 
     expect(inputElement).not.toBeVisible()
     expect(customRenderedOption).toBeVisible()
-    fireEvent.blur(inputElement)
   })
 
   it("should render the menu clicking on custom render option div", () => {
@@ -242,7 +254,7 @@ describe("Autocomplete", () => {
         options={mockedOptions.slice(0, 5)}
         optionToString={(option) => (option ? option.label : "")}
         ref={{ current: null }}
-        renderOption={(_highlightedIndex, defaultStyles, option) => (
+        renderOption={({ defaultStyles, option }) => (
           <div sx={defaultStyles}>{option.label}</div>
         )}
         renderSelectedItem={(selectedOption) => {
@@ -265,7 +277,7 @@ describe("Autocomplete", () => {
         options={mockedOptions.slice(0, 5)}
         optionToString={(option) => (option ? option.label : "")}
         ref={{ current: null }}
-        renderOption={(_highlightedIndex, defaultStyles, option) => (
+        renderOption={({ defaultStyles, option }) => (
           <div sx={defaultStyles}>{option.label}</div>
         )}
         renderSelectedItem={(selectedOption) => {
@@ -302,7 +314,7 @@ describe("Autocomplete", () => {
         optionToString={(option) => (option ? option.label : "")}
         placeholder="Search by element's name or symbol"
         ref={{ current: null }}
-        renderOption={(_highlightedIndex, defaultStyles, option) => (
+        renderOption={({ defaultStyles, option }) => (
           <div sx={defaultStyles}>{option.label}</div>
         )}
         renderSelectedItem={(selectedOption) => {
@@ -338,7 +350,7 @@ describe("Autocomplete", () => {
         options={[]}
         optionToString={(option) => (option ? option.label : "")}
         ref={{ current: null }}
-        renderOption={(_highlightedIndex, defaultStyles, option) => (
+        renderOption={({ defaultStyles, option }) => (
           <div sx={defaultStyles}>{option.label}</div>
         )}
         renderSelectedItem={(selectedOption) => {
@@ -354,14 +366,29 @@ describe("Autocomplete", () => {
       />
     )
 
+    const customInputValue = "Custom value"
+
     const inputElement = getByRole("textbox")
     fireEvent.click(inputElement)
-    fireEvent.change(inputElement, { target: { value: "Custom value" } })
+    fireEvent.change(inputElement, { target: { value: customInputValue } })
+
+    expect(onInputValueChange).toHaveBeenCalledWith({
+      highlightedIndex: -1,
+      inputValue: customInputValue,
+      isOpen: true,
+      selectedItem: null,
+      type: useCombobox.stateChangeTypes.InputChange,
+    })
 
     const clearButton = getByRole("button", { name: /clear/i })
     fireEvent.click(clearButton)
-    fireEvent.blur(inputElement)
 
-    expect(onInputValueChange).toHaveBeenCalled()
+    expect(onInputValueChange).toHaveBeenLastCalledWith({
+      highlightedIndex: -1,
+      inputValue: "",
+      isOpen: true,
+      selectedItem: null,
+      type: useCombobox.stateChangeTypes.FunctionSetInputValue,
+    })
   })
 })

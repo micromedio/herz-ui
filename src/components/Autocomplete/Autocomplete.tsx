@@ -1,16 +1,13 @@
 /** @jsxRuntime classic /*
 /** @jsx jsx */
 import React, {
-  ChangeEvent,
   forwardRef,
   ReactElement,
   ReactNode,
   Ref,
-  useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
-  useState,
 } from "react"
 import { HerzUITheme, jsx, SxStyleProp } from "theme-ui"
 import { useCombobox, UseComboboxStateChange } from "downshift"
@@ -26,17 +23,24 @@ export interface AutocompleteProps<T extends unknown> {
   onSelectedItemChange: (changes: UseComboboxStateChange<T>) => void
   optionalText?: string
   options: T[]
-  optionToString: (item: T | null) => string
+  optionToString: (option: T | null) => string
   placeholder?: string
-  renderOption: (
-    highlightedIndex: number,
-    defaultStyles: SxStyleProp,
-    item: T,
-    inputValue: string,
-    index?: number,
+  renderOption: ({
+    highlightedIndex,
+    defaultStyles,
+    option,
+    inputValue,
+    index,
+    array,
+  }: {
+    highlightedIndex: number
+    defaultStyles: SxStyleProp
+    option: T
+    inputValue: string
+    index?: number
     array?: T[]
-  ) => ReactNode
-  renderSelectedItem?: (item: T) => ReactNode
+  }) => ReactNode
+  renderSelectedItem?: (option: T) => ReactNode
   required?: boolean
   requiredText?: string
   selectedOption?: T | null
@@ -73,7 +77,6 @@ export default forwardRef(function Autocomplete<T>(
     ref,
     () => inputRef.current
   )
-  const [inputValue, setInputValue] = useState("")
   const {
     getComboboxProps,
     getInputProps,
@@ -81,21 +84,23 @@ export default forwardRef(function Autocomplete<T>(
     getLabelProps,
     getMenuProps,
     highlightedIndex,
+    inputValue,
     isOpen,
     openMenu,
+    setInputValue,
   } = useCombobox({
     items: options,
     itemToString: optionToString,
     onInputValueChange,
     onIsOpenChange: ({ isOpen: open }) => {
       if (!open) {
+        setInputValue(optionToString(selectedOption as T | null))
         inputRef.current?.blur()
       } else {
         inputRef.current?.focus()
       }
     },
     onSelectedItemChange: (changes) => {
-      setInputValue(optionToString(changes.selectedItem as T | null))
       onSelectedItemChange(changes)
     },
     selectedItem: selectedOption,
@@ -125,12 +130,6 @@ export default forwardRef(function Autocomplete<T>(
       {}
     ),
   }
-
-  useEffect(() => {
-    if (!selectedOption) {
-      setInputValue("")
-    }
-  }, [selectedOption])
 
   return (
     <div
@@ -216,20 +215,6 @@ export default forwardRef(function Autocomplete<T>(
             autoComplete: "off",
             disabled: status === "loading",
             size: 1, // input has a default size property of 20, which limits it's minimum width. Setting it to 1 and handling width through the parent so that we can control the input width better.
-            onBlur: () => {
-              if (!selectedOption) {
-                setInputValue("")
-              } else {
-                setInputValue(optionToString(selectedOption))
-              }
-            },
-            onChange: (event: ChangeEvent<HTMLInputElement>) => {
-              setInputValue(event.target.value)
-              onInputValueChange({
-                type: useCombobox.stateChangeTypes.InputChange,
-                inputValue: event.target.value,
-              })
-            },
             onFocus: () => {
               if (!isOpen) openMenu()
             },
@@ -362,33 +347,38 @@ export default forwardRef(function Autocomplete<T>(
           "& > div": {
             cursor: "pointer",
           },
+          "& > div#total-count": {
+            cursor: "initial",
+          },
         }}
       >
         {isOpen &&
           options.map((item, index, array) => (
             <div {...getItemProps({ item, index })} key={index}>
-              {renderOption(
+              {renderOption({
                 highlightedIndex,
-                {
+                defaultStyles: {
                   backgroundColor:
                     highlightedIndex === index
                       ? "secondary.alpha.95"
                       : undefined,
                   borderRadius: 2,
-                  height: 60,
+                  padding: 2,
                 },
-                item,
+                option: item,
                 inputValue,
                 index,
-                array
-              )}
+                array,
+              })}
             </div>
           ))}
         {totalCount && (
           <div
+            id="total-count"
             sx={{
               backgroundColor: "inherit",
               bottom: 0,
+              cursor: "none",
               padding: `16px 8px 24px`,
               position: "sticky",
               textAlign: "center",
@@ -417,10 +407,6 @@ export default forwardRef(function Autocomplete<T>(
                   color="secondary"
                   onClick={() => {
                     setInputValue("")
-                    onInputValueChange({
-                      type: useCombobox.stateChangeTypes.InputChange,
-                      inputValue: "",
-                    })
                   }}
                   size="small"
                   sx={{ paddingY: 0 }}

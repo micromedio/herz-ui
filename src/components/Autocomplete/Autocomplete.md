@@ -33,7 +33,7 @@ const [value, setValue] = React.useState(null)
   options={items}
   optionToString={(option) => (option ? option.label : "")}
   placeholder="Search by organization's name or handle"
-  renderOption={(_highlightedIndex, defaultStyles, option) => (
+  renderOption={({ defaultStyles, option }) => (
     <div
       style={{
         ...defaultStyles,
@@ -92,7 +92,7 @@ const [value, setValue] = React.useState(null)
   options={items}
   optionToString={(option) => (option ? option.label : "")}
   placeholder="Search by organization's name or handle"
-  renderOption={(highlightedIndex, defaultStyles, option) => (
+  renderOption={({ highlightedIndex, defaultStyles, option }) => (
     <div
       style={{
         ...defaultStyles,
@@ -171,7 +171,7 @@ const [value, setValue] = React.useState(mockedOptions[0])
   options={items}
   optionToString={(option) => (option ? option.label : "")}
   placeholder="Search by organization's name or handle"
-  renderOption={(highlightedIndex, defaultStyles, option) => (
+  renderOption={({ highlightedIndex, defaultStyles, option }) => (
     <div
       style={{
         ...defaultStyles,
@@ -249,7 +249,7 @@ const [value, setValue] = React.useState(mockedOptions[5])
   options={items}
   optionToString={(option) => (option ? option.label : "")}
   placeholder="Search by organization's name or handle"
-  renderOption={(highlightedIndex, defaultStyles, option) => (
+  renderOption={({ highlightedIndex, defaultStyles, option }) => (
     <div
       style={{
         ...defaultStyles,
@@ -349,7 +349,7 @@ const [value, setValue] = React.useState(null)
   options={items}
   optionToString={(option) => (option ? option.label : "")}
   placeholder="Search by organization's name or handle"
-  renderOption={(highlightedIndex, defaultStyles, option, inputValue) => (
+  renderOption={({ highlightedIndex, defaultStyles, option, inputValue }) => (
     <div
       style={{
         ...defaultStyles,

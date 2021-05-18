@@ -62,7 +62,7 @@ const Template: Story<AutocompleteProps<AutocompleteItem>> = (
       options={items}
       optionToString={(option) => (option ? option.label : "")}
       placeholder="Search by organization's name or handle"
-      renderOption={(_highlightedIndex, defaultStyles, option) => (
+      renderOption={({ defaultStyles, option }) => (
         <div
           sx={{
             ...defaultStyles,
@@ -127,7 +127,7 @@ const RenderSelectedTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
       options={items}
       optionToString={(option) => (option ? option.label : "")}
       placeholder="Search by organization's name or handle"
-      renderOption={(_highlightedIndex, defaultStyles, option) => (
+      renderOption={({ defaultStyles, option }) => (
         <div
           sx={{
             ...defaultStyles,
@@ -211,7 +211,7 @@ const WithHighlightTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
       options={items}
       optionToString={(option) => (option ? option.label : "")}
       placeholder="Search by organization's name or handle"
-      renderOption={(_highlightedIndex, defaultStyles, option, inputValue) => (
+      renderOption={({ defaultStyles, option, inputValue }) => (
         <div
           sx={{
             ...defaultStyles,
