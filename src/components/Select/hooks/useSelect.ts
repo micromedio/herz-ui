@@ -8,7 +8,7 @@ import {
   SelectProps,
   SelectedItems,
   SelectValue,
-  SelectOption,
+  SelectOptionType,
 } from "../Select"
 
 export enum SELECT_BULK_ACTIONS {
@@ -24,7 +24,7 @@ export function useSelect({
   onChange,
   onSelectedItemsChange,
 }: {
-  options: Array<SelectOption>
+  options: Array<SelectOptionType>
   multi: SelectProps["multi"]
   value: SelectProps["value"]
   selectedItems: SelectProps["selectedItems"]
