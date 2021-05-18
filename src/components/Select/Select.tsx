@@ -13,7 +13,7 @@ import { SelectContext } from "./context"
 export type SelectValue = string | number | Record<string, unknown>
 export type SelectedItems = Array<SelectValue>
 
-export type SelectOption = {
+export type SelectOptionType = {
   value: SelectValue
   label: React.ReactNode
   isCustom?: boolean
@@ -53,7 +53,7 @@ export interface SelectProps {
     selectedItems,
   }: {
     value?: SelectValue
-    selectedOption?: SelectOption
+    selectedOption?: SelectOptionType
     selectedItems?: SelectedItems
   }) => React.ReactNode
 }

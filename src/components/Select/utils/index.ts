@@ -1,6 +1,6 @@
 import React from "react"
 import { toArray } from "../../../helpers/utils"
-import { SelectOption } from "../Select"
+import { SelectOptionType } from "../Select"
 
 export function getDataFromChildren(nodes: React.ReactNode) {
   return (
@@ -30,9 +30,9 @@ export function getDataFromChildren(nodes: React.ReactNode) {
           label,
           value: value,
           isCustom: isSelectOptionCustom,
-        } as SelectOption
+        } as SelectOptionType
       })
-      .filter((data) => data) as SelectOption[]
+      .filter((data) => data) as SelectOptionType[]
   )
 }
 
