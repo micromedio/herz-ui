@@ -52,7 +52,7 @@ export interface DateSelectProps {
   /** Callback fired when the value is changed */
   onChange?: (changes: DateValue) => void
   /** Highlight the select when it's in a `filled` state */
-  hightlightFilled?: SelectProps["hightlightFilled"]
+  highlightFilled?: SelectProps["highlightFilled"]
   /** Select grows to fill the width of the parent */
   fullWidth?: SelectProps["fullWidth"]
   children: SelectProps["children"]
@@ -68,7 +68,7 @@ const DateSelect = ({
   defaultValue,
   disabled = false,
   onChange,
-  hightlightFilled = true,
+  highlightFilled = true,
   fullWidth = false,
   children,
   dateFormat = "MM/dd/yyyy",
@@ -115,7 +115,7 @@ const DateSelect = ({
       onChange={(value) => {
         if (value) onChange?.((value as unknown) as DateValue)
       }}
-      hightlightFilled={hightlightFilled}
+      highlightFilled={highlightFilled}
       fullWidth={fullWidth}
     >
       {children}

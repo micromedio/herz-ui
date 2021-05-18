@@ -43,7 +43,7 @@ export interface SelectProps {
   /** Callback fired when the selected items change for multiple selection */
   onSelectedItemsChange?: (changes: SelectedItems) => void
   /** Highlight the select when it's in a `filled` state */
-  hightlightFilled?: boolean
+  highlightFilled?: boolean
   /** Select grows to fill the width of the parent */
   fullWidth?: boolean
   children: React.ReactNode
@@ -73,7 +73,7 @@ const Select = ({
   defaultSelectedItems,
   onChange,
   onSelectedItemsChange,
-  hightlightFilled = true,
+  highlightFilled = true,
   fullWidth = false,
   children,
   renderButtonLabel,
@@ -132,7 +132,7 @@ const Select = ({
       backgroundColor: "secondary.alpha.90",
       color: "text.0",
       boxShadow: "unset",
-      ...(hightlightFilled
+      ...(highlightFilled
         ? {
             borderColor: "secondary.0",
             fontWeight: "semibold",
