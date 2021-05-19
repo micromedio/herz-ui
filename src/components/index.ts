@@ -1,3 +1,6 @@
+export { default as Autocomplete } from "./Autocomplete/Autocomplete"
+export type { AutocompleteProps } from "./Autocomplete/Autocomplete"
+
 export { default as Alert } from "./Alert/Alert"
 export type { AlertProps } from "./Alert/Alert"
 
