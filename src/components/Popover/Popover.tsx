@@ -21,6 +21,10 @@ export interface PopoverProps {
   theme?: "light" | "dark"
   /** Popover border radius */
   borderRadius?: number
+  /** Popover content style */
+  contentStyle?: SxStyleProp
+  /** Popover box style */
+  boxStyle?: SxStyleProp
 
   /** Use to control the visibility of the popover from the parent component. Most of the time this is not needed when choosing the right triggers for your situation */
   isVisible?: boolean
@@ -58,6 +62,8 @@ const Popover = ({
 
   theme = "light",
   borderRadius = 4,
+  contentStyle,
+  boxStyle,
 
   isVisible, // defaults to undefined, otherwise component is controlled
   noPadding = false,
@@ -221,12 +227,14 @@ const Popover = ({
                     py: 1,
                     px: 2,
                   }),
+              ...contentStyle,
             },
             "&[data-animation=fade][data-state=hidden]": {
               opacity: 0,
             },
             ...arrowStyles,
             ...themeStyles,
+            ...boxStyle,
           },
         }}
       >

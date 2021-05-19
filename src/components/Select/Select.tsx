@@ -1,35 +1,35 @@
 /** @jsxRuntime classic /*
 /** @jsx jsx */
 import React, { useContext, useMemo } from "react"
-import { Flex as div, HerzUITheme, jsx } from "theme-ui"
+import { HerzUITheme, jsx } from "theme-ui"
 
-import { useSelector, SELECTOR_BULK_ACTIONS } from "./hooks/useSelector"
-import Checkbox from "../Checkbox/Checkbox"
-import { Button, Popover } from ".."
-import Icon from "../Icon/Icon"
+import { useSelect, SELECT_BULK_ACTIONS } from "./hooks/useSelect"
+import { Button, Popover, Icon } from ".."
 import { InputGroupContext } from "../InputGroup/Context"
+import { getDataFromChildren, isArrayEqual } from "./utils"
+import { SelectOption } from "./SelectOption"
+import { SelectContext } from "./context"
 
-export type SelectorValue = string | number
-export type SelectedItems = Array<SelectorValue>
+export type SelectValue = string | number | Record<string, unknown>
+export type SelectedItems = Array<SelectValue>
 
-export type SelectorOption = {
-  value: string | number
+export type SelectOptionType = {
+  value: SelectValue
   label: React.ReactNode
+  isCustom?: boolean
 }
 
-export interface SelectorProps {
+export interface SelectProps {
   /** The id of the Select. Use this prop to make label and `helperText` accessible for screen readers */
   id?: string
   /** Label text to be placed before the element */
   label?: string
   /** The placeholder text, shown when there is no selected value */
   placeholder?: string
-  /** Options to be selected */
-  options: Array<SelectorOption>
   /** The value of the `select` element, required for a controlled component */
-  value?: SelectorValue
+  value?: SelectValue
   /** Default value which will not trigger the `filled` select state */
-  defaultValue?: SelectorValue
+  defaultValue?: SelectValue
   /** Whether the component is disabled or not */
   disabled?: boolean
   /** Whether the user can select multiple options or not */
@@ -39,41 +39,31 @@ export interface SelectorProps {
   /** Default array of selected items which will not trigger the `filled` select state */
   defaultSelectedItems?: SelectedItems
   /** Callback fired when the value is changed */
-  onChange?: (changes: SelectorValue) => void
+  onChange?: (changes: SelectValue) => void
   /** Callback fired when the selected items change for multiple selection */
   onSelectedItemsChange?: (changes: SelectedItems) => void
   /** Highlight the select when it's in a `filled` state */
-  hightlightFilled?: boolean
+  highlightFilled?: boolean
   /** Select grows to fill the width of the parent */
   fullWidth?: boolean
-}
-
-function isArrayEqual(
-  value: Array<number | string>,
-  other: Array<number | string>
-): boolean {
-  const otherSorted = other.slice().sort()
-
-  const isEqual =
-    value.length === other.length &&
-    value
-      .slice()
-      .sort()
-      .every(function (value, index) {
-        return value === otherSorted[index]
-      })
-
-  return isEqual
+  children: React.ReactNode
+  renderButtonLabel?: ({
+    value,
+    selectedOption,
+    selectedItems,
+  }: {
+    value?: SelectValue
+    selectedOption?: SelectOptionType
+    selectedItems?: SelectedItems
+  }) => React.ReactNode
 }
 
 /**
- * @deprecated Component depracated, use `Select` instead
  * Component responsible for rendering a select dropdown from given options
  */
-const Selector = ({
+const Select = ({
   id,
   label,
-  options = [],
   value,
   defaultValue,
   disabled = false,
@@ -83,11 +73,17 @@ const Selector = ({
   defaultSelectedItems,
   onChange,
   onSelectedItemsChange,
-  hightlightFilled = true,
-  fullWidth,
-}: SelectorProps) => {
+  highlightFilled = true,
+  fullWidth = false,
+  children,
+  renderButtonLabel,
+}: SelectProps) => {
   const inputGroupContext = useContext(InputGroupContext)
   const isGrouped = !!inputGroupContext
+
+  const options = useMemo(() => {
+    return getDataFromChildren(children)
+  }, [children])
 
   const {
     isOpen,
@@ -99,7 +95,10 @@ const Selector = ({
     getItemProps,
     getDropdownProps,
     handleBulkAction,
-  } = useSelector({
+    selectItem,
+    closeMenu,
+    openMenu,
+  } = useSelect({
     value,
     options,
     multi,
@@ -133,7 +132,7 @@ const Selector = ({
       backgroundColor: "secondary.alpha.90",
       color: "text.0",
       boxShadow: "unset",
-      ...(hightlightFilled
+      ...(highlightFilled
         ? {
             borderColor: "secondary.0",
             fontWeight: "semibold",
@@ -151,7 +150,10 @@ const Selector = ({
         return "All"
       }
       if (selectedItems.length === 1) {
-        return options.find(({ value }) => value === selectedItems[0])?.label
+        return options.find(
+          ({ value }) =>
+            JSON.stringify(selectedItems[0]) === JSON.stringify(value)
+        )?.label
       }
       return selectedItems.length + " selected"
     }
@@ -161,7 +163,10 @@ const Selector = ({
 
   const selectedOption = useMemo(() => {
     return (
-      (selectedItem && options.find(({ value }) => value === selectedItem)) ||
+      (selectedItem &&
+        options.find(
+          ({ value }) => JSON.stringify(selectedItem) === JSON.stringify(value)
+        )) ||
       undefined
     )
   }, [options, selectedItem])
@@ -172,9 +177,11 @@ const Selector = ({
     )
   }, [defaultSelectedItems, selectedItems])
 
-  const isInitialValueSelected = defaultValue && defaultValue === selectedItem
+  const isInitialValueSelected =
+    defaultValue &&
+    JSON.stringify(defaultValue) === JSON.stringify(selectedItem)
 
-  const isSelectorFilled =
+  const isSelectFilled =
     !areInitialItemsSelected &&
     !isInitialValueSelected &&
     (selectedItem || selectedItems.length > 0)
@@ -182,17 +189,24 @@ const Selector = ({
   const hoverStyles = useMemo(() => {
     if (disabled) return {}
     if (isOpen) return stateStyles.active
-    if (isSelectorFilled) return stateStyles.filledHover
+    if (isSelectFilled) return stateStyles.filledHover
     return stateStyles.hover
   }, [
     disabled,
     isOpen,
-    isSelectorFilled,
+    isSelectFilled,
     stateStyles.active,
-    // stateStyles.filled,
     stateStyles.filledHover,
     stateStyles.hover,
   ])
+
+  function defaultRenderButtonLabel() {
+    return multi
+      ? getMultiSelectLabel()
+      : (selectedItem && selectedOption?.label) ||
+          (placeholder !== undefined && placeholder) ||
+          "Select an option"
+  }
 
   return (
     <div
@@ -231,7 +245,7 @@ const Selector = ({
         placement="bottom-start"
         noPadding
         content={
-          <ul
+          <div
             {...getMenuProps(
               {
                 disabled,
@@ -240,6 +254,7 @@ const Selector = ({
                 suppressRefError: true,
               }
             )}
+            onBlur={null}
             sx={{
               maxHeight: 350,
               overflowY: "auto",
@@ -247,102 +262,52 @@ const Selector = ({
               outline: 0,
               margin: 0,
               marginTop: 1,
-              listStyle: "none",
             }}
           >
-            {options.map((item, index) => {
-              const { label, value } = item
-              const isSelected = multi && selectedItems.includes(value)
+            {React.Children.map(children, (child, index) => {
+              if (!React.isValidElement(child)) return null
 
               return (
-                <li
-                  key={`${value}${index}`}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: 2,
-                    padding: 2,
-                    cursor: "pointer",
-                    borderRadius: 2,
-                    color: isSelected ? "text.0" : "text.40",
-                    backgroundColor: "#fff",
-                    whiteSpace: "nowrap",
-
-                    ...(highlightedIndex === index
-                      ? {
-                          color: "text.0",
-                          backgroundColor: "text.alpha.95",
-                        }
-                      : {}),
-
-                    ...(selectedItem === value
-                      ? {
-                          color: "secondary.0",
-                          backgroundColor: "secondary.90",
-                          fontWeight: "bold",
-                          ...(highlightedIndex === index
-                            ? {
-                                backgroundColor: "secondary.alpha.85",
-                              }
-                            : {}),
-                        }
-                      : {}),
-                    transition: "all .2s linear",
-                  }}
-                  {...getItemProps({
-                    item: value,
+                <SelectContext.Provider
+                  value={{
                     index,
-                    disabled,
-                  })}
+                    highlightedIndex,
+                    selectItem,
+                    selectedItem,
+                    selectedItems,
+                    multi,
+                    getItemProps,
+                    closeMenu,
+                    openMenu,
+                  }}
                 >
-                  {multi ? (
-                    <Checkbox checked={isSelected} label={label} />
-                  ) : (
-                    <React.Fragment>
-                      <span>{label}</span>
-                      <div
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          width: 20,
-                          height: 20,
-                          p: 1,
-                        }}
-                      >
-                        {selectedItem === value && (
-                          <Icon name="IconCheck" size={12} stroke={4} />
-                        )}
-                      </div>
-                    </React.Fragment>
-                  )}
-                </li>
+                  {child}
+                </SelectContext.Provider>
               )
             })}
-            {multi && (
-              <li>
-                <Button
-                  variant="plain"
-                  color="secondary"
-                  sx={{
-                    cursor: "pointer",
-                    width: "100%",
-                    justifyContent: "start",
-                  }}
-                  onClick={() => {
-                    if (selectedItems.length > 0) {
-                      handleBulkAction(SELECTOR_BULK_ACTIONS.DESELECT_ALL)
-                      return true
-                    }
 
-                    handleBulkAction(SELECTOR_BULK_ACTIONS.SELECT_ALL)
-                  }}
-                >
-                  {selectedItems.length > 0 ? "Deselect all" : "Select all"}
-                </Button>
-              </li>
+            {multi && (
+              <Button
+                variant="plain"
+                color="secondary"
+                sx={{
+                  cursor: "pointer",
+                  width: "100%",
+                  justifyContent: "start",
+                }}
+                onClick={() => {
+                  if (selectedItems.length > 0) {
+                    handleBulkAction(SELECT_BULK_ACTIONS.DESELECT_ALL)
+                    return true
+                  }
+
+                  handleBulkAction(SELECT_BULK_ACTIONS.SELECT_ALL)
+                }}
+              >
+                {selectedItems.length > 0 ? "Deselect all" : "Select all"}
+              </Button>
             )}
-          </ul>
+          </div>
         }
       >
         <button
@@ -370,7 +335,7 @@ const Selector = ({
             }),
 
             ...(fullWidth ? { flexGrow: 1 } : {}),
-            ...(isSelectorFilled ? stateStyles.filled : stateStyles.resting),
+            ...(isSelectFilled ? stateStyles.filled : stateStyles.resting),
             ...(!disabled && { cursor: "pointer" }),
 
             "&:hover": hoverStyles,
@@ -385,11 +350,8 @@ const Selector = ({
           })}
         >
           <span>
-            {multi
-              ? getMultiSelectLabel()
-              : (selectedItem && selectedOption?.label) ||
-                (placeholder !== undefined && placeholder) ||
-                "Select an option"}
+            {renderButtonLabel?.({ selectedItems, selectedOption, value }) ??
+              defaultRenderButtonLabel()}
           </span>
           <Icon name="IconChevronDown" size={12} stroke={3} />
         </button>
@@ -398,4 +360,5 @@ const Selector = ({
   )
 }
 
-export default Selector
+Select.Option = SelectOption
+export default Select

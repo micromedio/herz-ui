@@ -6,10 +6,12 @@ import {
   FocusEvent,
   forwardRef,
   InputHTMLAttributes,
+  useContext,
   useMemo,
   useState,
 } from "react"
 import Icon, { IconProps } from "../Icon/Icon"
+import { InputGroupContext } from "../InputGroup/Context"
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   /** Input type */
@@ -51,10 +53,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     required = false,
     iconName,
     unit,
+    className,
+    style,
     ...htmlProps
   }: InputProps,
   ref
 ) {
+  const inputGroupContext = useContext(InputGroupContext)
+  const isGrouped = !!inputGroupContext
+
   const [passwordVisible, setPasswordVisible] = useState(false)
   const inputType = useMemo(() => {
     if (type === "password") {
@@ -66,107 +73,133 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   return (
     <div
       sx={{
-        display: "flex",
-        width: "100%",
-        alignItems: "center",
-        gap: 2,
-
-        paddingY: "6px", // the 2px border counts towards height, so we need 6px instead of 8px for the correct height
-        paddingX: 3,
-        ...{
-          default: {
-            backgroundColor: value ? "secondary.alpha.90" : "text.alpha.95",
-          },
-          success: {
-            backgroundColor: "success.alpha.95",
-          },
-          error: {
-            backgroundColor: "primary.alpha.95",
-          },
-        }[state],
-        outline: 0,
-        borderRadius: 2,
-        border: "2px solid transparent",
-
-        transition: "all 0.2s",
-        "&:hover": {
-          ...(state === "default" && {
-            backgroundColor: value ? "secondary.alpha.85" : "text.alpha.90",
+        flexGrow: 1,
+        ...(isGrouped && {
+          ...(!inputGroupContext?.isLast && {
+            borderRight: "1px solid",
+            borderColor: "text.90",
           }),
-        },
-        ...{
-          default: {},
-          success: {
-            borderColor: "success.0",
-          },
-          error: {
-            borderColor: "primary.0",
-          },
-        }[state],
-        "&:focus-within": {
-          borderColor: "secondary.0",
-          boxShadow: (theme: HerzUITheme) =>
-            `0px 0px 0px 4px ${theme.colors.secondary.alpha[90]}`,
-          backgroundColor: "#FFF",
-        },
+        }),
       }}
     >
-      <input
-        id={id}
-        type={inputType}
-        ref={ref}
-        required={required}
-        placeholder={placeholder}
-        value={value}
-        disabled={disabled}
-        onChange={onChange}
-        onBlur={onBlur}
-        aria-invalid={state === "error"}
-        size={1} // Input has a default size property of 20, which limits it's minimum width. Setting it to 1 and handling width through the parent so that we can control the input width better.
-        {...htmlProps}
+      <div
         sx={{
+          display: "flex",
           width: "100%",
-          flexGrow: 1,
-          outline: 0,
-          backgroundColor: "transparent",
-          border: "none",
-          p: 0,
-          color: "text.0",
-          variant: "text.body1",
+          alignItems: "center",
+          gap: 2,
 
-          // removes background color when input was filled with autofill in chromium
-          "&:-webkit-autofill": {
-            WebkitBackgroundClip: "text",
+          paddingY: "6px", // the 2px border counts towards height, so we need 6px instead of 8px for the correct height
+          paddingX: 3,
+          ...{
+            default: {
+              backgroundColor: value ? "secondary.alpha.90" : "text.alpha.95",
+            },
+            success: {
+              backgroundColor: "success.alpha.95",
+            },
+            error: {
+              backgroundColor: "primary.alpha.95",
+            },
+          }[state],
+          outline: 0,
+          borderRadius: 2,
+          border: "2px solid transparent",
+          ...(isGrouped && {
+            ...(!inputGroupContext?.isFirst && {
+              borderTopLeftRadius: 0,
+              borderBottomLeftRadius: 0,
+            }),
+            ...(!inputGroupContext?.isLast && {
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+            }),
+          }),
+
+          transition: "all 0.2s",
+          "&:hover": {
+            ...(state === "default" && {
+              backgroundColor: value ? "secondary.alpha.85" : "text.alpha.90",
+            }),
+          },
+          ...{
+            default: {},
+            success: {
+              borderColor: "success.0",
+            },
+            error: {
+              borderColor: "primary.0",
+            },
+          }[state],
+          "&:focus-within": {
+            borderColor: "secondary.0",
+            boxShadow: (theme: HerzUITheme) =>
+              `0px 0px 0px 4px ${theme.colors.secondary.alpha[90]}`,
+            backgroundColor: "#FFF",
           },
         }}
-      />
+        className={className}
+        style={style}
+      >
+        <input
+          id={id}
+          type={inputType}
+          ref={ref}
+          required={required}
+          placeholder={placeholder}
+          value={value}
+          disabled={disabled}
+          onChange={onChange}
+          onBlur={onBlur}
+          aria-invalid={state === "error"}
+          size={1} // Input has a default size property of 20, which limits it's minimum width. Setting it to 1 and handling width through the parent so that we can control the input width better.
+          {...htmlProps}
+          sx={{
+            width: "100%",
+            flexGrow: 1,
+            outline: 0,
+            backgroundColor: "transparent",
+            border: "none",
+            p: 0,
+            color: "text.0",
+            variant: "text.body1",
 
-      {unit && (
-        <label
-          htmlFor={id}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "text.40",
+            // removes background color when input was filled with autofill in chromium
+            "&:-webkit-autofill": {
+              WebkitBackgroundClip: "text",
+            },
           }}
-        >
-          {unit}
-        </label>
-      )}
-      {iconName && <Icon name={iconName} size={16} sx={{ color: "text.40" }} />}
-      {type === "password" && (
-        <div
-          onClick={() => setPasswordVisible((value) => !value)}
-          sx={{
-            display: "flex",
-            color: passwordVisible ? "secondary.0" : "text.40",
-            cursor: "pointer",
-          }}
-        >
-          <Icon name={passwordVisible ? "IconEye" : "IconEyeOff"} size={16} />
-        </div>
-      )}
+        />
+
+        {unit && (
+          <label
+            htmlFor={id}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "text.40",
+            }}
+          >
+            {unit}
+          </label>
+        )}
+        {iconName && (
+          <Icon name={iconName} size={16} sx={{ color: "text.40" }} />
+        )}
+        {type === "password" && (
+          <div
+            onClick={() => setPasswordVisible((value) => !value)}
+            sx={{
+              display: "flex",
+              color: passwordVisible ? "secondary.0" : "text.40",
+              cursor: "pointer",
+            }}
+          >
+            <Icon name={passwordVisible ? "IconEye" : "IconEyeOff"} size={16} />
+          </div>
+        )}
+      </div>
     </div>
   )
 })
