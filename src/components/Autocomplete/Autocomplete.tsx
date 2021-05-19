@@ -280,7 +280,7 @@ export default forwardRef(function Autocomplete<T>(
           <div
             sx={{
               display: "flex",
-              gap: 1,
+              gap: 2,
               whiteSpace: "nowrap",
             }}
           >
@@ -288,7 +288,13 @@ export default forwardRef(function Autocomplete<T>(
               <Button
                 key={`autocompleteButton-${index}`}
                 {...button}
-                sx={{ paddingY: 0 }}
+                sx={{
+                  borderRadius: 0,
+                  height: containerRef.current?.getClientRects()[0].height,
+                  margin: `-8px 0`,
+                  paddingY: 0,
+                  "& > button": { borderRadius: 0 },
+                }}
               >
                 {button.children}
               </Button>
@@ -378,24 +384,31 @@ export default forwardRef(function Autocomplete<T>(
             sx={{
               backgroundColor: "inherit",
               bottom: 0,
+              color: "text.40",
               cursor: "none",
-              padding: `16px 8px 24px`,
+              marginBottom: 4,
+              padding: 2,
               position: "sticky",
               textAlign: "center",
               transition: "all 0s",
               variant: "text.body2",
+              "& > span": {
+                color: "text.0",
+                fontWeight: 600,
+              },
             }}
           >
             {options.length > 0 ? (
               <React.Fragment>
-                Currently showing <strong>{options.length}</strong> results from
-                a total of <strong>{totalCount}</strong>.
+                Currently showing <span>{options.length}</span> results from a
+                total of <span>{totalCount}</span>.
               </React.Fragment>
             ) : (
               <div
                 sx={{
                   alignContent: "center",
                   alignItems: "center",
+                  color: "text.40",
                   display: "flex",
                   gap: 3,
                   justifyContent: "center",
@@ -409,7 +422,9 @@ export default forwardRef(function Autocomplete<T>(
                     setInputValue("")
                   }}
                   size="small"
-                  sx={{ paddingY: 0 }}
+                  sx={{
+                    paddingY: 0,
+                  }}
                   variant="plain"
                 >
                   Clear search
