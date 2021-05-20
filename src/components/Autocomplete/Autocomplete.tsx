@@ -14,17 +14,29 @@ import { useCombobox, UseComboboxStateChange } from "downshift"
 import Button, { ButtonProps } from "../Button/Button"
 
 export interface AutocompleteProps<T extends unknown> {
+  /** An array of button props, each one corresponds to a Button rendered at the input end. */
   buttons?: ButtonProps[]
+  /** The helper text content */
   helperText?: string
+  /** The id of the `input` element. Use this prop to make label and `helperText` accessible for screen readers */
   id?: string
+  /** The id of the `label` element. */
   inputLabelId?: string
+  /** The label content */
   label?: string
+  /** It basically returns the changes object of Combobox state with the input value, which must be used to filter the auto-complete options. */
   onInputValueChange: (comboboxStateChange: UseComboboxStateChange<T>) => void
+  /** Callback fired when the selected item is changed */
   onSelectedItemChange: (changes: UseComboboxStateChange<T>) => void
+  /** Text to show after label if field is not required (optional) */
   optionalText?: string
+  /** The Array with the options to be rendered */
   options: T[]
+  /** It will return the string equivalent of the item which will be used for displaying the item in the <input> once selected */
   optionToString: (option: T | null) => string
+  /** Placeholder text content */
   placeholder?: string
+  /** The function responsible to render the option, must return a ReactNode */
   renderOption: ({
     highlightedIndex,
     defaultStyles,
@@ -40,11 +52,17 @@ export interface AutocompleteProps<T extends unknown> {
     index?: number
     array?: T[]
   }) => ReactNode
+  /** Renders the selected item as html */
   renderSelectedItem?: (option: T) => ReactNode
+  /** If `true`, the `input` is required */
   required?: boolean
+  /** Text to show after label if field is required */
   requiredText?: string
+  /** The value of the `input` element */
   selectedOption?: T | null
+  /** Controls which state the `input` will be displayed in */
   status?: "error" | "loading" | "success"
+  /** Responsible for rendering the `Currently showing x results from a total of y`, where y is the totalCount */
   totalCount?: number
 }
 
@@ -67,7 +85,7 @@ export default forwardRef(function Autocomplete<T>(
     renderSelectedItem,
     selectedOption,
     status,
-    totalCount,
+    totalCount = 0,
   }: AutocompleteProps<T>,
   ref: Ref<HTMLInputElement>
 ) {
@@ -221,7 +239,7 @@ export default forwardRef(function Autocomplete<T>(
             placeholder,
             ref: inputRef,
             type: "text",
-            value: inputValue,
+            value: inputValue || "",
           })}
           sx={{
             backgroundColor: "transparent",
@@ -342,7 +360,6 @@ export default forwardRef(function Autocomplete<T>(
           overflowX: "hidden",
           overflowY: "auto",
           padding: 4,
-          paddingBottom: totalCount ? 0 : 4,
           position: "absolute",
           transition: "opacity .1s ease",
           top:
@@ -378,7 +395,7 @@ export default forwardRef(function Autocomplete<T>(
               })}
             </div>
           ))}
-        {totalCount && (
+        {(totalCount > options.length || options.length === 0) && (
           <div
             id="total-count"
             sx={{
@@ -386,7 +403,6 @@ export default forwardRef(function Autocomplete<T>(
               bottom: 0,
               color: "text.40",
               cursor: "none",
-              marginBottom: 4,
               padding: 2,
               position: "sticky",
               textAlign: "center",
@@ -398,12 +414,13 @@ export default forwardRef(function Autocomplete<T>(
               },
             }}
           >
-            {options.length > 0 ? (
+            {totalCount > options.length && (
               <React.Fragment>
                 Currently showing <span>{options.length}</span> results from a
                 total of <span>{totalCount}</span>.
               </React.Fragment>
-            ) : (
+            )}
+            {options.length === 0 && (
               <div
                 sx={{
                   alignContent: "center",

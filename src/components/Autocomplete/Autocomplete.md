@@ -30,7 +30,7 @@ const [value, setValue] = React.useState(null)
       )
     )
   }}
-  options={items}
+  options={items.slice(0, 5)}
   optionToString={(option) => (option ? option.label : "")}
   placeholder="Search by organization's name or handle"
   renderOption={({ defaultStyles, option }) => (
@@ -51,7 +51,7 @@ const [value, setValue] = React.useState(null)
     setValue(selectedOption)
   }}
   selectedOption={value}
-  totalCount={mockedOptions.length}
+  totalCount={items.length}
 />
 )
 ```
@@ -89,7 +89,7 @@ const [value, setValue] = React.useState(null)
     )
   }}
   optionalText="optional"
-  options={items}
+  options={items.slice(0, 5)}
   optionToString={(option) => (option ? option.label : "")}
   placeholder="Search by organization's name or handle"
   renderOption={({ highlightedIndex, defaultStyles, option }) => (
@@ -110,7 +110,7 @@ const [value, setValue] = React.useState(null)
     setValue(selectedOption)
   }}
   selectedOption={value}
-  totalCount={mockedOptions.length}
+  totalCount={items.length}
 />
 )
 ```
@@ -168,7 +168,7 @@ const [value, setValue] = React.useState(mockedOptions[0])
     )
   }}
   optionalText="optional"
-  options={items}
+  options={items.slice(0, 5)}
   optionToString={(option) => (option ? option.label : "")}
   placeholder="Search by organization's name or handle"
   renderOption={({ highlightedIndex, defaultStyles, option }) => (
@@ -189,7 +189,7 @@ const [value, setValue] = React.useState(mockedOptions[0])
     setValue(selectedOption)
   }}
   selectedOption={value}
-  totalCount={mockedOptions.length}
+  totalCount={items.length}
 />
 )
 ```
@@ -246,7 +246,7 @@ const [value, setValue] = React.useState(mockedOptions[5])
     )
   }}
   optionalText="optional"
-  options={items}
+  options={items.slice(0, 5)}
   optionToString={(option) => (option ? option.label : "")}
   placeholder="Search by organization's name or handle"
   renderOption={({ highlightedIndex, defaultStyles, option }) => (
@@ -288,7 +288,7 @@ const [value, setValue] = React.useState(mockedOptions[5])
     setValue(selectedOption)
   }}
   selectedOption={value}
-  totalCount={mockedOptions.length}
+  totalCount={items.length}
 />
 )
 ```
@@ -346,7 +346,7 @@ const [value, setValue] = React.useState(null)
     )
   }}
   optionalText="optional"
-  options={items}
+  options={items.slice(0, 5)}
   optionToString={(option) => (option ? option.label : "")}
   placeholder="Search by organization's name or handle"
   renderOption={({ highlightedIndex, defaultStyles, option, inputValue }) => (
@@ -388,7 +388,7 @@ const [value, setValue] = React.useState(null)
     setValue(selectedOption)
   }}
   selectedOption={value}
-  totalCount={mockedOptions.length}
+  totalCount={items.length}
 />
 )
 ```

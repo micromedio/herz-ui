@@ -131,7 +131,7 @@ describe("Autocomplete", () => {
       <Autocomplete<AutocompleteItem>
         onInputValueChange={onInputValueChange}
         onSelectedItemChange={jest.fn()}
-        options={mockedOptions}
+        options={mockedOptions.slice(0, 5)}
         optionToString={(option) => (option ? option.label : "")}
         renderOption={({ defaultStyles, option }) => (
           <div sx={defaultStyles}>{option.label}</div>
@@ -362,7 +362,6 @@ describe("Autocomplete", () => {
         }}
         selectedOption={null}
         status="error"
-        totalCount={mockedOptions.length}
       />
     )
 

@@ -59,7 +59,7 @@ const Template: Story<AutocompleteProps<AutocompleteItem>> = (
           )
         )
       }}
-      options={items}
+      options={items.slice(0, 5)}
       optionToString={(option) => (option ? option.label : "")}
       placeholder="Search by organization's name or handle"
       renderOption={({ defaultStyles, option }) => (
@@ -79,7 +79,7 @@ const Template: Story<AutocompleteProps<AutocompleteItem>> = (
         setValue(selectedOption)
       }}
       selectedOption={value}
-      totalCount={mockedOptions.length}
+      totalCount={items.length}
     />
   )
 }
@@ -124,7 +124,7 @@ const RenderSelectedTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
           )
         )
       }}
-      options={items}
+      options={items.slice(0, 5)}
       optionToString={(option) => (option ? option.label : "")}
       placeholder="Search by organization's name or handle"
       renderOption={({ defaultStyles, option }) => (
@@ -165,7 +165,7 @@ const RenderSelectedTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
         setValue(selectedOption)
       }}
       selectedOption={value}
-      totalCount={mockedOptions.length}
+      totalCount={items.length}
     />
   )
 }
@@ -208,7 +208,7 @@ const WithHighlightTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
           )
         )
       }}
-      options={items}
+      options={items.slice(0, 5)}
       optionToString={(option) => (option ? option.label : "")}
       placeholder="Search by organization's name or handle"
       renderOption={({ defaultStyles, option, inputValue }) => (
@@ -249,7 +249,7 @@ const WithHighlightTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
         setValue(selectedOption)
       }}
       selectedOption={value}
-      totalCount={mockedOptions.length}
+      totalCount={items.length}
     />
   )
 }
