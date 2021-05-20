@@ -33,6 +33,9 @@ export type { HighlightProps } from "./Highlight/Highlight"
 export { default as Icon } from "./Icon/Icon"
 export type { IconProps } from "./Icon/Icon"
 
+export { default as InputGroup } from "./InputGroup/InputGroup"
+export type { InputGroupProps } from "./InputGroup/InputGroup"
+
 export { default as Input } from "./Input/Input"
 export type { InputProps } from "./Input/Input"
 
