@@ -1,13 +1,12 @@
 {
-    "git": {
-      "commitMessage": "chore: release v${version}"
-    },
-    "github": {
-      "release": true
-    },
-    "plugins": {
-        "@release-it/keep-a-changelog": {
-        "filename": "CHANGELOG.md"
-        }
-    }
+  "git": {
+    "commitMessage": "chore: release v${version}",
+    "requireBranch": "master"
+  },
+  "github": {
+    "release": true
+  },
+  "hooks": {
+    "after:bump": "npm run changelog"
   }
+}
