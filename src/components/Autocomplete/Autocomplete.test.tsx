@@ -52,7 +52,7 @@ describe("Autocomplete", () => {
   })
 
   it("should open the menu on input click", () => {
-    const { getByRole } = render(
+    const { getByRole, queryByRole } = render(
       <Autocomplete<AutocompleteItem>
         onInputValueChange={jest.fn()}
         onSelectedItemChange={jest.fn()}
@@ -66,10 +66,12 @@ describe("Autocomplete", () => {
         status="loading"
       />
     )
+    expect(queryByRole("listbox")).not.toBeInTheDocument()
+
     const inputElement = getByRole("textbox")
     fireEvent.focus(inputElement)
 
-    expect(getByRole("listbox")).toBeVisible()
+    expect(getByRole("listbox")).toBeInTheDocument()
   })
 
   it("should renders all the options and allows to select", () => {
@@ -247,7 +249,7 @@ describe("Autocomplete", () => {
   })
 
   it("should render the menu clicking on custom render option div", () => {
-    const { getByRole, getByText, rerender } = render(
+    const { getByText, queryByRole, rerender } = render(
       <Autocomplete<AutocompleteItem>
         onInputValueChange={jest.fn()}
         onSelectedItemChange={jest.fn()}
@@ -293,18 +295,18 @@ describe("Autocomplete", () => {
       />
     )
 
+    expect(queryByRole("listbox")).not.toBeInTheDocument()
+
     const customRenderedOption = getByText(
       `${mockedOptions[0].label} - ${mockedOptions[0].value}`
     ).parentElement as HTMLDivElement
     fireEvent.click(customRenderedOption)
 
-    const menuElement = getByRole("listbox")
-
-    expect(menuElement).toBeVisible()
+    expect(queryByRole("listbox")).toBeInTheDocument()
   })
 
   it("should render the menu clicking on search icon button", () => {
-    const { getByRole } = render(
+    const { getByRole, queryByRole } = render(
       <Autocomplete<AutocompleteItem>
         helperText="This is a helper text"
         label="Label"
@@ -331,12 +333,12 @@ describe("Autocomplete", () => {
       />
     )
 
+    expect(queryByRole("listbox")).not.toBeInTheDocument()
+
     const searchButton = getByRole("button", { name: /label/i })
     fireEvent.click(searchButton)
 
-    const menuElement = getByRole("listbox")
-
-    expect(menuElement).toBeVisible()
+    expect(getByRole("listbox")).toBeInTheDocument()
   })
 
   it("should clear the input when no results are shown", () => {
