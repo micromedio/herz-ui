@@ -12,6 +12,7 @@ import React, {
 import { HerzUITheme, jsx, SxStyleProp } from "theme-ui"
 import { useCombobox, UseComboboxStateChange } from "downshift"
 import Button, { ButtonProps } from "../Button/Button"
+import Popover from "../Popover/Popover"
 
 export interface AutocompleteProps<T extends unknown> {
   /** An array of button props, each one corresponds to a Button rendered at the input end. */
@@ -20,8 +21,6 @@ export interface AutocompleteProps<T extends unknown> {
   helperText?: string
   /** The id of the `input` element. Use this prop to make label and `helperText` accessible for screen readers */
   id?: string
-  /** The id of the `label` element. */
-  inputLabelId?: string
   /** The label content */
   label?: string
   /** It basically returns the changes object of Combobox state with the input value, which must be used to filter the auto-complete options. */
@@ -71,7 +70,6 @@ export default forwardRef(function Autocomplete<T>(
     buttons,
     helperText,
     id,
-    inputLabelId,
     label,
     onInputValueChange,
     onSelectedItemChange,
@@ -107,6 +105,7 @@ export default forwardRef(function Autocomplete<T>(
     openMenu,
     setInputValue,
   } = useCombobox({
+    id,
     items: options,
     itemToString: optionToString,
     onInputValueChange,
@@ -159,10 +158,9 @@ export default forwardRef(function Autocomplete<T>(
       }}
     >
       {label && (
-        <div {...getLabelProps()} sx={{ display: "flex", gap: 1 }}>
+        <div sx={{ display: "flex", gap: 1 }}>
           <label
-            htmlFor={id}
-            id={inputLabelId}
+            {...getLabelProps()}
             sx={{
               color: "text.0",
               variant: "text.body1",
@@ -180,145 +178,252 @@ export default forwardRef(function Autocomplete<T>(
           </span>
         </div>
       )}
-      <div
-        {...getComboboxProps({
-          ref: containerRef,
-        })}
-        sx={{
-          alignItems: "center",
-          backgroundColor: "transparent",
-          border: "2px solid transparent",
-          borderRadius: 2,
-          display: "flex",
-          gap: 2,
-          outline: 0,
-          paddingX: 3,
-          paddingY: 1,
-          position: "relative",
-          transition: "all 0.2s",
-          width: "100%",
-          ...(state === "loading" ? styles.active : {}),
-          ...{
-            default: {
-              backgroundColor: selectedOption
-                ? "secondary.alpha.90"
-                : "text.alpha.95",
-            },
-            loading: {},
-            success: {
-              backgroundColor: "success.alpha.95",
-              borderColor: "success.0",
-            },
-            error: {
-              backgroundColor: "primary.alpha.95",
-              borderColor: "primary.0",
-            },
-          }[state],
-          "&:hover": {
-            ...(state === "default" && {
-              backgroundColor: selectedOption
-                ? "secondary.alpha.85"
-                : "text.alpha.90",
-            }),
-          },
-          "&:focus-within": {
-            ...(isOpen && styles.active),
-          },
-          "& *": { transition: "all 0.2s, visibility 0s" },
-        }}
-      >
-        <input
-          {...getInputProps({
-            "aria-invalid": status === "error",
-            autoComplete: "off",
-            disabled: status === "loading",
-            size: 1, // input has a default size property of 20, which limits it's minimum width. Setting it to 1 and handling width through the parent so that we can control the input width better.
-            onFocus: () => {
-              if (!isOpen) openMenu()
-            },
-            placeholder,
-            ref: inputRef,
-            type: "text",
-            value: inputValue || "",
-          })}
-          sx={{
-            backgroundColor: "transparent",
-            border: "none",
-            color: "text.0",
-            flexGrow: 1,
-            outline: 0,
-            p: 0,
-            py: "2px", // the 2px border counts towards height, so we need 6px instead of 8px for the correct height
-            variant: "text.body1",
-            visibility: !selectedOption || isOpen ? "visible" : "hidden",
-            width: "100%",
-          }}
-        />
-        {(!selectedOption || isOpen) && (
-          <Button
-            {...inputArias}
-            aria-label="Search"
-            color="text"
-            iconName="IconSearch"
-            onClick={() => {
-              inputRef.current?.focus()
-            }}
-            size="small"
+      <div>
+        <Popover
+          isInteractive
+          content={
+            <div
+              {...getMenuProps({}, { suppressRefError: true })}
+              sx={{
+                background: "#fff",
+                border: "1px solid #E8E8E9",
+                borderRadius: 4,
+                boxShadow: "0px 1px 12px rgba(0, 0, 0, 0.16)",
+                minWidth: containerRef.current?.getClientRects()[0].width,
+                outline: "0",
+                overflowX: "hidden",
+                overflowY: "auto",
+                padding: 4,
+                transition: "opacity .1s ease",
+                "& > div": {
+                  cursor: "pointer",
+                },
+                "& > div#total-count": {
+                  cursor: "initial",
+                },
+              }}
+            >
+              {options.map((item, index, array) => (
+                <div {...getItemProps({ item, index })} key={index}>
+                  {renderOption({
+                    highlightedIndex,
+                    defaultStyles: {
+                      backgroundColor:
+                        highlightedIndex === index
+                          ? "secondary.alpha.95"
+                          : undefined,
+                      borderRadius: 2,
+                      padding: 2,
+                    },
+                    option: item,
+                    inputValue,
+                    index,
+                    array,
+                  })}
+                </div>
+              ))}
+              {(totalCount > options.length || options.length === 0) && (
+                <div
+                  id="total-count"
+                  sx={{
+                    backgroundColor: "inherit",
+                    bottom: 0,
+                    color: "text.40",
+                    cursor: "none",
+                    padding: 2,
+                    position: "sticky",
+                    textAlign: "center",
+                    transition: "all 0s",
+                    variant: "text.body2",
+                    "& > span": {
+                      color: "text.0",
+                      fontWeight: 600,
+                    },
+                  }}
+                >
+                  {totalCount > options.length && (
+                    <React.Fragment>
+                      Currently showing <span>{options.length}</span> results
+                      from a total of <span>{totalCount}</span>.
+                    </React.Fragment>
+                  )}
+                  {options.length === 0 && (
+                    <div
+                      sx={{
+                        alignContent: "center",
+                        alignItems: "center",
+                        color: "text.40",
+                        display: "flex",
+                        gap: 3,
+                        justifyContent: "center",
+                        transition: "all 0s",
+                      }}
+                    >
+                      No results found{" "}
+                      <Button
+                        color="secondary"
+                        onClick={() => {
+                          setInputValue("")
+                        }}
+                        size="small"
+                        sx={{
+                          paddingY: 0,
+                        }}
+                        variant="plain"
+                      >
+                        Clear search
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          }
+          isVisible={isOpen}
+          placement="bottom-start"
+          noPadding
+        >
+          <div
+            {...getComboboxProps({
+              ref: containerRef,
+            })}
             sx={{
+              alignItems: "center",
               backgroundColor: "transparent",
-              "&:hover": {
-                backgroundColor: "transparent",
-              },
-              "&:not([disabled]):hover": {
-                backgroundColor: "transparent",
-              },
-            }}
-          />
-        )}
-        {!isOpen && selectedOption && (
-          <div
-            {...inputArias}
-            onClick={() => {
-              openMenu()
-            }}
-            sx={{
-              overflow: "hidden",
-              position: "absolute",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              width: inputRef.current?.getClientRects()[0].width,
-            }}
-          >
-            {renderSelectedItem
-              ? renderSelectedItem(selectedOption)
-              : optionToString(selectedOption)}
-          </div>
-        )}
-        {buttons && buttons.length > 0 && selectedOption && !isOpen && (
-          <div
-            sx={{
+              border: "2px solid transparent",
+              borderRadius: 2,
               display: "flex",
               gap: 2,
-              whiteSpace: "nowrap",
+              outline: 0,
+              paddingX: 3,
+              paddingY: 1,
+              position: "relative",
+              transition: "all 0.2s",
+              width: "100%",
+              ...(state === "loading" ? styles.active : {}),
+              ...{
+                default: {
+                  backgroundColor: selectedOption
+                    ? "secondary.alpha.90"
+                    : "text.alpha.95",
+                },
+                loading: {},
+                success: {
+                  backgroundColor: "success.alpha.95",
+                  borderColor: "success.0",
+                },
+                error: {
+                  backgroundColor: "primary.alpha.95",
+                  borderColor: "primary.0",
+                },
+              }[state],
+              "&:hover": {
+                ...(state === "default" && {
+                  backgroundColor: selectedOption
+                    ? "secondary.alpha.85"
+                    : "text.alpha.90",
+                }),
+              },
+              "&:focus-within": {
+                ...(isOpen && styles.active),
+              },
+              "& *": { transition: "all 0.2s, visibility 0s" },
             }}
           >
-            {buttons.map((button, index) => (
+            <input
+              {...getInputProps({
+                "aria-invalid": status === "error",
+                autoComplete: "off",
+                disabled: status === "loading",
+                size: 1, // input has a default size property of 20, which limits it's minimum width. Setting it to 1 and handling width through the parent so that we can control the input width better.
+                onFocus: () => {
+                  if (!isOpen) openMenu()
+                },
+                placeholder,
+                ref: inputRef,
+                type: "text",
+                value: inputValue || "",
+              })}
+              sx={{
+                backgroundColor: "transparent",
+                border: "none",
+                color: "text.0",
+                flexGrow: 1,
+                opacity: !selectedOption || isOpen ? 1 : 0,
+                outline: 0,
+                p: 0,
+                py: "2px", // the 2px border counts towards height, so we need 6px instead of 8px for the correct height
+                variant: "text.body1",
+                width: "100%",
+              }}
+            />
+            {(!selectedOption || isOpen) && (
               <Button
-                key={`autocompleteButton-${index}`}
-                {...button}
+                {...inputArias}
+                aria-label="Search"
+                color="text"
+                iconName="IconSearch"
+                onClick={() => {
+                  inputRef.current?.focus()
+                }}
+                size="small"
                 sx={{
-                  borderRadius: 0,
-                  height: containerRef.current?.getClientRects()[0].height,
-                  margin: `-8px 0`,
-                  paddingY: 0,
-                  "& > button": { borderRadius: 0 },
+                  backgroundColor: "transparent",
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                  },
+                  "&:not([disabled]):hover": {
+                    backgroundColor: "transparent",
+                  },
+                }}
+              />
+            )}
+            {!isOpen && selectedOption && (
+              <div
+                {...inputArias}
+                onClick={() => {
+                  openMenu()
+                }}
+                sx={{
+                  overflow: "hidden",
+                  position: "absolute",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                  width: inputRef.current?.getClientRects()[0].width,
                 }}
               >
-                {button.children}
-              </Button>
-            ))}
+                {renderSelectedItem
+                  ? renderSelectedItem(selectedOption)
+                  : optionToString(selectedOption)}
+              </div>
+            )}
+            {buttons && buttons.length > 0 && selectedOption && !isOpen && (
+              <div
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {buttons.map((button, index) => (
+                  <Button
+                    key={`autocompleteButton-${index}`}
+                    {...button}
+                    sx={{
+                      borderRadius: 0,
+                      height: containerRef.current?.getClientRects()[0].height,
+                      margin: `-8px 0`,
+                      paddingY: 0,
+                      "& > button": { borderRadius: 0 },
+                    }}
+                  >
+                    {button.children}
+                  </Button>
+                ))}
+              </div>
+            )}
           </div>
-        )}
+        </Popover>
       </div>
       {helperText && (
         <div
@@ -347,110 +452,6 @@ export default forwardRef(function Autocomplete<T>(
           {helperText}
         </div>
       )}
-      <div
-        {...getMenuProps()}
-        sx={{
-          background: "#fff",
-          border: "1px solid #E8E8E9",
-          borderRadius: 4,
-          boxShadow: "0px 1px 12px rgba(0, 0, 0, 0.16)",
-          marginTop: 3,
-          minWidth: containerRef.current?.getClientRects()[0].width,
-          outline: "0",
-          overflowX: "hidden",
-          overflowY: "auto",
-          padding: 4,
-          position: "absolute",
-          transition: "opacity .1s ease",
-          top:
-            window.scrollY +
-            (containerRef.current?.getClientRects()[0].bottom || 0),
-          visibility: isOpen ? "visible" : "hidden",
-          zIndex: 1000,
-          "& > div": {
-            cursor: "pointer",
-          },
-          "& > div#total-count": {
-            cursor: "initial",
-          },
-        }}
-      >
-        {isOpen &&
-          options.map((item, index, array) => (
-            <div {...getItemProps({ item, index })} key={index}>
-              {renderOption({
-                highlightedIndex,
-                defaultStyles: {
-                  backgroundColor:
-                    highlightedIndex === index
-                      ? "secondary.alpha.95"
-                      : undefined,
-                  borderRadius: 2,
-                  padding: 2,
-                },
-                option: item,
-                inputValue,
-                index,
-                array,
-              })}
-            </div>
-          ))}
-        {(totalCount > options.length || options.length === 0) && (
-          <div
-            id="total-count"
-            sx={{
-              backgroundColor: "inherit",
-              bottom: 0,
-              color: "text.40",
-              cursor: "none",
-              padding: 2,
-              position: "sticky",
-              textAlign: "center",
-              transition: "all 0s",
-              variant: "text.body2",
-              "& > span": {
-                color: "text.0",
-                fontWeight: 600,
-              },
-            }}
-          >
-            {totalCount > options.length && (
-              <React.Fragment>
-                Currently showing <span>{options.length}</span> results from a
-                total of <span>{totalCount}</span>.
-              </React.Fragment>
-            )}
-            {options.length === 0 && (
-              <div
-                sx={{
-                  alignContent: "center",
-                  alignItems: "center",
-                  color: "text.40",
-                  display: "flex",
-                  gap: 3,
-                  justifyContent: "center",
-                  transition: "all 0s",
-                }}
-              >
-                No results found{" "}
-                <Button
-                  color="secondary"
-                  onClick={() => {
-                    setInputValue("")
-                  }}
-                  size="small"
-                  sx={{
-                    paddingY: 0,
-                  }}
-                  variant="plain"
-                >
-                  Clear search
-                </Button>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
     </div>
   )
 }) as <T extends unknown>(
