@@ -36,6 +36,9 @@ const Radio = ({
     if (typeof name === "undefined") {
       name = radioGroup.name
     }
+    if (typeof value === "undefined") {
+      value = radioGroup.value
+    }
   }
 
   return (
