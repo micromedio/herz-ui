@@ -9,6 +9,7 @@ module.exports = {
     "src/components/Selector/Selector.tsx",
     "src/components/Select/SelectOption.tsx",
     "src/components/Select/SelectOptionCustom.tsx",
+    "src/components/RadioGroup/RadioGroupContext.tsx",
   ],
   version: `${version}`,
   styleguideComponents: {

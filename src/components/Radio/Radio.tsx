@@ -1,8 +1,9 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { ChangeEvent, forwardRef } from "react"
-
+import { ChangeEvent } from "react"
+import useRadioGroup from "../RadioGroup/hooks/useRadioGroup"
+import { RadioGroup } from "../RadioGroup/RadioGroup"
 export interface RadioProps {
   /** The label content */
   label?: string
@@ -14,15 +15,29 @@ export interface RadioProps {
   required?: boolean
   /** The id of the `input` element. Use this prop to make label and `helperText` accessible for screen readers */
   id?: string
-
   /** Radio identification */
   name?: string
 }
 
-const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
-  { id, value, label, name, onChange, required = false }: RadioProps,
-  ref
-) {
+const Radio = ({
+  id,
+  value,
+  label,
+  name,
+  onChange,
+  required = false,
+}: RadioProps) => {
+  const radioGroup = useRadioGroup()
+
+  if (radioGroup) {
+    if (typeof onChange === "undefined") {
+      onChange = radioGroup.onChange
+    }
+    if (typeof name === "undefined") {
+      name = radioGroup.name
+    }
+  }
+
   return (
     <label
       sx={{
@@ -59,7 +74,6 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
         }}
         id={id}
         type="radio"
-        ref={ref}
         value={value}
         name={name}
         onChange={onChange}
@@ -81,6 +95,7 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
       />
     </label>
   )
-})
+}
 
+Radio.Group = RadioGroup
 export default Radio
