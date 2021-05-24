@@ -36,9 +36,6 @@ const Radio = ({
     if (typeof name === "undefined") {
       name = radioGroup.name
     }
-    if (typeof value === "undefined") {
-      value = radioGroup.value
-    }
   }
 
   return (
@@ -81,6 +78,7 @@ const Radio = ({
         name={name}
         onChange={onChange}
         required={required}
+        checked={radioGroup?.value === value}
       />
       <span
         sx={{
