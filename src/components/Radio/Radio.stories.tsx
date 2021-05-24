@@ -8,7 +8,12 @@ export default {
   component: Radio,
 } as Meta
 
-const Template: Story<RadioProps> = (props) => <Radio {...props} />
+const Template: Story<RadioProps> = (props) => (
+  <>
+    <Radio {...props} />
+    <Radio {...props} />
+  </>
+)
 
 // Each story then reuses that template
 export const Example = Template.bind({})

@@ -24,6 +24,8 @@ const Template: Story<RadioGroupProps> = (props: RadioGroupProps) => (
 export const Example = Template.bind({})
 
 Example.args = {
+  name: "inputGroup",
+  value: "value 1",
   onChange: action("chosen"),
   children: mockedChildrenOptions,
 }
