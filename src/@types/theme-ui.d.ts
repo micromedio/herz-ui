@@ -4,6 +4,7 @@ import * as CSS from "csstype"
 
 declare module "theme-ui" {
   interface HerzUIColors {
+    highlight: GeneratedColors
     primary: GeneratedColors
     secondary: GeneratedColors
     success: GeneratedColors

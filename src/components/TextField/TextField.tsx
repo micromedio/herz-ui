@@ -73,7 +73,9 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const inputLabelId = label && id ? `${id}-label` : undefined
 
     return (
-      <div sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <div
+        sx={{ display: "flex", flexDirection: "column", gap: 2, width: "100%" }}
+      >
         {label && (
           <div sx={{ display: "flex", gap: 1 }}>
             <label

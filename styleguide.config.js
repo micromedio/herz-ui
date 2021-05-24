@@ -2,7 +2,14 @@ const path = require("path")
 const { version } = require("./package.json")
 
 module.exports = {
-  ignore: ["src/components/**/*.test.tsx", "src/components/**/*.stories.tsx"],
+  ignore: [
+    "src/components/**/*.test.tsx",
+    "src/components/**/*.stories.tsx",
+    "src/components/Button/ButtonExamples.tsx",
+    "src/components/Selector/Selector.tsx",
+    "src/components/Select/SelectOption.tsx",
+    "src/components/Select/SelectOptionCustom.tsx",
+  ],
   version: `${version}`,
   styleguideComponents: {
     Wrapper: path.join(__dirname, "src/theme/ThemeWrapper"),
