@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { useCallback, useMemo, useState } from "react"
+import { ChangeEventHandler, useCallback, useMemo, useState } from "react"
 import { jsx } from "theme-ui"
 import Button from "../Button/Button"
 import Select, { SelectProps } from "../Select/Select"
@@ -186,7 +186,11 @@ const DateSelect = ({
                       <TextField
                         id="dateFrom"
                         value={value}
-                        onChange={onChange}
+                        onChange={
+                          onChange as ChangeEventHandler<
+                            HTMLInputElement | HTMLTextAreaElement
+                          >
+                        }
                         placeholder={dateFormat.toLowerCase()}
                         state={isDateFromValid ? "default" : "error"}
                       />
@@ -212,7 +216,11 @@ const DateSelect = ({
                       <TextField
                         id="dateTo"
                         value={value}
-                        onChange={onChange}
+                        onChange={
+                          onChange as ChangeEventHandler<
+                            HTMLInputElement | HTMLTextAreaElement
+                          >
+                        }
                         placeholder={dateFormat.toLowerCase()}
                         state={isDateToValid ? "default" : "error"}
                       />
