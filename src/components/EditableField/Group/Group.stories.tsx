@@ -26,20 +26,26 @@ const Template: Story<EditableFieldGroupProps> = (
         setSecondDefaultValue(values.second)
       }}
     >
-      <EditableText
-        name="first"
-        value={firstValue}
-        defaultValue={firstDefaultValue}
-        onChange={(event) => setFirstValue(event.target.value)}
-      />
-      <span>texto blablabla</span>
-      <EditableText
-        name="second"
-        value={secondValue}
-        defaultValue={secondDefaultValue}
-        onChange={(event) => setSecondValue(event.target.value)}
-        controlsGroup
-      />
+      <div
+        style={{
+          display: "grid",
+          gap: 6,
+        }}
+      >
+        <EditableText
+          name="first"
+          value={firstValue}
+          defaultValue={firstDefaultValue}
+          onChange={(event) => setFirstValue(event.target.value)}
+        />
+        <EditableText
+          name="second"
+          value={secondValue}
+          defaultValue={secondDefaultValue}
+          onChange={(event) => setSecondValue(event.target.value)}
+          controlsGroup
+        />
+      </div>
     </EditableFieldGroup>
   )
 }

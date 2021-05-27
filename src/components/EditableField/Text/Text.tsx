@@ -14,7 +14,7 @@ import Icon from "../../Icon/Icon"
 import useEditableFieldGroup from "../hooks/useEditableFieldGroup"
 import ButtonControl from "../ButtonControl/ButtonControl"
 
-export interface EditableTextProps {
+export interface EditableFieldTextProps {
   /** The text value and initial value of the `input` element */
   defaultValue: string
   value: string
@@ -32,7 +32,7 @@ export interface EditableTextProps {
   controlsGroup?: boolean
 }
 
-const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
+const EditableText = forwardRef<HTMLInputElement, EditableFieldTextProps>(
   function EditableText(
     {
       value,
@@ -46,7 +46,7 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
       resetOnBlur = true,
       className,
       controlsGroup = false,
-    }: EditableTextProps,
+    }: EditableFieldTextProps,
     ref
   ) {
     const containerRef = useRef<HTMLDivElement>(null)
