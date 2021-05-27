@@ -135,6 +135,7 @@ function reducer(state: ReducerState, action: ReducerAction) {
 
 export interface EditableFieldGroupProps {
   children: React.ReactNode
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSave?: (values: Record<string, any>) => void
   saveOnBlur?: boolean
   resetOnBlur?: boolean

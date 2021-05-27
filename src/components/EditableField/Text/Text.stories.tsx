@@ -1,4 +1,4 @@
-import EditableText, { EditableTextProps } from "./Text"
+import EditableText, { EditableFieldTextProps } from "./Text"
 import { Meta, Story } from "@storybook/react/types-6-0"
 import { useState } from "react"
 
@@ -7,7 +7,9 @@ export default {
   component: EditableText,
 } as Meta
 
-const Template: Story<EditableTextProps> = (props: EditableTextProps) => {
+const Template: Story<EditableFieldTextProps> = (
+  props: EditableFieldTextProps
+) => {
   const [value, setValue] = useState(props.value)
   const [defaultValue, setDefaultValue] = useState(props.value)
 

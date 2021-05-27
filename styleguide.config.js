@@ -7,6 +7,7 @@ module.exports = {
     "src/components/**/*.stories.tsx",
     "src/components/Button/ButtonExamples.tsx",
     "src/components/Selector/Selector.tsx",
+    "src/components/EditableField/EditableField.tsx",
     "src/components/Select/SelectOption.tsx",
     "src/components/Select/SelectOptionCustom.tsx",
   ],
@@ -26,6 +27,14 @@ module.exports = {
       name: "Components",
       content: "./docs/components.md",
       components: "src/components/**/*.tsx",
+      ignore: ["src/components/EditableField/**/*.tsx"],
+      sections: [
+        {
+          name: "EditableField",
+          components: "src/components/EditableField/**/*.tsx",
+          content: "src/components/EditableField/EditableField.md",
+        },
+      ],
     },
   ],
   theme: {
