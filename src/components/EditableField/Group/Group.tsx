@@ -5,8 +5,6 @@ import React, {
   RefObject,
   useCallback,
   useReducer,
-  // useRef,
-  // useState,
 } from "react"
 import { jsx } from "theme-ui"
 import {
