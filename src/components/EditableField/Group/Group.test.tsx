@@ -5,14 +5,6 @@ import EditableField from "../EditableField"
 import userEvent from "@testing-library/user-event"
 
 describe("EditableField.Text", () => {
-  /**
-   * group saves on blur
-   * group resets on blur
-   * group save
-   * group reset
-   * group status
-   */
-
   test("onSave is called when save button is clicked", async () => {
     // Arrange
     const onSave = jest.fn()
