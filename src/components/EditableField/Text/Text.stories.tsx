@@ -19,7 +19,6 @@ const Template: Story<EditableFieldTextProps> = (
       value={value}
       defaultValue={defaultValue}
       onChange={(event) => {
-        console.log(event.target.value)
         props.onChange?.(event)
         setValue(event.target.value)
       }}
