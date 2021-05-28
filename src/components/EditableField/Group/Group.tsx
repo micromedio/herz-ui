@@ -1,11 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import React, {
-  memo,
-  RefObject,
-  useCallback,
-  useReducer,
-} from "react"
+import React, { memo, RefObject, useCallback, useReducer } from "react"
 import { jsx } from "theme-ui"
 import {
   EditableFieldGroupContext,
