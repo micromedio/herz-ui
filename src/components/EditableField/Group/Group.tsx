@@ -69,7 +69,6 @@ type ReducerAction =
     }
 
 function reducer(state: ReducerState, action: ReducerAction) {
-  console.log(Actions[action.type])
   switch (action.type) {
     case Actions.Focus: {
       return { ...state, isFocused: true }
@@ -145,8 +144,8 @@ export interface EditableFieldGroupProps {
 const EditableFieldGroup = ({
   children,
   onSave,
-  saveOnBlur,
-  resetOnBlur,
+  saveOnBlur = false,
+  resetOnBlur = true,
   status,
 }: EditableFieldGroupProps) => {
   const [state, dispatch] = useReducer(reducer, initialState)
