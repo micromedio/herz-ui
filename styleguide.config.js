@@ -10,6 +10,7 @@ module.exports = {
     "src/components/EditableField/EditableField.tsx",
     "src/components/Select/SelectOption.tsx",
     "src/components/Select/SelectOptionCustom.tsx",
+    "src/components/RadioGroup/RadioGroupContext.tsx",
   ],
   version: `${version}`,
   styleguideComponents: {

@@ -57,6 +57,9 @@ export type { PaperProps } from "./Paper/Paper"
 export { default as Popover } from "./Popover/Popover"
 export type { PopoverProps } from "./Popover/Popover"
 
+export { default as Radio } from "./Radio/Radio"
+export type { RadioProps } from "./Radio/Radio"
+
 export { default as Selector } from "./Selector/Selector"
 export type { SelectorProps } from "./Selector/Selector"
 
