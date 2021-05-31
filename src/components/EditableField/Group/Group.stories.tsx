@@ -1,6 +1,7 @@
 import EditableFieldGroup, { EditableFieldGroupProps } from "./Group"
 import { Meta, Story } from "@storybook/react/types-6-0"
 import EditableText from "../Text/Text"
+import EditableSelect, { EditableFieldSelectProps } from "../Select/Select"
 import { useState } from "react"
 
 export default {
@@ -13,9 +14,21 @@ const Template: Story<EditableFieldGroupProps> = (
 ) => {
   const [firstValue, setFirstValue] = useState("First")
   const [secondValue, setSecondValue] = useState("Second")
+  const [thirdValue, setThirdValue] = useState<
+    EditableFieldSelectProps["value"]
+  >("third")
+  const [fourthValue, setFourthValue] = useState<
+    EditableFieldSelectProps["selectedItems"]
+  >(["fourth"])
 
   const [firstDefaultValue, setFirstDefaultValue] = useState("First")
   const [secondDefaultValue, setSecondDefaultValue] = useState("Second")
+  const [thirdDefaultValue, setThirdDefaultValue] = useState<
+    EditableFieldSelectProps["defaultValue"]
+  >("third")
+  const [fourthDefaultValue, setFourthDefaultValue] = useState<
+    EditableFieldSelectProps["defaultSelectedItems"]
+  >(["fourth"])
 
   return (
     <EditableFieldGroup
@@ -24,6 +37,8 @@ const Template: Story<EditableFieldGroupProps> = (
         props.onSave?.(values)
         setFirstDefaultValue(values.first)
         setSecondDefaultValue(values.second)
+        setThirdDefaultValue(values.third)
+        setFourthDefaultValue(values.fourth)
       }}
     >
       <div
@@ -43,8 +58,30 @@ const Template: Story<EditableFieldGroupProps> = (
           value={secondValue}
           defaultValue={secondDefaultValue}
           onChange={(event) => setSecondValue(event.target.value)}
-          controlsGroup
         />
+        <EditableSelect
+          name="third"
+          value={thirdValue}
+          defaultValue={thirdDefaultValue}
+          onChange={setThirdValue}
+        >
+          <EditableSelect.Option value="third">Third</EditableSelect.Option>
+          <EditableSelect.Option value="another">Another</EditableSelect.Option>
+        </EditableSelect>
+        <EditableSelect
+          name="fourth"
+          selectedItems={fourthValue}
+          defaultSelectedItems={fourthDefaultValue}
+          onSelectedItemsChange={setFourthValue}
+          multi
+          controlsGroup
+        >
+          <EditableSelect.Option value="fourth">Fourth</EditableSelect.Option>
+          <EditableSelect.Option value="another">Another</EditableSelect.Option>
+          <EditableSelect.Option value="somethingElse">
+            Something Else
+          </EditableSelect.Option>
+        </EditableSelect>
       </div>
     </EditableFieldGroup>
   )
