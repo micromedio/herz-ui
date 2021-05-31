@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import React, { memo, RefObject, useCallback, useReducer } from "react"
+import React, { RefObject, useCallback, useReducer } from "react"
 import { jsx } from "theme-ui"
 import {
   EditableFieldGroupContext,
@@ -214,4 +214,4 @@ const EditableFieldGroup = ({
   )
 }
 
-export default memo(EditableFieldGroup)
+export default EditableFieldGroup
