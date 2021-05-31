@@ -92,6 +92,24 @@ Default.args = {
   children: mockedChildrenOptions,
 }
 
+export const Error = Template.bind({})
+Error.args = {
+  ...Default.args,
+  status: "error",
+}
+
+export const Success = Template.bind({})
+Success.args = {
+  ...Default.args,
+  status: "success",
+}
+
+export const Loading = Template.bind({})
+Loading.args = {
+  ...Default.args,
+  status: "loading",
+}
+
 export const Multi = MultiTemplate.bind({})
 Multi.args = {
   selectedItems: ["CPF"],
