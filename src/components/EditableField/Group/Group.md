@@ -44,6 +44,52 @@ const [secondDefaultValue, setSecondDefaultValue] = React.useState("Grouped 2")
 );
 ```
 
+### Example With Text Area
+```jsx
+import EditableField from '../EditableField'
+const [value, setValue] = React.useState("Herz-UI")
+const [defaultValue, setDefaultValue] = React.useState("Herz-UI")
+
+const [firstValue, setFirstValue] = React.useState("Grouped 1")
+const [secondValue, setSecondValue] = React.useState("Grouped\n2")
+
+const [firstDefaultValue, setFirstDefaultValue] = React.useState("Grouped 1")
+const [secondDefaultValue, setSecondDefaultValue] = React.useState("Grouped\n2")
+
+;(
+  <div style={{ display: 'grid', gap: 6 }}>
+    <EditableField.Text
+      value={value}
+      defaultValue={defaultValue}
+      onChange={(event) => setValue(event.target.value)}
+      onSave={(newValue) => setDefaultValue(newValue)}
+    />
+    <EditableField.Group
+      onSave={(values) => {
+        setFirstDefaultValue(values.first)
+        setSecondDefaultValue(values.second)
+      }}
+    >
+      <EditableField.Text
+        name="first"
+        value={firstValue}
+        defaultValue={firstDefaultValue}
+        onChange={(event) => setFirstValue(event.target.value)}
+      />
+      <EditableField.Text
+        name="second"
+        value={secondValue}
+        defaultValue={secondDefaultValue}
+        onChange={(event) => setSecondValue(event.target.value)}
+        controlsGroup
+        multiline
+        rows={2}
+      />
+    </EditableField.Group>
+  </div>
+);
+```
+
 ### Usage
 When an EditableField component is wrapped in an EditableField.Group, you must pass a `name` to each field and one of them must have `controlsGroup` set to true, to signify which one should handle showing the confirm/cancel buttons.
 

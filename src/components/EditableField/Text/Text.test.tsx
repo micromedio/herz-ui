@@ -215,4 +215,15 @@ describe("EditableText", () => {
     // Assert
     expect(results).toHaveNoViolations()
   })
+
+  test("render as textarea", async () => {
+    // Arrange
+    const { getByRole } = render(
+      <EditableText value="TEST_VALUE" defaultValue="TEST_VALUE" multiline />
+    )
+    const input = getByRole("textbox")
+
+    // Assert
+    expect(input.tagName).toEqual("TEXTAREA")
+  })
 })

@@ -50,6 +50,53 @@ const Template: Story<EditableFieldGroupProps> = (
   )
 }
 
+const TemplateWithTextArea: Story<EditableFieldGroupProps> = (
+  props: EditableFieldGroupProps
+) => {
+  const [firstValue, setFirstValue] = useState("First")
+  const [secondValue, setSecondValue] = useState("Second\n2")
+
+  const [firstDefaultValue, setFirstDefaultValue] = useState("First")
+  const [secondDefaultValue, setSecondDefaultValue] = useState("Second\n2")
+
+  return (
+    <EditableFieldGroup
+      {...props}
+      onSave={(values) => {
+        props.onSave?.(values)
+        setFirstDefaultValue(values.first)
+        setSecondDefaultValue(values.second)
+      }}
+    >
+      <div
+        style={{
+          display: "grid",
+          gap: 6,
+        }}
+      >
+        <EditableText
+          name="first"
+          value={firstValue}
+          defaultValue={firstDefaultValue}
+          onChange={(event) => setFirstValue(event.target.value)}
+        />
+        <EditableText
+          controlsGroup
+          defaultValue={secondDefaultValue}
+          multiline
+          name="second"
+          onChange={(event) => setSecondValue(event.target.value)}
+          rows={2}
+          value={secondValue}
+        />
+      </div>
+    </EditableFieldGroup>
+  )
+}
+
 // Each story then reuses that template
 export const Default = Template.bind({})
 Default.args = {}
+
+export const DefaultWithTextArea = TemplateWithTextArea.bind({})
+DefaultWithTextArea.args = {}
