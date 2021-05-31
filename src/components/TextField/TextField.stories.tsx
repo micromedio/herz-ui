@@ -101,3 +101,41 @@ Success.args = {
   state: "success",
   helperText: "Text to explain the success",
 }
+
+export const TextArea = Template.bind({})
+TextArea.args = {
+  id: "field-id",
+  label: "Label",
+  helperText: "Text to help explain the input",
+  iconName: "IconSearch",
+  multiline: true,
+}
+
+export const TextAreaWithoutLabels = Template.bind({})
+TextAreaWithoutLabels.args = {
+  multiline: true,
+  rows: 2,
+}
+
+export const TextAreaFilled = Template.bind({})
+TextAreaFilled.args = {
+  ...TextArea.args,
+  value: "Filled input",
+  rows: 2,
+}
+
+export const TextAreaError = Template.bind({})
+TextAreaError.args = {
+  ...TextArea.args,
+  value: "Filled input",
+  state: "error",
+  helperText: "Text to explain the input error",
+}
+
+export const TextAreaSuccess = Template.bind({})
+TextAreaSuccess.args = {
+  ...TextArea.args,
+  value: "Filled input",
+  state: "success",
+  helperText: "Text to explain the success",
+}

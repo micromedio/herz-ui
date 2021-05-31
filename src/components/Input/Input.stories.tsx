@@ -22,6 +22,23 @@ const Template: Story<InputProps> = (props: InputProps) => {
   )
 }
 
+const TextAreaTemplate: Story<InputProps> = (props: InputProps) => {
+  const [value, setValue] = useState(props.value)
+
+  return (
+    <Input
+      {...props}
+      multiline
+      rows={2}
+      value={value}
+      onChange={(event) => {
+        if (props.onChange) props.onChange(event)
+        setValue(event.target.value)
+      }}
+    />
+  )
+}
+
 export const Example = Template.bind({})
 Example.args = {
   placeholder: "Placeholder text",
@@ -56,5 +73,36 @@ WithSuccess.args = {
 
 export const Required = Template.bind({})
 Required.args = {
+  required: true,
+}
+
+export const TextArea = TextAreaTemplate.bind({})
+TextArea.args = {
+  placeholder: "Placeholder text",
+  iconName: "IconSearch",
+}
+
+export const TextAreaFilled = TextAreaTemplate.bind({})
+TextAreaFilled.args = {
+  value: "Filled input",
+}
+
+export const TextAreaDisabled = TextAreaTemplate.bind({})
+TextAreaDisabled.args = {
+  disabled: true,
+}
+
+export const TextAreaWithError = TextAreaTemplate.bind({})
+TextAreaWithError.args = {
+  state: "error",
+}
+
+export const TextAreaWithSuccess = TextAreaTemplate.bind({})
+TextAreaWithSuccess.args = {
+  state: "success",
+}
+
+export const TextAreaRequired = TextAreaTemplate.bind({})
+TextAreaRequired.args = {
   required: true,
 }
