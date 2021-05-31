@@ -112,7 +112,7 @@ const EditableText = forwardRef<HTMLInputElement, EditableFieldTextProps>(
           throw "An <EditableText /> component wrapped in an <EditableField.Group /> needs to have a `name` prop"
         }
       }
-    }, [defaultValue, name, register])
+    }, [name, register])
 
     const state = useMemo(() => {
       if (groupStatus) return groupStatus
