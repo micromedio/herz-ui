@@ -29,6 +29,9 @@ export interface EditableTextProps {
   className?: HTMLAttributes<HTMLDivElement>["className"]
 }
 
+/**
+ * @deprecated Component depracated, use `EditableField.Text` instead
+ */
 const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
   function EditableText(
     {
