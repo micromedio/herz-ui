@@ -138,3 +138,22 @@ const [defaultValue, setDefaultValue] = React.useState("Herz-UI")
   />
 );
 ```
+
+### Example With Text Area
+All previous examples can be used as text area too; to achieve that behavior, send the multiline prop as true
+```jsx
+import EditableField from '../EditableField'
+const [value, setValue] = React.useState("Herz-UI\nTextArea")
+const [defaultValue, setDefaultValue] = React.useState("Herz-UI\nTextArea")
+
+;(
+  <EditableField.Text
+    value={value}
+    defaultValue={defaultValue}
+    onChange={(event) => setValue(event.target.value)}
+    onSave={(newValue) => setDefaultValue(newValue)}
+    multiline
+    rows={2}
+  />
+);
+```

@@ -55,3 +55,32 @@ Success.args = {
   status: "success",
   helperText: "Changes have been saved",
 }
+
+export const TextArea = Template.bind({})
+TextArea.args = {
+  multiline: true,
+  value: "Handle 123\nHandle 456\nHandle 789",
+}
+
+export const TextAreaLoading = Template.bind({})
+TextAreaLoading.args = {
+  multiline: true,
+  status: "loading",
+  value: "Handle 123\nHandle 456\nHandle 789",
+}
+
+export const TextAreaError = Template.bind({})
+TextAreaError.args = {
+  helperText: "Something went wrong",
+  multiline: true,
+  status: "error",
+  value: "Handle 123\nHandle 456\nHandle 789",
+}
+
+export const TextAreaSuccess = Template.bind({})
+TextAreaSuccess.args = {
+  helperText: "Changes have been saved",
+  multiline: true,
+  status: "success",
+  value: "Handle 123\nHandle 456\nHandle 789",
+}
