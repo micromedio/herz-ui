@@ -1,3 +1,47 @@
+#### 0.6.0 (2021-06-01)
+
+##### Breaking Changes
+
+* **EditableText:**  Deprecate component DEV-194 ([23469515](https://github.com/micromed-dev/herz-ui/commit/23469515493e2e816603b4ee4a3828f6f84dc0c5))
+
+##### Chores
+
+*  prettier DEV-194 ([516b7ece](https://github.com/micromed-dev/herz-ui/commit/516b7ece618cb10b135dc6da7ddf3d795ab74d4b))
+*  removed comments DEV-194 ([d64d42b3](https://github.com/micromed-dev/herz-ui/commit/d64d42b3e5e2a91f5f25ec6ad0db5ed0244ed943))
+
+##### Documentation Changes
+
+* **EditableField:**  Added docs DEV-194 ([8e3f8d2c](https://github.com/micromed-dev/herz-ui/commit/8e3f8d2ca8e2933608cf4f297381ba2937425704))
+
+##### New Features
+
+* **EditableField:**
+  *  Added Select EditableField component DEV-193 ([#112](https://github.com/micromed-dev/herz-ui/pull/112)) ([01575201](https://github.com/micromed-dev/herz-ui/commit/01575201db17c61cb59d2ba07a25f28739d693bd))
+  *  Added EditableField component with Group and Text DEV-194 ([2e3ab717](https://github.com/micromed-dev/herz-ui/commit/2e3ab717b0b9946c8803e114576bfed7ff7147bf))
+* **Docs:**  Add typography and color docs to styleguidist ([d2e54977](https://github.com/micromed-dev/herz-ui/commit/d2e54977a30bd97b97e51cdbfb8ef76e827a515e))
+* **Radio:**
+  *  Update value to be received by radio.group DEV-136 ([8f0c0428](https://github.com/micromed-dev/herz-ui/commit/8f0c042828b6368cb9846222fafb0c2e328e6658))
+  *  Add snapshots and solve storybook issues DEV-136 ([576130b8](https://github.com/micromed-dev/herz-ui/commit/576130b845605ff2786d11eeab4a2fdad2d2def3))
+  *  Add radio group context capabilities ([8ab1d2fb](https://github.com/micromed-dev/herz-ui/commit/8ab1d2fbd0ae2ba96be341689d62191f0a5b3f2c))
+  *  add Radio Group component ([372fb510](https://github.com/micromed-dev/herz-ui/commit/372fb510270b6e5915437a1913087f6fbca772e0))
+  *  send storyshots to repo ([8ad3694c](https://github.com/micromed-dev/herz-ui/commit/8ad3694caafa9f4124cd104fb1df028796a5fa25))
+  *  Add Radio Component DEV-136 ([a7e7b891](https://github.com/micromed-dev/herz-ui/commit/a7e7b8911825f18018a940d6475a49730f3c2b3b))
+
+##### Bug Fixes
+
+* **Popover:**  Fixed popover overlay bug ([92bcfeec](https://github.com/micromed-dev/herz-ui/commit/92bcfeec44d58f43747c3bead8b96493b2b0e66b))
+
+##### Other Changes
+
+* **Radio:**  fix mistake of value definition and make possible control radio from outside ([7298788b](https://github.com/micromed-dev/herz-ui/commit/7298788bbf9de5d6597233b0dac4fc8b915c3d06))
+* micromedio/herz-ui into DEV-136 ([ed412b08](https://github.com/micromed-dev/herz-ui/commit/ed412b08e352cb73da68cd9a695b6aadb894ebea))
+
+##### Tests
+
+* **EditableField:**
+  *  Added storyshots DEV-194 ([de687eab](https://github.com/micromed-dev/herz-ui/commit/de687eab88a4888eb96460506bdc1b604715963e))
+  *  Added tests DEV-194 ([42eddb9d](https://github.com/micromed-dev/herz-ui/commit/42eddb9dbd2acdc168a8d210794049522ba8578f))
+
 #### 0.5.0 (2021-05-20)
 
 ##### Breaking Changes
