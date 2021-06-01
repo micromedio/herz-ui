@@ -124,7 +124,7 @@ const EditableText = forwardRef<
         throw "An <EditableText /> component wrapped in an <EditableField.Group /> needs to have a `name` prop"
       }
     }
-  }, [defaultValue, name, register])
+  }, [name, register])
 
   useEffect(() => {
     // Responsible for resizing the textarea on the first render or value changes

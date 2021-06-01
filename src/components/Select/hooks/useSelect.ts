@@ -1,6 +1,7 @@
 import {
   useMultipleSelection,
   useSelect as useDownshiftSelect,
+  UseSelectProps as UseDownshiftSelectProps,
   UseSelectStateChange,
 } from "downshift"
 
@@ -16,6 +17,17 @@ export enum SELECT_BULK_ACTIONS {
   SELECT_ALL,
 }
 
+export interface UseSelectProps {
+  options: Array<SelectOptionType>
+  multi: SelectProps["multi"]
+  value: SelectProps["value"]
+  selectedItems: SelectProps["selectedItems"]
+  onChange: SelectProps["onChange"]
+  onSelectedItemsChange: SelectProps["onSelectedItemsChange"]
+  isOpen: UseDownshiftSelectProps<SelectValue>["isOpen"]
+  onIsOpenChange: UseDownshiftSelectProps<SelectValue>["onIsOpenChange"]
+}
+
 export function useSelect({
   options = [],
   multi,
@@ -23,14 +35,9 @@ export function useSelect({
   selectedItems = [],
   onChange,
   onSelectedItemsChange,
-}: {
-  options: Array<SelectOptionType>
-  multi: SelectProps["multi"]
-  value: SelectProps["value"]
-  selectedItems: SelectProps["selectedItems"]
-  onChange: SelectProps["onChange"]
-  onSelectedItemsChange: SelectProps["onSelectedItemsChange"]
-}) {
+  isOpen,
+  onIsOpenChange,
+}: UseSelectProps) {
   const handleRemoveSelectedItems = (selectedItem: SelectValue[]) => {
     const newSelected: SelectedItems = selectedItems.filter(
       (previousSelected) => !selectedItem.includes(previousSelected)
@@ -63,7 +70,7 @@ export function useSelect({
   })
 
   const {
-    isOpen,
+    isOpen: downshiftIsOpen,
     selectedItem,
     getToggleButtonProps,
     getLabelProps,
@@ -74,6 +81,8 @@ export function useSelect({
     closeMenu,
     openMenu,
   } = useDownshiftSelect<SelectValue>({
+    isOpen,
+    onIsOpenChange,
     items: options.map((option) => option.value),
     selectedItem: multi ? null : value,
 
@@ -140,7 +149,7 @@ export function useSelect({
   })
 
   return {
-    isOpen,
+    isOpen: downshiftIsOpen,
     selectedItem,
     getToggleButtonProps,
     getLabelProps,

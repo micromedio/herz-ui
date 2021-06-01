@@ -1,9 +1,13 @@
 /** @jsxRuntime classic /*
 /** @jsx jsx */
 import React, { useContext, useMemo } from "react"
-import { HerzUITheme, jsx } from "theme-ui"
+import { HerzUITheme, jsx, SxStyleProp } from "theme-ui"
 
-import { useSelect, SELECT_BULK_ACTIONS } from "./hooks/useSelect"
+import {
+  useSelect,
+  SELECT_BULK_ACTIONS,
+  UseSelectProps,
+} from "./hooks/useSelect"
 import { Button, Popover, Icon } from ".."
 import { InputGroupContext } from "../InputGroup/Context"
 import { getDataFromChildren, isArrayEqual } from "./utils"
@@ -56,6 +60,13 @@ export interface SelectProps {
     selectedOption?: SelectOptionType
     selectedItems?: SelectedItems
   }) => React.ReactNode
+  styles?: {
+    root?: SxStyleProp
+    popoverContent?: SxStyleProp
+    button?: SxStyleProp
+  }
+  isOpen?: UseSelectProps["isOpen"]
+  onIsOpenChange?: (value: boolean) => void
 }
 
 /**
@@ -77,6 +88,9 @@ const Select = ({
   fullWidth = false,
   children,
   renderButtonLabel,
+  styles,
+  isOpen: isOpenProp,
+  onIsOpenChange,
 }: SelectProps) => {
   const inputGroupContext = useContext(InputGroupContext)
   const isGrouped = !!inputGroupContext
@@ -99,6 +113,10 @@ const Select = ({
     closeMenu,
     openMenu,
   } = useSelect({
+    isOpen: isOpenProp,
+    onIsOpenChange: onIsOpenChange
+      ? ({ isOpen }) => onIsOpenChange(isOpen || false)
+      : undefined,
     value,
     options,
     multi,
@@ -223,6 +241,7 @@ const Select = ({
             flexGrow: 0,
           }),
         }),
+        ...styles?.root,
       }}
     >
       {label && (
@@ -262,6 +281,7 @@ const Select = ({
               outline: 0,
               margin: 0,
               marginTop: 1,
+              ...styles?.popoverContent,
             }}
           >
             {React.Children.map(children, (child, index) => {
@@ -340,6 +360,7 @@ const Select = ({
 
             "&:hover": hoverStyles,
             ...(isOpen && stateStyles.active),
+            ...styles?.button,
           }}
           type="button"
           {...getToggleButtonProps({
