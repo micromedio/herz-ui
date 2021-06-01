@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import { jsx, SxStyleProp } from "theme-ui"
-import React, { useCallback, useRef } from "react"
+import React, { useCallback, useRef, useState } from "react"
 import Tippy, { TippyProps } from "@tippyjs/react"
 import { roundArrow } from "tippy.js"
 import ReactDOM from "react-dom"
@@ -80,6 +80,7 @@ const Popover = ({
   zIndexPopper = 9000,
   zIndexOverlay = 8000,
 }: PopoverProps) => {
+  const [visible, setVisible] = useState(false)
   const overlayRef = useRef<HTMLDivElement>(ssrSafeCreateDiv())
 
   const isControlled = isVisible !== undefined
@@ -181,21 +182,15 @@ const Popover = ({
         onClickOutside={(instance, event) => onClickOutside?.(instance, event)}
         onCreate={onCreate}
         onShow={(instance) => {
-          onShow?.(instance)
+          setVisible(true)
           if (overlayRef.current) {
-            overlayRef.current.style.opacity = "0"
             document.body.append(overlayRef.current)
-            overlayRef.current.style.transition = "opacity 200ms"
           }
-          setTimeout(() => {
-            if (overlayRef.current) overlayRef.current.style.opacity = "1"
-          })
+          onShow?.(instance)
         }}
         onHide={(instance) => {
-          if (overlayRef.current) {
-            overlayRef.current.style.transition = "opacity 200ms"
-            overlayRef.current.style.opacity = "0"
-          }
+          setVisible(false)
+
           setTimeout(() => {
             if (overlayRef.current) overlayRef.current.remove()
           })
@@ -244,6 +239,25 @@ const Popover = ({
         ? ReactDOM.createPortal(
             <div
               sx={{
+                "@keyframes fadeIn": {
+                  "0%": {
+                    opacity: 0,
+                  },
+                  "100%": {
+                    opacity: 1,
+                  },
+                },
+                "@keyframes fadeOut": {
+                  "0%": {
+                    opacity: 1,
+                  },
+                  "100%": {
+                    opacity: 0,
+                  },
+                },
+                animation: visible
+                  ? `0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards fadeIn`
+                  : `0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards fadeOut`,
                 position: "fixed",
                 top: 0,
                 left: 0,
