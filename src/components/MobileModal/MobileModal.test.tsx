@@ -6,11 +6,11 @@ import MobileModal from "./MobileModal"
 const mockedClientRects = {
   bottom: 619.5,
   height: 265,
-  left: 455.578125,
-  right: 783.578125,
+  left: 455.578_125,
+  right: 783.578_125,
   top: 354.5,
   width: 328,
-  x: 455.578125,
+  x: 455.578_125,
   y: 354.5,
 }
 
