@@ -8,11 +8,11 @@ import { useCombobox } from "downshift"
 const mockedClientRects = {
   bottom: 619.5,
   height: 265,
-  left: 455.578125,
-  right: 783.578125,
+  left: 455.578_125,
+  right: 783.578_125,
   top: 354.5,
   width: 328,
-  x: 455.578125,
+  x: 455.578_125,
   y: 354.5,
 }
 
@@ -105,9 +105,9 @@ describe("Autocomplete", () => {
     /**
      * Check if the options are rendered
      */
-    mockedOptions.forEach((option) => {
+    for (const option of mockedOptions) {
       expect(getByText(option.label)).toBeInTheDocument()
-    })
+    }
 
     /**
      * Check for an invalid option

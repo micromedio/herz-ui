@@ -16,10 +16,12 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:unicorn/recommended",
-    "prettier/@typescript-eslint",
-    "plugin:prettier/recommended",
+    "prettier",
   ],
   rules: {
+    "unicorn/no-array-for-each": "off",
+    "unicorn/prefer-node-protocol": "off",
+    "unicorn/prefer-module": "off",
     "unicorn/filename-case": [
       "error",
       {
@@ -39,10 +41,13 @@ module.exports = {
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
         "plugin:unicorn/recommended",
-        "prettier/@typescript-eslint",
-        "plugin:prettier/recommended",
+        "prettier",
       ],
       rules: {
+        "unicorn/no-array-for-each": "off",
+        "unicorn/prefer-node-protocol": "off",
+        "unicorn/prefer-module": "off",
+        "unicorn/prefer-ternary": "off",
         "unicorn/no-nested-ternary": "off",
         "unicorn/no-null": "off",
         "unicorn/prefer-spread": "off",

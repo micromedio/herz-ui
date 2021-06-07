@@ -37,7 +37,7 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
     {
       accept = "image/*",
       multiple = false,
-      maxSize = 1048576,
+      maxSize = 1_048_576,
       name = "files",
       files = [],
       onChange,
