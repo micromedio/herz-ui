@@ -1,6 +1,4 @@
-/** @jsxRuntime classic /*
-/** @jsx jsx */
-import { jsx, Label } from "theme-ui"
+/** @jsxImportSource theme-ui */
 import * as React from "react"
 import Icon from "../Icon/Icon"
 
@@ -32,7 +30,7 @@ const stateStyles = {
 }
 
 const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
-  (props: ICheckboxProps, ref) => {
+  function Checkbox(props: ICheckboxProps, ref) {
     const {
       checked = false,
       disabled = false,
@@ -120,7 +118,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
             height: "20px",
             width: "20px",
             cursor: "pointer",
-            color: "secondary.0",
+            color: "secondary",
             pointerEvents: "none",
           }}
         >
@@ -130,7 +128,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
         </div>
 
         {label && (
-          <Label
+          <label
             sx={{
               marginLeft: 2,
               width: "auto",
@@ -139,7 +137,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
             htmlFor={name}
           >
             {label}
-          </Label>
+          </label>
         )}
       </div>
     )

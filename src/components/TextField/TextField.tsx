@@ -1,6 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx } from "theme-ui"
+/** @jsxImportSource theme-ui */
 import { ChangeEvent, FocusEvent, forwardRef } from "react"
 import Input, { InputProps } from "../Input/Input"
 import Selector, { SelectorProps } from "../Selector/Selector"

@@ -13,7 +13,7 @@ describe("Alert", () => {
       </Alert>
     )
     expect(getByText("Alert")).toHaveStyle(
-      `background: ${theme.colors.warning}`
+      `background: ${theme.colors?.warning}`
     )
   })
 

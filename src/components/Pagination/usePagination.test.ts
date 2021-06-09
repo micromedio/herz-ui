@@ -62,18 +62,16 @@ describe("usePagination", () => {
   })
 
   test("has a disabled first button when showFirstButton === true", () => {
-    const { items } = renderHook(() =>
-      usePagination({ showFirstButton: true })
-    ).result.current
+    const { items } = renderHook(() => usePagination({ showFirstButton: true }))
+      .result.current
     expect(items[0]).toHaveProperty("type", "first")
     expect(items[0]).toHaveProperty("disabled", true)
     expect(items[0]).toHaveProperty("page", 1)
   })
 
   test("has a disabled last button when showLastButton === true", () => {
-    const { items } = renderHook(() =>
-      usePagination({ showLastButton: true })
-    ).result.current
+    const { items } = renderHook(() => usePagination({ showLastButton: true }))
+      .result.current
 
     expect(items[2]).toHaveProperty("type", "last")
     expect(items[2]).toHaveProperty("disabled", true)
@@ -99,9 +97,8 @@ describe("usePagination", () => {
   })
 
   test("has no ellipses when count <= 7", () => {
-    const { items } = renderHook(() =>
-      usePagination({ count: 7 })
-    ).result.current
+    const { items } = renderHook(() => usePagination({ count: 7 })).result
+      .current
     expect(items[1]).toHaveProperty("page", 1)
     expect(items[2]).toHaveProperty("page", 2)
     expect(items[3]).toHaveProperty("page", 3)
@@ -112,9 +109,8 @@ describe("usePagination", () => {
   })
 
   test("has an ellipsis when page >= 7", () => {
-    const { items } = renderHook(() =>
-      usePagination({ count: 8, page: 7 })
-    ).result.current
+    const { items } = renderHook(() => usePagination({ count: 8, page: 7 }))
+      .result.current
     expect(items).toHaveLength(9)
     expect(items[4]).toHaveProperty("type", "ellipsis")
     expect(items[4]).toHaveProperty("page")
@@ -122,9 +118,8 @@ describe("usePagination", () => {
   })
 
   test("has start & end ellipsis when count >= 13", () => {
-    const { items } = renderHook(() =>
-      usePagination({ count: 13, page: 7 })
-    ).result.current
+    const { items } = renderHook(() => usePagination({ count: 13, page: 7 }))
+      .result.current
 
     expect(items).toHaveLength(13)
     expect(items[4]).toHaveProperty("type", "ellipsis")

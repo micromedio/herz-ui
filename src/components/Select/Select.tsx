@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /*
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React, { useContext, useMemo } from "react"
-import { HerzUITheme, jsx, SxStyleProp } from "theme-ui"
+import { get, ThemeUICSSObject } from "theme-ui"
 
 import {
   useSelect,
@@ -61,9 +60,9 @@ export interface SelectProps {
     selectedItems?: SelectedItems
   }) => React.ReactNode
   styles?: {
-    root?: SxStyleProp
-    popoverContent?: SxStyleProp
-    button?: SxStyleProp
+    root?: ThemeUICSSObject
+    popoverContent?: ThemeUICSSObject
+    button?: ThemeUICSSObject
   }
   isOpen?: UseSelectProps["isOpen"]
   onIsOpenChange?: (value: boolean) => void
@@ -125,7 +124,7 @@ const Select = ({
     onSelectedItemsChange,
   })
 
-  const stateStyles = {
+  const stateStyles: Record<string, ThemeUICSSObject> = {
     resting: {
       backgroundColor: "text.alpha.95",
       color: "text.40",
@@ -141,8 +140,8 @@ const Select = ({
     active: {
       backgroundColor: "#fff",
       color: "text.0",
-      boxShadow: (theme: HerzUITheme) =>
-        `0px 0px 0px 4px ${theme.colors.secondary.alpha[95]}`,
+      boxShadow: (t) =>
+        `0px 0px 0px 4px ${get(t, "colors.secondary.alpha.95")}`,
       borderColor: "secondary.0",
       fontWeight: "semibold",
     },

@@ -1,6 +1,3 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx } from "theme-ui"
 import InputGroup, { InputGroupProps } from "./InputGroup"
 import { Meta, Story } from "@storybook/react/types-6-0"
 import React from "react"

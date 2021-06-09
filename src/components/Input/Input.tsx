@@ -1,6 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { HerzUITheme, jsx } from "theme-ui"
+/** @jsxImportSource theme-ui */
+import { get } from "theme-ui"
 import {
   ChangeEvent,
   FocusEvent,
@@ -168,8 +167,8 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
             }[state],
             "&:focus-within": {
               borderColor: "secondary.0",
-              boxShadow: (theme: HerzUITheme) =>
-                `0px 0px 0px 4px ${theme.colors.secondary.alpha[90]}`,
+              boxShadow: (theme) =>
+                `0px 0px 0px 4px ${get(theme, "colors.secondary.alpha.90")}`,
               backgroundColor: "#FFF",
             },
           }}

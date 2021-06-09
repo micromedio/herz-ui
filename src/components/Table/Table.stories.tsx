@@ -1,6 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx } from "theme-ui"
+/** @jsxImportSource theme-ui */
 import React, { useCallback, useMemo, useState } from "react"
 import Table, { TableProps } from "./Table"
 import { Meta, Story } from "@storybook/react/types-6-0"
@@ -87,8 +85,7 @@ Example.args = {
       ...data[0],
       id: "WORD_BREAK_TEST",
       physician: {
-        name:
-          "really_long_string_without_spaces_that_should_break_into_a_new_line",
+        name: "really_long_string_without_spaces_that_should_break_into_a_new_line",
       },
     },
     ...data,

@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /*
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React, {
   forwardRef,
   ReactElement,
@@ -9,7 +8,7 @@ import React, {
   useMemo,
   useRef,
 } from "react"
-import { HerzUITheme, jsx, SxStyleProp } from "theme-ui"
+import { get, ThemeUICSSObject } from "theme-ui"
 import { useCombobox, UseComboboxStateChange } from "downshift"
 import Button, { ButtonProps } from "../Button/Button"
 import Popover from "../Popover/Popover"
@@ -45,7 +44,7 @@ export interface AutocompleteProps<T extends unknown> {
     array,
   }: {
     highlightedIndex: number
-    defaultStyles: SxStyleProp
+    defaultStyles: ThemeUICSSObject
     option: T
     inputValue: string
     index?: number
@@ -123,11 +122,11 @@ export default forwardRef(function Autocomplete<T>(
     selectedItem: selectedOption,
   })
 
-  const styles: Record<string, SxStyleProp> = {
+  const styles: Record<string, ThemeUICSSObject> = {
     active: {
       borderColor: "secondary.0",
-      boxShadow: (theme: HerzUITheme) =>
-        `0px 0px 0px 4px ${theme.colors.secondary.alpha[90]}`,
+      boxShadow: (t) =>
+        `0px 0px 0px 4px ${get(t, "colors.secondary.alpha.90")}`,
       backgroundColor: "#FFF",
     },
   }

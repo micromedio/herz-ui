@@ -1,7 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { ChangeEventHandler, useCallback, useMemo, useState } from "react"
-import { jsx } from "theme-ui"
 import Button from "../Button/Button"
 import Select, { SelectProps } from "../Select/Select"
 import { SelectOptionCustom } from "../Select/SelectOptionCustom"
@@ -116,7 +114,7 @@ const DateSelect = ({
       defaultValue={defaultValue as SelectProps["defaultValue"]}
       disabled={disabled}
       onChange={(value) => {
-        if (value) onChange?.((value as unknown) as DateValue)
+        if (value) onChange?.(value as unknown as DateValue)
       }}
       highlightFilled={highlightFilled}
       fullWidth={fullWidth}

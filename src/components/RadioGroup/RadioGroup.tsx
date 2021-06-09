@@ -1,6 +1,3 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx } from "theme-ui"
 import React, { ChangeEvent, ReactNode } from "react"
 import RadioGroupContext from "./RadioGroupContext"
 

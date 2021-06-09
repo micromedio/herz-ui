@@ -1,6 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { HerzUIColors, HerzUITheme, jsx, useThemeUI } from "theme-ui"
+/** @jsxImportSource theme-ui */
+import { useThemeUI, get } from "theme-ui"
 import { useMemo } from "react"
 import {
   DEFAULT_SHADE_PERCENTAGES,
@@ -10,10 +9,10 @@ import {
 const ColorPalette = () => {
   const { theme } = useThemeUI()
 
-  const colors: Array<keyof Omit<HerzUIColors, "background">> = useMemo(() => {
-    return Object.keys(theme.colors).filter(
-      (color) => !["background", "modes"].includes(color)
-    ) as Array<keyof Omit<HerzUIColors, "background">>
+  const colors = useMemo(() => {
+    return Object.keys(theme.colors as Record<string, unknown>).filter(
+      (color) => !["background", "modes", "muted"].includes(color)
+    )
   }, [theme])
 
   return (
@@ -26,7 +25,7 @@ const ColorPalette = () => {
     >
       {colors.map((color) => (
         <div key={color} sx={{ variant: "text.heading1", color: "text" }}>
-          {color.toUpperCase()}
+          {color?.toUpperCase()}
           <div
             sx={{
               display: "grid",
@@ -48,11 +47,11 @@ const ColorPalette = () => {
                 <div
                   sx={{
                     height: 100,
-                    backgroundColor: (theme: HerzUITheme) =>
-                      theme.colors[color].shade[shade],
+                    backgroundColor: (t) =>
+                      get(t, `colors.${color}.shade.${shade}`),
                   }}
                 />
-                {theme.colors[color].shade[shade].toUpperCase()}
+                {get(theme, `rawColors.${color}.shade.${shade}`)?.toUpperCase()}
               </div>
             ))}
             <div sx={{ fontWeight: "bold" }}>
@@ -60,11 +59,10 @@ const ColorPalette = () => {
               <div
                 sx={{
                   height: 100,
-                  backgroundColor: (theme: HerzUITheme) =>
-                    theme.colors[color][0],
+                  backgroundColor: (t) => get(t, `colors.${color}`),
                 }}
               />
-              {theme.colors[color][0].toUpperCase()}
+              {get(theme, `rawColors.${color}`)?.toUpperCase()}
             </div>
             {DEFAULT_TINT_PERCENTAGES.map((tint) => (
               <div key={tint}>
@@ -72,8 +70,7 @@ const ColorPalette = () => {
                 <div
                   sx={{
                     height: 50,
-                    backgroundColor: (theme: HerzUITheme) =>
-                      theme.colors[color][tint],
+                    backgroundColor: (t) => get(t, `colors.${color}.${tint}`),
                   }}
                 />
                 <div
@@ -84,13 +81,13 @@ const ColorPalette = () => {
                     height: 50,
                     variant: "text.body2",
                     color: "text.40",
-                    backgroundColor: (theme: HerzUITheme) =>
-                      theme.colors[color].alpha[tint],
+                    backgroundColor: (t) =>
+                      get(t, `colors.${color}.alpha.${tint}`),
                   }}
                 >
                   alpha
                 </div>
-                {theme.colors[color][tint].toUpperCase()}
+                {get(theme, `rawColors.${color}.${tint}`)?.toUpperCase()}
               </div>
             ))}
           </div>

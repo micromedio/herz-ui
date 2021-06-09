@@ -1,6 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx } from "theme-ui"
+/** @jsxImportSource theme-ui */
 import ValueList, { ValueListProps } from "./ValueList"
 import { Meta, Story } from "@storybook/react/types-6-0"
 import Icon from "../Icon/Icon"

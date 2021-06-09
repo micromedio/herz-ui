@@ -1,6 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx } from "theme-ui"
+/** @jsxImportSource theme-ui */
 import MobileModal, { MobileModalProps } from "./MobileModal"
 import { Meta, Story } from "@storybook/react/types-6-0"
 import Button from "../Button/Button"

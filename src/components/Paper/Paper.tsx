@@ -1,5 +1,5 @@
+/** @jsxImportSource theme-ui */
 import React, { HTMLAttributes, useMemo } from "react"
-import { Box } from "theme-ui"
 
 export interface PaperProps {
   /** Paper elevation */
@@ -25,17 +25,17 @@ const Paper = ({
   }, [elevation])
 
   return (
-    <Box
-      p={padding}
-      bg="#FFF"
+    <div
       sx={{
+        p: padding,
         borderRadius: 4,
         boxShadow,
+        backgroundColor: "#FFF",
       }}
       className={className}
     >
       {children}
-    </Box>
+    </div>
   )
 }
 

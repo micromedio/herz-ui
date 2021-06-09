@@ -1,6 +1,5 @@
-/** @jsxRuntime classic /*
-/** @jsx jsx */
-import { Flex, jsx, Text } from "theme-ui"
+/** @jsxImportSource theme-ui */
+import { Flex, Text } from "theme-ui"
 import React, { useState } from "react"
 import { DropzoneOptions, useDropzone } from "react-dropzone"
 
@@ -43,27 +42,25 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
       onChange,
       children,
       ...restProps
-    },
+    }: IUploaderProps,
     ref
   ) => {
     const [isPreviewOpen, setIsPreviewOpen] = useState(false)
-    const {
-      isDragActive,
-      isDragReject,
-      getRootProps,
-      getInputProps,
-    } = useDropzone({
-      accept,
-      multiple,
-      maxSize,
-      ...restProps,
+    const { isDragActive, isDragReject, getRootProps, getInputProps } =
+      useDropzone({
+        accept,
+        multiple,
+        maxSize,
+        ...restProps,
 
-      onDrop: (acceptedFiles) => {
-        const newFiles = multiple ? files.concat(acceptedFiles) : acceptedFiles
+        onDrop: (acceptedFiles) => {
+          const newFiles = multiple
+            ? files.concat(acceptedFiles)
+            : acceptedFiles
 
-        onChange?.(newFiles)
-      },
-    })
+          onChange?.(newFiles)
+        },
+      })
 
     function handleFileRemove(
       event: React.MouseEvent<HTMLButtonElement>

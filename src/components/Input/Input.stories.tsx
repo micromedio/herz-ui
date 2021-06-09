@@ -43,6 +43,7 @@ export const Example = Template.bind({})
 Example.args = {
   placeholder: "Placeholder text",
   iconName: "IconSearch",
+  value: "",
 }
 
 export const Password = Template.bind({})

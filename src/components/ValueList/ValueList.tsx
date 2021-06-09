@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React, { HTMLAttributes } from "react"
-import { HerzUITheme, jsx } from "theme-ui"
+import { get } from "theme-ui"
 
 export interface ValueListProps {
   items: Array<{
@@ -38,8 +37,8 @@ const ValueList = ({
               py: 4,
               ...(index !== items.length - 1
                 ? {
-                    borderBottom: (theme: HerzUITheme) =>
-                      `1px solid ${theme.colors.text[90]}`,
+                    borderBottom: (theme) =>
+                      `1px solid ${get(theme, "colors.text.90")}`,
                   }
                 : {}),
             }}
@@ -56,8 +55,8 @@ const ValueList = ({
               color: "text.0",
               ...(index !== items.length - 1
                 ? {
-                    borderBottom: (theme: HerzUITheme) =>
-                      `1px solid ${theme.colors.text[90]}`,
+                    borderBottom: (theme) =>
+                      `1px solid ${get(theme, "colors.text.90")}`,
                   }
                 : {}),
             }}

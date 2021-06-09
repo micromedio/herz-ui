@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React, { MouseEvent, useMemo } from "react"
-import { HerzUITheme, jsx } from "theme-ui"
+import { get, ThemeUICSSObject } from "theme-ui"
 import Button from "../../Button/Button"
 import Spinner from "../../Spinner/Spinner"
 
@@ -20,11 +19,11 @@ const ButtonControl = ({
   onSave,
   children,
 }: ButtonControlProps) => {
-  const buttonStyles = useMemo(
+  const buttonStyles: ThemeUICSSObject = useMemo(
     () => ({
       backgroundColor: "#FFF",
-      boxShadow: (theme: HerzUITheme) =>
-        `0px 1px 12px ${theme.colors.text.alpha[85]}`,
+      boxShadow: (theme) =>
+        `0px 1px 12px ${get(theme, "colors.text.alpha.85")}`,
       borderRadius: 2,
 
       "&:hover": {
