@@ -123,7 +123,6 @@ declare module "react-table" {
   > = UseRowStateCellProps<D>
   // UseGroupByCellProps<D> {}
 
-  export type Row<
-    D extends Record<string, unknown> = Record<string, unknown>
-  > = UseRowStateRowProps<D>
+  export type Row<D extends Record<string, unknown> = Record<string, unknown>> =
+    UseRowStateRowProps<D>
 }

@@ -1,6 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx } from "theme-ui"
+/** @jsxImportSource theme-ui */
 import { HTMLAttributes, ReactNode, useState } from "react"
 import Popover, { PopoverProps } from "../Popover/Popover"
 import Button from "../Button/Button"

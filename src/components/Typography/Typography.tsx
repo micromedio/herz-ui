@@ -1,7 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx } from "theme-ui"
-
+/** @jsxImportSource theme-ui */
 export interface TypographyProps {
   color?: "primary" | "secondary" | "text"
   size?: number

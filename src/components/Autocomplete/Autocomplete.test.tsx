@@ -1,3 +1,4 @@
+/** @jsxImportSource theme-ui */
 import "@testing-library/jest-dom/extend-expect"
 import { fireEvent, render } from "../../tests/utils"
 

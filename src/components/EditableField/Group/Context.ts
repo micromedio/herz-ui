@@ -28,6 +28,5 @@ export interface EditableFieldGroupContextArguments {
   status?: "error" | "success" | "loading"
 }
 
-export const EditableFieldGroupContext = createContext<EditableFieldGroupContextArguments>(
-  {}
-)
+export const EditableFieldGroupContext =
+  createContext<EditableFieldGroupContextArguments>({})

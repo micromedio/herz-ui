@@ -19,6 +19,7 @@ export type PaletteColors = {
 
 export type GeneratedColors = {
   /** Generated tint variations */
+  __default: CSS.Property.Color
   [key: number]: CSS.Property.Color
   alpha: {
     /** Generated alpha variations */
@@ -38,15 +39,11 @@ export function generateColorsPalette(baseColors: BaseColor[]): PaletteColors {
   const generatedPalette: PaletteColors = {}
 
   baseColors.forEach((baseColor) => {
-    const {
-      name,
-      color,
-      tintPercentages,
-      alphaPercentages,
-      shadePercentages,
-    } = baseColor
+    const { name, color, tintPercentages, alphaPercentages, shadePercentages } =
+      baseColor
 
     const generatedTints: GeneratedColors = {
+      __default: color,
       0: color,
       alpha: {},
       shade: {},

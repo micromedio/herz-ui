@@ -1,6 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx } from "theme-ui"
+/** @jsxImportSource theme-ui */
 import { ChangeEvent } from "react"
 import useRadioGroup from "../RadioGroup/hooks/useRadioGroup"
 import { RadioGroup } from "../RadioGroup/RadioGroup"

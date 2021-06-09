@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { Fragment, ReactNode, useMemo } from "react"
-import { jsx } from "theme-ui"
+
 import Divider from "../Divider/Divider"
 import Icon from "../Icon/Icon"
 

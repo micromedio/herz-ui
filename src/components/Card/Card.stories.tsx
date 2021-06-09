@@ -1,6 +1,3 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx } from "theme-ui"
 import Card, { CardProps } from "./Card"
 import { Meta, Story } from "@storybook/react/types-6-0"
 import { action } from "@storybook/addon-actions"

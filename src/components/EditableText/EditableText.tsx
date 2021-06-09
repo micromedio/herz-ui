@@ -1,6 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { HerzUITheme, jsx, SxStyleProp } from "theme-ui"
+/** @jsxImportSource theme-ui */
+import { get, ThemeUICSSObject } from "theme-ui"
 import {
   forwardRef,
   HTMLAttributes,
@@ -59,11 +58,11 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
       return "default"
     }, [status])
 
-    const styles: Record<string, SxStyleProp> = {
+    const styles: Record<string, ThemeUICSSObject> = {
       active: {
         borderColor: "secondary.0",
-        boxShadow: (theme: HerzUITheme) =>
-          `0px 0px 0px 4px ${theme.colors.secondary.alpha[90]}`,
+        boxShadow: (theme) =>
+          `0px 0px 0px 4px ${get(theme, "colors.secondary.alpha.90")}`,
         backgroundColor: "#FFF",
       },
     }
