@@ -1,7 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React, { HTMLAttributes } from "react"
-import { jsx } from "theme-ui"
 
 const Item = ({
   label,

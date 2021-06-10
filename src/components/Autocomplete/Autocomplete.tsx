@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /*
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React, {
   forwardRef,
   ReactElement,
@@ -9,7 +8,7 @@ import React, {
   useMemo,
   useRef,
 } from "react"
-import { HerzUITheme, jsx, SxStyleProp } from "theme-ui"
+import { get, ThemeUICSSObject } from "theme-ui"
 import { useCombobox, UseComboboxStateChange } from "downshift"
 import Button, { ButtonProps } from "../Button/Button"
 import Popover from "../Popover/Popover"
@@ -45,7 +44,7 @@ export interface AutocompleteProps<T extends unknown> {
     array,
   }: {
     highlightedIndex: number
-    defaultStyles: SxStyleProp
+    defaultStyles: ThemeUICSSObject
     option: T
     inputValue: string
     index?: number
@@ -123,11 +122,11 @@ export default forwardRef(function Autocomplete<T>(
     selectedItem: selectedOption,
   })
 
-  const styles: Record<string, SxStyleProp> = {
+  const styles: Record<string, ThemeUICSSObject> = {
     active: {
-      borderColor: "secondary.0",
-      boxShadow: (theme: HerzUITheme) =>
-        `0px 0px 0px 4px ${theme.colors.secondary.alpha[90]}`,
+      borderColor: "secondary",
+      boxShadow: (t) =>
+        `0px 0px 0px 4px ${get(t, "colors.secondary.alpha.90")}`,
       backgroundColor: "#FFF",
     },
   }
@@ -162,7 +161,7 @@ export default forwardRef(function Autocomplete<T>(
           <label
             {...getLabelProps()}
             sx={{
-              color: "text.0",
+              color: "text",
               variant: "text.body1",
             }}
           >
@@ -236,7 +235,7 @@ export default forwardRef(function Autocomplete<T>(
                     transition: "all 0s",
                     variant: "text.body2",
                     "& > span": {
-                      color: "text.0",
+                      color: "text",
                       fontWeight: 600,
                     },
                   }}
@@ -310,11 +309,11 @@ export default forwardRef(function Autocomplete<T>(
                 loading: {},
                 success: {
                   backgroundColor: "success.alpha.95",
-                  borderColor: "success.0",
+                  borderColor: "success",
                 },
                 error: {
                   backgroundColor: "primary.alpha.95",
-                  borderColor: "primary.0",
+                  borderColor: "primary",
                 },
               }[state],
               "&:hover": {
@@ -347,7 +346,7 @@ export default forwardRef(function Autocomplete<T>(
               sx={{
                 backgroundColor: "transparent",
                 border: "none",
-                color: "text.0",
+                color: "text",
                 flexGrow: 1,
                 opacity: !selectedOption || isOpen ? 1 : 0,
                 outline: 0,
@@ -437,13 +436,13 @@ export default forwardRef(function Autocomplete<T>(
               success: {
                 px: 3,
                 pb: 2,
-                color: "success.0",
+                color: "success",
                 variant: "text.body1",
               },
               error: {
                 px: 3,
                 pb: 2,
-                color: "primary.0",
+                color: "primary",
                 variant: "text.body1",
               },
             }[state],

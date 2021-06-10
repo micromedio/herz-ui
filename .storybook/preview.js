@@ -1,6 +1,7 @@
 import React from "react";
 import ThemeWrapper from '../src/theme/ThemeWrapper';
 import "normalize.css"
+import "./global.css"
 
 export const decorators = [
   (Story) => (

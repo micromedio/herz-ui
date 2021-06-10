@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from "react"
-import { jsx } from "theme-ui"
+
 import { useContext } from "react"
 import { SelectContext } from "./context"
 import Icon from "../Icon/Icon"
@@ -48,20 +47,20 @@ export function SelectOption<T = SelectValue>({
         cursor: disabled ? "default" : "pointer",
         opacity: disabled ? 0.3 : 1,
         borderRadius: 2,
-        color: isMultiSelected ? "text.0" : "text.40",
+        color: isMultiSelected ? "text" : "text.40",
         backgroundColor: "#fff",
         whiteSpace: "nowrap",
 
         ...(highlightedIndex === index
           ? {
-              color: "text.0",
+              color: "text",
               backgroundColor: "text.alpha.95",
             }
           : {}),
 
         ...(isSelected
           ? {
-              color: "secondary.0",
+              color: "secondary",
               backgroundColor: "secondary.90",
               fontWeight: "bold",
               ...(highlightedIndex === index

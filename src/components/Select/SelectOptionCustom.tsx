@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { useContext, useState } from "react"
-import { jsx } from "theme-ui"
+
 import Button from "../Button/Button"
 import Icon from "../Icon/Icon"
 import Popover from "../Popover/Popover"
@@ -82,7 +81,7 @@ export const SelectOptionCustom = ({
             : {}),
           ...(isSelected
             ? {
-                color: "secondary.0",
+                color: "secondary",
                 backgroundColor: "secondary.90",
                 fontWeight: "bold",
 

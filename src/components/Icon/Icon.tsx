@@ -1,6 +1,3 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx } from "theme-ui"
 import * as TablerIcons from "@tabler/icons"
 import React, { SVGAttributes } from "react"
 

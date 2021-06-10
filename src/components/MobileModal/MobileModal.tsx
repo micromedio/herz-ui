@@ -1,6 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { HerzUITheme, jsx, SxStyleProp } from "theme-ui"
+/** @jsxImportSource theme-ui */
+import { get, ThemeUICSSObject } from "theme-ui"
 import React, {
   ReactNode,
   TouchEvent,
@@ -18,11 +17,11 @@ enum MobileModalTypes {
 }
 
 export interface MobileModalProps {
-  backgroundStyles?: SxStyleProp
+  backgroundStyles?: ThemeUICSSObject
   children?: ReactNode
   dismissible?: boolean
   draggable?: boolean
-  modalStyles?: SxStyleProp
+  modalStyles?: ThemeUICSSObject
   onClose?: () => void
   onDismiss?: () => void
   onOpen?: () => void
@@ -32,7 +31,7 @@ export interface MobileModalProps {
   topSpacing?: number
 }
 
-export default function MobileModal({
+const MobileModal = ({
   backgroundStyles,
   children,
   dismissible = false,
@@ -45,7 +44,7 @@ export default function MobileModal({
   overflowHeight = 0,
   threshold = 0.7,
   topSpacing = 80,
-}: MobileModalProps) {
+}: MobileModalProps): JSX.Element => {
   const topLimit = useCallback(() => {
     if (modalRef.current) {
       const clientHeight = modalRef.current.getClientRects()[0].height
@@ -407,8 +406,7 @@ export default function MobileModal({
               zIndex: 6,
               "&::before": {
                 boxSizing: `border-box`,
-                border: (theme: HerzUITheme) =>
-                  `2px solid ${theme.colors.text[90]}`,
+                border: (theme) => `2px solid ${get(theme, "colors.text.90")}`,
                 borderRadius: 1,
                 content: `""`,
                 display: `block`,
@@ -428,3 +426,5 @@ export default function MobileModal({
     portalRef.current
   )
 }
+
+export default MobileModal

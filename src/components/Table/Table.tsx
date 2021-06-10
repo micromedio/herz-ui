@@ -1,6 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx, HerzUITheme } from "theme-ui"
+/** @jsxImportSource theme-ui */
+import { get } from "theme-ui"
 import {
   useTable,
   Column,
@@ -108,14 +107,11 @@ const Table = ({
   className,
   style,
 }: TableProps) => {
-  const {
-    selectedRowIds,
-    setRowsSelected,
-    toggleRowSelected,
-  } = useRowSelection({
-    selectedRowIds: controlledSelectedRowIds,
-    onChange: onRowSelectionChange,
-  })
+  const { selectedRowIds, setRowsSelected, toggleRowSelected } =
+    useRowSelection({
+      selectedRowIds: controlledSelectedRowIds,
+      onChange: onRowSelectionChange,
+    })
 
   const {
     getTableBodyProps,
@@ -222,10 +218,8 @@ const Table = ({
           }}
         >
           {headerGroups.map((headerGroup) => {
-            const {
-              key,
-              ...headerGroupProps
-            } = headerGroup.getHeaderGroupProps()
+            const { key, ...headerGroupProps } =
+              headerGroup.getHeaderGroupProps()
             return (
               <div
                 key={key}
@@ -238,17 +232,14 @@ const Table = ({
                   {...headerGroupProps}
                   key={key}
                   sx={{
-                    borderBottom: (theme: HerzUITheme) =>
-                      `1px solid ${theme.colors.text[90]}`,
+                    borderBottom: (theme) =>
+                      `1px solid ${get(theme, "colors.text.90")}`,
                     px: 2,
                   }}
                 >
                   {headerGroup.headers.map((column) => {
-                    const {
-                      key,
-                      style,
-                      ...headerProps
-                    } = column.getHeaderProps(column.getSortByToggleProps())
+                    const { key, style, ...headerProps } =
+                      column.getHeaderProps(column.getSortByToggleProps())
 
                     return (
                       <div
@@ -259,7 +250,7 @@ const Table = ({
                           alignItems: "center",
                           pl: 7,
                           pb: 3,
-                          color: column.isSorted ? "text.0" : "text.40",
+                          color: column.isSorted ? "text" : "text.40",
                           variant: column.isSorted
                             ? "text.heading3"
                             : "text.body1",
@@ -305,13 +296,13 @@ const Table = ({
                                 <Icon
                                   name="IconArrowNarrowDown"
                                   size={16}
-                                  sx={{ color: "text.0" }}
+                                  sx={{ color: "text" }}
                                 />
                               ) : (
                                 <Icon
                                   name="IconArrowNarrowUp"
                                   size={16}
-                                  sx={{ color: "text.0" }}
+                                  sx={{ color: "text" }}
                                 />
                               )
                             ) : (
@@ -327,8 +318,8 @@ const Table = ({
                   <div
                     sx={{
                       width: 4,
-                      borderBottom: (theme: HerzUITheme) =>
-                        `1px solid ${theme.colors.text[90]}`,
+                      borderBottom: (theme) =>
+                        `1px solid ${get(theme, "colors.text.90")}`,
                     }}
                   />
                 )}
@@ -355,8 +346,8 @@ const Table = ({
                   sx={{
                     p: 2,
                     minWidth: "fit-content",
-                    borderBottom: (theme: HerzUITheme) =>
-                      `1px solid ${theme.colors.text[90]}`,
+                    borderBottom: (theme) =>
+                      `1px solid ${get(theme, "colors.text.90")}`,
                     transition: "all 0.2s",
                     backgroundColor: !!selectedRowIds[row.id]
                       ? "secondary.alpha.95"
@@ -392,7 +383,7 @@ const Table = ({
                               display: "flex",
                               justifyContent: "flex-end",
                               alignItems: "center",
-                              color: "secondary.0",
+                              color: "secondary",
                               pl: 7,
                               pr: 7,
                               ...style,
@@ -416,9 +407,7 @@ const Table = ({
                             display: "flex",
                             pl: 7,
                             py: 2,
-                            color: cell.column.highlight
-                              ? "secondary.0"
-                              : "text.0",
+                            color: cell.column.highlight ? "secondary" : "text",
                             variant: "text.body1",
                             justifyContent: {
                               start: "flex-start",
@@ -463,13 +452,16 @@ const Table = ({
                   <div
                     sx={{
                       width: 4,
-                      borderBottom: (theme: HerzUITheme) =>
-                        `1px solid ${theme.colors.text[90]}`,
+                      borderBottom: (theme) =>
+                        `1px solid ${get(theme, "colors.text.90")}`,
                       ...(activeRowIds[row.id]
                         ? {
-                            backgroundColor: "primary.0",
-                            boxShadow: (theme: HerzUITheme) =>
-                              `0px 1px 12px ${theme.colors.primary.alpha[70]}`,
+                            backgroundColor: "primary",
+                            boxShadow: (theme) =>
+                              `0px 1px 12px ${get(
+                                theme,
+                                "colors.primary.alpha.70"
+                              )}`,
                             borderRadius: "4px 0px 0px 4px",
                           }
                         : {}),

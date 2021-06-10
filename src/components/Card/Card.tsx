@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { ReactNode } from "react"
-import { jsx } from "theme-ui"
+
 import Button, { ButtonProps } from "../Button/Button"
 import Paper from "../Paper/Paper"
 

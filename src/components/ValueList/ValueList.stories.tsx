@@ -1,6 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx } from "theme-ui"
+/** @jsxImportSource theme-ui */
 import ValueList, { ValueListProps } from "./ValueList"
 import { Meta, Story } from "@storybook/react/types-6-0"
 import Icon from "../Icon/Icon"
@@ -34,7 +32,7 @@ WithIcons.args = {
       label: "ECG Monitor",
       value: (
         <span sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Icon name="IconRouter" sx={{ color: "secondary.0" }} /> WinCardio USB
+          <Icon name="IconRouter" sx={{ color: "secondary" }} /> WinCardio USB
         </span>
       ),
     },

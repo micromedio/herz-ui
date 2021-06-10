@@ -1,11 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import {
-  Button as ThemeUIButton,
-  HerzUITheme,
-  jsx,
-  SxStyleProp,
-} from "theme-ui"
+/** @jsxImportSource theme-ui */
+import { get, ThemeUICSSObject } from "theme-ui"
 import { MouseEvent, ButtonHTMLAttributes, forwardRef } from "react"
 import Icon, { IconProps } from "../Icon/Icon"
 
@@ -38,7 +32,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   }: ButtonProps,
   ref
 ) {
-  const baseButton = {
+  const baseButton: ThemeUICSSObject = {
     display: "flex",
     gap: size === "large" ? 2 : 1,
     paddingX: size === "large" ? 3 : 1,
@@ -52,6 +46,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     position: "relative",
     transition: "all .2s linear",
     variant: "text.button1",
+    outline: "none",
+    border: "none",
 
     "&:disabled": {
       opacity: 0.3,
@@ -59,45 +55,45 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     },
   }
 
-  const filled: SxStyleProp = {
+  const filled: ThemeUICSSObject = {
     color: color === "text" ? "text.40" : "#fff",
-    backgroundColor: (theme: HerzUITheme) =>
-      color === "text" ? theme.colors.text.alpha[95] : theme.colors[color][0],
+    backgroundColor: (t) =>
+      color === "text"
+        ? get(t, "colors.text.alpha.95")
+        : get(t, `colors.${color}`),
     "&:not([disabled])": {
       "&:hover": {
-        backgroundColor: (theme: HerzUITheme) =>
+        backgroundColor: (t) =>
           color === "text"
-            ? theme.colors.text[90]
-            : theme.colors[color].shade[10],
+            ? get(t, "colors.text.90")
+            : get(t, `colors.${color}.shade.10`),
       },
     },
   }
 
-  const filledLight: SxStyleProp = {
-    color: (theme: HerzUITheme) =>
-      theme.colors[color][color === "text" ? 40 : 0],
-    backgroundColor: (theme: HerzUITheme) => theme.colors[color].alpha[95],
+  const filledLight: ThemeUICSSObject = {
+    color: (t) => get(t, `colors.${color}.${color === "text" ? 40 : 0}`),
+    backgroundColor: (t) => get(t, `colors.${color}.alpha.95`),
     "&:not([disabled])": {
       "&:hover": {
-        backgroundColor: (theme: HerzUITheme) => theme.colors[color].alpha[90],
+        backgroundColor: (t) => get(t, `colors.${color}.alpha.90`),
       },
     },
   }
 
-  const plain: SxStyleProp = {
+  const plain: ThemeUICSSObject = {
     paddingX: 1,
     backgroundColor: "transparent",
-    color: (theme: HerzUITheme) =>
-      theme.colors[color][color === "text" ? 40 : 0],
+    color: (t) => get(t, `colors.${color}.${color === "text" ? 40 : 0}`),
     "&:not([disabled])": {
       "&:hover": {
-        backgroundColor: (theme: HerzUITheme) => theme.colors[color].alpha[90],
+        backgroundColor: (t) => get(t, `colors.${color}.alpha.90`),
       },
     },
   }
 
   return (
-    <ThemeUIButton
+    <button
       ref={ref}
       onClick={onClick}
       {...htmlProps}
@@ -113,7 +109,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     >
       {iconName && <Icon name={iconName} size={size === "small" ? 16 : 20} />}
       {children && <span>{children}</span>}
-    </ThemeUIButton>
+    </button>
   )
 })
 

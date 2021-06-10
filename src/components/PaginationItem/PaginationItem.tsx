@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React, { useMemo } from "react"
-import { Box, jsx } from "theme-ui"
+import { Box } from "theme-ui"
 
 export interface PaginationItemProps {
   /** Type of pagination item */
@@ -65,9 +64,9 @@ const PaginationItem = ({
         },
         ...(selected
           ? {
-              color: "text.0",
+              color: "text",
               backgroundColor: "secondary.95",
-              borderColor: "secondary.0",
+              borderColor: "secondary",
               "&:hover, &:focus": {},
             }
           : {}),

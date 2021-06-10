@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { HerzUITheme, jsx } from "theme-ui"
+import { get, ThemeUICSSObject } from "theme-ui"
 import Select, { SelectProps } from "../../Select/Select"
 import { SelectOption } from "../../Select/SelectOption"
 import useEditableFieldGroup from "../hooks/useEditableFieldGroup"
@@ -127,13 +126,13 @@ const EditableFieldSelect = ({
     }
   }, [name, register])
 
-  const stateStyles = {
+  const stateStyles: Record<string, ThemeUICSSObject> = {
     active: {
       backgroundColor: "#fff",
-      color: "text.0",
-      boxShadow: (theme: HerzUITheme) =>
-        `0px 0px 0px 4px ${theme.colors.secondary.alpha[95]}`,
-      borderColor: "secondary.0",
+      color: "text",
+      boxShadow: (theme) =>
+        `0px 0px 0px 4px ${get(theme, "colors.secondary.alpha.95")}`,
+      borderColor: "secondary",
       fontWeight: "semibold",
     },
   }
@@ -221,16 +220,16 @@ const EditableFieldSelect = ({
               borderRadius: 2,
               border: "2px solid",
               borderColor: "transparent",
-              color: "text.0",
+              color: "text",
 
               ...{
                 default: {},
                 loading: stateStyles.active,
                 success: {
-                  borderColor: "success.0",
+                  borderColor: "success",
                 },
                 error: {
-                  borderColor: "primary.0",
+                  borderColor: "primary",
                 },
               }[state],
 
@@ -257,10 +256,10 @@ const EditableFieldSelect = ({
               default: {},
               loading: {},
               success: {
-                color: "success.0",
+                color: "success",
               },
               error: {
-                color: "primary.0",
+                color: "primary",
               },
             }[state],
           }}

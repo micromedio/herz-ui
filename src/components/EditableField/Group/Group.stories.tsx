@@ -14,18 +14,16 @@ const Template: Story<EditableFieldGroupProps> = (
 ) => {
   const [firstValue, setFirstValue] = useState("First")
   const [secondValue, setSecondValue] = useState("Second")
-  const [thirdValue, setThirdValue] = useState<
-    EditableFieldSelectProps["value"]
-  >("third")
+  const [thirdValue, setThirdValue] =
+    useState<EditableFieldSelectProps["value"]>("third")
   const [fourthValue, setFourthValue] = useState<
     EditableFieldSelectProps["selectedItems"]
   >(["fourth"])
 
   const [firstDefaultValue, setFirstDefaultValue] = useState("First")
   const [secondDefaultValue, setSecondDefaultValue] = useState("Second")
-  const [thirdDefaultValue, setThirdDefaultValue] = useState<
-    EditableFieldSelectProps["defaultValue"]
-  >("third")
+  const [thirdDefaultValue, setThirdDefaultValue] =
+    useState<EditableFieldSelectProps["defaultValue"]>("third")
   const [fourthDefaultValue, setFourthDefaultValue] = useState<
     EditableFieldSelectProps["defaultSelectedItems"]
   >(["fourth"])

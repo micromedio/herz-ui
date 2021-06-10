@@ -12,6 +12,9 @@ module.exports = {
       version: "detect",
     },
   },
+  plugins: [
+    "prettier",
+  ],
   extends: [
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
@@ -44,6 +47,7 @@ module.exports = {
         "prettier",
       ],
       rules: {
+        "prettier/prettier": "error",
         "unicorn/no-array-for-each": "off",
         "unicorn/prefer-node-protocol": "off",
         "unicorn/prefer-module": "off",

@@ -1,7 +1,6 @@
 import React from "react"
 import TableFilters, { TableFiltersProps } from "./TableFilters"
 import { Meta, Story } from "@storybook/react/types-6-0"
-// import { action } from "@storybook/addon-actions"
 import Button from "../Button/Button"
 import Selector from "../Selector/Selector"
 import Input from "../Input/Input"

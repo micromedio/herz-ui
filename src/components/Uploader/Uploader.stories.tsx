@@ -1,7 +1,4 @@
-/** @jsxRuntime classic /*
-/** @jsx jsx */
-import { jsx } from "theme-ui"
-
+/** @jsxImportSource theme-ui */
 import React, { useState } from "react"
 import { Meta, Story } from "@storybook/react/types-6-0"
 
@@ -25,7 +22,7 @@ const DefaultTemplate: Story<IUploaderProps> = (props) => {
         Drag & drop or{" "}
         <span
           sx={{
-            color: "secondary.0",
+            color: "secondary",
           }}
         >
           browse

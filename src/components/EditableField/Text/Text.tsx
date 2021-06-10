@@ -1,6 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { HerzUITheme, jsx, SxStyleProp } from "theme-ui"
+/** @jsxImportSource theme-ui */
+import { get, ThemeUICSSObject } from "theme-ui"
 import {
   forwardRef,
   HTMLAttributes,
@@ -68,11 +67,11 @@ const EditableText = forwardRef<
     HTMLInputElement | HTMLTextAreaElement | null
   >(ref, () => inputRef.current)
 
-  const styles: Record<string, SxStyleProp> = {
+  const styles: Record<string, ThemeUICSSObject> = {
     active: {
-      borderColor: "secondary.0",
-      boxShadow: (theme: HerzUITheme) =>
-        `0px 0px 0px 4px ${theme.colors.secondary.alpha[90]}`,
+      borderColor: "secondary",
+      boxShadow: (theme) =>
+        `0px 0px 0px 4px ${get(theme, "colors.secondary.alpha.90")}`,
       backgroundColor: "#FFF",
     },
   }
@@ -211,10 +210,10 @@ const EditableText = forwardRef<
               default: {},
               loading: styles.active,
               success: {
-                borderColor: "success.0",
+                borderColor: "success",
               },
               error: {
-                borderColor: "primary.0",
+                borderColor: "primary",
               },
             }[state],
 
@@ -244,7 +243,7 @@ const EditableText = forwardRef<
               sx={{
                 backgroundColor: "transparent",
                 border: "none",
-                color: "text.0",
+                color: "text",
                 flexGrow: 1,
                 outline: 0,
                 p: 0,
@@ -275,7 +274,7 @@ const EditableText = forwardRef<
                 border: "none",
                 p: 0,
                 py: "2px", // the 2px border counts towards height, so we need 6px instead of 8px for the correct height
-                color: "text.0",
+                color: "text",
                 variant: "text.body1",
               }}
             />
@@ -287,7 +286,7 @@ const EditableText = forwardRef<
                 <Icon
                   name="IconAlertCircle"
                   size={16}
-                  sx={{ color: "primary.0" }}
+                  sx={{ color: "primary" }}
                 />
               ),
               loading: "",
@@ -295,7 +294,7 @@ const EditableText = forwardRef<
                 <Icon
                   name="IconCircleCheck"
                   size={16}
-                  sx={{ color: "success.0" }}
+                  sx={{ color: "success" }}
                 />
               ),
             }[state]
@@ -312,10 +311,10 @@ const EditableText = forwardRef<
               default: {},
               loading: {},
               success: {
-                color: "success.0",
+                color: "success",
               },
               error: {
-                color: "primary.0",
+                color: "primary",
               },
             }[state],
           }}

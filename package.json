@@ -19,12 +19,11 @@
   "homepage": "https://github.com/micromed-dev/herz-ui#readme",
   "dependencies": {
     "@tabler/icons": "^1.41.2",
-    "@theme-ui/presets": "^0.3.5",
+    "@theme-ui/presets": "^0.9.1",
     "@tippyjs/react": "^4.2.5",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
+    "@types/react": "^17.0.9",
+    "@types/react-dom": "^17.0.6",
     "@types/react-table": "^7.7.1",
-    "@types/theme-ui": "^0.3.7",
     "date-fns": "^2.22.1",
     "downshift": "^6.1.3",
     "normalize.css": "^8.0.1",
@@ -33,12 +32,12 @@
     "react-scripts": "^4.0.3",
     "react-table": "^7.7.0",
     "rifm": "^0.12.0",
-    "theme-ui": "^0.3.5",
+    "theme-ui": "^0.9.1",
     "web-vitals": "^0.2.4"
   },
   "peerDependencies": {
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "resolutions": {
     "babel-loader": "8.1.0"
@@ -111,15 +110,16 @@
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
     "@release-it/keep-a-changelog": "^2.3.0",
-    "@storybook/addon-a11y": "^6.2.9",
-    "@storybook/addon-actions": "^6.2.9",
-    "@storybook/addon-essentials": "^6.2.9",
-    "@storybook/addon-links": "^6.2.9",
-    "@storybook/addon-storyshots": "^6.2.9",
-    "@storybook/addon-storyshots-puppeteer": "^6.2.9",
-    "@storybook/node-logger": "^6.2.9",
+    "@storybook/addon-a11y": "^6.3.0-rc.0",
+    "@storybook/addon-actions": "^6.3.0-rc.0",
+    "@storybook/addon-essentials": "^6.3.0-rc.0",
+    "@storybook/addon-links": "^6.3.0-rc.0",
+    "@storybook/addon-measure": "^1.2.3",
+    "@storybook/addon-storyshots": "^6.3.0-rc.0",
+    "@storybook/addon-storyshots-puppeteer": "^6.3.0-rc.0",
+    "@storybook/node-logger": "^6.3.0-rc.0",
     "@storybook/preset-create-react-app": "^3.1.7",
-    "@storybook/react": "^6.2.9",
+    "@storybook/react": "^6.3.0-rc.0",
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/react-hooks": "^7.0.0",
@@ -147,11 +147,12 @@
     "npm-watch": "^0.9.0",
     "prettier": "^2.3.1",
     "puppeteer": "^10.0.0",
-    "react": "^17.0.1",
-    "react-docgen-typescript": "^1.20.5",
-    "react-dom": "^17.0.1",
+    "react": "^17.0.2",
+    "react-docgen-typescript": "^1.22.0",
+    "react-dom": "^17.0.2",
     "react-styleguidist": "^11.1.7",
     "release-it": "^14.8.0",
+    "storybook-addon-outline": "^1.3.3",
     "typescript": "^4.1.3"
   }
 }

@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { useMemo } from "react"
-import { jsx, useThemeUI } from "theme-ui"
+import { useThemeUI, get } from "theme-ui"
 
 export interface SpinnerProps {
   color?: "primary" | "secondary" | "text"
@@ -10,10 +9,11 @@ export interface SpinnerProps {
 
 const Spinner = ({ color = "secondary", size = 20 }: SpinnerProps) => {
   const { theme } = useThemeUI()
+
   const colorValue = useMemo(() => {
-    if (color === "text") return theme.colors.text[40]
-    return theme.colors?.[color]?.[0] ?? theme.colors.text[40]
-  }, [color, theme.colors])
+    if (color === "text") return get(theme, "colors.text.40")
+    return theme.colors?.[color]?.[0] ?? get(theme, "colors.text.40")
+  }, [color, theme])
 
   return (
     <svg

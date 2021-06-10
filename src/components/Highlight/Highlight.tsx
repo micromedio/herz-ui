@@ -1,7 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React, { CSSProperties, ReactNode } from "react"
-import { jsx } from "theme-ui"
 
 export interface HighlightProps {
   /** The background color to the Highlight Component */
@@ -13,7 +11,7 @@ export interface HighlightProps {
 }
 
 const Highlight = ({
-  backgroundColor = "highlight.0",
+  backgroundColor = "highlight",
   search,
   text,
 }: HighlightProps) => {

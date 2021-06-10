@@ -1,6 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx, SxStyleProp } from "theme-ui"
+/** @jsxImportSource theme-ui */
+import { ThemeUICSSObject } from "theme-ui"
 import React, { useCallback, useRef, useState } from "react"
 import Tippy, { TippyProps } from "@tippyjs/react"
 import { roundArrow } from "tippy.js"
@@ -22,9 +21,9 @@ export interface PopoverProps {
   /** Popover border radius */
   borderRadius?: number
   /** Popover content style */
-  contentStyle?: SxStyleProp
+  contentStyle?: ThemeUICSSObject
   /** Popover box style */
-  boxStyle?: SxStyleProp
+  boxStyle?: ThemeUICSSObject
 
   /** Use to control the visibility of the popover from the parent component. Most of the time this is not needed when choosing the right triggers for your situation */
   isVisible?: boolean
@@ -85,7 +84,7 @@ const Popover = ({
 
   const isControlled = isVisible !== undefined
 
-  const arrowStyles: SxStyleProp = {
+  const arrowStyles: ThemeUICSSObject = {
     ".tippy-svg-arrow": {
       width: 16,
       height: 16,
@@ -127,20 +126,20 @@ const Popover = ({
     },
   }
 
-  const themeStyles: SxStyleProp = {
+  const themeStyles: ThemeUICSSObject = {
     "&[data-theme~='light']": {
       backgroundColor: "#fff",
-      color: "text.0",
+      color: "text",
       "& > .tippy-svg-arrow": {
         fill: "#fff",
       },
     },
 
     "&[data-theme~='dark']": {
-      backgroundColor: "text.0",
+      backgroundColor: "text",
       color: "#fff",
       "& > .tippy-svg-arrow": {
-        fill: "text.0",
+        fill: "text",
       },
     },
   }

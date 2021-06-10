@@ -1,4 +1,4 @@
-import { HerzUITheme } from "theme-ui"
+import { Theme } from "theme-ui"
 import { base } from "@theme-ui/presets"
 
 import { generateColorsPalette, BaseColor } from "../helpers/colors"
@@ -54,7 +54,7 @@ const baseColors: Array<BaseColor> = [
 /** Generate color palette  */
 const colorPalette = generateColorsPalette(baseColors)
 
-export const theme: HerzUITheme = {
+export const theme: Theme = {
   ...base,
   space: Array.from({ length: 17 })
     .fill(0)
@@ -100,7 +100,7 @@ export const theme: HerzUITheme = {
   text: {
     default: {
       fontFamily: "body",
-      color: "text.0",
+      color: "text",
     },
     heading1: {
       fontFamily: "body",
@@ -161,7 +161,6 @@ export const theme: HerzUITheme = {
   },
 
   styles: {
-    ...base.styles,
     root: {
       fontFamily: "body",
       fontSize: 2,

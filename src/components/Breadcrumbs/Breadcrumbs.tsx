@@ -1,7 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from "react"
-import { jsx } from "theme-ui"
 import Icon from "../Icon/Icon"
 
 export interface BreadcrumbsProps {
@@ -26,7 +24,7 @@ const Breadcrumbs = ({ children }: BreadcrumbsProps) => {
       key={`child-${index}`}
       sx={
         index === allItems.length - 1
-          ? { color: "text.0", variant: "text.heading3" }
+          ? { color: "text", variant: "text.heading3" }
           : {}
       }
     >
