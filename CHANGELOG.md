@@ -1,3 +1,34 @@
+#### 0.7.0 (2021-06-10)
+
+##### Breaking Changes
+
+*  Updated theme-ui DEV-94 ([3b1552af](https://github.com/micromed-dev/herz-ui/commit/3b1552afaad5f087293ef7ba8b02b50de0eb1abd))
+*  Updated theme-ui DEV-94 ([1691a5c7](https://github.com/micromed-dev/herz-ui/commit/1691a5c7f504289f11851bdbde09644f43ef5db4))
+
+##### Chores
+
+*  removed comment DEV-94 ([ffb635c9](https://github.com/micromed-dev/herz-ui/commit/ffb635c98487539514df90542e94b884d8d4adf9))
+*  update packages ([e583457a](https://github.com/micromed-dev/herz-ui/commit/e583457a9a3b1692799e64eab1d297376b5635f2))
+*  updated storybook, added addons ([7cca9cac](https://github.com/micromed-dev/herz-ui/commit/7cca9cac38018f8bbf6a3e4b2952e103c64d45bb))
+*  update packages ([a7dbc2cd](https://github.com/micromed-dev/herz-ui/commit/a7dbc2cdad5b2aa116d1d45dbe6f4580632babb1))
+
+##### Bug Fixes
+
+*  prettier auto fix DEV-94 ([ff23b687](https://github.com/micromed-dev/herz-ui/commit/ff23b687cdf535fb6dc25ef53917d70f7b1e3524))
+* **Select:**  Fixed select opening on hover ([dc86f9cd](https://github.com/micromed-dev/herz-ui/commit/dc86f9cdd65a21c1ed9a1ba06d0b86390cc73647))
+
+##### Other Changes
+
+* micromedio/herz-ui into DEV-94 ([ea5098c0](https://github.com/micromed-dev/herz-ui/commit/ea5098c05ae12fb9bc191f3c777a931b1d6d5781))
+
+##### Refactors
+
+*  updater default color usage DEV-94 ([1b0d9e56](https://github.com/micromed-dev/herz-ui/commit/1b0d9e56b6940a4a9bb82a144f332d577c39abf0))
+
+##### Tests
+
+*  updated snapshot DEV-94 ([c95e90d6](https://github.com/micromed-dev/herz-ui/commit/c95e90d60cfc28728d92ad2bd8d808ec92cff0ee))
+
 #### 0.6.0 (2021-06-01)
 
 ##### Breaking Changes
