@@ -68,9 +68,7 @@ const Alert = ({
         <h2 sx={{ variant: "text.heading2", margin: 0, paddingBottom: 3 }}>
           {title}
         </h2>
-        <div sx={{ variant: "text.body1", color: "text.40" }}>
-          {children}
-        </div>
+        <div sx={{ variant: "text.body1", color: "text.40" }}>{children}</div>
       </div>
     </Paper>
   )
