@@ -169,7 +169,7 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
               <span
                 sx={{
                   fontSize: 13,
-                  color: "secondary.0",
+                  color: "secondary",
                   textOverflow: "ellipsis",
                   verticalAlign: "middle",
                   overflow: "hidden",

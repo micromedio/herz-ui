@@ -20,7 +20,7 @@ Example.args = {
 export const ColorChange = Template.bind({})
 
 ColorChange.args = {
-  backgroundColor: "primary.0",
+  backgroundColor: "primary",
   search: "highlight",
   text: "This is a simple text for highlighting purposes",
 }

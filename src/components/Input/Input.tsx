@@ -159,14 +159,14 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
             ...{
               default: {},
               success: {
-                borderColor: "success.0",
+                borderColor: "success",
               },
               error: {
-                borderColor: "primary.0",
+                borderColor: "primary",
               },
             }[state],
             "&:focus-within": {
-              borderColor: "secondary.0",
+              borderColor: "secondary",
               boxShadow: (theme) =>
                 `0px 0px 0px 4px ${get(theme, "colors.secondary.alpha.90")}`,
               backgroundColor: "#FFF",
@@ -198,7 +198,7 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
               sx={{
                 backgroundColor: "transparent",
                 border: "none",
-                color: "text.0",
+                color: "text",
                 flexGrow: 1,
                 outline: 0,
                 p: 0,
@@ -233,7 +233,7 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
                 backgroundColor: "transparent",
                 border: "none",
                 p: 0,
-                color: "text.0",
+                color: "text",
                 variant: "text.body1",
 
                 // removes background color when input was filled with autofill in chromium
@@ -265,7 +265,7 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
               onClick={() => setPasswordVisible((value) => !value)}
               sx={{
                 display: "flex",
-                color: passwordVisible ? "secondary.0" : "text.40",
+                color: passwordVisible ? "secondary" : "text.40",
                 cursor: "pointer",
               }}
             >

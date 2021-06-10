@@ -250,7 +250,7 @@ const Table = ({
                           alignItems: "center",
                           pl: 7,
                           pb: 3,
-                          color: column.isSorted ? "text.0" : "text.40",
+                          color: column.isSorted ? "text" : "text.40",
                           variant: column.isSorted
                             ? "text.heading3"
                             : "text.body1",
@@ -296,13 +296,13 @@ const Table = ({
                                 <Icon
                                   name="IconArrowNarrowDown"
                                   size={16}
-                                  sx={{ color: "text.0" }}
+                                  sx={{ color: "text" }}
                                 />
                               ) : (
                                 <Icon
                                   name="IconArrowNarrowUp"
                                   size={16}
-                                  sx={{ color: "text.0" }}
+                                  sx={{ color: "text" }}
                                 />
                               )
                             ) : (
@@ -383,7 +383,7 @@ const Table = ({
                               display: "flex",
                               justifyContent: "flex-end",
                               alignItems: "center",
-                              color: "secondary.0",
+                              color: "secondary",
                               pl: 7,
                               pr: 7,
                               ...style,
@@ -407,9 +407,7 @@ const Table = ({
                             display: "flex",
                             pl: 7,
                             py: 2,
-                            color: cell.column.highlight
-                              ? "secondary.0"
-                              : "text.0",
+                            color: cell.column.highlight ? "secondary" : "text",
                             variant: "text.body1",
                             justifyContent: {
                               start: "flex-start",
@@ -458,7 +456,7 @@ const Table = ({
                         `1px solid ${get(theme, "colors.text.90")}`,
                       ...(activeRowIds[row.id]
                         ? {
-                            backgroundColor: "primary.0",
+                            backgroundColor: "primary",
                             boxShadow: (theme) =>
                               `0px 1px 12px ${get(
                                 theme,

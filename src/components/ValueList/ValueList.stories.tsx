@@ -32,7 +32,7 @@ WithIcons.args = {
       label: "ECG Monitor",
       value: (
         <span sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Icon name="IconRouter" sx={{ color: "secondary.0" }} /> WinCardio USB
+          <Icon name="IconRouter" sx={{ color: "secondary" }} /> WinCardio USB
         </span>
       ),
     },

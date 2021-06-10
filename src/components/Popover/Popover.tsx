@@ -129,17 +129,17 @@ const Popover = ({
   const themeStyles: ThemeUICSSObject = {
     "&[data-theme~='light']": {
       backgroundColor: "#fff",
-      color: "text.0",
+      color: "text",
       "& > .tippy-svg-arrow": {
         fill: "#fff",
       },
     },
 
     "&[data-theme~='dark']": {
-      backgroundColor: "text.0",
+      backgroundColor: "text",
       color: "#fff",
       "& > .tippy-svg-arrow": {
-        fill: "text.0",
+        fill: "text",
       },
     },
   }

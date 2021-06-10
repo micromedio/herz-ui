@@ -81,7 +81,7 @@ export const SelectOptionCustom = ({
             : {}),
           ...(isSelected
             ? {
-                color: "secondary.0",
+                color: "secondary",
                 backgroundColor: "secondary.90",
                 fontWeight: "bold",
 

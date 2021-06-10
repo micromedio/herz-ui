@@ -66,7 +66,7 @@ const Radio = ({
               width: "8px",
               height: "8px",
               borderRadius: "8px",
-              backgroundColor: "secondary.0",
+              backgroundColor: "secondary",
             },
           },
         }}

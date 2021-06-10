@@ -64,9 +64,9 @@ const PaginationItem = ({
         },
         ...(selected
           ? {
-              color: "text.0",
+              color: "text",
               backgroundColor: "secondary.95",
-              borderColor: "secondary.0",
+              borderColor: "secondary",
               "&:hover, &:focus": {},
             }
           : {}),

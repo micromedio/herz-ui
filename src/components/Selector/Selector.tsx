@@ -116,25 +116,25 @@ const Selector = ({
     },
     hover: {
       backgroundColor: "text.alpha.90",
-      color: "text.0",
+      color: "text",
       boxShadow: "unset",
       borderColor: "transparent",
     },
     active: {
       backgroundColor: "#fff",
-      color: "text.0",
+      color: "text",
       boxShadow: (t) =>
         `0px 0px 0px 4px ${get(t, "colors.secondary.alpha.95")}`,
-      borderColor: "secondary.0",
+      borderColor: "secondary",
       fontWeight: "semibold",
     },
     filled: {
       backgroundColor: "secondary.alpha.90",
-      color: "text.0",
+      color: "text",
       boxShadow: "unset",
       ...(hightlightFilled
         ? {
-            borderColor: "secondary.0",
+            borderColor: "secondary",
             fontWeight: "semibold",
           }
         : {}),
@@ -264,20 +264,20 @@ const Selector = ({
                     padding: 2,
                     cursor: "pointer",
                     borderRadius: 2,
-                    color: isSelected ? "text.0" : "text.40",
+                    color: isSelected ? "text" : "text.40",
                     backgroundColor: "#fff",
                     whiteSpace: "nowrap",
 
                     ...(highlightedIndex === index
                       ? {
-                          color: "text.0",
+                          color: "text",
                           backgroundColor: "text.alpha.95",
                         }
                       : {}),
 
                     ...(selectedItem === value
                       ? {
-                          color: "secondary.0",
+                          color: "secondary",
                           backgroundColor: "secondary.90",
                           fontWeight: "bold",
                           ...(highlightedIndex === index

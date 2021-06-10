@@ -133,25 +133,25 @@ const Select = ({
     },
     hover: {
       backgroundColor: "text.alpha.90",
-      color: "text.0",
+      color: "text",
       boxShadow: "unset",
       borderColor: "transparent",
     },
     active: {
       backgroundColor: "#fff",
-      color: "text.0",
+      color: "text",
       boxShadow: (t) =>
         `0px 0px 0px 4px ${get(t, "colors.secondary.alpha.95")}`,
-      borderColor: "secondary.0",
+      borderColor: "secondary",
       fontWeight: "semibold",
     },
     filled: {
       backgroundColor: "secondary.alpha.90",
-      color: "text.0",
+      color: "text",
       boxShadow: "unset",
       ...(highlightFilled
         ? {
-            borderColor: "secondary.0",
+            borderColor: "secondary",
             fontWeight: "semibold",
           }
         : {}),

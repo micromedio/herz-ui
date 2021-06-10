@@ -25,17 +25,17 @@ const valueListItems = [
   {
     label: "ICU 2nd Floor 2.4GHz",
     value: "icu 2nd floor 2.4ghz",
-    suffix: <Icon name="IconWifi" sx={{ color: "secondary.0" }} />,
+    suffix: <Icon name="IconWifi" sx={{ color: "secondary" }} />,
   },
   {
     label: "ICU 1st Floor 2.4GHz",
     value: "icu 1st floor 2.4ghz",
-    suffix: <Icon name="IconWifi2" sx={{ color: "secondary.0" }} />,
+    suffix: <Icon name="IconWifi2" sx={{ color: "secondary" }} />,
   },
   {
     label: "ICU Front Desk 2.4GHz",
     value: "icu front desk 2.4ghz",
-    suffix: <Icon name="IconWifi1" sx={{ color: "secondary.0" }} />,
+    suffix: <Icon name="IconWifi1" sx={{ color: "secondary" }} />,
   },
 ]
 

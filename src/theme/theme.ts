@@ -100,7 +100,7 @@ export const theme: Theme = {
   text: {
     default: {
       fontFamily: "body",
-      color: "text.0",
+      color: "text",
     },
     heading1: {
       fontFamily: "body",

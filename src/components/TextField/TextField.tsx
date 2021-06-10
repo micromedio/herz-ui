@@ -97,7 +97,7 @@ const TextField = forwardRef<
             htmlFor={id}
             id={inputLabelId}
             sx={{
-              color: "text.0",
+              color: "text",
               variant: "text.body1",
             }}
           >
@@ -173,13 +173,13 @@ const TextField = forwardRef<
                 success: {
                   px: 3,
                   pb: 2,
-                  color: "success.0",
+                  color: "success",
                   variant: "text.body1",
                 },
                 error: {
                   px: 3,
                   pb: 2,
-                  color: "primary.0",
+                  color: "primary",
                   variant: "text.body1",
                 },
               }[state],

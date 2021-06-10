@@ -60,7 +60,7 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
 
     const styles: Record<string, ThemeUICSSObject> = {
       active: {
-        borderColor: "secondary.0",
+        borderColor: "secondary",
         boxShadow: (theme) =>
           `0px 0px 0px 4px ${get(theme, "colors.secondary.alpha.90")}`,
         backgroundColor: "#FFF",
@@ -118,10 +118,10 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
               default: {},
               loading: {},
               success: {
-                borderColor: "success.0",
+                borderColor: "success",
               },
               error: {
-                borderColor: "primary.0",
+                borderColor: "primary",
               },
             }[state],
 
@@ -168,7 +168,7 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
               border: "none",
               p: 0,
               py: "2px", // the 2px border counts towards height, so we need 6px instead of 8px for the correct height
-              color: "text.0",
+              color: "text",
               variant: "text.body1",
             }}
           />
@@ -179,7 +179,7 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
                 <Icon
                   name="IconAlertCircle"
                   size={16}
-                  sx={{ color: "primary.0" }}
+                  sx={{ color: "primary" }}
                 />
               ),
               loading: <Spinner />,
@@ -187,7 +187,7 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
                 <Icon
                   name="IconCircleCheck"
                   size={16}
-                  sx={{ color: "success.0" }}
+                  sx={{ color: "success" }}
                 />
               ),
             }[state]
@@ -231,10 +231,10 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
                 default: {},
                 loading: {},
                 success: {
-                  color: "success.0",
+                  color: "success",
                 },
                 error: {
-                  color: "primary.0",
+                  color: "primary",
                 },
               }[state],
             }}

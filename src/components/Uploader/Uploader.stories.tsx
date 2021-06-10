@@ -22,7 +22,7 @@ const DefaultTemplate: Story<IUploaderProps> = (props) => {
         Drag & drop or{" "}
         <span
           sx={{
-            color: "secondary.0",
+            color: "secondary",
           }}
         >
           browse

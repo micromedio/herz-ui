@@ -24,7 +24,7 @@ const Breadcrumbs = ({ children }: BreadcrumbsProps) => {
       key={`child-${index}`}
       sx={
         index === allItems.length - 1
-          ? { color: "text.0", variant: "text.heading3" }
+          ? { color: "text", variant: "text.heading3" }
           : {}
       }
     >

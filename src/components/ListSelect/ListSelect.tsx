@@ -63,7 +63,7 @@ const ListSelect = ({
                   : "transparent",
                 variant: "text.body1",
                 fontWeight: isSelected ? "semibold" : "medium",
-                color: isSelected ? "secondary.0" : "text.0",
+                color: isSelected ? "secondary" : "text",
                 ":focus": {
                   backgroundColor: isSelected
                     ? "secondary.alpha.90"

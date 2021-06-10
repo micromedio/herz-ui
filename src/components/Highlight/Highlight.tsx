@@ -11,7 +11,7 @@ export interface HighlightProps {
 }
 
 const Highlight = ({
-  backgroundColor = "highlight.0",
+  backgroundColor = "highlight",
   search,
   text,
 }: HighlightProps) => {

@@ -8,7 +8,7 @@ import Icon from '../Icon/Icon'
       label: "ECG Monitor",
       value: (
         <span style={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Icon name="IconRouter" style={{ color: "secondary.0" }} /> WinCardio USB
+          <Icon name="IconRouter" style={{ color: "secondary" }} /> WinCardio USB
         </span>
       ),
     },
