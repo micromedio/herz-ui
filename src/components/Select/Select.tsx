@@ -259,6 +259,7 @@ const Select = ({
 
       <Popover
         isVisible={isOpen}
+        trigger={["manual"]}
         isInteractive
         placement="bottom-start"
         noPadding
