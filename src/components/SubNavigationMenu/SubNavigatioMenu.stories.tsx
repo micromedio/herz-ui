@@ -40,9 +40,10 @@ const SubNavigationMenuWrapper = ({
         sx={{
           backgroundColor: "#ffffff",
           borderBottomLeftRadius: 8,
-          borderLeft: isHovering ? "1px solid #0082FC" : undefined,
-          borderTop: isHovering ? "1px solid #0082FC" : undefined,
           borderTopLeftRadius: 8,
+          boxShadow: isHovering
+            ? "0 1px 0 #0082FC inset, 1px 0 0 #0082FC inset"
+            : undefined,
           flexGrow: 1,
           height: 300,
           padding: 8,
