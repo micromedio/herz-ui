@@ -1,12 +1,19 @@
 /** @jsxImportSource theme-ui */
-import { ReactElement, MouseEventHandler, useState, cloneElement } from "react"
-import { ThemeUICSSObject } from "theme-ui"
+import {
+  cloneElement,
+  MouseEventHandler,
+  ReactElement,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
+import { jsx, ThemeUICSSObject } from "theme-ui"
 import Button from "../Button/Button"
 import { SubNavigationMenuContext, useSubNavigationMenu } from "./Context"
 
 interface SubNavigationMenuItemProps {
-  children?: ReactElement
-  label: string
+  children: ReactElement | string
+  collapsedItem?: ReactElement | string
   onClick?: MouseEventHandler<HTMLLIElement>
   selected?: boolean
   styles?: {
@@ -17,12 +24,52 @@ interface SubNavigationMenuItemProps {
 
 const SubNavigationMenuItem = ({
   children,
-  label,
+  collapsedItem,
   onClick,
   selected,
   styles,
 }: SubNavigationMenuItemProps) => {
-  const { isCollapsed } = useSubNavigationMenu()
+  const subNavigationMenuContext = useSubNavigationMenu()
+  if (subNavigationMenuContext === null) {
+    throw "<SubNavigationMenu.MenuItem> needs to be inside a <SubNavigationMenu> component"
+  }
+  const { collapsedHidden, isCollapsed } = subNavigationMenuContext
+
+  useEffect(() => {
+    if (!collapsedHidden && typeof children !== typeof collapsedItem)
+      console.warn(
+        "You must be consistent with the properties of children and the collapsed item, both strings or both elements"
+      )
+  }, [children, collapsedHidden, collapsedItem])
+
+  const menuItem = useMemo((): ReactElement => {
+    const defaultStyles: ThemeUICSSObject = {
+      py: 2,
+      whiteSpace: "nowrap",
+      width: "100%",
+      wordWrap: "initial",
+      ...({
+        default: {
+          paddingLeft: 3,
+          paddingRight: 9,
+        },
+        collapsed: {
+          px: 2,
+          textAlign: "center",
+        },
+      }[isCollapsed ? "collapsed" : "default"] as ThemeUICSSObject),
+    }
+    const item = (
+      isCollapsed && !collapsedHidden ? collapsedItem : children
+    ) as string | ReactElement
+    if (typeof item === "string") {
+      return <span sx={defaultStyles}>{item}</span>
+    }
+    return jsx(item.type, {
+      ...item.props,
+      sx: { ...defaultStyles, ...item.props.sx },
+    })
+  }, [children, collapsedHidden, collapsedItem, isCollapsed])
 
   return (
     <li
@@ -33,9 +80,16 @@ const SubNavigationMenuItem = ({
         color: selected ? "primary" : undefined,
         cursor: "pointer",
         display: "flex",
-        transition:
-          "background, color, padding, width 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+        transition: "0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+        transitionProperty: "background-color, color, padding, width",
         variant: selected ? "text.button1" : "text.body1",
+        "&:hover": {
+          backgroundColor: !selected ? "text.90" : undefined,
+        },
+        "& > a": {
+          color: "inherit",
+          textDecoration: "none",
+        },
         ...{
           default: {
             borderTopLeftRadius: 2,
@@ -56,28 +110,7 @@ const SubNavigationMenuItem = ({
         }[isCollapsed ? "collapsed" : "default"],
       }}
     >
-      {children || (
-        <span
-          sx={{
-            py: 2,
-            whiteSpace: "nowrap",
-            width: "100%",
-            wordWrap: "initial",
-            ...({
-              default: {
-                paddingLeft: 3,
-                paddingRight: 9,
-              },
-              collapsed: {
-                px: 2,
-                textAlign: "center",
-              },
-            }[isCollapsed ? "collapsed" : "default"] as ThemeUICSSObject),
-          }}
-        >
-          {label}
-        </span>
-      )}
+      {menuItem}
     </li>
   )
 }
@@ -86,28 +119,37 @@ export interface SubNavigationMenuProps {
   /** Description content */
   children: ReactElement[]
 
+  /** Whether the component is hidden when collapsed or not */
   collapsedHidden?: boolean
 
+  /** The amount of width for the collapsed menu */
   collapsedWidth?: number
 
+  /** Whether the menu is collapsible or not */
   collapsible?: boolean
 
+  /** Callback for collapse button click */
   onCollapseButtonClick?: (collapsed: boolean) => void
+
+  /** Callback for collapse button hover */
+  onCollapseButtonHover?: (isHovering: boolean) => void
 
   styles?: {
     root?: ThemeUICSSObject
     list?: ThemeUICSSObject
   }
 
+  /** The amount of width for the non collapsed menu */
   width?: number
 }
 
 const SubNavigationMenu = ({
   children,
-  collapsedHidden = false,
-  collapsedWidth = 84,
+  collapsedHidden = true,
+  collapsedWidth = 16,
   collapsible = true,
   onCollapseButtonClick,
+  onCollapseButtonHover,
   styles,
   width = 164,
 }: SubNavigationMenuProps) => {
@@ -119,10 +161,11 @@ const SubNavigationMenu = ({
         ...styles?.root,
         backgroundColor: "transparent",
         position: "relative",
-        width: "100%",
       }}
     >
-      <SubNavigationMenuContext.Provider value={{ isCollapsed }}>
+      <SubNavigationMenuContext.Provider
+        value={{ collapsedHidden, isCollapsed }}
+      >
         <ul
           sx={{
             ...styles?.list,
@@ -138,7 +181,7 @@ const SubNavigationMenu = ({
             overflowX: "hidden",
             overflowY: "auto",
             paddingInlineStart: 6,
-            transition: "width 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+            transition: "opacity, width 2s cubic-bezier(0.16, 1, 0.3, 1)",
             ...({
               default: {
                 width,
@@ -146,7 +189,7 @@ const SubNavigationMenu = ({
               collapsed: {
                 paddingInlineEnd: collapsedHidden ? 0 : 6,
                 paddingInlineStart: collapsedHidden ? 0 : 6,
-                visibility: collapsedHidden ? "hidden" : "visible",
+                opacity: collapsedHidden ? 0 : 1,
                 width: collapsedWidth,
               },
             }[isCollapsed ? "collapsed" : "default"] as ThemeUICSSObject),
@@ -165,6 +208,12 @@ const SubNavigationMenu = ({
           onClick={() => {
             onCollapseButtonClick?.(!isCollapsed)
             setIsCollapsed(!isCollapsed)
+          }}
+          onMouseEnter={() => {
+            onCollapseButtonHover?.(true)
+          }}
+          onMouseLeave={() => {
+            onCollapseButtonHover?.(false)
           }}
           size="small"
           styles={{

@@ -3,69 +3,148 @@
 
 ```jsx
 import { useMemo, useState } from "react"
-const nonCollapsed = useMemo(() => ["License types", "Licenses"], [])
-const collapsed = useMemo(() => ["LT", "L"], [])
+import Button from "../Button/Button"
+const items = useMemo(() => [
+  {
+    label: "License types",
+    collapsedLabel: "LT",
+  },
+  {
+    label: "Licenses",
+    collapsedLabel: "L",
+  },
+], [])
 const [selected, setSelected] = useState("License types")
-const [items, setItems] = useState(nonCollapsed)
+const [isHovering, setIsHovering] = useState(false)
 ;(
-  <div style={{ maxWidth: "auto", width: "fit-content" }}>
-    <SubNavigationMenu
-      onCollapseButtonClick={(isCollapsed) => {
-        setItems(isCollapsed ? collapsed : nonCollapsed)
+  <div
+    style={{ backgroundColor: "#F9F9F9", display: "flex", flexWrap: "nowrap" }}
+  >
+    <div
+      style={{
+        borderRight: "1px solid #e8e8e8",
+        display: "flex",
+        flexDirection: "column",
+        padding: 32,
+        gap: 32,
       }}
+    >
+      <Button iconName="IconAffiliate" />
+      <Button iconName="IconLicense" />
+    </div>
+    <SubNavigationMenu
+      {...props}
+      onCollapseButtonHover={(hover) => setIsHovering(hover)}
+      styles={{ root: { py: 8 } }}
     >
       {items.map((item, index) => (
         <SubNavigationMenu.MenuItem
-          key={item}
-          label={item}
+          key={item.label}
+          collapsedItem={item.collapsedLabel}
           onClick={(event) => {
             setSelected(event.currentTarget.textContent)
           }}
-          selected={[collapsed[index], nonCollapsed[index]].includes(selected)}
-        />
+          selected={[item.label, item.collapsedLabel].includes(selected)}
+        >
+          {item.label}
+        </SubNavigationMenu.MenuItem>
       ))}
     </SubNavigationMenu>
+    <div
+      style={{
+        backgroundColor: "#ffffff",
+        borderBottomLeftRadius: 32,
+        borderTopLeftRadius: 32,
+        boxShadow: isHovering ? "0 1px 0 #0082FC inset, 1px 0 0 #0082FC inset" : undefined,
+        flexGrow: 1,
+        height: 300,
+        padding: 32,
+      }}
+    >
+      Content
+    </div>
   </div>
 )
 ```
 
-#### With Children
+#### With Third Party Router
 
 ```jsx
 import { useMemo, useState } from "react"
-const nonCollapsed = useMemo(() => ["License types", "Licenses"], [])
-const collapsed = useMemo(() => ["LT", "L"], [])
+import { Link, MemoryRouter, Redirect, Route, Switch } from "react-router-dom"
+import Button from "../Button/Button"
+const items = useMemo(() => [
+  {
+    label: "License types",
+    collapsedLabel: "LT",
+  },
+  {
+    label: "Licenses",
+    collapsedLabel: "L",
+  },
+], [])
 const [selected, setSelected] = useState("License types")
-const [items, setItems] = useState(nonCollapsed)
+const [isHovering, setIsHovering] = useState(false)
 ;(
-  <div style={{ maxWidth: "auto", width: "fit-content" }}>
-    <SubNavigationMenu
-      onCollapseButtonClick={(isCollapsed) => {
-        setItems(isCollapsed ? collapsed : nonCollapsed)
-      }}
+  <MemoryRouter>
+    <Redirect exact from="/" to="licensetypes" />
+    <div
+      style={{ backgroundColor: "#F9F9F9", display: "flex", flexWrap: "nowrap" }}
     >
-      {items.map((item, index) => (
-        <SubNavigationMenu.MenuItem
-          key={item}
-          label={item}
-          onClick={(event) => {
-            setSelected(event.currentTarget.textContent)
-          }}
-          selected={[collapsed[index], nonCollapsed[index]].includes(selected)}
-        >
-          <a
-            style={{
-              padding: `8px 36px 8px 12px`,
-              whiteSpace: "nowrap",
-              width: "100%",
+      <div
+        style={{
+          borderRight: "1px solid #e8e8e8",
+          display: "flex",
+          flexDirection: "column",
+          padding: 32,
+          gap: 32,
+        }}
+      >
+        <Button iconName="IconAffiliate" />
+        <Button iconName="IconLicense" />
+      </div>
+      <SubNavigationMenu
+        {...props}
+        onCollapseButtonHover={(hover) => setIsHovering(hover)}
+        styles={{ root: { py: 8 } }}
+      >
+        {items.map((item, index) => (
+          <SubNavigationMenu.MenuItem
+            key={item.label}
+            collapsedItem={
+              <Link to={`/${item.label.toLocaleLowerCase().replace(" ", "")}`}>
+                {item.collapsedLabel}
+              </Link>
+            }
+            onClick={(event) => {
+              setSelected(event.currentTarget.textContent)
             }}
+            selected={[item.label, item.collapsedLabel].includes(selected)}
           >
-            {item}
-          </a>
-        </SubNavigationMenu.MenuItem>
-      ))}
-    </SubNavigationMenu>
-  </div>
+            <Link to={`/${item.label.toLocaleLowerCase().replace(" ", "")}`}>
+              {item.label}
+            </Link>
+          </SubNavigationMenu.MenuItem>
+        ))}
+      </SubNavigationMenu>
+      <div
+        style={{
+          backgroundColor: "#ffffff",
+          borderBottomLeftRadius: 32,
+          borderTopLeftRadius: 32,
+          boxShadow: isHovering ? "0 1px 0 #0082FC inset, 1px 0 0 #0082FC inset" : undefined,
+          flexGrow: 1,
+          height: 300,
+          padding: 32,
+        }}
+      >
+        <Switch>
+          <Route path="/licensetypes">License Types Content</Route>
+          <Route path="/licenses">Licenses Content</Route>
+        </Switch>
+      </div>
+    </div>
+  </MemoryRouter>
 )
 ```
 
@@ -73,30 +152,139 @@ const [items, setItems] = useState(nonCollapsed)
 
 ```jsx
 import { useMemo, useState } from "react"
-const nonCollapsed = useMemo(() => ["License types", "Licenses"], [])
-const collapsed = useMemo(() => ["LT", "L"], [])
+import Button from "../Button/Button"
+const items = useMemo(() => [
+  {
+    label: "License types",
+    collapsedLabel: "LT",
+  },
+  {
+    label: "Licenses",
+    collapsedLabel: "L",
+  },
+], [])
 const [selected, setSelected] = useState("License types")
-const [items, setItems] = useState(nonCollapsed)
+const [isHovering, setIsHovering] = useState(false)
 ;(
-  <div style={{ maxWidth: "auto", width: "fit-content" }}>
-    <SubNavigationMenu
-      collapsedWidth={100}
-      onCollapseButtonClick={(isCollapsed) => {
-        setItems(isCollapsed ? collapsed : nonCollapsed)
+  <div
+    style={{ backgroundColor: "#F9F9F9", display: "flex", flexWrap: "nowrap" }}
+  >
+    <div
+      style={{
+        borderRight: "1px solid #e8e8e8",
+        display: "flex",
+        flexDirection: "column",
+        padding: 32,
+        gap: 32,
       }}
+    >
+      <Button iconName="IconAffiliate" />
+      <Button iconName="IconLicense" />
+    </div>
+    <SubNavigationMenu
+      {...props}
+      collapsedWidth={100}
+      onCollapseButtonHover={(hover) => setIsHovering(hover)}
+      styles={{ root: { py: 8 } }}
       width={300}
     >
       {items.map((item, index) => (
         <SubNavigationMenu.MenuItem
-          key={item}
-          label={item}
+          key={item.label}
+          collapsedItem={item.collapsedLabel}
           onClick={(event) => {
             setSelected(event.currentTarget.textContent)
           }}
-          selected={[collapsed[index], nonCollapsed[index]].includes(selected)}
-        />
+          selected={[item.label, item.collapsedLabel].includes(selected)}
+        >
+          {item.label}
+        </SubNavigationMenu.MenuItem>
       ))}
     </SubNavigationMenu>
+    <div
+      style={{
+        backgroundColor: "#ffffff",
+        borderBottomLeftRadius: 32,
+        borderTopLeftRadius: 32,
+        boxShadow: isHovering ? "0 1px 0 #0082FC inset, 1px 0 0 #0082FC inset" : undefined,
+        flexGrow: 1,
+        height: 300,
+        padding: 32,
+      }}
+    >
+      Content
+    </div>
+  </div>
+)
+```
+
+#### Short Labels
+
+```jsx
+import { useMemo, useState } from "react"
+import Button from "../Button/Button"
+const items = useMemo(() => [
+  {
+    label: "License types",
+    collapsedLabel: "LT",
+  },
+  {
+    label: "Licenses",
+    collapsedLabel: "L",
+  },
+], [])
+const [selected, setSelected] = useState("License types")
+const [isHovering, setIsHovering] = useState(false)
+;(
+  <div
+    style={{ backgroundColor: "#F9F9F9", display: "flex", flexWrap: "nowrap" }}
+  >
+    <div
+      style={{
+        borderRight: "1px solid #e8e8e8",
+        display: "flex",
+        flexDirection: "column",
+        padding: 32,
+        gap: 32,
+      }}
+    >
+      <Button iconName="IconAffiliate" />
+      <Button iconName="IconLicense" />
+    </div>
+    <SubNavigationMenu
+      {...props}
+      collapsedHidden={false}
+      collapsedWidth={100}
+      onCollapseButtonHover={(hover) => setIsHovering(hover)}
+      styles={{ root: { py: 8 } }}
+      width={300}
+    >
+      {items.map((item, index) => (
+        <SubNavigationMenu.MenuItem
+          key={item.label}
+          collapsedItem={item.collapsedLabel}
+          onClick={(event) => {
+            setSelected(event.currentTarget.textContent)
+          }}
+          selected={[item.label, item.collapsedLabel].includes(selected)}
+        >
+          {item.label}
+        </SubNavigationMenu.MenuItem>
+      ))}
+    </SubNavigationMenu>
+    <div
+      style={{
+        backgroundColor: "#ffffff",
+        borderBottomLeftRadius: 32,
+        borderTopLeftRadius: 32,
+        boxShadow: isHovering ? "0 1px 0 #0082FC inset, 1px 0 0 #0082FC inset" : undefined,
+        flexGrow: 1,
+        height: 300,
+        padding: 32,
+      }}
+    >
+      Content
+    </div>
   </div>
 )
 ```
@@ -105,30 +293,68 @@ const [items, setItems] = useState(nonCollapsed)
 
 ```jsx
 import { useMemo, useState } from "react"
-const nonCollapsed = useMemo(() => ["License types", "Licenses"], [])
-const collapsed = useMemo(() => ["LT", "L"], [])
+import Button from "../Button/Button"
+const items = useMemo(() => [
+  {
+    label: "License types",
+    collapsedLabel: "LT",
+  },
+  {
+    label: "Licenses",
+    collapsedLabel: "L",
+  },
+], [])
 const [selected, setSelected] = useState("License types")
-const [items, setItems] = useState(nonCollapsed)
+const [isHovering, setIsHovering] = useState(false)
 ;(
-  <div style={{ maxWidth: "auto", width: "fit-content" }}>
-    <SubNavigationMenu
-      collapsible={false}
-      onCollapseButtonClick={(isCollapsed) => {
-        setItems(isCollapsed ? collapsed : nonCollapsed)
+  <div
+    style={{ backgroundColor: "#F9F9F9", display: "flex", flexWrap: "nowrap" }}
+  >
+    <div
+      style={{
+        borderRight: "1px solid #e8e8e8",
+        display: "flex",
+        flexDirection: "column",
+        padding: 32,
+        gap: 32,
       }}
+    >
+      <Button iconName="IconAffiliate" />
+      <Button iconName="IconLicense" />
+    </div>
+    <SubNavigationMenu
+      {...props}
+      collapsible={false}
+      onCollapseButtonHover={(hover) => setIsHovering(hover)}
+      styles={{ root: { py: 8 } }}
       width={300}
     >
       {items.map((item, index) => (
         <SubNavigationMenu.MenuItem
-          key={item}
-          label={item}
+          key={item.label}
+          collapsedItem={item.collapsedLabel}
           onClick={(event) => {
             setSelected(event.currentTarget.textContent)
           }}
-          selected={[collapsed[index], nonCollapsed[index]].includes(selected)}
-        />
+          selected={[item.label, item.collapsedLabel].includes(selected)}
+        >
+          {item.label}
+        </SubNavigationMenu.MenuItem>
       ))}
     </SubNavigationMenu>
+    <div
+      style={{
+        backgroundColor: "#ffffff",
+        borderBottomLeftRadius: 32,
+        borderTopLeftRadius: 32,
+        boxShadow: isHovering ? "0 1px 0 #0082FC inset, 1px 0 0 #0082FC inset" : undefined,
+        flexGrow: 1,
+        height: 300,
+        padding: 32,
+      }}
+    >
+      Content
+    </div>
   </div>
 )
 ```
