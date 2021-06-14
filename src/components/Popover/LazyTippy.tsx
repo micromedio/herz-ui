@@ -2,7 +2,10 @@
 import { forwardRef, useState } from "react"
 import Tippy, { TippyProps } from "@tippyjs/react"
 
-const LazyTippy = forwardRef(function LazyTippy(props: TippyProps, ref) {
+const LazyTippy = forwardRef<HTMLElement, TippyProps>(function LazyTippy(
+  props: TippyProps,
+  ref
+) {
   const [mounted, setMounted] = useState(false)
 
   const lazyPlugin = {
@@ -18,7 +21,7 @@ const LazyTippy = forwardRef(function LazyTippy(props: TippyProps, ref) {
 
   if (props.render) {
     computedProps.render = (...arguments_) =>
-      mounted ? props.render(...arguments_) : ""
+      mounted && props.render ? props.render(...arguments_) : ""
   } else {
     computedProps.content = mounted ? props.content : ""
   }
