@@ -42,7 +42,7 @@ const SubNavigationMenuWrapper = ({
           borderBottomLeftRadius: 8,
           borderTopLeftRadius: 8,
           boxShadow: isHovering
-            ? "0 1px 0 #0082FC inset, 1px 0 0 #0082FC inset"
+            ? "0 2px 0 #B2D9FE inset, 2px 0 0 #B2D9FE inset"
             : undefined,
           flexGrow: 1,
           height: 300,

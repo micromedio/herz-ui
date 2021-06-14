@@ -181,7 +181,7 @@ const SubNavigationMenu = ({
             overflowX: "hidden",
             overflowY: "auto",
             paddingInlineStart: 6,
-            transition: "opacity, width 2s cubic-bezier(0.16, 1, 0.3, 1)",
+            transition: "opacity, width 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
             ...({
               default: {
                 width,
