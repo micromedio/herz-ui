@@ -1,3 +1,27 @@
+#### 0.7.1 (2021-06-16)
+
+##### New Features
+
+* **Accordion:**
+  *  Added backgroundColor prop DEV-204 ([06521acc](https://github.com/micromed-dev/herz-ui/commit/06521acc5898a55285030ca975c4a06433f8c851))
+  *  Added Accordion component DEV-204 ([322105a9](https://github.com/micromed-dev/herz-ui/commit/322105a965fa537bfccbb5a66d7330d0a24cf760))
+* **Tag:**  Added Tag component DEV-44 ([12064e27](https://github.com/micromed-dev/herz-ui/commit/12064e2765ca890f11962be1887956b4728047e5))
+
+##### Bug Fixes
+
+* **Popover:**
+  *  Update tests to implement findBy instead of waitFor, in queries ([799484ee](https://github.com/micromed-dev/herz-ui/commit/799484ee33d645a5d42f7219f2c997df9cf123e0))
+  *  solving tests ([05e7d07d](https://github.com/micromed-dev/herz-ui/commit/05e7d07d599f4d9913951800f8d6e62b34f55cfd))
+  *  make sure props.render is available ([467f05c9](https://github.com/micromed-dev/herz-ui/commit/467f05c9ee6bd7e647b308b2d67e3f1a6219a9b9))
+  *  Tippy bug on inputs getting height: 0 ([fd2f569b](https://github.com/micromed-dev/herz-ui/commit/fd2f569b52816a55f54381edcc84180e8c34feb7))
+
+##### Tests
+
+* **Accordion:**
+  *  updated snapshots DEV-204 ([69cacae0](https://github.com/micromed-dev/herz-ui/commit/69cacae026fe1b25580a1f7bad7a6a1262883f2c))
+  *  Added story snapshots DEV-204 ([d26da876](https://github.com/micromed-dev/herz-ui/commit/d26da876a64b6d15518d18213bd0eeba6cf310ab))
+* **Tag:**  Added snapshots DEV-44 ([ea0667c3](https://github.com/micromed-dev/herz-ui/commit/ea0667c363c484b07388b3382e65276d696079ae))
+
 #### 0.7.0 (2021-06-10)
 
 ##### Breaking Changes
