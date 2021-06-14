@@ -47,6 +47,7 @@ const SubNavigationMenuWrapper = ({
           flexGrow: 1,
           height: 300,
           padding: 8,
+          transition: "box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       >
         {content || "Content"}

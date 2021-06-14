@@ -59,6 +59,7 @@ const [isHovering, setIsHovering] = useState(false)
         flexGrow: 1,
         height: 300,
         padding: 32,
+        transition: "0.6s cubic-bezier(0.16, 1, 0.3, 1)",
       }}
     >
       Content
@@ -136,6 +137,7 @@ const [isHovering, setIsHovering] = useState(false)
           flexGrow: 1,
           height: 300,
           padding: 32,
+          transition: "0.6s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       >
         <Switch>
@@ -210,6 +212,7 @@ const [isHovering, setIsHovering] = useState(false)
         flexGrow: 1,
         height: 300,
         padding: 32,
+        transition: "0.6s cubic-bezier(0.16, 1, 0.3, 1)",
       }}
     >
       Content
@@ -281,6 +284,7 @@ const [isHovering, setIsHovering] = useState(false)
         flexGrow: 1,
         height: 300,
         padding: 32,
+        transition: "0.6s cubic-bezier(0.16, 1, 0.3, 1)",
       }}
     >
       Content
@@ -351,6 +355,7 @@ const [isHovering, setIsHovering] = useState(false)
         flexGrow: 1,
         height: 300,
         padding: 32,
+        transition: "0.6s cubic-bezier(0.16, 1, 0.3, 1)",
       }}
     >
       Content
