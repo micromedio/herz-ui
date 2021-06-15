@@ -1,10 +1,11 @@
 /** @jsxImportSource theme-ui */
 import { ThemeUICSSObject } from "theme-ui"
 import React, { useCallback, useRef, useState } from "react"
-import Tippy, { TippyProps } from "@tippyjs/react"
+import { TippyProps } from "@tippyjs/react"
 import { roundArrow } from "tippy.js"
 import ReactDOM from "react-dom"
 import { ssrSafeCreateDiv } from "../../helpers/ssr"
+import LazyTippy from "./LazyTippy"
 
 export interface PopoverProps {
   /** Popover content */
@@ -167,7 +168,7 @@ const Popover = ({
 
   return (
     <React.Fragment>
-      <Tippy
+      <LazyTippy
         content={content}
         theme={theme}
         visible={isVisible}
@@ -233,7 +234,7 @@ const Popover = ({
         }}
       >
         {children}
-      </Tippy>
+      </LazyTippy>
       {hasBackgroundOverlay && overlayRef.current
         ? ReactDOM.createPortal(
             <div
