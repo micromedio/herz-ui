@@ -55,6 +55,12 @@ module.exports = {
         "unicorn/no-nested-ternary": "off",
         "unicorn/no-null": "off",
         "unicorn/prefer-spread": "off",
+        "unicorn/no-useless-undefined": [
+          "error",
+          {
+            "checkArguments": false
+          }
+        ],
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
         "react/self-closing-comp": ["error"],
