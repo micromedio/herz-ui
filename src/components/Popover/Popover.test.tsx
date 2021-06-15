@@ -1,4 +1,4 @@
-import { render, screen } from "../../tests/utils"
+import { render, screen, waitFor } from "../../tests/utils"
 import Popover from "./Popover"
 import userEvent from "@testing-library/user-event"
 import { axe } from "jest-axe"
@@ -13,7 +13,10 @@ describe("Popover", () => {
 
     expect(screen.queryByText("CONTENT_TEXT")).not.toBeInTheDocument()
     userEvent.hover(screen.getByText("REFERENCE_ELEMENT"))
-    expect(screen.getByText("CONTENT_TEXT")).toBeInTheDocument()
+
+    await waitFor(() =>
+      expect(screen.getByText("CONTENT_TEXT")).toBeInTheDocument()
+    )
   })
 
   test("popover shows on click when trigger is click", async () => {
@@ -25,7 +28,9 @@ describe("Popover", () => {
 
     expect(screen.queryByText("CONTENT_TEXT")).not.toBeInTheDocument()
     userEvent.click(screen.getByText("REFERENCE_ELEMENT"))
-    expect(screen.getByText("CONTENT_TEXT")).toBeInTheDocument()
+    await waitFor(() =>
+      expect(screen.getByText("CONTENT_TEXT")).toBeInTheDocument()
+    )
   })
 
   test("passes a11y check", async () => {

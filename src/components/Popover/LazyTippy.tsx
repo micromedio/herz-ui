@@ -21,7 +21,7 @@ const LazyTippy = forwardRef<HTMLElement, TippyProps>(function LazyTippy(
 
   if (props.render) {
     computedProps.render = (...arguments_) =>
-      mounted && props.render ? props.render(...arguments_) : ""
+      mounted ? props.render?.(...arguments_) : ""
   } else {
     computedProps.content = mounted ? props.content : ""
   }

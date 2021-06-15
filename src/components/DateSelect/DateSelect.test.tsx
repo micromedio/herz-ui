@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "../../tests/utils"
+import { render, screen, fireEvent, waitFor } from "../../tests/utils"
 import DateSelect from "./DateSelect"
 import userEvent from "@testing-library/user-event"
 import { axe } from "jest-axe"
@@ -20,9 +20,11 @@ describe("DateSelect", () => {
     expect(screen.queryByText(/tomorrow/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/custom/i)).not.toBeInTheDocument()
     userEvent.click(screen.getByText(/select an option/i))
-    expect(screen.getByText(/today/i)).toBeInTheDocument()
-    expect(screen.getByText(/tomorrow/i)).toBeInTheDocument()
-    expect(screen.getByText(/custom/i)).toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByText(/today/i)).toBeInTheDocument()
+      expect(screen.getByText(/tomorrow/i)).toBeInTheDocument()
+      expect(screen.getByText(/custom/i)).toBeInTheDocument()
+    })
   })
 
   test("onChange is called when an option is selected", async () => {
@@ -42,7 +44,7 @@ describe("DateSelect", () => {
     )
 
     userEvent.click(screen.getByText(/select an option/i))
-    userEvent.click(screen.getByText(/today/i))
+    await waitFor(() => userEvent.click(screen.getByText(/today/i)))
     expect(onChange).toHaveBeenCalledWith({
       from: "12/05/2021",
       to: "12/05/2021",
@@ -80,7 +82,7 @@ describe("DateSelect", () => {
     expect(
       screen.queryByRole("button", { name: /set/i })
     ).not.toBeInTheDocument()
-    userEvent.click(screen.getByText(/custom/i))
+    await waitFor(() => userEvent.click(screen.getByText(/custom/i)))
     expect(screen.getByRole("textbox", { name: /to/i })).toBeInTheDocument()
     expect(screen.getByRole("textbox", { name: /from/i })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: /set/i })).toBeInTheDocument()
@@ -96,7 +98,7 @@ describe("DateSelect", () => {
     )
 
     userEvent.click(screen.getByText(/select an option/i))
-    userEvent.click(screen.getByText(/custom/i))
+    await waitFor(() => userEvent.click(screen.getByText(/custom/i)))
     const fromInput = screen.getByRole("textbox", { name: /from/i })
     const toInput = screen.getByRole("textbox", { name: /to/i })
     const setButton = screen.getByRole("button", { name: /set/i })
@@ -119,7 +121,7 @@ describe("DateSelect", () => {
     )
 
     userEvent.click(screen.getByText(/select an option/i))
-    userEvent.click(screen.getByText(/custom/i))
+    await waitFor(() => userEvent.click(screen.getByText(/custom/i)))
     const fromInput = screen.getByRole("textbox", { name: /from/i })
     const toInput = screen.getByRole("textbox", { name: /to/i })
     const setButton = screen.getByRole("button", { name: /set/i })

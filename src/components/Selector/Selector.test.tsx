@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom/extend-expect"
 import React, { useState } from "react"
-import { fireEvent, render } from "../../tests/utils"
+import { fireEvent, render, waitFor } from "../../tests/utils"
 
 import { Selector } from ".."
 import { mockedOptions } from "./__mocks__/options"
@@ -42,7 +42,7 @@ describe("Selector", () => {
     expect(getByText("Select an element:")).toBeInTheDocument()
   })
 
-  it("renders all the options and allows to select", () => {
+  it("renders all the options and allows to select", async () => {
     const onChangeMock = jest.fn()
     const { getByText, queryByTitle, getByRole } = render(
       <Selector onChange={onChangeMock} options={mockedOptions} />
@@ -55,8 +55,10 @@ describe("Selector", () => {
     /**
      * Check if the options are rendered
      */
-    mockedOptions.forEach((option) => {
-      expect(getByText(option.label)).toBeInTheDocument()
+    await waitFor(() => {
+      mockedOptions.forEach((option) => {
+        expect(getByText(option.label)).toBeInTheDocument()
+      })
     })
 
     /**
@@ -72,7 +74,7 @@ describe("Selector", () => {
   })
 
   describe("onSelectedItemsChange", () => {
-    it("allows to add and remove a multi select item", () => {
+    it("allows to add and remove a multi select item", async () => {
       const onSelectedItemsChangeMock = jest.fn()
 
       const { getByText, getByRole } = render(
@@ -87,7 +89,7 @@ describe("Selector", () => {
       fireEvent.click(button)
 
       /** Try to select an option */
-      const option = getByText(mockedOptions[1].label)
+      const option = await waitFor(() => getByText(mockedOptions[1].label))
 
       fireEvent.click(option)
 
@@ -99,7 +101,7 @@ describe("Selector", () => {
   })
 
   describe("handleBulkAction", () => {
-    it("allows to user to perform bulk actions to select and deselect items", () => {
+    it("allows to user to perform bulk actions to select and deselect items", async () => {
       const onSelectedItemsChangeMock = jest.fn()
 
       const { getByText, getByRole } = render(
@@ -114,7 +116,7 @@ describe("Selector", () => {
       fireEvent.click(button)
 
       /** Trigger bulk actions */
-      const selectAllOption = getByText("Select all")
+      const selectAllOption = await waitFor(() => getByText("Select all"))
       fireEvent.click(selectAllOption)
 
       const deselectAllOptions = getByText("Deselect all")

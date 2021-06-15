@@ -1,4 +1,4 @@
-import { render, screen } from "../../tests/utils"
+import { render, screen, waitFor } from "../../tests/utils"
 import Tooltip from "./Tooltip"
 import userEvent from "@testing-library/user-event"
 
@@ -12,7 +12,9 @@ describe("Tooltip", () => {
 
     expect(screen.queryByText("TOOLTIP_TITLE")).not.toBeInTheDocument()
     userEvent.hover(screen.getByRole("button", { name: "BUTTON_TEXT" }))
-    expect(screen.getByText("TOOLTIP_TITLE")).toBeInTheDocument()
+    await waitFor(() =>
+      expect(screen.getByText("TOOLTIP_TITLE")).toBeInTheDocument()
+    )
   })
 
   test("renders the children succesfully", async () => {
