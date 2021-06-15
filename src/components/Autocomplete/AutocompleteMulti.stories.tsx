@@ -18,7 +18,11 @@ const MultiAutocompleteTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
   props: Partial<AutocompleteProps<AutocompleteItem>>
 ) => {
   const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
-  const [value, setValue] = useState<AutocompleteItem[]>([])
+  const [value, setValue] = useState<AutocompleteItem[]>(
+    props.selectedOption && Array.isArray(props.selectedOption)
+      ? props.selectedOption
+      : []
+  )
 
   return (
     <Autocomplete<AutocompleteItem>
@@ -64,7 +68,11 @@ const MultiAutocompleteTemplateWithRemove: Story<
   AutocompleteProps<AutocompleteItem>
 > = (props: Partial<AutocompleteProps<AutocompleteItem>>) => {
   const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
-  const [value, setValue] = useState<AutocompleteItem[]>([])
+  const [value, setValue] = useState<AutocompleteItem[]>(
+    props.selectedOption && Array.isArray(props.selectedOption)
+      ? props.selectedOption
+      : []
+  )
 
   return (
     <Autocomplete<AutocompleteItem>
@@ -112,6 +120,9 @@ const MultiAutocompleteTemplateWithRemove: Story<
 export const MultiWithTags = MultiAutocompleteTemplate.bind({})
 
 export const MultiWithRemoveTags = MultiAutocompleteTemplateWithRemove.bind({})
+MultiWithRemoveTags.args = {
+  selectedOption: [mockedOptions[0], mockedOptions[1]],
+}
 
 export const MultiWithCustomRender = MultiAutocompleteTemplate.bind({})
 MultiWithCustomRender.args = {
@@ -136,9 +147,11 @@ MultiWithCustomRender.args = {
       </span>
     ))
   },
+  selectedOption: [mockedOptions[0]],
 }
 
 export const KeepSearchAfterSelect = MultiAutocompleteTemplate.bind({})
 KeepSearchAfterSelect.args = {
   keepSearchAfterSelect: true,
+  selectedOption: [mockedOptions[0], mockedOptions[1]],
 }

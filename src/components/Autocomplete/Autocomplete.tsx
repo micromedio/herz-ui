@@ -489,6 +489,7 @@ export default forwardRef(function Autocomplete<T>(
                   openMenu()
                 }}
                 sx={{
+                  alignItems: "center",
                   display: "flex",
                   flexWrap: "wrap",
                   gap: 1,

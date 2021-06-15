@@ -472,7 +472,7 @@ const mockedOptions = [
   { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
 ]
 const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState([])
+const [value, setValue] = React.useState([mockedOptions[0], mockedOptions[1]])
 ;(
 <Autocomplete
   getOptionLabel={(option) => option.label}
@@ -533,7 +533,7 @@ const mockedOptions = [
   { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
 ]
 const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState([])
+const [value, setValue] = React.useState([mockedOptions[0]])
 ;(
 <Autocomplete
   getOptionLabel={(option) => option.label}
@@ -615,7 +615,7 @@ const mockedOptions = [
   { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
 ]
 const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState([])
+const [value, setValue] = React.useState([mockedOptions[0], mockedOptions[1]])
 ;(
 <Autocomplete
   getOptionLabel={(option) => option.label}
