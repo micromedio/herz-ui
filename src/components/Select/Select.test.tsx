@@ -81,7 +81,7 @@ describe("Select", () => {
     it("allows to add and remove a multi select item", async () => {
       const onSelectedItemsChangeMock = jest.fn()
 
-      const { getByText, getByRole } = render(
+      const { findByText, getByRole } = render(
         <ControlledMultiSelectTemplate
           onSelectedItemsChange={onSelectedItemsChangeMock}
         >
@@ -94,7 +94,7 @@ describe("Select", () => {
       fireEvent.click(button)
 
       /** Try to select an option */
-      const option = await waitFor(() => getByText(mockedOptions[1].label))
+      const option = await findByText(mockedOptions[1].label)
 
       fireEvent.click(option)
 
@@ -109,7 +109,7 @@ describe("Select", () => {
     it("allows to user to perform bulk actions to select and deselect items", async () => {
       const onSelectedItemsChangeMock = jest.fn()
 
-      const { getByText, getByRole } = render(
+      const { getByText, findByText, getByRole } = render(
         <ControlledMultiSelectTemplate
           onSelectedItemsChange={onSelectedItemsChangeMock}
         >
@@ -122,7 +122,7 @@ describe("Select", () => {
       fireEvent.click(button)
 
       /** Trigger bulk actions */
-      const selectAllOption = await waitFor(() => getByText("Select all"))
+      const selectAllOption = await findByText("Select all")
       fireEvent.click(selectAllOption)
 
       const deselectAllOptions = getByText("Deselect all")

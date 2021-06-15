@@ -130,7 +130,7 @@ describe("Autocomplete", () => {
 
   it("should filter options based on input value", async () => {
     const onInputValueChange = jest.fn()
-    const { getByRole, rerender } = render(
+    const { getByRole, findByRole, rerender } = render(
       <Autocomplete<AutocompleteItem>
         onInputValueChange={onInputValueChange}
         onSelectedItemChange={jest.fn()}
@@ -179,7 +179,7 @@ describe("Autocomplete", () => {
       target: { value: mockedOptions[0].label },
     })
 
-    const menuElement = await waitFor(() => getByRole("listbox"))
+    const menuElement = await findByRole("listbox")
 
     await waitFor(() =>
       expect(onInputValueChange).toHaveBeenCalledWith({
@@ -346,7 +346,7 @@ describe("Autocomplete", () => {
 
   it("should clear the input when no results are shown", async () => {
     const onInputValueChange = jest.fn()
-    const { getByRole } = render(
+    const { getByRole, findByRole } = render(
       <Autocomplete<AutocompleteItem>
         label="Label"
         optionalText="optional"
@@ -372,7 +372,7 @@ describe("Autocomplete", () => {
 
     const customInputValue = "Custom value"
 
-    const inputElement = await waitFor(() => getByRole("textbox"))
+    const inputElement = getByRole("textbox")
     fireEvent.click(inputElement)
     fireEvent.change(inputElement, { target: { value: customInputValue } })
 
@@ -384,9 +384,7 @@ describe("Autocomplete", () => {
       type: useCombobox.stateChangeTypes.InputChange,
     })
 
-    const clearButton = await waitFor(() =>
-      getByRole("button", { name: /clear/i })
-    )
+    const clearButton = await findByRole("button", { name: /clear/i })
     fireEvent.click(clearButton)
 
     expect(onInputValueChange).toHaveBeenLastCalledWith({

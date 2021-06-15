@@ -77,7 +77,7 @@ describe("Selector", () => {
     it("allows to add and remove a multi select item", async () => {
       const onSelectedItemsChangeMock = jest.fn()
 
-      const { getByText, getByRole } = render(
+      const { findByText, getByRole } = render(
         <ControlledMultiSelectorTemplate
           onSelectedItemsChange={onSelectedItemsChangeMock}
           options={mockedOptions}
@@ -89,7 +89,7 @@ describe("Selector", () => {
       fireEvent.click(button)
 
       /** Try to select an option */
-      const option = await waitFor(() => getByText(mockedOptions[1].label))
+      const option = await findByText(mockedOptions[1].label)
 
       fireEvent.click(option)
 

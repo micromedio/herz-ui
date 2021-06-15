@@ -44,11 +44,14 @@ describe("DateSelect", () => {
     )
 
     userEvent.click(screen.getByText(/select an option/i))
-    await waitFor(() => userEvent.click(screen.getByText(/today/i)))
-    expect(onChange).toHaveBeenCalledWith({
-      from: "12/05/2021",
-      to: "12/05/2021",
-    })
+    userEvent.click(await screen.findByText(/today/i))
+
+    await waitFor(() =>
+      expect(onChange).toHaveBeenCalledWith({
+        from: "12/05/2021",
+        to: "12/05/2021",
+      })
+    )
   })
 
   test("select button shows current selected item text", async () => {
@@ -82,10 +85,14 @@ describe("DateSelect", () => {
     expect(
       screen.queryByRole("button", { name: /set/i })
     ).not.toBeInTheDocument()
-    await waitFor(() => userEvent.click(screen.getByText(/custom/i)))
-    expect(screen.getByRole("textbox", { name: /to/i })).toBeInTheDocument()
-    expect(screen.getByRole("textbox", { name: /from/i })).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: /set/i })).toBeInTheDocument()
+    const customClikElement = await screen.findByText(/custom/i)
+    userEvent.click(customClikElement)
+
+    await waitFor(() => {
+      expect(screen.getByRole("textbox", { name: /to/i })).toBeInTheDocument()
+      expect(screen.getByRole("textbox", { name: /from/i })).toBeInTheDocument()
+      expect(screen.getByRole("button", { name: /set/i })).toBeInTheDocument()
+    })
   })
 
   test("custom date cannot be set if 'from' date is after 'to' date", async () => {
