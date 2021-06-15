@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import "@testing-library/jest-dom/extend-expect"
-import { fireEvent, render } from "../../tests/utils"
+import { fireEvent, render, waitFor } from "../../tests/utils"
 
 import { Autocomplete } from ".."
 import { mockedOptions } from "./__mocks__/options"
@@ -52,7 +52,7 @@ describe("Autocomplete", () => {
     ).toBeInTheDocument()
   })
 
-  it("should open the menu on input click", () => {
+  it("should open the menu on input click", async () => {
     const { getByRole, queryByRole } = render(
       <Autocomplete<AutocompleteItem>
         onInputValueChange={jest.fn()}
@@ -72,10 +72,10 @@ describe("Autocomplete", () => {
     const inputElement = getByRole("textbox")
     fireEvent.focus(inputElement)
 
-    expect(getByRole("listbox")).toBeInTheDocument()
+    await waitFor(() => expect(getByRole("listbox")).toBeInTheDocument())
   })
 
-  it("should renders all the options and allows to select", () => {
+  it("should renders all the options and allows to select", async () => {
     const onSelectedItemChange = jest.fn()
     const { getByRole, getByText, queryByTitle } = render(
       <Autocomplete<AutocompleteItem>
@@ -107,7 +107,7 @@ describe("Autocomplete", () => {
      * Check if the options are rendered
      */
     for (const option of mockedOptions) {
-      expect(getByText(option.label)).toBeInTheDocument()
+      await waitFor(() => expect(getByText(option.label)).toBeInTheDocument())
     }
 
     /**
@@ -128,9 +128,9 @@ describe("Autocomplete", () => {
     })
   })
 
-  it("should filter options based on input value", () => {
+  it("should filter options based on input value", async () => {
     const onInputValueChange = jest.fn()
-    const { getByRole, rerender } = render(
+    const { getByRole, findByRole, rerender } = render(
       <Autocomplete<AutocompleteItem>
         onInputValueChange={onInputValueChange}
         onSelectedItemChange={jest.fn()}
@@ -179,15 +179,17 @@ describe("Autocomplete", () => {
       target: { value: mockedOptions[0].label },
     })
 
-    const menuElement = getByRole("listbox")
+    const menuElement = await findByRole("listbox")
 
-    expect(onInputValueChange).toHaveBeenCalledWith({
-      highlightedIndex: -1,
-      inputValue: mockedOptions[0].label,
-      isOpen: true,
-      selectedItem: null,
-      type: useCombobox.stateChangeTypes.InputChange,
-    })
+    await waitFor(() =>
+      expect(onInputValueChange).toHaveBeenCalledWith({
+        highlightedIndex: -1,
+        inputValue: mockedOptions[0].label,
+        isOpen: true,
+        selectedItem: null,
+        type: useCombobox.stateChangeTypes.InputChange,
+      })
+    )
     expect(menuElement.children).toHaveLength(1)
   })
 
@@ -249,7 +251,7 @@ describe("Autocomplete", () => {
     expect(customRenderedOption).toBeVisible()
   })
 
-  it("should render the menu clicking on custom render option div", () => {
+  it("should render the menu clicking on custom render option div", async () => {
     const { getByText, queryByRole, rerender } = render(
       <Autocomplete<AutocompleteItem>
         onInputValueChange={jest.fn()}
@@ -303,10 +305,10 @@ describe("Autocomplete", () => {
     ).parentElement as HTMLDivElement
     fireEvent.click(customRenderedOption)
 
-    expect(queryByRole("listbox")).toBeInTheDocument()
+    await waitFor(() => expect(queryByRole("listbox")).toBeInTheDocument())
   })
 
-  it("should render the menu clicking on search icon button", () => {
+  it("should render the menu clicking on search icon button", async () => {
     const { getByRole, queryByRole } = render(
       <Autocomplete<AutocompleteItem>
         helperText="This is a helper text"
@@ -339,12 +341,12 @@ describe("Autocomplete", () => {
     const searchButton = getByRole("button", { name: /label/i })
     fireEvent.click(searchButton)
 
-    expect(getByRole("listbox")).toBeInTheDocument()
+    await waitFor(() => expect(getByRole("listbox")).toBeInTheDocument())
   })
 
-  it("should clear the input when no results are shown", () => {
+  it("should clear the input when no results are shown", async () => {
     const onInputValueChange = jest.fn()
-    const { getByRole } = render(
+    const { getByRole, findByRole } = render(
       <Autocomplete<AutocompleteItem>
         label="Label"
         optionalText="optional"
@@ -382,7 +384,7 @@ describe("Autocomplete", () => {
       type: useCombobox.stateChangeTypes.InputChange,
     })
 
-    const clearButton = getByRole("button", { name: /clear/i })
+    const clearButton = await findByRole("button", { name: /clear/i })
     fireEvent.click(clearButton)
 
     expect(onInputValueChange).toHaveBeenLastCalledWith({
