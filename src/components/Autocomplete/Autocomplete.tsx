@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/consistent-destructuring */
 /** @jsxImportSource theme-ui */
 import React, {
   forwardRef,
@@ -9,11 +10,16 @@ import React, {
   useRef,
 } from "react"
 import { get, ThemeUICSSObject } from "theme-ui"
-import { useCombobox, UseComboboxStateChange } from "downshift"
+import {
+  useCombobox,
+  UseComboboxProps,
+  UseComboboxStateChange,
+} from "downshift"
 import Button, { ButtonProps } from "../Button/Button"
 import Popover from "../Popover/Popover"
+import Tag, { TagProps } from "../Tag/Tag"
 
-export interface AutocompleteProps<T extends unknown> {
+interface CommonProps<T extends unknown> {
   /** An array of button props, each one corresponds to a Button rendered at the input end. */
   buttons?: ButtonProps[]
   /** The helper text content */
@@ -24,14 +30,12 @@ export interface AutocompleteProps<T extends unknown> {
   label?: string
   /** It basically returns the changes object of Combobox state with the input value, which must be used to filter the auto-complete options. */
   onInputValueChange: (comboboxStateChange: UseComboboxStateChange<T>) => void
-  /** Callback fired when the selected item is changed */
-  onSelectedItemChange: (changes: UseComboboxStateChange<T>) => void
   /** Text to show after label if field is not required (optional) */
   optionalText?: string
   /** The Array with the options to be rendered */
   options: T[]
   /** It will return the string equivalent of the item which will be used for displaying the item in the <input> once selected */
-  optionToString: (option: T | null) => string
+  optionToString?: (option: T | null) => string
   /** Placeholder text content */
   placeholder?: string
   /** The function responsible to render the option, must return a ReactNode */
@@ -50,48 +54,111 @@ export interface AutocompleteProps<T extends unknown> {
     index?: number
     array?: T[]
   }) => ReactNode
-  /** Renders the selected item as html */
-  renderSelectedItem?: (option: T) => ReactNode
   /** If `true`, the `input` is required */
   required?: boolean
   /** Text to show after label if field is required */
   requiredText?: string
   /** The value of the `input` element */
-  selectedOption?: T | null
+  selectedOption?: T[] | T | null
   /** Controls which state the `input` will be displayed in */
   status?: "error" | "loading" | "success"
   /** Responsible for rendering the `Currently showing x results from a total of y`, where y is the totalCount */
   totalCount?: number
 }
 
+interface SingleProps<T extends unknown> extends CommonProps<T> {
+  /** Whether the component is multiselect or not */
+  multiSelect?: false
+  /** Callback fired when the selected item is changed */
+  onSelectedItemChange: (changes?: T | null) => void
+  /** Renders the selected item as html */
+  renderSelectedItem?: (option: T) => ReactNode
+}
+
+interface MultiProps<T extends unknown> extends CommonProps<T> {
+  /** The function responsible for extracting the option label for the tags */
+  getOptionLabel?: (option: T) => string
+  /** Clear the search input when select an option */
+  keepSearchAfterSelect?: boolean
+  /** Whether the component is multiselect or not */
+  multiSelect: true
+  /** The event handler for removing the Tag */
+  onRemove?: (option: T) => void
+  /** Callback fired when the selected item is changed */
+  onSelectedItemsChange: (changes: T[]) => void
+  /** Renders the selected items as html */
+  renderSelectedItems?: (option: T[], isOpen?: boolean) => ReactNode
+  /** The Tag color passed to the Tag component */
+  tagColor?: TagProps["color"]
+}
+
+export type AutocompleteProps<T extends unknown> =
+  | SingleProps<T>
+  | MultiProps<T>
+
 export default forwardRef(function Autocomplete<T>(
-  {
+  props: AutocompleteProps<T>,
+  ref: Ref<HTMLInputElement>
+) {
+  const { keepSearchAfterSelect = false } = props.multiSelect
+    ? props
+    : { keepSearchAfterSelect: false }
+  const {
     buttons,
     helperText,
     id,
     label,
     onInputValueChange,
-    onSelectedItemChange,
     optionalText,
     options,
-    optionToString,
+    optionToString = (): string => {
+      return ""
+    },
     placeholder = "",
     required,
     requiredText,
     renderOption,
-    renderSelectedItem,
     selectedOption,
     status,
     totalCount = 0,
-  }: AutocompleteProps<T>,
-  ref: Ref<HTMLInputElement>
-) {
+  } = props
   const containerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   useImperativeHandle<HTMLInputElement | null, HTMLInputElement | null>(
     ref,
     () => inputRef.current
   )
+  const comboboxProps = useMemo((): Partial<UseComboboxProps<T>> | void => {
+    if (props.multiSelect) {
+      return {
+        stateReducer: (state, actionAndChanges) => {
+          const { changes, type } = actionAndChanges
+          switch (type) {
+            case useCombobox.stateChangeTypes.ItemClick:
+              return {
+                ...changes,
+                isOpen: true,
+                highlightedIndex: state.highlightedIndex,
+                inputValue: keepSearchAfterSelect ? state.inputValue : "",
+              }
+            case useCombobox.stateChangeTypes.InputBlur:
+              return {
+                ...changes,
+                inputValue: "",
+              }
+            case useCombobox.stateChangeTypes.ControlledPropUpdatedSelectedItem:
+              return {
+                ...changes,
+                inputValue: keepSearchAfterSelect ? state.inputValue : "",
+              }
+            default:
+              return changes
+          }
+        },
+      }
+    }
+    return
+  }, [keepSearchAfterSelect, props.multiSelect])
   const {
     getComboboxProps,
     getInputProps,
@@ -103,23 +170,44 @@ export default forwardRef(function Autocomplete<T>(
     isOpen,
     openMenu,
     setInputValue,
-  } = useCombobox({
+  } = useCombobox<T>({
     id,
     items: options,
     itemToString: optionToString,
     onInputValueChange,
     onIsOpenChange: ({ isOpen: open }) => {
       if (!open) {
-        setInputValue(optionToString(selectedOption as T | null))
+        if (!props.multiSelect)
+          setInputValue(optionToString(selectedOption as T | null) || "")
         inputRef.current?.blur()
       } else {
         inputRef.current?.focus()
       }
     },
     onSelectedItemChange: (changes) => {
-      onSelectedItemChange(changes)
+      const { selectedItem: selected } = changes
+      if (props.multiSelect) {
+        /* istanbul ignore if */
+        if (!selected) {
+          return
+        }
+        const index = (selectedOption as T[]).indexOf(selected)
+        if (index > 0) {
+          props.onSelectedItemsChange([
+            ...(selectedOption as T[]).slice(0, index),
+            ...(selectedOption as T[]).slice(index + 1),
+          ])
+        } else if (index === 0) {
+          props.onSelectedItemsChange([...(selectedOption as T[]).slice(1)])
+        } else {
+          props.onSelectedItemsChange([...(selectedOption as T[]), selected])
+        }
+        return
+      }
+      props.onSelectedItemChange(selected)
     },
-    selectedItem: selectedOption,
+    selectedItem: selectedOption as T,
+    ...comboboxProps,
   })
 
   const styles: Record<string, ThemeUICSSObject> = {
@@ -146,6 +234,57 @@ export default forwardRef(function Autocomplete<T>(
       {}
     ),
   }
+
+  const autocompleteInput = (
+    <input
+      {...getInputProps({
+        "aria-invalid": status === "error",
+        autoComplete: "off",
+        disabled: status === "loading",
+        size: 1, // input has a default size property of 20, which limits it's minimum width. Setting it to 1 and handling width through the parent so that we can control the input width better.
+        onFocus: () => {
+          if (!isOpen) openMenu()
+        },
+        placeholder:
+          props.multiSelect && (selectedOption as T[]).length > 0
+            ? ""
+            : placeholder,
+        ref: inputRef,
+        type: "text",
+        value: inputValue || "",
+      })}
+      sx={{
+        backgroundColor: "transparent",
+        border: "none",
+        color: "text",
+        flexGrow: 1,
+        opacity: !selectedOption || isOpen ? 1 : 0,
+        outline: 0,
+        p: 0,
+        py: "2px", // the 2px border counts towards height, so we need 6px instead of 8px for the correct height
+        variant: "text.body1",
+        width: "auto",
+        "&:not(focused)": {
+          width:
+            props.multiSelect &&
+            ((selectedOption as T[]).length === 0 || isOpen)
+              ? undefined
+              : 0,
+        },
+      }}
+      onKeyDown={
+        props.multiSelect
+          ? (event) => {
+              /* istanbul ignore else */
+              if (!inputValue && event.key === "Backspace")
+                props.onSelectedItemsChange(
+                  (selectedOption as T[]).slice(0, -1)
+                )
+            }
+          : undefined
+      }
+    />
+  )
 
   return (
     <div
@@ -188,10 +327,11 @@ export default forwardRef(function Autocomplete<T>(
                 border: "1px solid #E8E8E9",
                 borderRadius: 4,
                 boxShadow: "0px 1px 12px rgba(0, 0, 0, 0.16)",
+                flexWrap: props.multiSelect ? "wrap" : undefined,
                 minWidth: containerRef.current?.getClientRects()[0].width,
                 outline: "0",
                 overflowX: "hidden",
-                overflowY: "auto",
+                overflowY: props.multiSelect ? "hidden" : "auto",
                 padding: 4,
                 transition: "opacity .1s ease",
                 "& > div": {
@@ -202,25 +342,38 @@ export default forwardRef(function Autocomplete<T>(
                 },
               }}
             >
-              {options.map((item, index, array) => (
-                <div {...getItemProps({ item, index })} key={index}>
-                  {renderOption({
-                    highlightedIndex,
-                    defaultStyles: {
-                      backgroundColor:
-                        highlightedIndex === index
+              {options.map((item, index, array) => {
+                const shouldHighlightSelected = (): boolean => {
+                  if (props.multiSelect) {
+                    return (
+                      (selectedOption as T[]).some(
+                        (selected) =>
+                          JSON.stringify(selected) === JSON.stringify(item)
+                      ) || highlightedIndex === index
+                    )
+                  } else {
+                    return highlightedIndex === index
+                  }
+                }
+                return (
+                  <div {...getItemProps({ item, index })} key={index}>
+                    {renderOption({
+                      highlightedIndex,
+                      defaultStyles: {
+                        backgroundColor: shouldHighlightSelected()
                           ? "secondary.alpha.95"
                           : undefined,
-                      borderRadius: 2,
-                      padding: 2,
-                    },
-                    option: item,
-                    inputValue,
-                    index,
-                    array,
-                  })}
-                </div>
-              ))}
+                        borderRadius: 2,
+                        padding: 2,
+                      },
+                      option: item,
+                      inputValue,
+                      index,
+                      array,
+                    })}
+                  </div>
+                )
+              })}
               {(totalCount > options.length || options.length === 0) && (
                 <div
                   id="total-count"
@@ -329,34 +482,39 @@ export default forwardRef(function Autocomplete<T>(
               "& *": { transition: "all 0.2s, visibility 0s" },
             }}
           >
-            <input
-              {...getInputProps({
-                "aria-invalid": status === "error",
-                autoComplete: "off",
-                disabled: status === "loading",
-                size: 1, // input has a default size property of 20, which limits it's minimum width. Setting it to 1 and handling width through the parent so that we can control the input width better.
-                onFocus: () => {
-                  if (!isOpen) openMenu()
-                },
-                placeholder,
-                ref: inputRef,
-                type: "text",
-                value: inputValue || "",
-              })}
-              sx={{
-                backgroundColor: "transparent",
-                border: "none",
-                color: "text",
-                flexGrow: 1,
-                opacity: !selectedOption || isOpen ? 1 : 0,
-                outline: 0,
-                p: 0,
-                py: "2px", // the 2px border counts towards height, so we need 6px instead of 8px for the correct height
-                variant: "text.body1",
-                width: "100%",
-              }}
-            />
-            {(!selectedOption || isOpen) && (
+            {props.multiSelect && (
+              <div
+                {...inputArias}
+                onClick={() => {
+                  openMenu()
+                }}
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 1,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                  width: "100%",
+                }}
+              >
+                {!!props.renderSelectedItems
+                  ? props.renderSelectedItems(selectedOption as T[], isOpen)
+                  : (selectedOption as T[]).map((option, index) => (
+                      <Tag
+                        key={`${props.getOptionLabel?.(option)}-${index}`}
+                        color={props.tagColor}
+                        onRemove={() => props.onRemove?.(option)}
+                        showRemove={isOpen && !!props.onRemove}
+                      >
+                        {props.getOptionLabel?.(option)}
+                      </Tag>
+                    ))}
+                {autocompleteInput}
+              </div>
+            )}
+            {!props.multiSelect && autocompleteInput}
+            {(!selectedOption || isOpen) && !props.multiSelect && (
               <Button
                 {...inputArias}
                 aria-label="Search"
@@ -377,7 +535,7 @@ export default forwardRef(function Autocomplete<T>(
                 }}
               />
             )}
-            {!isOpen && selectedOption && (
+            {!isOpen && selectedOption && !props.multiSelect && (
               <div
                 {...inputArias}
                 onClick={() => {
@@ -391,9 +549,9 @@ export default forwardRef(function Autocomplete<T>(
                   width: inputRef.current?.getClientRects()[0].width,
                 }}
               >
-                {renderSelectedItem
-                  ? renderSelectedItem(selectedOption)
-                  : optionToString(selectedOption)}
+                {props.renderSelectedItem
+                  ? props.renderSelectedItem(selectedOption as T)
+                  : optionToString?.(selectedOption as T)}
               </div>
             )}
             {buttons && buttons.length > 0 && selectedOption && !isOpen && (

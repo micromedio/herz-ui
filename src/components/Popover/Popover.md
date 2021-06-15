@@ -3,6 +3,7 @@ The Popover component is used to display anything in a popover (e.g. a tooltip).
 ### Light Theme
 ```jsx
 import Button from '../Button/Button'
+import Popover from './Popover'
 ;(
   <Popover
     content={<div style={{ height: 50, width: 100 }}>Popover Content</div>}
@@ -16,6 +17,7 @@ import Button from '../Button/Button'
 
 ### Dark Theme
 ```jsx
+import Popover from './Popover'
 import Button from '../Button/Button'
 ;(
   <Popover
@@ -30,6 +32,7 @@ import Button from '../Button/Button'
 
 ### With Arrow
 ```jsx
+import Popover from './Popover'
 import Button from '../Button/Button'
 ;(
   <Popover
@@ -45,6 +48,7 @@ import Button from '../Button/Button'
 
 ### With Background Overlay
 ```jsx
+import Popover from './Popover'
 import Button from '../Button/Button'
 ;(
   <Popover
@@ -58,6 +62,7 @@ import Button from '../Button/Button'
 
 ### Interactive
 ```jsx
+import Popover from './Popover'
 import Button from '../Button/Button'
 ;(
   <Popover
@@ -71,6 +76,7 @@ import Button from '../Button/Button'
 
 ### Triggers on click
 ```jsx
+import Popover from './Popover'
 import Button from '../Button/Button'
 ;(
   <Popover

@@ -30,8 +30,9 @@ const Tag = ({
     >
       <span
         sx={{
-          variant: "text.caption",
+          cursor: "default",
           fontWeight: "bold",
+          variant: "text.caption",
         }}
       >
         {children}

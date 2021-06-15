@@ -5,16 +5,17 @@ import { Meta, Story } from "@storybook/react/types-6-0"
 import Autocomplete, { AutocompleteProps } from "./Autocomplete"
 import { mockedOptions } from "./__mocks__/options"
 import Highlight from "../Highlight/Highlight"
+// import Tag from "../Tag/Tag"
 
 type AutocompleteItem = typeof mockedOptions[0]
 
 export default {
-  title: "Design System/Autocomplete",
+  title: "Design System/Autocomplete/SingleSelect",
   component: Autocomplete,
 } as Meta
 
 const Template: Story<AutocompleteProps<AutocompleteItem>> = (
-  props: Partial<AutocompleteProps<AutocompleteItem>>
+  props: Partial<Omit<AutocompleteProps<AutocompleteItem>, "multiSelect">>
 ) => {
   const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
   const [value, setValue] = useState<AutocompleteItem | null | undefined>(
@@ -58,7 +59,9 @@ const Template: Story<AutocompleteProps<AutocompleteItem>> = (
         )
       }}
       options={items.slice(0, 5)}
-      optionToString={(option) => (option ? option.label : "")}
+      optionToString={(option) =>
+        option && !Array.isArray(option) ? option.label : ""
+      }
       placeholder="Search by organization's name or handle"
       renderOption={({ defaultStyles, option }) => (
         <div
@@ -73,7 +76,7 @@ const Template: Story<AutocompleteProps<AutocompleteItem>> = (
           {option.label}
         </div>
       )}
-      onSelectedItemChange={({ selectedItem: selectedOption }) => {
+      onSelectedItemChange={(selectedOption) => {
         setValue(selectedOption)
       }}
       selectedOption={value}
@@ -83,7 +86,7 @@ const Template: Story<AutocompleteProps<AutocompleteItem>> = (
 }
 
 const RenderSelectedTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
-  props: Partial<AutocompleteProps<AutocompleteItem>>
+  props: Partial<Omit<AutocompleteProps<AutocompleteItem>, "multiSelect">>
 ) => {
   const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
   const [value, setValue] = useState<AutocompleteItem | null | undefined>(
@@ -159,7 +162,7 @@ const RenderSelectedTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
           </span>
         )
       }}
-      onSelectedItemChange={({ selectedItem: selectedOption }) => {
+      onSelectedItemChange={(selectedOption) => {
         setValue(selectedOption)
       }}
       selectedOption={value}
@@ -169,7 +172,7 @@ const RenderSelectedTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
 }
 
 const WithHighlightTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
-  props: Partial<AutocompleteProps<AutocompleteItem>>
+  props: Partial<Omit<AutocompleteProps<AutocompleteItem>, "multiSelect">>
 ) => {
   const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
   const [value, setValue] = useState<AutocompleteItem | null | undefined>(null)
@@ -243,7 +246,7 @@ const WithHighlightTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
           </span>
         )
       }}
-      onSelectedItemChange={({ selectedItem: selectedOption }) => {
+      onSelectedItemChange={(selectedOption) => {
         setValue(selectedOption)
       }}
       selectedOption={value}
