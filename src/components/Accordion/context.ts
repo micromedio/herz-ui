@@ -4,6 +4,12 @@ export interface AccordionContext {
   index: number
   openIndex?: number
   toggleOpen: (index: number) => void
+  activeBackgroundColor:
+    | "primary"
+    | "secondary"
+    | "text"
+    | "success"
+    | "warning"
 }
 
 export const AccordionContext = createContext<AccordionContext | null>(null)

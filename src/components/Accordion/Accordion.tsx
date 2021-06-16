@@ -5,6 +5,7 @@ import Icon from "../Icon/Icon"
 import Divider from "../Divider/Divider"
 import { AccordionContext, useAccordionContext } from "./context"
 import { AnimatePresence, motion } from "framer-motion"
+import { get } from "theme-ui"
 
 const insertDivider = (items: Array<React.ReactNode>) => {
   let result: Array<React.ReactNode> = []
@@ -26,9 +27,19 @@ const insertDivider = (items: Array<React.ReactNode>) => {
 export interface AccordionProps {
   initialOpenIndex?: number
   children: React.ReactNode
+  activeBackgroundColor?:
+    | "primary"
+    | "secondary"
+    | "text"
+    | "success"
+    | "warning"
 }
 
-const Accordion = ({ children, initialOpenIndex }: AccordionProps) => {
+const Accordion = ({
+  children,
+  initialOpenIndex,
+  activeBackgroundColor = "secondary",
+}: AccordionProps) => {
   const [openIndex, setOpenIndex] = useState<number | undefined>(
     initialOpenIndex
   )
@@ -45,7 +56,7 @@ const Accordion = ({ children, initialOpenIndex }: AccordionProps) => {
     .filter((child) => React.isValidElement(child))
     .map((child, index) => (
       <AccordionContext.Provider
-        value={{ index, toggleOpen, openIndex }}
+        value={{ index, toggleOpen, openIndex, activeBackgroundColor }}
         key={index}
       >
         {child}
@@ -62,11 +73,19 @@ export interface AccordionItemProps {
 }
 
 const AccordionItem = ({ title, children, className }: AccordionItemProps) => {
-  const { index, toggleOpen, openIndex } = useAccordionContext()
+  const { index, toggleOpen, openIndex, activeBackgroundColor } =
+    useAccordionContext()
   const isOpen = openIndex === index
+  console.log({ activeBackgroundColor })
 
   return (
-    <div>
+    <div
+      sx={{
+        backgroundColor: (t) =>
+          isOpen ? get(t, `colors.${activeBackgroundColor}.97`) : "transparent",
+        transition: "background-color 150ms linear",
+      }}
+    >
       <div
         role="button"
         aria-disabled="false"
