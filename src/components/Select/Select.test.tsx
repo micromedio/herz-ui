@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { fireEvent, render } from "../../tests/utils"
+import { fireEvent, render, waitFor } from "../../tests/utils"
 
 import { mockedOptions } from "./__mocks__/options"
 import Select, { SelectProps } from "./Select"
@@ -47,7 +47,7 @@ describe("Select", () => {
     expect(getByText("Select an element:")).toBeInTheDocument()
   })
 
-  it("renders all the options and allows to select", () => {
+  it("renders all the options and allows to select", async () => {
     const onChangeMock = jest.fn()
     const { getByText, queryByTitle, getByRole } = render(
       <Select onChange={onChangeMock}>{children}</Select>
@@ -60,10 +60,11 @@ describe("Select", () => {
     /**
      * Check if the options are rendered
      */
-    mockedOptions.forEach((option) => {
-      expect(getByText(option.label)).toBeInTheDocument()
-    })
-
+    await waitFor(() =>
+      mockedOptions.forEach((option) => {
+        expect(getByText(option.label)).toBeInTheDocument()
+      })
+    )
     /**
      * Check for an invalid option
      */
@@ -77,10 +78,10 @@ describe("Select", () => {
   })
 
   describe("onSelectedItemsChange", () => {
-    it("allows to add and remove a multi select item", () => {
+    it("allows to add and remove a multi select item", async () => {
       const onSelectedItemsChangeMock = jest.fn()
 
-      const { getByText, getByRole } = render(
+      const { findByText, getByRole } = render(
         <ControlledMultiSelectTemplate
           onSelectedItemsChange={onSelectedItemsChangeMock}
         >
@@ -93,7 +94,7 @@ describe("Select", () => {
       fireEvent.click(button)
 
       /** Try to select an option */
-      const option = getByText(mockedOptions[1].label)
+      const option = await findByText(mockedOptions[1].label)
 
       fireEvent.click(option)
 
@@ -105,10 +106,10 @@ describe("Select", () => {
   })
 
   describe("handleBulkAction", () => {
-    it("allows to user to perform bulk actions to select and deselect items", () => {
+    it("allows to user to perform bulk actions to select and deselect items", async () => {
       const onSelectedItemsChangeMock = jest.fn()
 
-      const { getByText, getByRole } = render(
+      const { getByText, findByText, getByRole } = render(
         <ControlledMultiSelectTemplate
           onSelectedItemsChange={onSelectedItemsChangeMock}
         >
@@ -121,7 +122,7 @@ describe("Select", () => {
       fireEvent.click(button)
 
       /** Trigger bulk actions */
-      const selectAllOption = getByText("Select all")
+      const selectAllOption = await findByText("Select all")
       fireEvent.click(selectAllOption)
 
       const deselectAllOptions = getByText("Deselect all")
