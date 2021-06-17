@@ -76,7 +76,6 @@ const AccordionItem = ({ title, children, className }: AccordionItemProps) => {
   const { index, toggleOpen, openIndex, activeBackgroundColor } =
     useAccordionContext()
   const isOpen = openIndex === index
-  console.log({ activeBackgroundColor })
 
   return (
     <div

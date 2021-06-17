@@ -17,6 +17,12 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void
 
   iconName?: IconProps["name"]
+
+  styles?: {
+    childrenWrapper?: ThemeUICSSObject
+    icon?: ThemeUICSSObject
+    root?: ThemeUICSSObject
+  }
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
@@ -28,6 +34,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     size = "large",
     disabled,
     iconName,
+    styles,
     ...htmlProps
   }: ButtonProps,
   ref
@@ -105,10 +112,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
           filledLight,
           plain,
         }[variant],
+        ...styles?.root,
       }}
     >
-      {iconName && <Icon name={iconName} size={size === "small" ? 16 : 20} />}
-      {children && <span>{children}</span>}
+      {iconName && (
+        <Icon
+          name={iconName}
+          size={size === "small" ? 16 : 20}
+          sx={styles?.icon}
+        />
+      )}
+      {children && <span sx={styles?.childrenWrapper}>{children}</span>}
     </button>
   )
 })

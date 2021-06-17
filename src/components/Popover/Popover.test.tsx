@@ -40,9 +40,11 @@ describe("Popover", () => {
         <div>REFERENCE_ELEMENT</div>
       </Popover>
     )
-    const results = await axe(container)
+    await waitFor(async () => {
+      const results = await axe(container)
 
-    // Assert
-    expect(results).toHaveNoViolations()
+      // Assert
+      expect(results).toHaveNoViolations()
+    })
   })
 })
