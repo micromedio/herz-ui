@@ -18,7 +18,7 @@ const Tabs = ({
   children,
   initialOpenIndex,
   activeBackgroundColor = "secondary",
-}: TabProps) => {
+}: TabsProps) => {
   const [openIndex, setOpenIndex] = useState<number | undefined>(
     initialOpenIndex
   )
@@ -85,9 +85,9 @@ const TabButton = ({ title }: TabButtonProps) => {
         height: "36px",
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
-        border: isOpen ? "1px solid #E8E8E9" : "none",
+        border: isOpen ? "1px solid" : "1px solid",
+        borderColor: isOpen ? "text.90" : "transparent",
         borderBottom: "none",
-        borderTop: "none",
         boxSizing: "border-box",
         backgroundColor: isOpen ? "white" : "transparent",
         transition: "background-color 150ms linear",
@@ -134,8 +134,9 @@ const TabPanel = ({ children, index }: TabPanelProps) => {
             px: 6,
             borderRadius: "12px",
             borderTopLeftRadius: openIndex == 0 && isOpen ? "0" : "12px",
-            border: "1px solid #E8E8E9",
-            backgroundColor: "#F3F3F3",
+            border: "1px solid",
+            borderColor: "text.90",
+            backgroundColor: "text.95",
             boxShadow: isOpen ? "0px 1px 12px rgba(0, 0, 0, 0.04)" : "none",
           }}
         >
