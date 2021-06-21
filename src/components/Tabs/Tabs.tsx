@@ -62,8 +62,6 @@ const Tabs = ({
 
 export interface TabButtonProps {
   title: string
-  // children: React.ReactNode
-  // className?: HTMLAttributes<HTMLDivElement>["className"]
 }
 
 const TabButton = ({ title }: TabButtonProps) => {
@@ -77,7 +75,6 @@ const TabButton = ({ title }: TabButtonProps) => {
       sx={{
         px: 6,
         py: 2,
-        variant: "text.body1",
         cursor: "pointer",
         position: "relative",
         overflow: "hidden",
@@ -132,8 +129,8 @@ const TabPanel = ({ children, index }: TabPanelProps) => {
             position: "relative",
             py: 5,
             px: 6,
-            borderRadius: "12px",
-            borderTopLeftRadius: openIndex == 0 && isOpen ? "0" : "12px",
+            borderRadius: 3,
+            borderTopLeftRadius: openIndex == 0 && isOpen ? 0 : 3,
             border: "1px solid",
             borderColor: "text.90",
             backgroundColor: "text.95",
