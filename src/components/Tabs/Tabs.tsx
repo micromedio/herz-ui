@@ -1,10 +1,9 @@
 /** @jsxImportSource theme-ui */
-import { get } from "@theme-ui/css"
 import React, { useCallback, useState } from "react"
 import { useTabContext } from "./context"
 import { TabContext } from "./context"
 
-export interface TabProps {
+export interface TabsProps {
   initialOpenIndex?: number
   children: React.ReactNode
   activeBackgroundColor?:
@@ -15,7 +14,7 @@ export interface TabProps {
     | "warning"
 }
 
-const Tab = ({
+const Tabs = ({
   children,
   initialOpenIndex,
   activeBackgroundColor = "secondary",
@@ -45,7 +44,7 @@ const Tab = ({
       </TabContext.Provider>
     ))
 
-  const tabLink = allItems.filter((item) =>
+  const tabButton = allItems.filter((item) =>
     item.props.children.props.hasOwnProperty("title")
   )
   const tabPanel = allItems.filter((item) =>
@@ -54,22 +53,21 @@ const Tab = ({
   return (
     <>
       <div sx={{ display: "flex", flexDirection: "row" }}>
-        {tabLink.map((item) => item)}
+        {tabButton.map((item) => item)}
       </div>
       <div>{tabPanel.map((item) => item)}</div>
     </>
   )
 }
 
-export interface TabLinkProps {
+export interface TabButtonProps {
   title: string
   // children: React.ReactNode
   // className?: HTMLAttributes<HTMLDivElement>["className"]
 }
 
-const TabLink = ({ title }: TabLinkProps) => {
-  const { index, toggleOpen, openIndex, activeBackgroundColor } =
-    useTabContext()
+const TabButton = ({ title }: TabButtonProps) => {
+  const { index, toggleOpen, openIndex } = useTabContext()
   const isOpen = openIndex === index
   return (
     <div
@@ -80,7 +78,6 @@ const TabLink = ({ title }: TabLinkProps) => {
         px: 6,
         py: 2,
         variant: "text.body1",
-        color: "text.40",
         cursor: "pointer",
         position: "relative",
         overflow: "hidden",
@@ -92,9 +89,9 @@ const TabLink = ({ title }: TabLinkProps) => {
         borderBottom: "none",
         borderTop: "none",
         boxSizing: "border-box",
-        backgroundColor: (t) =>
-          isOpen ? get(t, `colors.${activeBackgroundColor}.97`) : "transparent",
+        backgroundColor: isOpen ? "white" : "transparent",
         transition: "background-color 150ms linear",
+        boxShadow: isOpen ? "0px 1px 12px rgba(0, 0, 0, 0.04)" : "none",
       }}
       onClick={() => toggleOpen(index)}
     >
@@ -108,7 +105,11 @@ const TabLink = ({ title }: TabLinkProps) => {
           backgroundColor: isOpen ? "primary" : "transparent",
         }}
       />
-      <span sx={{ variant: "text.heading4" }}>{title}</span>
+      <span
+        sx={{ variant: "text.heading4", color: isOpen ? "text" : "text.40" }}
+      >
+        {title}
+      </span>
     </div>
   )
 }
@@ -135,6 +136,7 @@ const TabPanel = ({ children, index }: TabPanelProps) => {
             borderTopLeftRadius: openIndex == 0 && isOpen ? "0" : "12px",
             border: "1px solid #E8E8E9",
             backgroundColor: "#F3F3F3",
+            boxShadow: isOpen ? "0px 1px 12px rgba(0, 0, 0, 0.04)" : "none",
           }}
         >
           {children}
@@ -144,6 +146,6 @@ const TabPanel = ({ children, index }: TabPanelProps) => {
   )
 }
 
-Tab.Link = TabLink
-Tab.Panel = TabPanel
-export default Tab
+Tabs.Tab = TabButton
+Tabs.Panel = TabPanel
+export default Tabs
