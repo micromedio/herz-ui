@@ -19,12 +19,37 @@ const mockedClientRects = {
 
 type AutocompleteItem = typeof mockedOptions[0]
 
-describe("Autocomplete", () => {
+describe("Autocomplete Single Select", () => {
   beforeEach(() => {
     Object.defineProperty(HTMLElement.prototype, "getClientRects", {
       configurable: true,
       value: () => [mockedClientRects],
     })
+  })
+
+  it("renders single successfully", () => {
+    const { getByPlaceholderText } = render(
+      <Autocomplete<AutocompleteItem>
+        onInputValueChange={jest.fn()}
+        onSelectedItemChange={jest.fn()}
+        options={mockedOptions}
+        optionToString={(option) => (option ? option.label : "")}
+        placeholder="Search by element's name or symbol"
+        renderOption={({ defaultStyles, option }) => (
+          <div sx={defaultStyles}>{option.label}</div>
+        )}
+        selectedOption={null}
+        status="success"
+        totalCount={mockedOptions.length}
+      />
+    )
+
+    /**
+     * Check if the element exists
+     */
+    expect(
+      getByPlaceholderText("Search by element's name or symbol")
+    ).toBeInTheDocument()
   })
 
   it("renders successfully", () => {
@@ -38,7 +63,7 @@ describe("Autocomplete", () => {
         renderOption={({ defaultStyles, option }) => (
           <div sx={defaultStyles}>{option.label}</div>
         )}
-        selectedOption={null}
+        selectedOption={[]}
         status="success"
         totalCount={mockedOptions.length}
       />
@@ -75,7 +100,7 @@ describe("Autocomplete", () => {
     await waitFor(() => expect(getByRole("listbox")).toBeInTheDocument())
   })
 
-  it("should renders all the options and allows to select", async () => {
+  it("should render all the options and allows to select", async () => {
     const onSelectedItemChange = jest.fn()
     const { getByRole, getByText, queryByTitle } = render(
       <Autocomplete<AutocompleteItem>
@@ -119,13 +144,7 @@ describe("Autocomplete", () => {
     const option = getByText(mockedOptions[1].label)
     fireEvent.click(option)
 
-    expect(onSelectedItemChange).toHaveBeenCalledWith({
-      highlightedIndex: -1,
-      inputValue: mockedOptions[1].label,
-      isOpen: false,
-      selectedItem: mockedOptions[1],
-      type: useCombobox.stateChangeTypes.ItemClick,
-    })
+    expect(onSelectedItemChange).toHaveBeenCalledWith(mockedOptions[1])
   })
 
   it("should filter options based on input value", async () => {
@@ -394,5 +413,358 @@ describe("Autocomplete", () => {
       selectedItem: null,
       type: useCombobox.stateChangeTypes.FunctionSetInputValue,
     })
+  })
+})
+
+describe("Autocomplete Multi Select", () => {
+  beforeEach(() => {
+    Object.defineProperty(HTMLElement.prototype, "getClientRects", {
+      configurable: true,
+      value: () => [mockedClientRects],
+    })
+  })
+
+  it("renders successfully", () => {
+    const { getByPlaceholderText } = render(
+      <Autocomplete<AutocompleteItem>
+        multiSelect
+        onInputValueChange={jest.fn()}
+        onSelectedItemsChange={jest.fn()}
+        options={mockedOptions}
+        placeholder="Search by element's name or symbol"
+        renderOption={({ defaultStyles, option }) => (
+          <div sx={defaultStyles}>{option.label}</div>
+        )}
+        selectedOption={[]}
+        status="success"
+        totalCount={mockedOptions.length}
+      />
+    )
+
+    /**
+     * Check if the element exists
+     */
+    expect(
+      getByPlaceholderText("Search by element's name or symbol")
+    ).toBeInTheDocument()
+  })
+
+  it("renders without placeholder if an option is selected", () => {
+    const { getByPlaceholderText } = render(
+      <Autocomplete<AutocompleteItem>
+        multiSelect
+        onInputValueChange={jest.fn()}
+        onSelectedItemsChange={jest.fn()}
+        options={mockedOptions}
+        placeholder="Search by element's name or symbol"
+        renderOption={({ defaultStyles, option }) => (
+          <div sx={defaultStyles}>{option.label}</div>
+        )}
+        selectedOption={[mockedOptions[0]]}
+        status="success"
+        totalCount={mockedOptions.length}
+      />
+    )
+
+    /**
+     * Check if the element exists
+     */
+    expect(getByPlaceholderText("")).toBeInTheDocument()
+  })
+
+  it("should render all the options and allows to select multi", async () => {
+    const onSelectedItemsChange = jest.fn()
+    const { getByRole, getByText, queryByTitle, rerender } = render(
+      <Autocomplete<AutocompleteItem>
+        multiSelect
+        getOptionLabel={(option) => option.label}
+        onInputValueChange={jest.fn()}
+        options={mockedOptions}
+        renderOption={({ defaultStyles, option }) => (
+          <div sx={defaultStyles}>{option.label}</div>
+        )}
+        onSelectedItemsChange={onSelectedItemsChange}
+        placeholder="Search by element's name or symbol"
+        selectedOption={[]}
+        totalCount={mockedOptions.length}
+      />
+    )
+
+    /** Act: display the options by clicking on the input */
+    const inputElement = getByRole("textbox")
+    fireEvent.focus(inputElement)
+
+    /**
+     * Check if the options are rendered
+     */
+    for (const option of mockedOptions) {
+      await waitFor(() => expect(getByText(option.label)).toBeInTheDocument())
+    }
+
+    /**
+     * Check for an invalid option
+     */
+    expect(queryByTitle("Random")).not.toBeInTheDocument()
+
+    /** Try to select an option */
+    const firstOption = getByText(mockedOptions[1].label)
+    fireEvent.click(firstOption)
+
+    rerender(
+      <Autocomplete<AutocompleteItem>
+        multiSelect
+        getOptionLabel={(option) => option.label}
+        onInputValueChange={jest.fn()}
+        options={mockedOptions}
+        renderOption={({ defaultStyles, option }) => (
+          <div sx={defaultStyles}>{option.label}</div>
+        )}
+        onSelectedItemsChange={onSelectedItemsChange}
+        placeholder="Search by element's name or symbol"
+        selectedOption={[mockedOptions[1]]}
+        totalCount={mockedOptions.length}
+      />
+    )
+
+    expect(getByRole("listbox")).toBeInTheDocument()
+
+    /** Try to select another option */
+    const secondOption = getByText(mockedOptions[2].label)
+    fireEvent.click(secondOption)
+
+    expect(onSelectedItemsChange).toHaveBeenNthCalledWith(1, [mockedOptions[1]])
+    expect(onSelectedItemsChange).toHaveBeenNthCalledWith(2, [
+      mockedOptions[1],
+      mockedOptions[2],
+    ])
+  })
+
+  it("should deselect an option on click", async () => {
+    const onSelectedItemsChange = jest.fn()
+    const { getByRole, rerender } = render(
+      <Autocomplete<AutocompleteItem>
+        multiSelect
+        getOptionLabel={(option) => option.label}
+        onInputValueChange={jest.fn()}
+        options={mockedOptions}
+        renderOption={({ defaultStyles, option }) => (
+          <div sx={defaultStyles}>{option.label}</div>
+        )}
+        onSelectedItemsChange={onSelectedItemsChange}
+        placeholder="Search by element's name or symbol"
+        selectedOption={[mockedOptions[0], mockedOptions[1], mockedOptions[2]]}
+        totalCount={mockedOptions.length}
+      />
+    )
+
+    /** Act: display the options by clicking on the input */
+    const inputElement = getByRole("textbox")
+    fireEvent.focus(inputElement)
+
+    /** Try to select an option */
+    const firstOption = await waitFor(() =>
+      getByRole("option", { name: mockedOptions[2].label })
+    )
+    fireEvent.click(firstOption)
+
+    expect(onSelectedItemsChange).toHaveBeenNthCalledWith(1, [
+      mockedOptions[0],
+      mockedOptions[1],
+    ])
+
+    rerender(
+      <Autocomplete<AutocompleteItem>
+        multiSelect
+        getOptionLabel={(option) => option.label}
+        onInputValueChange={jest.fn()}
+        options={mockedOptions}
+        renderOption={({ defaultStyles, option }) => (
+          <div sx={defaultStyles}>{option.label}</div>
+        )}
+        onSelectedItemsChange={onSelectedItemsChange}
+        placeholder="Search by element's name or symbol"
+        selectedOption={[mockedOptions[0], mockedOptions[1]]}
+        totalCount={mockedOptions.length}
+      />
+    )
+
+    const secondOption = await waitFor(() =>
+      getByRole("option", { name: mockedOptions[0].label })
+    )
+    fireEvent.click(secondOption)
+
+    expect(onSelectedItemsChange).toHaveBeenNthCalledWith(2, [mockedOptions[1]])
+  })
+
+  it("should deselect an option on backspace", async () => {
+    const onSelectedItemsChange = jest.fn()
+    const { getByRole } = render(
+      <Autocomplete<AutocompleteItem>
+        multiSelect
+        getOptionLabel={(option) => option.label}
+        onInputValueChange={jest.fn()}
+        options={mockedOptions}
+        renderOption={({ defaultStyles, option }) => (
+          <div sx={defaultStyles}>{option.label}</div>
+        )}
+        renderSelectedItems={(options) => {
+          return options.map((option) => (
+            <span key={option.value}>
+              {option.label}{" "}
+              <strong>
+                <sup sx={{ position: "relative", left: 3, top: "-5px" }}>
+                  {option.A}
+                </sup>
+                <sub
+                  sx={{
+                    position: "relative",
+                    top: "5px",
+                  }}
+                >
+                  {option.Z}
+                </sub>
+                {option.symbol}
+              </strong>
+            </span>
+          ))
+        }}
+        onSelectedItemsChange={onSelectedItemsChange}
+        placeholder="Search by element's name or symbol"
+        selectedOption={[mockedOptions[0], mockedOptions[1]]}
+        totalCount={mockedOptions.length}
+      />
+    )
+
+    /** Act: display the options by clicking on the input */
+    const inputElement = getByRole("textbox")
+    fireEvent.focus(inputElement)
+    await waitFor(() => fireEvent.keyDown(inputElement, { key: `Backspace` }))
+
+    expect(onSelectedItemsChange).toHaveBeenCalledWith([mockedOptions[0]])
+  })
+
+  it("should trigger onRemove when clicked", async () => {
+    const onRemove = jest.fn()
+    const { getAllByRole, getByRole } = render(
+      <Autocomplete<AutocompleteItem>
+        multiSelect
+        getOptionLabel={(option) => option.label}
+        onInputValueChange={jest.fn()}
+        options={mockedOptions}
+        renderOption={({ defaultStyles, option }) => (
+          <div sx={defaultStyles}>{option.label}</div>
+        )}
+        onRemove={onRemove}
+        onSelectedItemsChange={jest.fn()}
+        placeholder="Search by element's name or symbol"
+        selectedOption={[mockedOptions[0]]}
+        totalCount={mockedOptions.length}
+      />
+    )
+
+    /** Act: display the options by clicking on the input */
+    const inputElement = getByRole("textbox")
+    fireEvent.focus(inputElement)
+
+    const tagElements = await waitFor(() => getAllByRole("button"))
+    fireEvent.click(tagElements[0])
+
+    expect(onRemove).toHaveBeenCalledWith(mockedOptions[0])
+  })
+
+  it("should clear the search on blur", async () => {
+    const { getByRole } = render(
+      <Autocomplete<AutocompleteItem>
+        multiSelect
+        getOptionLabel={(option) => option.label}
+        onInputValueChange={jest.fn()}
+        options={mockedOptions}
+        renderOption={({ defaultStyles, option }) => (
+          <div sx={defaultStyles}>{option.label}</div>
+        )}
+        onSelectedItemsChange={jest.fn()}
+        placeholder="Search by element's name or symbol"
+        selectedOption={[mockedOptions[0], mockedOptions[1]]}
+        totalCount={mockedOptions.length}
+      />
+    )
+
+    /** Act: display the options by clicking on the input */
+    const inputElement = getByRole("textbox")
+    fireEvent.focus(inputElement)
+    fireEvent.change(inputElement, { target: { value: `Ne` } })
+
+    expect((inputElement as HTMLInputElement).value).toEqual(`Ne`)
+
+    fireEvent.blur(inputElement)
+
+    expect((inputElement as HTMLInputElement).value).toEqual("")
+  })
+
+  it("should clear the search on select", async () => {
+    const { getByRole } = render(
+      <Autocomplete<AutocompleteItem>
+        multiSelect
+        getOptionLabel={(option) => option.label}
+        onInputValueChange={jest.fn()}
+        options={mockedOptions}
+        renderOption={({ defaultStyles, option }) => (
+          <div sx={defaultStyles}>{option.label}</div>
+        )}
+        onSelectedItemsChange={jest.fn()}
+        placeholder="Search by element's name or symbol"
+        selectedOption={[mockedOptions[0], mockedOptions[1]]}
+        totalCount={mockedOptions.length}
+      />
+    )
+
+    /** Act: display the options by clicking on the input */
+    const inputElement = getByRole("textbox")
+    fireEvent.focus(inputElement)
+    fireEvent.change(inputElement, { target: { value: `Ne` } })
+
+    expect((inputElement as HTMLInputElement).value).toEqual(`Ne`)
+
+    /** Try to deselect an option */
+    const firstOption = await waitFor(() =>
+      getByRole("option", { name: mockedOptions[0].label })
+    )
+    fireEvent.click(firstOption)
+
+    expect((inputElement as HTMLInputElement).value).toEqual("")
+  })
+
+  it("should not clear the search on select", async () => {
+    const { getByRole } = render(
+      <Autocomplete<AutocompleteItem>
+        keepSearchAfterSelect
+        multiSelect
+        getOptionLabel={(option) => option.label}
+        onInputValueChange={jest.fn()}
+        options={mockedOptions}
+        renderOption={({ defaultStyles, option }) => (
+          <div sx={defaultStyles}>{option.label}</div>
+        )}
+        onSelectedItemsChange={jest.fn()}
+        placeholder="Search by element's name or symbol"
+        selectedOption={[mockedOptions[0], mockedOptions[1]]}
+        totalCount={mockedOptions.length}
+      />
+    )
+
+    /** Act: display the options by clicking on the input */
+    const inputElement = getByRole("textbox")
+    fireEvent.focus(inputElement)
+    fireEvent.change(inputElement, { target: { value: `Ne` } })
+
+    expect((inputElement as HTMLInputElement).value).toEqual(`Ne`)
+
+    /** Try to deselect an option */
+    const firstOption = await waitFor(() =>
+      getByRole("option", { name: mockedOptions[0].label })
+    )
+    fireEvent.click(firstOption)
+
+    expect((inputElement as HTMLInputElement).value).toEqual(`Ne`)
   })
 })
