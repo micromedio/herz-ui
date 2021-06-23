@@ -227,7 +227,7 @@ export default forwardRef(function Autocomplete<T>(
       }
       props.onSelectedItemChange(selected)
     },
-    selectedItem: selectedOption as T,
+    selectedItem: (selectedOption as T) || null,
     ...comboboxProps,
   })
 
@@ -258,9 +258,7 @@ export default forwardRef(function Autocomplete<T>(
 
   const hasSelectedOption = useMemo(() => {
     if (props.multiSelect) {
-      return props.selectedOption && props.selectedOption.length > 0
-        ? true
-        : false
+      return !!props.selectedOption && props.selectedOption.length > 0
     } else {
       return !!props.selectedOption
     }

@@ -142,7 +142,7 @@ const [secondDefaultValue, setSecondDefaultValue] = React.useState(1)
 
 ### Example With Autocomplete
 
-##### <span style="color: red">Attention:</span> do not use <span style="color: red">saveOnBlur</span> or <span style="color: red">resetOnBlur</span> when using the Autocomplete with EditableField.Groups, the Autocomplete behavior maintain the buttons until the user interacts with them.
+##### <span style="color: red;">Attention:</span> when an <span style="color: red;">`EditableField.Group`</span> has an <span style="color: red;">`EditableField.Autocomplete`</span> inside of it, the <span style="color: red;">`saveOnBlur`</span> and <span style="color: red;">`resetOnBlur`</span> props are ignored, and the group behaves as is both props are <span style="color: red;">`false`</span> (so no save or reset will happen on blur)
 
 ```jsx
 import EditableField from '../EditableField'
