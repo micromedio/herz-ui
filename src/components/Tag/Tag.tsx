@@ -19,7 +19,9 @@ const Tag = ({
   return (
     <span
       sx={{
+        alignItems: "center",
         display: "flex",
+        height: "fit-content",
         width: "fit-content",
         gap: 1,
         px: 2,
@@ -30,6 +32,7 @@ const Tag = ({
     >
       <span
         sx={{
+          cursor: "default",
           variant: "text.caption",
           fontWeight: "bold",
         }}
