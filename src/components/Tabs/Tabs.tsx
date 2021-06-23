@@ -6,19 +6,9 @@ import { TabContext } from "./context"
 export interface TabsProps {
   initialOpenIndex?: number
   children: React.ReactNode
-  activeBackgroundColor?:
-    | "primary"
-    | "secondary"
-    | "text"
-    | "success"
-    | "warning"
 }
 
-const Tabs = ({
-  children,
-  initialOpenIndex,
-  activeBackgroundColor = "secondary",
-}: TabsProps) => {
+const Tabs = ({ children, initialOpenIndex }: TabsProps) => {
   const [openIndex, setOpenIndex] = useState<number | undefined>(
     initialOpenIndex
   )
@@ -36,10 +26,7 @@ const Tabs = ({
       return React.isValidElement(child)
     })
     .map((child, index) => (
-      <TabContext.Provider
-        value={{ index, toggleOpen, openIndex, activeBackgroundColor }}
-        key={index}
-      >
+      <TabContext.Provider value={{ index, toggleOpen, openIndex }} key={index}>
         {child}
       </TabContext.Provider>
     ))
@@ -82,7 +69,7 @@ const TabButton = ({ title }: TabButtonProps) => {
         height: "36px",
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
-        border: isOpen ? "1px solid" : "1px solid",
+        border: "1px solid",
         borderColor: isOpen ? "text.90" : "transparent",
         borderBottom: "none",
         boxSizing: "border-box",

@@ -4,12 +4,6 @@ export interface TabContext {
   index: number
   openIndex?: number
   toggleOpen: (index: number) => void
-  activeBackgroundColor:
-    | "primary"
-    | "secondary"
-    | "text"
-    | "success"
-    | "warning"
 }
 
 export const TabContext = createContext<TabContext | null>(null)
