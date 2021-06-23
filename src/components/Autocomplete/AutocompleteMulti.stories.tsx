@@ -5,7 +5,6 @@ import { Meta, Story } from "@storybook/react/types-6-0"
 import Autocomplete, { AutocompleteProps } from "./Autocomplete"
 import { mockedOptions } from "./__mocks__/options"
 import Highlight from "../Highlight/Highlight"
-// import Tag from "../Tag/Tag"
 
 type AutocompleteItem = typeof mockedOptions[0]
 
@@ -15,7 +14,10 @@ export default {
 } as Meta
 
 const MultiAutocompleteTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
-  props: Partial<AutocompleteProps<AutocompleteItem>>
+  props: Omit<
+    Partial<AutocompleteProps<AutocompleteItem>>,
+    "defaultSelectedOption"
+  >
 ) => {
   const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
   const [value, setValue] = useState<AutocompleteItem[]>(
@@ -66,7 +68,12 @@ const MultiAutocompleteTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
 
 const MultiAutocompleteTemplateWithRemove: Story<
   AutocompleteProps<AutocompleteItem>
-> = (props: Partial<AutocompleteProps<AutocompleteItem>>) => {
+> = (
+  props: Omit<
+    Partial<AutocompleteProps<AutocompleteItem>>,
+    "defaultSelectedOption"
+  >
+) => {
   const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
   const [value, setValue] = useState<AutocompleteItem[]>(
     props.selectedOption && Array.isArray(props.selectedOption)

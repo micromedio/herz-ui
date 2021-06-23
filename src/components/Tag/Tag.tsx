@@ -41,6 +41,7 @@ const Tag = ({
       </span>
       {showRemove && (
         <span
+          tabIndex={0}
           role="button"
           aria-label="remove"
           onClick={onRemove}

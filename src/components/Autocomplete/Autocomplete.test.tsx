@@ -63,7 +63,7 @@ describe("Autocomplete Single Select", () => {
         renderOption={({ defaultStyles, option }) => (
           <div sx={defaultStyles}>{option.label}</div>
         )}
-        selectedOption={[]}
+        selectedOption={null}
         status="success"
         totalCount={mockedOptions.length}
       />

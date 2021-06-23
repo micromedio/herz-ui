@@ -1,4 +1,4 @@
-import React, { RefObject, useCallback, useReducer } from "react"
+import React, { RefObject, useCallback, useMemo, useReducer } from "react"
 
 import {
   EditableFieldGroupContext,
@@ -11,6 +11,7 @@ interface ReducerState {
   fields: Record<
     string,
     {
+      disableActionsOnBlur?: boolean
       ref: RefObject<HTMLElement>
       reset: () => void
       value?: unknown
@@ -45,6 +46,7 @@ type ReducerAction =
   | {
       type: Actions.Register
       payload: {
+        disableActionsOnBlur?: boolean
         name: string
         ref: React.RefObject<HTMLElement>
         reset: () => void
@@ -85,16 +87,17 @@ function reducer(state: ReducerState, action: ReducerAction) {
             setTimeout(field.reset)
           )
         }
+        return { ...state, isFocused: blurredInside }
       }
       return { ...state, isFocused: false }
     }
     case Actions.Register: {
-      const { name, ref, reset } = action.payload
+      const { disableActionsOnBlur, name, ref, reset } = action.payload
       return {
         ...state,
         fields: {
           ...state.fields,
-          [name]: { ...state.fields[name], ref, reset },
+          [name]: { ...state.fields[name], ref, reset, disableActionsOnBlur },
         },
       }
     }
@@ -143,8 +146,11 @@ const EditableFieldGroup = ({
 
   const register = useCallback<
     Required<EditableFieldGroupContextArguments>["register"]
-  >(({ name, ref, reset }) => {
-    dispatch({ type: Actions.Register, payload: { name, ref, reset } })
+  >(({ disableActionsOnBlur = false, name, ref, reset }) => {
+    dispatch({
+      type: Actions.Register,
+      payload: { disableActionsOnBlur, name, ref, reset },
+    })
   }, [])
 
   const onFocus = useCallback<
@@ -168,17 +174,44 @@ const EditableFieldGroup = ({
     dispatch({ type: Actions.Blur, payload: {} })
   }, [onSave, state.fields])
 
+  const disableActionsOnBlur = useMemo(() => {
+    return Object.keys(state.fields).some(
+      (field) => state.fields[field].disableActionsOnBlur
+    )
+  }, [state.fields])
+
   const onBlur = useCallback<
     Required<EditableFieldGroupContextArguments>["onBlur"]
   >(
     (event) => {
+      if (disableActionsOnBlur) {
+        if (!state.hasChanged)
+          dispatch({
+            type: Actions.Blur,
+            payload: { event },
+          })
+        if (saveOnBlur)
+          console.warn(
+            `An <EditableField.Autocomplete /> component wrapped in an <EditableField.Group /> cannot be saved/reset on blur`
+          )
+        return
+      }
       if (saveOnBlur) {
         onGroupSave()
       } else {
-        dispatch({ type: Actions.Blur, payload: { event, reset: resetOnBlur } })
+        dispatch({
+          type: Actions.Blur,
+          payload: { event, reset: resetOnBlur },
+        })
       }
     },
-    [onGroupSave, resetOnBlur, saveOnBlur]
+    [
+      disableActionsOnBlur,
+      onGroupSave,
+      resetOnBlur,
+      saveOnBlur,
+      state.hasChanged,
+    ]
   )
 
   const onChange = useCallback<

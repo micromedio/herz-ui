@@ -1,8 +1,14 @@
+/** @jsxImportSource theme-ui */
 import EditableFieldGroup, { EditableFieldGroupProps } from "./Group"
 import { Meta, Story } from "@storybook/react/types-6-0"
 import EditableText from "../Text/Text"
 import EditableSelect, { EditableFieldSelectProps } from "../Select/Select"
+import EditableFieldAutocomplete from "../Autocomplete/Autocomplete"
 import { useState } from "react"
+import { mockedOptions } from "../../Autocomplete/__mocks__/options"
+import Highlight from "../../Highlight/Highlight"
+
+type AutocompleteItem = typeof mockedOptions[0]
 
 export default {
   title: "Design System/EditableField/Group",
@@ -129,9 +135,94 @@ const TemplateWithTextArea: Story<EditableFieldGroupProps> = (
   )
 }
 
+const TemplateWithAutocomplete: Story<EditableFieldGroupProps> = (
+  props: EditableFieldGroupProps
+) => {
+  const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
+  const [firstValue, setFirstValue] = useState("First")
+  const [secondValue, setSecondValue] = useState<
+    AutocompleteItem[] | null | undefined
+  >([])
+
+  const [firstDefaultValue, setFirstDefaultValue] = useState("First")
+  const [secondDefaultValue, setSecondDefaultValue] = useState<
+    AutocompleteItem[] | undefined
+  >([])
+
+  return (
+    <EditableFieldGroup
+      {...props}
+      onSave={(values) => {
+        props.onSave?.(values)
+        setFirstDefaultValue(values.first)
+        setSecondDefaultValue(values.autocomplete)
+      }}
+    >
+      <div
+        style={{
+          display: "grid",
+          gap: 6,
+        }}
+      >
+        <EditableText
+          name="first"
+          value={firstValue}
+          defaultValue={firstDefaultValue}
+          onChange={(event) => setFirstValue(event.target.value)}
+        />
+        <EditableFieldAutocomplete<AutocompleteItem>
+          controlsGroup
+          defaultSelectedOption={secondDefaultValue}
+          getOptionLabel={(option) => option.label}
+          multiSelect
+          name="autocomplete"
+          onInputValueChange={({ inputValue }) => {
+            setItems(
+              mockedOptions.filter((option) =>
+                inputValue
+                  ? option.label
+                      .toLocaleLowerCase()
+                      .startsWith(inputValue.toLocaleLowerCase())
+                  : true
+              )
+            )
+          }}
+          onRemove={(option) => {
+            setSecondValue(
+              secondValue?.filter((selected) => selected.value !== option.value)
+            )
+          }}
+          onSelectedItemsChange={(options) => {
+            setSecondValue(options)
+          }}
+          options={items.slice(0, 5)}
+          placeholder="Search by organization's name or handle"
+          renderOption={({ defaultStyles, option, inputValue }) => (
+            <div
+              sx={{
+                ...defaultStyles,
+                alignContent: "center",
+                alignItems: "center",
+                display: "flex",
+                padding: 2,
+              }}
+            >
+              <Highlight search={inputValue} text={option.label} />
+            </div>
+          )}
+          selectedOption={secondValue}
+          totalCount={items.length}
+        />
+      </div>
+    </EditableFieldGroup>
+  )
+}
+
 // Each story then reuses that template
 export const Default = Template.bind({})
 Default.args = {}
 
 export const DefaultWithTextArea = TemplateWithTextArea.bind({})
 DefaultWithTextArea.args = {}
+
+export const DefaultWithAutocomplete = TemplateWithAutocomplete.bind({})

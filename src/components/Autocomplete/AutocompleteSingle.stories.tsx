@@ -15,7 +15,12 @@ export default {
 } as Meta
 
 const Template: Story<AutocompleteProps<AutocompleteItem>> = (
-  props: Partial<Omit<AutocompleteProps<AutocompleteItem>, "multiSelect">>
+  props: Partial<
+    Omit<
+      AutocompleteProps<AutocompleteItem>,
+      "defaultSelectedOption" | "multiSelect"
+    >
+  >
 ) => {
   const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
   const [value, setValue] = useState<AutocompleteItem | null | undefined>(
@@ -86,7 +91,12 @@ const Template: Story<AutocompleteProps<AutocompleteItem>> = (
 }
 
 const RenderSelectedTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
-  props: Partial<Omit<AutocompleteProps<AutocompleteItem>, "multiSelect">>
+  props: Partial<
+    Omit<
+      AutocompleteProps<AutocompleteItem>,
+      "defaultSelectedOption" | "multiSelect"
+    >
+  >
 ) => {
   const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
   const [value, setValue] = useState<AutocompleteItem | null | undefined>(
@@ -172,7 +182,12 @@ const RenderSelectedTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
 }
 
 const WithHighlightTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
-  props: Partial<Omit<AutocompleteProps<AutocompleteItem>, "multiSelect">>
+  props: Partial<
+    Omit<
+      AutocompleteProps<AutocompleteItem>,
+      "defaultSelectedOption" | "multiSelect"
+    >
+  >
 ) => {
   const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
   const [value, setValue] = useState<AutocompleteItem | null | undefined>(null)

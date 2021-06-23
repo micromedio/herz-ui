@@ -7,7 +7,9 @@ export interface EditableFieldGroupContextArguments {
     name,
     ref,
     reset,
+    disableActionsOnBlur,
   }: {
+    disableActionsOnBlur?: boolean
     name: string
     ref: RefObject<HTMLElement>
     reset: () => void
