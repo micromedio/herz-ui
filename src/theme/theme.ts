@@ -123,7 +123,7 @@ export const theme: Theme = {
     },
     heading4: {
       fontFamily: "body",
-      fontSize: 2,
+      fontSize: 1,
       fontWeight: "semibold",
       lineHeight: 20 / 13,
     },
