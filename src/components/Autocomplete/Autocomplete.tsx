@@ -30,6 +30,8 @@ interface CommonProps<T extends unknown> {
   label?: string
   /** It basically returns the changes object of Combobox state with the input value, which must be used to filter the auto-complete options. */
   onInputValueChange: (comboboxStateChange: UseComboboxStateChange<T>) => void
+  /** Event triggered when the menu open or close */
+  onIsOpenChange?: (isOpen?: boolean) => void
   /** Text to show after label if field is not required (optional) */
   optionalText?: string
   /** The Array with the options to be rendered */
@@ -58,17 +60,29 @@ interface CommonProps<T extends unknown> {
   required?: boolean
   /** Text to show after label if field is required */
   requiredText?: string
-  /** The value of the `input` element */
-  selectedOption?: T[] | T | null
   /** Controls which state the `input` will be displayed in */
   status?: "error" | "loading" | "success"
+
+  styles?: {
+    counterContainer?: ThemeUICSSObject
+    input?: ThemeUICSSObject
+    inputRoot?: ThemeUICSSObject
+    label?: ThemeUICSSObject
+    labelSideText?: ThemeUICSSObject
+    menu?: ThemeUICSSObject
+    root?: ThemeUICSSObject
+  }
   /** Responsible for rendering the `Currently showing x results from a total of y`, where y is the totalCount */
   totalCount?: number
 }
 
 interface SingleProps<T extends unknown> extends CommonProps<T> {
+  /** The value of the `input` element */
+  defaultSelectedOption?: T
   /** Whether the component is multiselect or not */
   multiSelect?: false
+  /** The value of the `input` element */
+  selectedOption?: T | null
   /** Callback fired when the selected item is changed */
   onSelectedItemChange: (changes?: T | null) => void
   /** Renders the selected item as html */
@@ -76,6 +90,8 @@ interface SingleProps<T extends unknown> extends CommonProps<T> {
 }
 
 interface MultiProps<T extends unknown> extends CommonProps<T> {
+  /** The value of the `input` element */
+  defaultSelectedOption?: T[]
   /** The function responsible for extracting the option label for the tags */
   getOptionLabel?: (option: T) => string
   /** Clear the search input when select an option */
@@ -88,6 +104,8 @@ interface MultiProps<T extends unknown> extends CommonProps<T> {
   onSelectedItemsChange: (changes: T[]) => void
   /** Renders the selected items as html */
   renderSelectedItems?: (option: T[], isOpen?: boolean) => ReactNode
+  /** The value of the `input` element */
+  selectedOption?: T[] | null
   /** The Tag color passed to the Tag component */
   tagColor?: TagProps["color"]
 }
@@ -109,6 +127,7 @@ export default forwardRef(function Autocomplete<T>(
     id,
     label,
     onInputValueChange,
+    onIsOpenChange,
     optionalText,
     options,
     optionToString = (): string => {
@@ -120,6 +139,7 @@ export default forwardRef(function Autocomplete<T>(
     renderOption,
     selectedOption,
     status,
+    styles,
     totalCount = 0,
   } = props
   const containerRef = useRef<HTMLDivElement>(null)
@@ -183,6 +203,7 @@ export default forwardRef(function Autocomplete<T>(
       } else {
         inputRef.current?.focus()
       }
+      onIsOpenChange?.(open)
     },
     onSelectedItemChange: (changes) => {
       const { selectedItem: selected } = changes
@@ -206,11 +227,11 @@ export default forwardRef(function Autocomplete<T>(
       }
       props.onSelectedItemChange(selected)
     },
-    selectedItem: selectedOption as T,
+    selectedItem: (selectedOption as T) || null,
     ...comboboxProps,
   })
 
-  const styles: Record<string, ThemeUICSSObject> = {
+  const activeStyles: Record<string, ThemeUICSSObject> = {
     active: {
       borderColor: "secondary",
       boxShadow: (t) =>
@@ -235,9 +256,28 @@ export default forwardRef(function Autocomplete<T>(
     ),
   }
 
+  const hasSelectedOption = useMemo(() => {
+    if (props.multiSelect) {
+      return !!props.selectedOption && props.selectedOption.length > 0
+    } else {
+      return !!props.selectedOption
+    }
+  }, [props.multiSelect, props.selectedOption])
+
+  const hasSpotlight = useMemo(() => {
+    const shouldCheckForDefaultValue = !!props.defaultSelectedOption
+    const defaultValueDiffers =
+      JSON.stringify(props.selectedOption) !==
+      JSON.stringify(props.defaultSelectedOption)
+    return shouldCheckForDefaultValue
+      ? (hasSelectedOption && defaultValueDiffers) || defaultValueDiffers
+      : hasSelectedOption
+  }, [hasSelectedOption, props.defaultSelectedOption, props.selectedOption])
+
   const autocompleteInput = (
     <input
       {...getInputProps({
+        "aria-label": label ? undefined : "autocomplete-input",
         "aria-invalid": status === "error",
         autoComplete: "off",
         disabled: status === "loading",
@@ -245,10 +285,7 @@ export default forwardRef(function Autocomplete<T>(
         onFocus: () => {
           if (!isOpen) openMenu()
         },
-        placeholder:
-          props.multiSelect && (selectedOption as T[]).length > 0
-            ? ""
-            : placeholder,
+        placeholder: props.multiSelect && hasSelectedOption ? "" : placeholder,
         ref: inputRef,
         type: "text",
         value: inputValue || "",
@@ -258,7 +295,7 @@ export default forwardRef(function Autocomplete<T>(
         border: "none",
         color: "text",
         flexGrow: 1,
-        opacity: !selectedOption || isOpen ? 1 : 0,
+        opacity: !hasSelectedOption || isOpen ? 1 : 0,
         outline: 0,
         p: 0,
         py: "2px", // the 2px border counts towards height, so we need 6px instead of 8px for the correct height
@@ -266,11 +303,9 @@ export default forwardRef(function Autocomplete<T>(
         width: "auto",
         "&:not(focused)": {
           width:
-            props.multiSelect &&
-            ((selectedOption as T[]).length === 0 || isOpen)
-              ? undefined
-              : 0,
+            props.multiSelect && (!hasSelectedOption || isOpen) ? undefined : 0,
         },
+        ...styles?.input,
       }}
       onKeyDown={
         props.multiSelect
@@ -293,6 +328,7 @@ export default forwardRef(function Autocomplete<T>(
         flexDirection: "column",
         flexWrap: "wrap",
         gap: 2,
+        ...styles?.root,
       }}
     >
       {label && (
@@ -302,6 +338,7 @@ export default forwardRef(function Autocomplete<T>(
             sx={{
               color: "text",
               variant: "text.body1",
+              ...styles?.label,
             }}
           >
             {label}
@@ -310,6 +347,7 @@ export default forwardRef(function Autocomplete<T>(
             sx={{
               color: "text.40",
               variant: "text.body2",
+              ...styles?.labelSideText,
             }}
           >
             ({required ? requiredText : optionalText})
@@ -340,6 +378,7 @@ export default forwardRef(function Autocomplete<T>(
                 "& > div#total-count": {
                   cursor: "initial",
                 },
+                ...styles?.menu,
               }}
             >
               {options.map((item, index, array) => {
@@ -391,6 +430,7 @@ export default forwardRef(function Autocomplete<T>(
                       color: "text",
                       fontWeight: 600,
                     },
+                    ...styles?.counterContainer,
                   }}
                 >
                   {totalCount > options.length && (
@@ -452,10 +492,10 @@ export default forwardRef(function Autocomplete<T>(
               position: "relative",
               transition: "all 0.2s",
               width: "100%",
-              ...(state === "loading" ? styles.active : {}),
+              ...(state === "loading" ? activeStyles.active : {}),
               ...{
                 default: {
-                  backgroundColor: selectedOption
+                  backgroundColor: hasSpotlight
                     ? "secondary.alpha.90"
                     : "text.alpha.95",
                 },
@@ -471,15 +511,16 @@ export default forwardRef(function Autocomplete<T>(
               }[state],
               "&:hover": {
                 ...(state === "default" && {
-                  backgroundColor: selectedOption
+                  backgroundColor: hasSpotlight
                     ? "secondary.alpha.85"
                     : "text.alpha.90",
                 }),
               },
               "&:focus-within": {
-                ...(isOpen && styles.active),
+                ...(isOpen && activeStyles.active),
               },
               "& *": { transition: "all 0.2s, visibility 0s" },
+              ...styles?.inputRoot,
             }}
           >
             {props.multiSelect && (

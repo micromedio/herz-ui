@@ -18,7 +18,7 @@ const mockedOptions = [
   { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
 ]
 const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState(null)
+const [value, setValue] = React.useState()
 ;(
 <Autocomplete
   onInputValueChange={({ inputValue }) => {
@@ -49,7 +49,7 @@ const [value, setValue] = React.useState(null)
       {option.label}
     </div>
   )}
-  onSelectedItemChange={({ selectedItem: selectedOption }) => {
+  onSelectedItemChange={(selectedOption) => {
     setValue(selectedOption)
   }}
   selectedOption={value}
@@ -74,7 +74,7 @@ const mockedOptions = [
   { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
 ]
 const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState(null)
+const [value, setValue] = React.useState()
 ;(
 <Autocomplete
   helperText="This is a helper text"
@@ -108,7 +108,7 @@ const [value, setValue] = React.useState(null)
       {option.label}
     </div>
   )}
-  onSelectedItemChange={({ selectedItem: selectedOption }) => {
+  onSelectedItemChange={(selectedOption) => {
     setValue(selectedOption)
   }}
   selectedOption={value}
@@ -187,7 +187,7 @@ const [value, setValue] = React.useState(mockedOptions[0])
       {option.label}
     </div>
   )}
-  onSelectedItemChange={({ selectedItem: selectedOption }) => {
+  onSelectedItemChange={(selectedOption) => {
     setValue(selectedOption)
   }}
   selectedOption={value}
@@ -286,7 +286,7 @@ const [value, setValue] = React.useState(mockedOptions[5])
       </span>
     )
   }}
-  onSelectedItemChange={({ selectedItem: selectedOption }) => {
+  onSelectedItemChange={(selectedOption) => {
     setValue(selectedOption)
   }}
   selectedOption={value}
@@ -311,7 +311,7 @@ const mockedOptions = [
   { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
 ]
 const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState(null)
+const [value, setValue] = React.useState()
 ;(
 <Autocomplete
   buttons={
@@ -386,7 +386,7 @@ const [value, setValue] = React.useState(null)
       </span>
     )
   }}
-  onSelectedItemChange={({ selectedItem: selectedOption }) => {
+  onSelectedItemChange={(selectedOption) => {
     setValue(selectedOption)
   }}
   selectedOption={value}
