@@ -1,0 +1,1 @@
+The EditableField components are used when you want to display values of an entity in a way that it looks like normal text, while allowing the user to click on it to edit as an input/select and save/discard changes.

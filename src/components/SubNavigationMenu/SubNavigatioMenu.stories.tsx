@@ -1,4 +1,3 @@
-/** @jsxImportSource theme-ui */
 import SubNavigationMenu, { SubNavigationMenuProps } from "./SubNavigationMenu"
 import { Meta, Story } from "@storybook/react/types-6-0"
 import { ReactElement, ReactNode, useMemo, useState } from "react"
