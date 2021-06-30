@@ -1,3 +1,20 @@
+#### 0.8.0 (2021-06-30)
+
+##### New Features
+
+*  fix issues pointed on PR ([2444c4aa](https://github.com/micromed-dev/herz-ui/commit/2444c4aa46a11dcfd3d7d874a4acc26345e5bc09))
+* **Tabs:**
+  *  change css properties to use constraints from theme ([1f3c1f56](https://github.com/micromed-dev/herz-ui/commit/1f3c1f563ac0cfbc46b7f31a6235243792a74819))
+  *  Update styles to match theme default colors ([0898602e](https://github.com/micromed-dev/herz-ui/commit/0898602e42846d26181181ae6b1811051275eb32))
+* **Tab:**
+  *  Upgrade tab styles and component signature ([a57f77bb](https://github.com/micromed-dev/herz-ui/commit/a57f77bb7c142fd0657efc1276fdc67a7b82d7aa))
+  *  Add Tab Component ([d7ec2b16](https://github.com/micromed-dev/herz-ui/commit/d7ec2b1694ad03b90ae319205b4a77093f7fe2d6))
+
+##### Other Changes
+
+* micromedio/herz-ui into DEV-203 ([126cd739](https://github.com/micromed-dev/herz-ui/commit/126cd739a4ddf52b60086a64ab26fbbfea667052))
+* micromedio/herz-ui into DEV-203 ([d35072f9](https://github.com/micromed-dev/herz-ui/commit/d35072f974246304178c663f52389598917d4c2a))
+
 #### 0.7.1 (2021-06-16)
 
 ##### New Features
