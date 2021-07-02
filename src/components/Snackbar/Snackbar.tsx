@@ -78,6 +78,7 @@ const Snackbar = ({ type, title, body, onClose }: SnackbarProps) => {
       >
         {title}
       </div>
+
       {body && (
         <div
           sx={{
@@ -87,6 +88,7 @@ const Snackbar = ({ type, title, body, onClose }: SnackbarProps) => {
           {body}
         </div>
       )}
+
       {onClose && (
         <div
           sx={{
