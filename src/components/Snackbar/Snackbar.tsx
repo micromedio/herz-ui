@@ -98,6 +98,7 @@ const Snackbar = ({ type, title, body, onClose }: SnackbarProps) => {
           <Button
             iconName="IconX"
             size="small"
+            aria-label="close"
             sx={{
               p: 0,
               width: 20,
