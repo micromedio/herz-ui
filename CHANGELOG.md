@@ -1,3 +1,19 @@
+#### 0.9.0 (2021-07-05)
+
+##### Chores
+
+* **Storybook:**  Updated storybook DEV-253 ([c0114886](https://github.com/micromed-dev/herz-ui/commit/c01148863bdafd2bb4eafe4b2ac67d3d1e0dd546))
+
+##### New Features
+
+* **Snackbar:**
+  *  Added useSnackbar hook and Provider DEV-253 ([fb915f6a](https://github.com/micromed-dev/herz-ui/commit/fb915f6aa5a99a9f33ed9cd65f1ca8ef5393ee26))
+  *  Added Snackbar component DEV-253 ([b1725677](https://github.com/micromed-dev/herz-ui/commit/b1725677d6afc4f229cbab6be82c48620f65ea89))
+
+##### Tests
+
+* **Snackbar:**  Added tests and snapshots DEV-253 ([cdb2c56b](https://github.com/micromed-dev/herz-ui/commit/cdb2c56b09cfddcd082411bc2562b4037a5a69f1))
+
 #### 0.8.0 (2021-06-30)
 
 ##### New Features
