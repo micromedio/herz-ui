@@ -68,6 +68,9 @@ export type { SelectProps } from "./Select/Select"
 
 export { default as Snackbar } from "./Snackbar/Snackbar"
 export type { SnackbarProps } from "./Snackbar/Snackbar"
+export { default as SnackbarProvider } from "./Snackbar/context/SnackbarProvider"
+export type { SnackbarProviderProps } from "./Snackbar/context/SnackbarProvider"
+export { useSnackbar } from "./Snackbar/hooks/useSnackbar"
 
 export { default as Spinner } from "./Spinner/Spinner"
 export type { SpinnerProps } from "./Spinner/Spinner"
