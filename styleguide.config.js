@@ -14,7 +14,7 @@ module.exports = {
   ],
   version: `${version}`,
   styleguideComponents: {
-    Wrapper: path.join(__dirname, "src/theme/ThemeWrapper"),
+    Wrapper: path.join(__dirname, "src/docs/Providers"),
   },
   require: ["normalize.css"],
   propsParser: require("react-docgen-typescript").parse,

@@ -66,6 +66,9 @@ export type { SelectorProps } from "./Selector/Selector"
 export { default as Select } from "./Select/Select"
 export type { SelectProps } from "./Select/Select"
 
+export { default as Snackbar } from "./Snackbar/Snackbar"
+export type { SnackbarProps } from "./Snackbar/Snackbar"
+
 export { default as Spinner } from "./Spinner/Spinner"
 export type { SpinnerProps } from "./Spinner/Spinner"
 

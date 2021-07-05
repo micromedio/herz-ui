@@ -1,13 +1,18 @@
 /** @jsxImportSource theme-ui */
-import { useMemo } from "react"
+import { SVGAttributes, useMemo } from "react"
 import { useThemeUI, get } from "theme-ui"
 
 export interface SpinnerProps {
   color?: "primary" | "secondary" | "text"
   size?: number
+  className?: SVGAttributes<SVGElement>["className"]
 }
 
-const Spinner = ({ color = "secondary", size = 20 }: SpinnerProps) => {
+const Spinner = ({
+  color = "secondary",
+  size = 20,
+  className,
+}: SpinnerProps) => {
   const { theme } = useThemeUI()
 
   const colorValue = useMemo(() => {
@@ -36,6 +41,7 @@ const Spinner = ({ color = "secondary", size = 20 }: SpinnerProps) => {
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <path
         d="M6 3.03332C7.31724 2.50288 8.79125 2.51745 10.0977 3.0738C11.4043 3.63016 12.4362 4.68274 12.9667 5.99998C13.4971 7.31722 13.4825 8.79123 12.9262 10.0977C12.3698 11.4042 11.3172 12.4362 10 12.9666"
