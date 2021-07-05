@@ -1,3 +1,9 @@
+#### 0.9.1 (2021-07-05)
+
+##### New Features
+
+* **Snackbar:**  Added hook and provider exports DEV-253 ([8376a081](https://github.com/micromed-dev/herz-ui/commit/8376a0813f7986245060760c06782a080ce8af0e))
+
 #### 0.9.0 (2021-07-05)
 
 ##### Chores
