@@ -1,3 +1,6 @@
+export { default as Accordion } from "./Accordion/Accordion"
+export type { AccordionProps } from "./Accordion/Accordion"
+
 export { default as Autocomplete } from "./Autocomplete/Autocomplete"
 export type { AutocompleteProps } from "./Autocomplete/Autocomplete"
 
