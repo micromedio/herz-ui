@@ -19,7 +19,7 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "declaration": true,
-    "declarationDir": "./lib",
+    "declarationDir": "./lib/types",
     "noEmit": true
   },
   "include": [
