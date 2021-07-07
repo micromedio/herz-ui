@@ -355,6 +355,7 @@ export default forwardRef(function Autocomplete<T>(
       <div>
         <Popover
           isInteractive
+          appendTo={document?.body}
           content={
             <div
               {...getMenuProps({}, { suppressRefError: true })}

@@ -16,6 +16,8 @@ export interface PopoverProps {
   placement?: TippyProps["placement"]
   /** List of events that can trigger the popover showing. Only used if the element is not controlled (if `isVisible` is not used) */
   trigger?: Array<"mouseenter" | "focus" | "focusin" | "click" | "manual">
+  /** Element in wich the Popover should be appended to */
+  appendTo?: TippyProps["appendTo"]
 
   /** Popover color theme */
   theme?: "light" | "dark"
@@ -59,6 +61,7 @@ const Popover = ({
   children,
   placement = "auto",
   trigger = ["mouseenter", "focus"],
+  appendTo,
 
   theme = "light",
   borderRadius = 4,
@@ -196,6 +199,7 @@ const Popover = ({
           })
           onHide?.(instance)
         }}
+        appendTo={appendTo}
         popperOptions={{
           modifiers: [
             {

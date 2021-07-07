@@ -259,6 +259,7 @@ const Select = ({
 
       <Popover
         isVisible={isOpen}
+        appendTo={document?.body}
         trigger={["manual"]}
         isInteractive
         placement="bottom-start"
