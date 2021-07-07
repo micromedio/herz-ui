@@ -186,6 +186,7 @@ const EditableFieldAutocomplete = <T extends unknown>({
           defaultSelectedOption={undefined}
           onIsOpenChange={(open) => setIsOpen(!!open)}
           styles={{
+            ...autocompleteProps?.styles,
             root: {
               borderRadius: 2,
               "&:hover": {
@@ -193,6 +194,7 @@ const EditableFieldAutocomplete = <T extends unknown>({
                   backgroundColor: "text.alpha.95",
                 }),
               },
+              ...autocompleteProps?.styles?.root,
             },
             inputRoot: {
               display: "flex",
@@ -227,6 +229,7 @@ const EditableFieldAutocomplete = <T extends unknown>({
               "> span": {
                 variant: "text.body1",
               },
+              ...autocompleteProps?.styles?.inputRoot,
             },
           }}
         />
