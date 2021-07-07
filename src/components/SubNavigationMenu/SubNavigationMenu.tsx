@@ -7,7 +7,7 @@ import {
   useMemo,
   useState,
 } from "react"
-import { jsx, ThemeUICSSObject } from "theme-ui"
+import { jsx as TUIjsx, ThemeUICSSObject } from "theme-ui"
 import Button from "../Button/Button"
 import { SubNavigationMenuContext, useSubNavigationMenu } from "./Context"
 
@@ -65,7 +65,7 @@ const SubNavigationMenuItem = ({
     if (typeof item === "string") {
       return <span sx={defaultStyles}>{item}</span>
     }
-    return jsx(item.type, {
+    return TUIjsx(item.type, {
       ...item.props,
       sx: { ...defaultStyles, ...item.props.sx },
     })
