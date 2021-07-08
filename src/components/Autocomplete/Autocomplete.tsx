@@ -154,6 +154,7 @@ export default forwardRef(function Autocomplete<T>(
         stateReducer: (state, actionAndChanges) => {
           const { changes, type } = actionAndChanges
           switch (type) {
+            case useCombobox.stateChangeTypes.InputKeyDownEnter:
             case useCombobox.stateChangeTypes.ItemClick:
               return {
                 ...changes,
@@ -289,6 +290,15 @@ export default forwardRef(function Autocomplete<T>(
         ref: inputRef,
         type: "text",
         value: inputValue || "",
+        onKeyDown: props.multiSelect
+          ? (event) => {
+              /* istanbul ignore else */
+              if (!inputValue && event.key === "Backspace")
+                props.onSelectedItemsChange(
+                  (selectedOption as T[]).slice(0, -1)
+                )
+            }
+          : undefined,
       })}
       sx={{
         backgroundColor: "transparent",
@@ -307,17 +317,6 @@ export default forwardRef(function Autocomplete<T>(
         },
         ...styles?.input,
       }}
-      onKeyDown={
-        props.multiSelect
-          ? (event) => {
-              /* istanbul ignore else */
-              if (!inputValue && event.key === "Backspace")
-                props.onSelectedItemsChange(
-                  (selectedOption as T[]).slice(0, -1)
-                )
-            }
-          : undefined
-      }
     />
   )
 
@@ -357,6 +356,7 @@ export default forwardRef(function Autocomplete<T>(
       <div>
         <Popover
           isInteractive
+          appendTo={document?.body}
           content={
             <div
               {...getMenuProps({}, { suppressRefError: true })}
