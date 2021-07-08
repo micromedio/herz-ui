@@ -199,7 +199,7 @@ const Popover = ({
           })
           onHide?.(instance)
         }}
-        appendTo={appendTo}
+        {...(appendTo ? { appendTo } : {})}
         popperOptions={{
           modifiers: [
             {
