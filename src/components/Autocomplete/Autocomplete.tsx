@@ -154,6 +154,7 @@ export default forwardRef(function Autocomplete<T>(
         stateReducer: (state, actionAndChanges) => {
           const { changes, type } = actionAndChanges
           switch (type) {
+            case useCombobox.stateChangeTypes.InputKeyDownEnter:
             case useCombobox.stateChangeTypes.ItemClick:
               return {
                 ...changes,
