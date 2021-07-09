@@ -31,6 +31,8 @@ export { default as EditableField } from "./EditableField/EditableField"
 export type {
   EditableFieldTextProps,
   EditableFieldGroupProps,
+  EditableFieldAutocompleteProps,
+  EditableFieldSelectProps,
 } from "./EditableField/EditableField"
 
 export { default as FloatingCard } from "./FloatingCard/FloatingCard"
