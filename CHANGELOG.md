@@ -1,3 +1,9 @@
+#### 0.9.3 (2021-07-09)
+
+##### Bug Fixes
+
+*  add missing exports ([7dd00c88](https://github.com/micromed-dev/herz-ui/commit/7dd00c8852bbbc7ccf6211ed644c69d7d10aec25))
+
 #### 0.9.2 (2021-07-09)
 
 ##### Chores
