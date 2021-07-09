@@ -1,3 +1,21 @@
+#### 0.9.2 (2021-07-09)
+
+##### Chores
+
+*  Added vite builder to storybook, added ESM build ([d3f9381e](https://github.com/micromed-dev/herz-ui/commit/d3f9381e44eea2b3b439ea600f53635c2d744283))
+
+##### Bug Fixes
+
+*  Fixed ssr error on Select and Autocomplete ([c3b1268f](https://github.com/micromed-dev/herz-ui/commit/c3b1268f11cdd5df4da5d311cd79cb398b180c78))
+*  Fix storybook error ([64b5b765](https://github.com/micromed-dev/herz-ui/commit/64b5b765bca76de0c57022817e8d856094602556))
+* **Autocomplete:**
+  *  Fixed enter closing menu on multi DEV-296 ([4272f489](https://github.com/micromed-dev/herz-ui/commit/4272f489228928d8dd1d1761817a78f6dda88901))
+  *  Fix arrow navigation not working ([f1016797](https://github.com/micromed-dev/herz-ui/commit/f10167977c3bae78a1695b75b523c0aad2d29492))
+* **Popover:**
+  *  Fixed appendTo prop DEV-296 ([0e348b1b](https://github.com/micromed-dev/herz-ui/commit/0e348b1b6a95a0225c18e19f76fb26ec2ee0c75a))
+  *  Fixed popover clipping on rare cases DEV-288 ([cefc85b3](https://github.com/micromed-dev/herz-ui/commit/cefc85b38d9ee35bd4ff1b205f963a870c9498b6))
+* **Editable:**  fixed autocomplete style prop not applying DEV-288 ([881111d1](https://github.com/micromed-dev/herz-ui/commit/881111d19b7c04b60146be8fe7b086c9c045b61a))
+
 #### 0.9.1 (2021-07-05)
 
 ##### New Features
