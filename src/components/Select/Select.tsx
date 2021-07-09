@@ -12,6 +12,7 @@ import { InputGroupContext } from "../InputGroup/Context"
 import { getDataFromChildren, isArrayEqual } from "./utils"
 import { SelectOption } from "./SelectOption"
 import { SelectContext } from "./context"
+import { isBrowser } from "../../helpers/ssr"
 
 export type SelectValue = string | number | Record<string, unknown>
 export type SelectedItems = Array<SelectValue>
@@ -259,7 +260,7 @@ const Select = ({
 
       <Popover
         isVisible={isOpen}
-        appendTo={document?.body}
+        appendTo={isBrowser ? document?.body : undefined}
         trigger={["manual"]}
         isInteractive
         placement="bottom-start"

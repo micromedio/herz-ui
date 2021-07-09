@@ -18,6 +18,7 @@ import {
 import Button, { ButtonProps } from "../Button/Button"
 import Popover from "../Popover/Popover"
 import Tag, { TagProps } from "../Tag/Tag"
+import { isBrowser } from "../../helpers/ssr"
 
 interface CommonProps<T extends unknown> {
   /** An array of button props, each one corresponds to a Button rendered at the input end. */
@@ -356,7 +357,7 @@ export default forwardRef(function Autocomplete<T>(
       <div>
         <Popover
           isInteractive
-          appendTo={document?.body}
+          appendTo={isBrowser ? document?.body : undefined}
           content={
             <div
               {...getMenuProps({}, { suppressRefError: true })}
