@@ -1,3 +1,10 @@
+#### 0.9.4 (2021-07-13)
+
+##### Bug Fixes
+
+* **ListSelect:**  Added missing export ([1b5a9e8c](https://github.com/micromed-dev/herz-ui/commit/1b5a9e8cad5a223cf7a7026ba3c3242fb5695b66))
+* **Editable:**  Fixed Editable Select blur bug ([d935c8fd](https://github.com/micromed-dev/herz-ui/commit/d935c8fd69b65ceade10a7fa7cad816a18e1840f))
+
 #### 0.9.3 (2021-07-09)
 
 ##### Bug Fixes
