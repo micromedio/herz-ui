@@ -50,6 +50,9 @@ export type { InputGroupProps } from "./InputGroup/InputGroup"
 export { default as Input } from "./Input/Input"
 export type { InputProps } from "./Input/Input"
 
+export { default as ListSelect } from "./ListSelect/ListSelect"
+export type { ListSelectProps } from "./ListSelect/ListSelect"
+
 export { default as MobileModal } from "./MobileModal/MobileModal"
 export type { MobileModalProps } from "./MobileModal/MobileModal"
 
