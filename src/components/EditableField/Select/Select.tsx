@@ -149,9 +149,9 @@ const EditableFieldSelect = ({
         setIsFocused(false)
         const toElement = event.relatedTarget
 
-        const blurredInside = containerRef.current?.contains(
-          toElement as Element
-        )
+        const blurredInside =
+          containerRef.current?.contains(toElement as Element) ||
+          (toElement as Element)?.id?.startsWith("downshift")
 
         if (!blurredInside) {
           setIsOpen(false)
