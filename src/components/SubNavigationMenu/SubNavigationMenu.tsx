@@ -77,7 +77,7 @@ const SubNavigationMenuItem = ({
       sx={{
         ...styles?.root,
         backgroundColor: selected ? "primary.alpha.90" : undefined,
-        color: selected ? "primary" : undefined,
+        color: selected ? "primary" : "text.40",
         cursor: "pointer",
         display: "flex",
         transition: "0.6s cubic-bezier(0.16, 1, 0.3, 1)",
@@ -170,7 +170,6 @@ const SubNavigationMenu = ({
           sx={{
             backgroundColor: "transparent",
             borderColor: "text.90",
-            color: "text.40",
             display: "flex",
             gap: 2,
             flexDirection: "column",
