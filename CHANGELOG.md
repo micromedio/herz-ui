@@ -1,3 +1,10 @@
+#### 0.9.5 (2021-07-19)
+
+##### Bug Fixes
+
+* **SubNavigationMenu:**  Updated unselected color ([4b6df262](https://github.com/micromed-dev/herz-ui/commit/4b6df262b01e2b90fb428d6ae6467cd6d8a88c7c))
+* **SubNavitationMenu:**  Minor fixes, added export STC-306 ([7eccd29e](https://github.com/micromed-dev/herz-ui/commit/7eccd29ec16c05d599c387145c8bd03365fb0a11))
+
 #### 0.9.4 (2021-07-13)
 
 ##### Bug Fixes
