@@ -74,6 +74,9 @@ export type { SelectorProps } from "./Selector/Selector"
 export { default as Select } from "./Select/Select"
 export type { SelectProps } from "./Select/Select"
 
+export { default as SubNavigationMenu } from "./SubNavigationMenu/SubNavigationMenu"
+export type { SubNavigationMenuProps } from "./SubNavigationMenu/SubNavigationMenu"
+
 export { default as Snackbar } from "./Snackbar/Snackbar"
 export type { SnackbarProps } from "./Snackbar/Snackbar"
 export { default as SnackbarProvider } from "./Snackbar/context/SnackbarProvider"

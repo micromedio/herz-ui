@@ -158,9 +158,9 @@ const SubNavigationMenu = ({
   return (
     <nav
       sx={{
-        ...styles?.root,
         backgroundColor: "transparent",
         position: "relative",
+        ...styles?.root,
       }}
     >
       <SubNavigationMenuContext.Provider
@@ -168,10 +168,11 @@ const SubNavigationMenu = ({
       >
         <ul
           sx={{
-            ...styles?.list,
             backgroundColor: "transparent",
             borderColor: "text.90",
+            color: "text.40",
             display: "flex",
+            gap: 2,
             flexDirection: "column",
             flexGrow: 1,
             flexWrap: "nowrap",
@@ -193,6 +194,7 @@ const SubNavigationMenu = ({
                 width: collapsedWidth,
               },
             }[isCollapsed ? "collapsed" : "default"] as ThemeUICSSObject),
+            ...styles?.list,
           }}
         >
           {children.map((child) =>
