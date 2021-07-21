@@ -1,3 +1,17 @@
+#### 0.9.6 (2021-07-21)
+
+##### New Features
+
+* **Uploader:**  Added showFiles option minor layout fixes STC-306 ([ec4fad2a](https://github.com/micromed-dev/herz-ui/commit/ec4fad2ab24c789af5f24c8369283caff4356a26))
+
+##### Bug Fixes
+
+* **Alert:**  Minor fixes STC-306 ([2a658129](https://github.com/micromed-dev/herz-ui/commit/2a658129e0003a2df1f3d422186ca0a908402c50))
+
+##### Tests
+
+* **Uploader:**  Fixed tests STC-306 ([69408dad](https://github.com/micromed-dev/herz-ui/commit/69408dad5d1fd79915fa554f7eecca78946cc849))
+
 #### 0.9.5 (2021-07-19)
 
 ##### Bug Fixes
