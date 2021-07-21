@@ -37,4 +37,5 @@ export const Default = DefaultTemplate.bind({})
 
 Default.args = {
   multiple: true,
+  showFiles: true,
 }

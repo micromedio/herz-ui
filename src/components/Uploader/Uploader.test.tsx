@@ -8,7 +8,12 @@ const DefaultTemplate = (props: IUploaderProps) => {
   const [files, setFiles] = useState<File[]>([])
 
   return (
-    <Uploader {...props} files={files} onChange={(files) => setFiles(files)}>
+    <Uploader
+      {...props}
+      files={files}
+      onChange={(files) => setFiles(files)}
+      showFiles
+    >
       {props.children}
     </Uploader>
   )
