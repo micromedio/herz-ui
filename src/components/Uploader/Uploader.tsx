@@ -11,6 +11,7 @@ export interface IUploaderProps extends DropzoneOptions {
   files?: File[]
   onChange?(files: File[]): void
   children: React.ReactNode
+  showFiles?: boolean
 }
 
 const stateStyles = {
@@ -41,6 +42,7 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
       files = [],
       onChange,
       children,
+      showFiles,
       ...restProps
     }: IUploaderProps,
     ref
@@ -86,6 +88,7 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
       >
         <div
           sx={{
+            width: "100%",
             paddingY: 4,
             paddingX: 6,
             border: "1px dashed",
@@ -114,7 +117,7 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
 
         {isDragReject && <Text>File type not accepted, sorry!</Text>}
 
-        {files.length > 0 && (
+        {showFiles && files.length > 0 && (
           <Flex
             sx={{
               justifyContent: "space-between",
@@ -142,67 +145,69 @@ const Uploader = React.forwardRef<HTMLInputElement, IUploaderProps>(
           </Flex>
         )}
 
-        <div
-          sx={{
-            display: "grid",
-            opacity: isPreviewOpen ? 1 : 0,
-            visibility: isPreviewOpen ? "visible" : "hidden",
-            maxHeight: isPreviewOpen ? "9999px" : 0,
-            gridTemplateColumns: "1fr 1fr",
-            gap: 2,
-            alignSelf: "stretch",
-            transition: "all.2s",
-          }}
-        >
-          {files.map(({ name }, index) => (
-            <Flex
-              key={index}
-              sx={{
-                paddingX: 3,
-                paddingY: 2,
-                borderRadius: 2,
-                alignItems: "center",
-                justifyContent: "space-between",
-                backgroundColor: "secondary.alpha.95",
-              }}
-            >
-              <span
+        {showFiles && (
+          <div
+            sx={{
+              display: "grid",
+              opacity: isPreviewOpen ? 1 : 0,
+              visibility: isPreviewOpen ? "visible" : "hidden",
+              maxHeight: isPreviewOpen ? "9999px" : 0,
+              gridTemplateColumns: "1fr 1fr",
+              gap: 2,
+              alignSelf: "stretch",
+              transition: "all.2s",
+            }}
+          >
+            {files.map(({ name }, index) => (
+              <Flex
+                key={index}
                 sx={{
-                  fontSize: 13,
-                  color: "secondary",
-                  textOverflow: "ellipsis",
-                  verticalAlign: "middle",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
+                  paddingX: 3,
+                  paddingY: 2,
+                  borderRadius: 2,
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  backgroundColor: "secondary.alpha.95",
                 }}
               >
-                {name}
-              </span>
-              <button
-                sx={{
-                  display: "inline-flex",
-                  ml: 2,
-                  cursor: "pointer",
-                  background: "none",
-                  border: "none",
-                  padding: 0,
-                }}
-                data-index={index}
-                title="Remove file"
-                onClick={handleFileRemove}
-              >
-                <Icon
+                <span
                   sx={{
-                    color: "text.40",
-                    pointerEvents: "none",
+                    fontSize: 13,
+                    color: "secondary",
+                    textOverflow: "ellipsis",
+                    verticalAlign: "middle",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
                   }}
-                  name="IconX"
-                  size={16}
-                />
-              </button>
-            </Flex>
-          ))}
-        </div>
+                >
+                  {name}
+                </span>
+                <button
+                  sx={{
+                    display: "inline-flex",
+                    ml: 2,
+                    cursor: "pointer",
+                    background: "none",
+                    border: "none",
+                    padding: 0,
+                  }}
+                  data-index={index}
+                  title="Remove file"
+                  onClick={handleFileRemove}
+                >
+                  <Icon
+                    sx={{
+                      color: "text.40",
+                      pointerEvents: "none",
+                    }}
+                    name="IconX"
+                    size={16}
+                  />
+                </button>
+              </Flex>
+            ))}
+          </div>
+        )}
       </div>
     )
   }

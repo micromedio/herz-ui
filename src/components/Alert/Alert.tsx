@@ -19,7 +19,7 @@ export interface AlertProps {
 
   color: string
 
-  position: "fixed" | "relative"
+  position?: "fixed" | "relative"
 }
 
 const Alert = ({
@@ -61,10 +61,10 @@ const Alert = ({
             }
       }
     >
-      <span sx={{ width: 20, height: 20 }}>
+      <span sx={{ width: 20, height: 20, color: `${color}.40` }}>
         {iconName ? <Icon name={iconName} /> : iconSVG ? iconSVG : ""}
       </span>
-      <div>
+      <div sx={{ width: "100%" }}>
         <h2 sx={{ variant: "text.heading2", margin: 0, paddingBottom: 3 }}>
           {title}
         </h2>
