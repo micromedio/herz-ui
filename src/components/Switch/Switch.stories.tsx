@@ -1,34 +1,19 @@
 import { Switch, SwitchProps } from "./Switch"
 import { Meta, Story } from "@storybook/react/types-6-0"
-import { useEffect, useState } from "react"
 
 export default {
   title: "Design System/Switch",
   component: Switch,
   decorators: [
     (Story) => (
-      <div style={{ width: 50 }}>
+      <div style={{ width: 150 }}>
         <Story />
       </div>
     ),
   ],
 } as Meta
 
-const Template: Story<SwitchProps> = (props: SwitchProps) => {
-  const [checked, setChecked] = useState(props.checked)
-  useEffect(() => setChecked(props.checked), [props.checked])
-
-  return (
-    <Switch
-      {...props}
-      onChange={(event) => {
-        setChecked(event.target.checked)
-        props.onChange?.(event)
-      }}
-      checked={checked}
-    />
-  )
-}
+const Template: Story<SwitchProps> = (props) => <Switch {...props} />
 
 // Each story then reuses that template
 export const Unchecked = Template.bind({})

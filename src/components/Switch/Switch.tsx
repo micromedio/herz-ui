@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 
-import { forwardRef } from "react"
+import { forwardRef, useEffect, useState } from "react"
 
 export interface SwitchProps {
   checked?: boolean
@@ -14,7 +14,7 @@ export interface SwitchProps {
 
 export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   {
-    checked,
+    checked: controlledChecked,
     color = "secondary",
     disabled = false,
     onChange,
@@ -24,11 +24,14 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   }: SwitchProps,
   ref
 ) {
+  const [checked, setChecked] = useState(controlledChecked)
+  useEffect(() => setChecked(controlledChecked), [controlledChecked])
+
   return (
     <div
       sx={{
         display: "flex",
-        gap: 1,
+        gap: 2,
         cursor: disabled ? "default" : "pointer",
         opacity: disabled ? 0.4 : 1,
       }}
@@ -51,7 +54,10 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
           name={name}
           id={id}
           checked={checked}
-          onChange={onChange}
+          onChange={(event) => {
+            if (onChange) onChange?.(event)
+            else setChecked(event.target.checked)
+          }}
           disabled={disabled}
           sx={{
             position: "absolute",
