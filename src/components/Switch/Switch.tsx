@@ -15,7 +15,7 @@ export interface SwitchProps {
 export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
   {
     checked: controlledChecked,
-    color = "secondary",
+    color = "success",
     disabled = false,
     onChange,
     label,
