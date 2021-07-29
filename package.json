@@ -26,7 +26,6 @@
     "downshift": "^6.1.3",
     "framer-motion": "^4.1.17",
     "normalize.css": "^8.0.1",
-    "package-build-stats": "^7.2.4",
     "polished": "^4.1.3",
     "react-dropzone": "^11.3.2",
     "react-table": "^7.7.0",
@@ -44,7 +43,7 @@
   "scripts": {
     "dev": "styleguidist server",
     "test": "react-scripts test",
-    "build": "rm -rf ./lib && rollup -c",
+    "build": "rollup -c",
     "release": "yarn build && dotenv release-it --",
     "changelog": "changelog",
     "lint": "./node_modules/.bin/eslint --ignore-path .gitignore .",
