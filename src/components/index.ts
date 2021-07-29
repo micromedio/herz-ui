@@ -86,6 +86,9 @@ export { useSnackbar } from "./Snackbar/hooks/useSnackbar"
 export { default as Spinner } from "./Spinner/Spinner"
 export type { SpinnerProps } from "./Spinner/Spinner"
 
+export { Switch } from "./Switch/Switch"
+export type { SwitchProps } from "./Switch/Switch"
+
 export { default as Table } from "./Table/Table"
 export type { TableProps } from "./Table/Table"
 
