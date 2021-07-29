@@ -1,3 +1,17 @@
+#### 0.10.0 (2021-07-29)
+
+##### Chores
+
+*  New building process with rollup STC-358 ([#139](https://github.com/micromed-dev/herz-ui/pull/139)) ([84dc2551](https://github.com/micromed-dev/herz-ui/commit/84dc255145c06a223d4c831afdbc75cd20568960))
+*  Removed old snapshots STC-352 ([31386bfd](https://github.com/micromed-dev/herz-ui/commit/31386bfd37d684e9b7e4d3ace858a0a650f7f102))
+* **Switch:**
+  *  changed default color STC-352 ([017b336e](https://github.com/micromed-dev/herz-ui/commit/017b336ec2f027ca1b4194e6ffe98e1c28d2c0e9))
+  *  Updated tests, added docs STC-352 ([fbcdbdde](https://github.com/micromed-dev/herz-ui/commit/fbcdbdde47be30ffd885d9f69f3087df99a122de))
+
+##### New Features
+
+* **Switch:**  Added Switch STC-352 ([f6ce143d](https://github.com/micromed-dev/herz-ui/commit/f6ce143d4e8454347f6ce8699ca8038dbf2374c7))
+
 #### 0.9.6 (2021-07-21)
 
 ##### New Features
