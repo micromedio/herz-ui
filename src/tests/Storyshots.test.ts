@@ -53,18 +53,27 @@ initStoryshots({
         fullPage: false,
       }
     },
-    storybookUrl: process.env.CI
-      ? `file://${path.resolve(__dirname, "../../storybook-static")}`
-      : `http://localhost:6006`,
+    storybookUrl: `file://${path.resolve(__dirname, "../../storybook-static")}`,
     getMatchOptions: ({ context }) => {
+      const fileName: string = context.parameters.fileName
+      const storyPath = fileName.split("/").slice(0, -1).join("/")
+
       return {
         comparisonMethod: "ssim",
         failureThreshold: 0.01,
         failureThresholdType: "percent",
+        customDiffDir: path.resolve(
+          __dirname,
+          "..",
+          storyPath,
+          "__image_snapshots__",
+          "__diff_output__"
+        ),
         customSnapshotsDir: path.resolve(
           __dirname,
-          "__image_snapshots__",
-          context.kind
+          "..",
+          storyPath,
+          "__image_snapshots__"
         ),
         customSnapshotIdentifier: context.story,
       }
