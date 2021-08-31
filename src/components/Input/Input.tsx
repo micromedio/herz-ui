@@ -54,7 +54,7 @@ export interface InputProps
 }
 
 export function autoExpander(element?: HTMLTextAreaElement): void {
-  if (!element) return
+  if (!element || !element.scrollHeight) return
   element.style.height = "auto"
   element.style.height = `${element.scrollHeight}px`
 }
