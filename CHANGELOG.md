@@ -1,3 +1,21 @@
+#### 0.10.1 (2021-09-01)
+
+##### Chores
+
+* **Typography:**  Added story ([abd3184a](https://github.com/micromed-dev/herz-ui/commit/abd3184a74a0b4a86bdbefc409809d82e807167c))
+
+##### Bug Fixes
+
+*  Fixed input height 0 ([54630a5d](https://github.com/micromed-dev/herz-ui/commit/54630a5da07f7ea4740893e19cc1bbbda49f04bb))
+
+##### Other Changes
+
+*  reworked snapshots save path ([8bc088b9](https://github.com/micromed-dev/herz-ui/commit/8bc088b9c1605461beeb09ea326aaac5d8e34060))
+
+##### Refactors
+
+*  colocate storyshots with component files ([5d218837](https://github.com/micromed-dev/herz-ui/commit/5d2188371fc76239d91e2c71b2fddbaae3d628c2))
+
 #### 0.10.0 (2021-07-29)
 
 ##### Chores
