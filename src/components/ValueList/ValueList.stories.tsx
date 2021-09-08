@@ -46,3 +46,27 @@ WithIcons.args = {
     },
   ],
 }
+
+export const WithLessSpacing = Template.bind({})
+WithLessSpacing.args = {
+  alignValues: "start",
+  itemSpacing: "12px",
+  items: [
+    {
+      label: "ECG Monitor",
+      value: (
+        <span sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Icon name="IconRouter" sx={{ color: "secondary" }} /> WinCardio USB
+        </span>
+      ),
+    },
+    {
+      label: "Electrodes",
+      value: (
+        <span sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Icon name="IconAlertTriangle" /> 6 connected
+        </span>
+      ),
+    },
+  ],
+}
