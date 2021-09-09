@@ -22,6 +22,9 @@ export type { ICheckboxProps as CheckboxProps } from "./Checkbox/Checkbox"
 export { default as DateSelect } from "./DateSelect/DateSelect"
 export type { DateSelectProps } from "./DateSelect/DateSelect"
 
+export { default as DesktopModal } from "./DesktopModal/DesktopModal"
+export type { DesktopModalProps } from "./DesktopModal/DesktopModal"
+
 export { default as Divider } from "./Divider/Divider"
 
 export { default as EditableText } from "./EditableText/EditableText"
