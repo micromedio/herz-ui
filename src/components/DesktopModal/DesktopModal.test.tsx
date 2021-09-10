@@ -11,12 +11,7 @@ describe("Desktop Modal | integration test", () => {
     return (
       <>
         <Button onClick={() => setOpen(!isOpen)}>Toggle Open</Button>
-        <DesktopModal
-          onClose={() => setOpen(false)}
-          onSubmit={() => alert("submitted")}
-          isVisible={isOpen}
-          title="Create new organization"
-        >
+        <DesktopModal isVisible={isOpen}>
           <div>Modal info</div>
         </DesktopModal>
       </>
@@ -26,27 +21,7 @@ describe("Desktop Modal | integration test", () => {
     const { getByText } = render(<ModalWrapper />)
     userEvent.click(getByText("Toggle open", { exact: false }))
     await waitFor(() => {
-      expect(getByText(/create new organization/i)).toBeInTheDocument()
       expect(getByText(/modal info/i)).toBeInTheDocument()
-    })
-  })
-
-  test("if modal closes when clicked on close button", async () => {
-    const { getByText, queryByText } = render(<ModalWrapper open />)
-    userEvent.click(getByText("Cancel", { exact: false }))
-
-    await waitFor(() => {
-      expect(queryByText(/create new organization/i)).not.toBeInTheDocument()
-      expect(queryByText(/modal info/i)).not.toBeInTheDocument()
-    })
-  })
-
-  test("if submit button fire event when clicked", async () => {
-    global.alert = jest.fn()
-    const { getByText } = render(<ModalWrapper open />)
-    userEvent.click(getByText("Done", { exact: false }))
-    await waitFor(() => {
-      expect(global.alert).toHaveBeenCalledTimes(1)
     })
   })
 })
