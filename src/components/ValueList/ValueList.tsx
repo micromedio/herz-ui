@@ -3,18 +3,20 @@ import React, { HTMLAttributes } from "react"
 import { get } from "theme-ui"
 
 export interface ValueListProps {
+  alignValues?: "start" | "end"
+  className?: HTMLAttributes<HTMLDivElement>["className"]
+  itemSpacing?: "12px" | "16px"
   items: Array<{
     label: React.ReactNode
     value: React.ReactNode
   }>
-  alignValues?: "start" | "end"
-  className?: HTMLAttributes<HTMLDivElement>["className"]
 }
 
 const ValueList = ({
-  items,
   alignValues = "end",
   className,
+  itemSpacing = "16px",
+  items,
 }: ValueListProps) => {
   return (
     <div
@@ -34,7 +36,7 @@ const ValueList = ({
               color: "text.40",
               height: "100%",
               pr: 2,
-              py: 4,
+              py: itemSpacing,
               ...(index !== items.length - 1
                 ? {
                     borderBottom: (theme) =>
