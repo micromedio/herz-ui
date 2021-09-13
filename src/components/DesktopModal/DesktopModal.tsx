@@ -6,14 +6,12 @@ import Paper from "../Paper/Paper"
 export interface DesktopModalProps {
   children: ReactNode
   isVisible?: boolean
-  widthModal?: string
   className?: HTMLAttributes<HTMLDivElement>["className"]
 }
 
 const DesktopModal = ({
   children,
   className,
-  widthModal = "500px",
   isVisible = false,
 }: DesktopModalProps) => {
   useEffect(() => {
@@ -27,7 +25,6 @@ const DesktopModal = ({
 
   return (
     <Modal
-      {...className}
       ariaHideApp={false}
       style={{
         overlay: {
@@ -49,10 +46,12 @@ const DesktopModal = ({
       }}
       isOpen={isVisible}
     >
-      <Paper padding={0} sx={{ zIndex: 10, width: widthModal, gap: 5 }}>
-        <div sx={{ display: "grid", gap: 6, p: 8, pb: 12, minWidth: 500 }}>
-          {children}
-        </div>
+      <Paper
+        className={className}
+        padding={0}
+        sx={{ zIndex: 10, width: 500, gap: 5 }}
+      >
+        {children}
       </Paper>
     </Modal>
   )

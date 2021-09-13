@@ -16,7 +16,9 @@ const Template: Story<DesktopModalProps> = (props: DesktopModalProps) => {
     <>
       <Button onClick={() => setModalOpen(!isOpen)}>Toggle Open</Button>
       <DesktopModal {...props} isVisible={isOpen}>
-        <div>Modal info</div>
+        <div sx={{ display: "grid", gap: 6, p: 8, pb: 12, minWidth: 500 }}>
+          Modal info
+        </div>
       </DesktopModal>
     </>
   )
