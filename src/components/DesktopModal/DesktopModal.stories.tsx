@@ -10,7 +10,7 @@ export default {
 } as Meta
 
 const Template: Story<DesktopModalProps> = (props: DesktopModalProps) => {
-  const [isOpen, setModalOpen] = useState(false)
+  const [isOpen, setModalOpen] = useState(true)
 
   return (
     <>

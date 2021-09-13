@@ -10,6 +10,7 @@ const fullPageComponents = [
   "FloatingCard",
   "MobileModal",
   "Popover",
+  "DesktopModal",
   "Selector",
   "Tooltip",
 ]
