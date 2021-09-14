@@ -46,11 +46,7 @@ const DesktopModal = ({
       }}
       isOpen={isVisible}
     >
-      <Paper
-        className={className}
-        padding={0}
-        sx={{ zIndex: 10, width: 500, gap: 5 }}
-      >
+      <Paper className={className} sx={{ zIndex: 10, width: 500, gap: 5 }}>
         {children}
       </Paper>
     </Modal>
