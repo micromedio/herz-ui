@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import { HTMLAttributes, ReactNode, useEffect } from "react"
+import { HTMLAttributes, ReactNode } from "react"
 import Modal from "react-modal"
 import Paper from "../Paper/Paper"
 
@@ -14,25 +14,14 @@ const DesktopModal = ({
   className,
   isVisible = false,
 }: DesktopModalProps) => {
-  useEffect(() => {
-    const body = document.querySelectorAll("body")
-    if (isVisible) {
-      body[0].style.overflowY = "hidden"
-    } else {
-      body[0].style.overflowY = "scroll"
-    }
-  }, [isVisible])
-
   return (
     <Modal
       ariaHideApp={false}
       style={{
         overlay: {
           backgroundColor: "rgba(29, 29, 29, 0.6)",
-          overflowY: "auto",
         },
         content: {
-          marginTop: "20px",
           border: "none",
           top: "50%",
           left: "50%",
@@ -42,13 +31,31 @@ const DesktopModal = ({
           transform: "translate(-50%, -50%)",
           borderRadius: 0,
           backgroundColor: "transparent",
+          height: "100vh",
         },
       }}
       isOpen={isVisible}
     >
-      <Paper className={className} sx={{ zIndex: 10, gap: 5 }}>
-        {children}
-      </Paper>
+      <div
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+        }}
+      >
+        <Paper
+          className={className}
+          sx={{
+            zIndex: 10,
+            gap: 5,
+            margin: "auto",
+            height: "fit-content",
+          }}
+        >
+          {children}
+        </Paper>
+      </div>
     </Modal>
   )
 }
