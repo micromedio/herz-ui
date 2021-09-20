@@ -33,6 +33,7 @@ const DesktopModal = ({
           padding: "32px",
           backgroundColor: "transparent",
           height: "100vh",
+          width: "100vw",
         },
       }}
       isOpen={isVisible}
