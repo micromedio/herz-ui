@@ -28,6 +28,7 @@ const DesktopModal = ({
           right: "auto",
           bottom: "auto",
           marginRight: "-50%",
+          marginTop: "-2%",
           transform: "translate(-50%, -50%)",
           borderRadius: 0,
           backgroundColor: "transparent",
