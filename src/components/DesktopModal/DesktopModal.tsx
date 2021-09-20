@@ -50,6 +50,7 @@ const DesktopModal = ({
             zIndex: 10,
             gap: 5,
             margin: "auto",
+            padding: "32px",
             height: "fit-content",
           }}
         >
