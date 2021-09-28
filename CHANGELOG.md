@@ -1,3 +1,9 @@
+#### 0.12.0 (2021-09-28)
+
+##### Breaking Changes
+
+*  moved theme-ui to peerDependencies STC-403 ([#146](https://github.com/micromed-dev/herz-ui/pull/146)) ([8835b60f](https://github.com/micromed-dev/herz-ui/commit/8835b60f5c03a1d6a7e0dd67d6d8372d7335acef))
+
 #### 0.10.1 (2021-09-01)
 
 ##### Chores
