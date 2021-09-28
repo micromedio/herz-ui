@@ -53,6 +53,8 @@ export interface TextFieldProps {
   cols?: number
   /** Number of textarea rows */
   rows?: number
+  /** Input form id */
+  form?: string
 }
 
 const TextField = forwardRef<
@@ -81,6 +83,7 @@ const TextField = forwardRef<
     autoExpand = true,
     rows = 1,
     cols,
+    form,
   }: TextFieldProps,
   ref
 ) {
@@ -159,6 +162,7 @@ const TextField = forwardRef<
             rows={rows}
             cols={cols}
             aria-describedby={helperTextId}
+            form={form}
           />
         )}
         {helperText && (
