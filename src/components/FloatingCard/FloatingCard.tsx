@@ -23,6 +23,7 @@ export interface FloatingCardProps {
   /** Callback called when the Popover spawning the card is closed */
   onClose?: () => void
   className?: HTMLAttributes<HTMLDivElement>["className"]
+  appendTo?: PopoverProps["appendTo"]
 }
 
 const FloatingCard = ({
@@ -36,6 +37,7 @@ const FloatingCard = ({
   isVisible,
   onClose,
   className,
+  appendTo,
 }: FloatingCardProps) => {
   const [tippy, setTippy] = useState<Instance>()
   const isControlled = isVisible !== undefined
@@ -51,6 +53,7 @@ const FloatingCard = ({
       trigger={["click"]}
       hideOnClick
       placement={placement}
+      appendTo={appendTo}
       content={
         <div
           sx={{ display: "flex", flexDirection: "column", gap: 2, padding: 6 }}
