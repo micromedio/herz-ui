@@ -1,7 +1,7 @@
 import React from "react"
 import Avatar, { AvatarProps } from "./Avatar"
 import { Meta, Story } from "@storybook/react/types-6-0"
-import albertEinstein from "../../assets/albert_einstein.webp"
+import albertEinstein from "../../assets/images/albert_einstein.webp"
 
 export default {
   title: "Design System/Avatar",
