@@ -7,7 +7,7 @@ This component aims to render user images
 #### Default
 
 ```jsx
-<Avatar alt="Albert Einstein" src="src/assets/albert_einstein.webp" />
+<Avatar alt="Albert Einstein" src="images/albert_einstein.webp" />
 ```
 
 #### Without Source Or Children
@@ -29,7 +29,7 @@ This component aims to render user images
   <Avatar
     alt="Albert Einstein"
     size={16}
-    src="src/assets/albert_einstein.webp"
+    src="images/albert_einstein.webp"
   />
   <Avatar alt="Albert Einstein" size={32}>
     AE
