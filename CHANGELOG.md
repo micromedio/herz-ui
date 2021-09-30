@@ -1,3 +1,13 @@
+#### 0.13.0 (2021-09-30)
+
+##### Breaking Changes
+
+*  Removed deprecated Selector component STC-533 ([#149](https://github.com/micromed-dev/herz-ui/pull/149)) ([d5de5128](https://github.com/micromed-dev/herz-ui/commit/d5de5128cf099d75cdf33730dc4184786046ec9b))
+
+##### New Features
+
+* **Avatar:**  Added new Avatar component STC-481 ([#148](https://github.com/micromed-dev/herz-ui/pull/148)) ([6f3a9253](https://github.com/micromed-dev/herz-ui/commit/6f3a9253bd9b5aeb444ff2826bc28600988bca17))
+
 #### 0.12.0 (2021-09-28)
 
 ##### Breaking Changes
