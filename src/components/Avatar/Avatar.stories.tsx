@@ -10,7 +10,7 @@ export default {
 
 const Template: Story<AvatarProps> = (props) => <Avatar {...props} />
 
-const MultiSizes: Story<Array<AvatarProps>> = (props: Array<AvatarProps>) => {
+const MultiSizes: Story<Array<AvatarProps>> = (props) => {
   return (
     <div style={{ display: "flex", gap: 16 }}>
       <Avatar {...props} alt="Albert Einstein" size={16} src={albertEinstein} />
