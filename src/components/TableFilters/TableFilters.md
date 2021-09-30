@@ -1,6 +1,6 @@
 The TableFilters component is supposed to be used with `Table` to provide actions, search input and filter controllers for the table. It's not included in the Table component for flexibility in how to layout them in your pages. You could have one TableFilters control the filters and search for multiple tables for example.
 
-Using it is pretty simple, inside the `TableFilters` component, use one `TableFilters.Item` for each item, and inside the `Item` you can use a `Button`, `Input`, `Selector` or whatever you need.
+Using it is pretty simple, inside the `TableFilters` component, use one `TableFilters.Item` for each item, and inside the `Item` you can use a `Button`, `Input`, `Select` or whatever you need.
 
 
 ### TableFilters.Item Props
@@ -20,7 +20,7 @@ Using it is pretty simple, inside the `TableFilters` component, use one `TableFi
 ### Example
 
 ```jsx
-import { Button, Selector, Input } from '../';
+import { Button, Select, Input } from '../';
 
 <TableFilters>
   <TableFilters.Item>
@@ -35,23 +35,19 @@ import { Button, Selector, Input } from '../';
     />
   </TableFilters.Item>
   <TableFilters.Item label="Study status">
-    <Selector
-      options={[
-        { value: "all", label: "All" },
-        { value: "active", label: "Active" },
-        { value: "inactive", label: "Inactive" },
-        { value: "pending", label: "Pending" },
-      ]}
-    />
+    <Select>
+      <Select.Option value="all">All</Select.Option>
+      <Select.Option value="active">Active</Select.Option>
+      <Select.Option value="inactive">Inactive</Select.Option>
+      <Select.Option value="pending">Pending</Select.Option>
+    </Select>
   </TableFilters.Item>
   <TableFilters.Item label="Study type">
-    <Selector
-      options={[
-        { value: "all", label: "All" },
-        { value: "inactive", label: "Inactive" },
-        { value: "pending", label: "Pending" },
-      ]}
-    />
+    <Select>
+      <Select.Option value="all">All</Select.Option>
+      <Select.Option value="inactive">Inactive</Select.Option>
+      <Select.Option value="pending">Pending</Select.Option>
+    </Select>
   </TableFilters.Item>
 </TableFilters>
 ```
@@ -59,7 +55,7 @@ import { Button, Selector, Input } from '../';
 Without a search input
 
 ```jsx
-import { Button, Selector } from '../';
+import { Button, Select } from '../';
 
 <TableFilters>
   <TableFilters.Item>
@@ -69,23 +65,19 @@ import { Button, Selector } from '../';
   </TableFilters.Item>
   <TableFilters.Item grows />
   <TableFilters.Item label="Study status">
-    <Selector
-      options={[
-        { value: "all", label: "All" },
-        { value: "active", label: "Active" },
-        { value: "inactive", label: "Inactive" },
-        { value: "pending", label: "Pending" },
-      ]}
-    />
+    <Select>
+      <Select.Option value="all">All</Select.Option>
+      <Select.Option value="active">Active</Select.Option>
+      <Select.Option value="inactive">Inactive</Select.Option>
+      <Select.Option value="pending">Pending</Select.Option>
+    </Select>
   </TableFilters.Item>
   <TableFilters.Item label="Study type">
-    <Selector
-      options={[
-        { value: "all", label: "All" },
-        { value: "inactive", label: "Inactive" },
-        { value: "pending", label: "Pending" },
-      ]}
-    />
+    <Select>
+      <Select.Option value="all">All</Select.Option>
+      <Select.Option value="inactive">Inactive</Select.Option>
+      <Select.Option value="pending">Pending</Select.Option>
+    </Select>
   </TableFilters.Item>
 </TableFilters>
 ```

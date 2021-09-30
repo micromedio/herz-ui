@@ -1,21 +1,13 @@
 /** @jsxImportSource theme-ui */
 import { ChangeEvent, FocusEvent, forwardRef } from "react"
+import Select, { SelectProps } from "../Select/Select"
 import Input, { InputProps } from "../Input/Input"
-import Selector, { SelectorProps } from "../Selector/Selector"
 
-export interface TextFieldProps {
+interface BaseTextFieldProps {
   /** Input type */
   type?: HTMLInputElement["type"]
   /** The label content */
   label?: string
-  /** The value of the `input` element, required for a controlled component */
-  value?: string
-  /** Callback fired when the value is changed */
-  onChange?: (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void
-  /** Callback fired when the input is unfocused */
-  onBlur?: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   /** Placeholder text content */
   placeholder?: string
 
@@ -40,11 +32,6 @@ export interface TextFieldProps {
 
   iconName?: InputProps["iconName"]
 
-  /** Will render a Select instead of an Input if `true` */
-  select?: boolean
-  /** Props passed to the Select component when `select` is `true` */
-  selectProps?: Omit<SelectorProps, "fullWidth" | "hightlightFilled">
-
   /** Will render a textarea instead of an input if `true` */
   multiline?: boolean
   /** If true, the textarea will grow as the user types */
@@ -57,16 +44,37 @@ export interface TextFieldProps {
   form?: string
 }
 
+interface InputTextFieldProps extends BaseTextFieldProps {
+  /** The value of the `input` element, required for a controlled component */
+  value?: string
+  /** Callback fired when the value is changed */
+  onChange?: (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void
+  /** Callback fired when the input is unfocused */
+  onBlur?: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+
+  /** Will render a Select instead of an Input if `true` */
+  select?: false
+}
+
+interface SelectTextFieldProps extends BaseTextFieldProps {
+  /** Will render a Select instead of an Input if `true` */
+  select: true
+  /** Props passed to the Select component when `select` is `true` */
+  selectProps: Omit<SelectProps, "fullWidth" | "hightlightFilled" | "children">
+  children: SelectProps["children"]
+}
+
+export type TextFieldProps = InputTextFieldProps | SelectTextFieldProps
+
 const TextField = forwardRef<
   HTMLInputElement | HTMLTextAreaElement,
   TextFieldProps
->(function TextField(
-  {
+>(function TextField(props: TextFieldProps, ref) {
+  const {
     id,
     type = "text",
-    value,
-    onChange,
-    onBlur,
     label,
     placeholder,
     disabled = false,
@@ -77,16 +85,14 @@ const TextField = forwardRef<
     optionalText = "optional",
     iconName,
     unit,
-    select = false,
-    selectProps,
     multiline,
     autoExpand = true,
     rows = 1,
     cols,
     form,
-  }: TextFieldProps,
-  ref
-) {
+    select,
+  } = props
+
   const helperTextId = helperText && id ? `${id}-helper-text` : undefined
   const inputLabelId = label && id ? `${id}-label` : undefined
 
@@ -136,14 +142,15 @@ const TextField = forwardRef<
         }}
       >
         {select ? (
-          <Selector
+          <Select
             id={id}
             placeholder={placeholder}
-            {...selectProps}
-            options={selectProps?.options ?? []}
-            fullWidth={true}
-            hightlightFilled={false}
-          />
+            {...props.selectProps}
+            fullWidth
+            highlightFilled={false}
+          >
+            {props.children}
+          </Select>
         ) : (
           <Input
             id={id}
@@ -151,10 +158,10 @@ const TextField = forwardRef<
             ref={ref}
             placeholder={placeholder}
             iconName={iconName}
-            value={value}
+            value={props.value}
             disabled={disabled}
-            onChange={onChange}
-            onBlur={onBlur}
+            onChange={props.onChange}
+            onBlur={props.onBlur}
             state={state}
             unit={unit}
             multiline={multiline}
