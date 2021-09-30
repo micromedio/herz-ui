@@ -3,18 +3,16 @@ import { useCallback, useEffect, useState } from "react"
 const useLoadedImage = (
   source?: string,
   sourceSet?: string
-): "error" | "iddle" | "loaded" | "nosource" => {
+): "error" | "idle" | "loaded" | "nosource" => {
   const [status, setStatus] = useState<
-    "error" | "iddle" | "loaded" | "nosource"
-  >("iddle")
+    "error" | "idle" | "loaded" | "nosource"
+  >("idle")
 
   const setLoaded = useCallback(() => {
     setStatus("loaded")
-    console.log("loaded")
   }, [])
   const setError = useCallback(() => {
     setStatus("error")
-    console.log("error")
   }, [])
 
   useEffect(() => {

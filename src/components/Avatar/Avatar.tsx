@@ -1,7 +1,14 @@
 /** @jsxImportSource theme-ui */
 
 import { ThemeUICSSProperties } from "@theme-ui/css"
-import { forwardRef, HTMLAttributes, ReactNode, useCallback } from "react"
+import {
+  CSSProperties,
+  forwardRef,
+  HTMLAttributes,
+  ReactNode,
+  useMemo,
+} from "react"
+import { Icon } from ".."
 import { useLoadedImage } from "./hooks/useLoadedImage"
 
 export interface AvatarProps {
@@ -9,12 +16,16 @@ export interface AvatarProps {
    * Used in combination with `src` or `srcSet` to
    * provide an alt attribute for the rendered `img` element.
    */
-  alt: string
+  alt?: string
   /**
    * Used to render icon or text elements inside the Avatar if `src` is not set.
    * This can be an element, or just a string.
    */
   children?: ReactNode
+  /**
+   * Background color array used based on alt letter
+   */
+  colorsArray?: Array<CSSProperties["backgroundColor"]>
 
   className?: string
   /**
@@ -46,6 +57,16 @@ const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar(
     alt,
     children,
     className,
+    colorsArray = [
+      "#FF3C3C",
+      "#0082FC",
+      "#30D158",
+      "#FFE927",
+      "#FFA53C",
+      "#F700FC",
+      "#3CD0FF",
+      "#CCFF3C",
+    ],
     imgProps,
     size = 20,
     src,
@@ -56,13 +77,26 @@ const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar(
 ) {
   const loaded = useLoadedImage(src)
 
-  const getChildren = useCallback(() => {
-    if (loaded === "loaded") return
+  const childrenAndColor = useMemo(() => {
+    if (loaded === "loaded") return { children: undefined }
     if (["error", "nosource"].includes(loaded)) {
-      if (children) return children
-      return alt.slice(0, 1)
+      if (children) return { children }
+      const altFirstLetter = alt?.slice(0, 1)
+      if (alt && altFirstLetter) {
+        const charCodeSum = alt
+          .split(" ")
+          .reduce(
+            (accumulative, current) => accumulative + current.charCodeAt(0),
+            0
+          )
+        return {
+          children: altFirstLetter,
+          backgroundColor: colorsArray[charCodeSum % colorsArray.length],
+        }
+      }
     }
-  }, [alt, children, loaded])
+    return { children: <Icon name="IconUser" size={size * 0.625} /> }
+  }, [alt, children, colorsArray, loaded, size])
 
   return (
     <div
@@ -71,28 +105,29 @@ const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar(
       sx={{
         alignContent: "center",
         alignItems: "center",
-        backgroundColor: "text.70",
+        backgroundColor: childrenAndColor?.backgroundColor || "text.70",
         borderRadius: "50%",
         color: "text.97",
         display: "flex",
         fontSize: size * 0.625,
+        fontWeight: 600,
         height: size,
         justifyContent: "center",
         width: size,
       }}
     >
-      {(!src || loaded !== "loaded") && getChildren()}
+      {(!src || loaded !== "loaded") && childrenAndColor.children}
       {src && loaded === "loaded" && (
         <img
           {...imgProps}
           src={src}
           srcSet={srcSet}
           sx={{
-            ...styles?.image,
             borderRadius: "50%",
             height: size,
             objectFit: "cover",
             width: size,
+            ...styles?.image,
           }}
         />
       )}
