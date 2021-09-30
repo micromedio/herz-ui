@@ -2,6 +2,7 @@ const path = require("path")
 const { version } = require("./package.json")
 
 module.exports = {
+  assetsDir: "src/assets/",
   ignore: [
     "src/components/**/*.test.tsx",
     "src/components/**/*.stories.tsx",
