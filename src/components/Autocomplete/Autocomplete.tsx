@@ -482,7 +482,6 @@ export default forwardRef(function Autocomplete<T>(
             })}
             sx={{
               alignItems: "center",
-              backgroundColor: "transparent",
               border: "2px solid transparent",
               borderRadius: 2,
               display: "flex",
@@ -493,14 +492,13 @@ export default forwardRef(function Autocomplete<T>(
               position: "relative",
               transition: "all 0.2s",
               width: "100%",
-              ...(state === "loading" ? activeStyles.active : {}),
               ...{
                 default: {
                   backgroundColor: hasSpotlight
                     ? "secondary.alpha.90"
                     : "text.alpha.95",
                 },
-                loading: {},
+                loading: activeStyles.active,
                 success: {
                   backgroundColor: "success.alpha.95",
                   borderColor: "success",
