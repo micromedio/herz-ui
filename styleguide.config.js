@@ -6,7 +6,6 @@ module.exports = {
     "src/components/**/*.test.tsx",
     "src/components/**/*.stories.tsx",
     "src/components/Button/ButtonExamples.tsx",
-    "src/components/Selector/Selector.tsx",
     "src/components/EditableField/EditableField.tsx",
     "src/components/Select/SelectOption.tsx",
     "src/components/Select/SelectOptionCustom.tsx",

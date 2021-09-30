@@ -11,7 +11,6 @@ const fullPageComponents = [
   "MobileModal",
   "Popover",
   "DesktopModal",
-  "Selector",
   "Tooltip",
 ]
 
