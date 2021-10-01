@@ -1,0 +1,73 @@
+# Button
+
+## Component
+
+This is the basic component for all buttons.
+
+### Variants
+
+```jsx live
+<div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+  <Button variant="filled">Filled</Button>
+  <Button variant="filledLight">Filled Light</Button>
+  <Button variant="plain">Plain</Button>
+</div>
+```
+
+### Colors
+
+```jsx live
+<div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+  <Button color="primary">Primary</Button>
+  <Button color="secondary">Secondary</Button>
+  <Button color="success">Success</Button>
+  <Button color="text">Text</Button>
+</div>
+```
+
+### Sizes
+
+```jsx live
+<div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+  <Button size="small">Small</Button>
+  <Button size="large">Large</Button>
+</div>
+```
+
+### Disabled
+
+```jsx live
+<div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+  <Button disabled color="primary">Primary</Button>
+  <Button disabled color="secondary">Secondary</Button>
+  <Button disabled color="success">Success</Button>
+  <Button disabled color="text">Text</Button>
+</div>
+```
+
+### With Icon
+
+```jsx live
+<div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+  <Button color="primary" iconName="IconPlus" variant="plain" />
+  <Button color="secondary" iconName="IconRouter">With Text</Button>
+</div>
+```
+
+### With ReactNode children
+
+Please note the use is focused in custom SVG's or custom icons
+
+```jsx live
+<Button variant="filled" color="text">
+  <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"><title>MS-SymbolLockup</title><rect x="1" y="1" width="9" height="9" fill="#f25022"/><rect x="1" y="11" width="9" height="9" fill="#00a4ef"/><rect x="11" y="1" width="9" height="9" fill="#7fba00"/><rect x="11" y="11" width="9" height="9" fill="#ffb900"/></svg>
+</Button>
+```
+
+## API
+
+- [Button](/docs/apis/button)
+
+
+
+
