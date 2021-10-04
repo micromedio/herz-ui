@@ -6,7 +6,7 @@ import DetailPageSkeleton from "./DetailPageSkeleton"
 import SidePanelSkeleton from "./SidePanelSkeleton"
 
 export default {
-  title: "Design System/Skeleton Loader",
+  title: "Design System-/Skeleton Loader",
 } as Meta
 
 const TableTemplate: Story = () => {
