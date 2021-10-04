@@ -1,3 +1,9 @@
+#### 0.13.1 (2021-10-04)
+
+##### Bug Fixes
+
+*  Added missing Avatar export ([136c8fcd](https://github.com/micromed-dev/herz-ui/commit/136c8fcd427ea567d3cda4b6b3f7f2a4ed447327))
+
 #### 0.13.0 (2021-09-30)
 
 ##### Breaking Changes
