@@ -74,6 +74,12 @@ export type { RadioProps } from "./Radio/Radio"
 export { default as Selector } from "./Selector/Selector"
 export type { SelectorProps } from "./Selector/Selector"
 
+export { default as TableSkeleton } from "./SkeletonLoader/TableSkeleton"
+
+export { default as DetailPageSkeleton } from "./SkeletonLoader/DetailPageSkeleton"
+
+export { default as SidePanelSkeleton } from "./SkeletonLoader/SidePanelSkeleton"
+
 export { default as Select } from "./Select/Select"
 export type { SelectProps } from "./Select/Select"
 
