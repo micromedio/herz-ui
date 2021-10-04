@@ -2,7 +2,7 @@ import React from "react"
 import TableFilters, { TableFiltersProps } from "./TableFilters"
 import { Meta, Story } from "@storybook/react/types-6-0"
 import Button from "../Button/Button"
-import Selector from "../Selector/Selector"
+import Select from "../Select/Select"
 import Input from "../Input/Input"
 
 export default {
@@ -31,23 +31,19 @@ Example.args = {
         />
       </TableFilters.Item>
       <TableFilters.Item label="Study status">
-        <Selector
-          options={[
-            { value: "all", label: "All" },
-            { value: "active", label: "Active" },
-            { value: "inactive", label: "Inactive" },
-            { value: "pending", label: "Pending" },
-          ]}
-        />
+        <Select>
+          <Select.Option value="all">All</Select.Option>
+          <Select.Option value="active">Active</Select.Option>
+          <Select.Option value="inactive">Inactive</Select.Option>
+          <Select.Option value="pending">Pending</Select.Option>
+        </Select>
       </TableFilters.Item>
       <TableFilters.Item label="Study type">
-        <Selector
-          options={[
-            { value: "all", label: "All" },
-            { value: "inactive", label: "Inactive" },
-            { value: "pending", label: "Pending" },
-          ]}
-        />
+        <Select>
+          <Select.Option value="all">All</Select.Option>
+          <Select.Option value="inactive">Inactive</Select.Option>
+          <Select.Option value="pending">Pending</Select.Option>
+        </Select>
       </TableFilters.Item>
     </React.Fragment>
   ),
@@ -64,23 +60,19 @@ WithoutSearch.args = {
       </TableFilters.Item>
       <TableFilters.Item grows />
       <TableFilters.Item label="Study status">
-        <Selector
-          options={[
-            { value: "all", label: "All" },
-            { value: "active", label: "Active" },
-            { value: "inactive", label: "Inactive" },
-            { value: "pending", label: "Pending" },
-          ]}
-        />
+        <Select>
+          <Select.Option value="all">All</Select.Option>
+          <Select.Option value="active">Active</Select.Option>
+          <Select.Option value="inactive">Inactive</Select.Option>
+          <Select.Option value="pending">Pending</Select.Option>
+        </Select>
       </TableFilters.Item>
       <TableFilters.Item label="Study type">
-        <Selector
-          options={[
-            { value: "all", label: "All" },
-            { value: "inactive", label: "Inactive" },
-            { value: "pending", label: "Pending" },
-          ]}
-        />
+        <Select>
+          <Select.Option value="all">All</Select.Option>
+          <Select.Option value="inactive">Inactive</Select.Option>
+          <Select.Option value="pending">Pending</Select.Option>
+        </Select>
       </TableFilters.Item>
     </React.Fragment>
   ),
@@ -91,24 +83,19 @@ CustomOrder.args = {
   children: (
     <React.Fragment>
       <TableFilters.Item label="License status">
-        <Selector
-          options={[
-            { value: "all", label: "All" },
-            { value: "active", label: "Active" },
-            { value: "inactive", label: "Inactive" },
-            { value: "pending", label: "Pending" },
-          ]}
-          defaultValue="all"
-        />
+        <Select defaultValue="all">
+          <Select.Option value="all">All</Select.Option>
+          <Select.Option value="active">Active</Select.Option>
+          <Select.Option value="inactive">Inactive</Select.Option>
+          <Select.Option value="pending">Pending</Select.Option>
+        </Select>
       </TableFilters.Item>
       <TableFilters.Item label="License type">
-        <Selector
-          options={[
-            { value: "all", label: "All" },
-            { value: "hardware", label: "Hardware" },
-            { value: "software", label: "Software" },
-          ]}
-        />
+        <Select>
+          <Select.Option value="all">All</Select.Option>
+          <Select.Option value="inactive">Inactive</Select.Option>
+          <Select.Option value="pending">Pending</Select.Option>
+        </Select>
       </TableFilters.Item>
       <TableFilters.Item label="Organization" grows minWidth={300}>
         <Input
@@ -117,10 +104,14 @@ CustomOrder.args = {
         />
       </TableFilters.Item>
       <TableFilters.Item label="Issued at">
-        <Selector options={[{ value: "30days", label: "Last 30 days" }]} />
+        <Select>
+          <Select.Option value="30days">Last 30 days</Select.Option>
+        </Select>
       </TableFilters.Item>
       <TableFilters.Item label="Expires at">
-        <Selector options={[{ value: "all", label: "All time" }]} />
+        <Select>
+          <Select.Option value="all">All time</Select.Option>
+        </Select>
       </TableFilters.Item>
       <TableFilters.Item>
         <Button variant="plain" color="secondary">

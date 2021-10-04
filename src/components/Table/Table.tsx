@@ -8,7 +8,7 @@ import {
   useSortBy,
   SortingRule,
 } from "react-table"
-import { Pagination, Selector } from "../"
+import { Pagination, Select } from "../"
 import { HTMLAttributes, memo, useEffect, useMemo } from "react"
 import useRowSelection from "./useRowSelection"
 import Icon from "../Icon/Icon"
@@ -495,20 +495,19 @@ const Table = ({
         >
           <span>Showing</span>
           <div sx={{ flexShrink: 0 }}>
-            <Selector
-              options={[
-                { value: 5, label: "5" },
-                { value: 10, label: "10" },
-                { value: 25, label: "25" },
-                { value: 50, label: "50" },
-              ]}
+            <Select
               value={pageSize}
               defaultValue={initialPageSize}
               onChange={(selectedItem) => {
                 if (selectedItem)
                   setPageSize(Number.parseInt(selectedItem.toString() ?? "10"))
               }}
-            />
+            >
+              <Select.Option value={5}>5</Select.Option>
+              <Select.Option value={10}>10</Select.Option>
+              <Select.Option value={25}>25</Select.Option>
+              <Select.Option value={50}>50</Select.Option>
+            </Select>
           </div>
           <span>results per page from a total of {totalCount} results</span>
         </div>
