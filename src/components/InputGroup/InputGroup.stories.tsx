@@ -3,7 +3,7 @@ import { Meta, Story } from "@storybook/react/types-6-0"
 import React from "react"
 import Input from "../Input/Input"
 import TextField from "../TextField/TextField"
-import Selector from "../Selector/Selector"
+import Select from "../Select/Select"
 
 export default {
   title: "Design System/InputGroup",
@@ -14,18 +14,10 @@ const Template: Story<InputGroupProps> = (props) => (
   <InputGroup {...props}>
     <Input placeholder="With a placeholder" />
     <Input placeholder="Error state" state="error" />
-    <Selector
-      options={[
-        {
-          label: "First",
-          value: 1,
-        },
-        {
-          label: "Second",
-          value: 2,
-        },
-      ]}
-    />
+    <Select>
+      <Select.Option value={1}>First</Select.Option>
+      <Select.Option value={2}>Second</Select.Option>
+    </Select>
     <Input placeholder="Success state" state="success" />
   </InputGroup>
 )
@@ -42,18 +34,11 @@ const TextFieldTemplate: Story<InputGroupProps> = (props) => (
       select
       selectProps={{
         value: 1,
-        options: [
-          {
-            label: "First",
-            value: 1,
-          },
-          {
-            label: "Second",
-            value: 2,
-          },
-        ],
       }}
-    />
+    >
+      <Select.Option value={1}>First</Select.Option>
+      <Select.Option value={2}>Second</Select.Option>
+    </TextField>
     <TextField helperText="Last Input" />
   </InputGroup>
 )

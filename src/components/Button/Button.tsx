@@ -23,6 +23,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     icon?: ThemeUICSSObject
     root?: ThemeUICSSObject
   }
+
+  type?: ButtonHTMLAttributes<HTMLButtonElement>["type"]
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
@@ -35,6 +37,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     disabled,
     iconName,
     styles,
+    type = "button",
     ...htmlProps
   }: ButtonProps,
   ref
@@ -105,6 +108,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
       onClick={onClick}
       {...htmlProps}
       disabled={disabled}
+      type={type}
       sx={{
         ...baseButton,
         ...{

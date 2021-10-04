@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import TextField, { TextFieldProps } from "./TextField"
 import { Meta, Story } from "@storybook/react/types-6-0"
-import { SelectorProps } from "../Selector/Selector"
+import SelectComponent, { SelectProps } from "../Select/Select"
 
 export default {
   title: "Design System/TextField",
@@ -9,47 +9,49 @@ export default {
 } as Meta
 
 const Template: Story<TextFieldProps> = (props: TextFieldProps) => {
-  const [value, setValue] = useState(props.value)
+  const [value, setValue] = useState(!props.select ? props.value : "")
 
   return (
     <TextField
       {...props}
-      value={value}
-      onChange={(event) => {
-        if (props.onChange) props.onChange(event)
-        setValue(event.target.value)
-      }}
+      {...(!props.select
+        ? {
+            value,
+            onChange: (event) => {
+              if (props.onChange) props.onChange(event)
+              setValue(event.target.value)
+            },
+          }
+        : {})}
     />
   )
 }
 
 const SelectTemplate: Story<TextFieldProps> = (props: TextFieldProps) => {
-  const [value, setValue] = useState<SelectorProps["value"]>()
+  const [value, setValue] = useState<SelectProps["value"]>()
 
   return (
     <TextField
+      select
       {...props}
-      selectProps={{
-        ...props.selectProps,
-        value: value,
-        options: [
-          {
-            label: "CPF",
-            value: "CPF",
-          },
-          {
-            label: "CNPJ",
-            value: "CNPJ",
-          },
-        ],
-        onChange: (newValue) => setValue(newValue),
-      }}
-    />
+      selectProps={
+        props.select
+          ? {
+              ...props.selectProps,
+              value,
+              onChange: setValue,
+            }
+          : {}
+      }
+    >
+      {props.select ? props.children : null}
+    </TextField>
   )
 }
 
 export const Example = Template.bind({})
 Example.args = {
+  select: false,
   id: "field-id",
   label: "Label",
   helperText: "Text to help explain the input",
@@ -62,6 +64,7 @@ WithoutLabels.args = {}
 export const Filled = Template.bind({})
 Filled.args = {
   ...Example.args,
+  select: false,
   value: "Filled input",
 }
 
@@ -72,18 +75,14 @@ Select.args = {
   helperText: "Text to help explain the input",
   placeholder: " ",
   select: true,
-  selectProps: {
-    options: [
-      {
-        label: "CPF",
-        value: "CPF",
-      },
-      {
-        label: "CNPJ",
-        value: "CNPJ",
-      },
-    ],
-  },
+  children: [
+    <SelectComponent.Option key="CPF" value="CPF">
+      CPF
+    </SelectComponent.Option>,
+    <SelectComponent.Option key="CNPJ" value="CNPJ">
+      CNPJ
+    </SelectComponent.Option>,
+  ],
 }
 
 export const Error = Template.bind({})
@@ -104,6 +103,7 @@ Success.args = {
 
 export const TextArea = Template.bind({})
 TextArea.args = {
+  select: false,
   id: "field-id",
   label: "Label",
   helperText: "Text to help explain the input",

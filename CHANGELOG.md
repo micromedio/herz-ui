@@ -1,3 +1,25 @@
+#### 0.13.1 (2021-10-04)
+
+##### Bug Fixes
+
+*  Added missing Avatar export ([136c8fcd](https://github.com/micromed-dev/herz-ui/commit/136c8fcd427ea567d3cda4b6b3f7f2a4ed447327))
+
+#### 0.13.0 (2021-09-30)
+
+##### Breaking Changes
+
+*  Removed deprecated Selector component STC-533 ([#149](https://github.com/micromed-dev/herz-ui/pull/149)) ([d5de5128](https://github.com/micromed-dev/herz-ui/commit/d5de5128cf099d75cdf33730dc4184786046ec9b))
+
+##### New Features
+
+* **Avatar:**  Added new Avatar component STC-481 ([#148](https://github.com/micromed-dev/herz-ui/pull/148)) ([6f3a9253](https://github.com/micromed-dev/herz-ui/commit/6f3a9253bd9b5aeb444ff2826bc28600988bca17))
+
+#### 0.12.0 (2021-09-28)
+
+##### Breaking Changes
+
+*  moved theme-ui to peerDependencies STC-403 ([#146](https://github.com/micromed-dev/herz-ui/pull/146)) ([8835b60f](https://github.com/micromed-dev/herz-ui/commit/8835b60f5c03a1d6a7e0dd67d6d8372d7335acef))
+
 #### 0.10.1 (2021-09-01)
 
 ##### Chores

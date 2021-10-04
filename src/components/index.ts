@@ -7,6 +7,9 @@ export type { AutocompleteProps } from "./Autocomplete/Autocomplete"
 export { default as Alert } from "./Alert/Alert"
 export type { AlertProps } from "./Alert/Alert"
 
+export { default as Avatar } from "./Avatar/Avatar"
+export type { AvatarProps } from "./Avatar/Avatar"
+
 export { default as Breadcrumbs } from "./Breadcrumbs/Breadcrumbs"
 export type { BreadcrumbsProps } from "./Breadcrumbs/Breadcrumbs"
 
@@ -70,9 +73,6 @@ export type { PopoverProps } from "./Popover/Popover"
 
 export { default as Radio } from "./Radio/Radio"
 export type { RadioProps } from "./Radio/Radio"
-
-export { default as Selector } from "./Selector/Selector"
-export type { SelectorProps } from "./Selector/Selector"
 
 export { default as TableSkeleton } from "./SkeletonLoader/TableSkeleton"
 
