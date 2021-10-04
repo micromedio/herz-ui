@@ -7,6 +7,9 @@ export type { AutocompleteProps } from "./Autocomplete/Autocomplete"
 export { default as Alert } from "./Alert/Alert"
 export type { AlertProps } from "./Alert/Alert"
 
+export { default as Avatar } from "./Avatar/Avatar"
+export type { AvatarProps } from "./Avatar/Avatar"
+
 export { default as Breadcrumbs } from "./Breadcrumbs/Breadcrumbs"
 export type { BreadcrumbsProps } from "./Breadcrumbs/Breadcrumbs"
 
