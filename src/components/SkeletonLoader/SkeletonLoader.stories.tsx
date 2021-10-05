@@ -11,16 +11,16 @@ const SkeletonTemplate: Story = () => {
   return (
     <>
       <div sx={{ display: "flex", maxWidth: "600px", height: "50px" }}>
-        <SkeletonLoader width="230px" height="20px" />
-        <SkeletonLoader width="130px" height="20px" />
+        <SkeletonLoader width="230" height="20" />
+        <SkeletonLoader width="130" height="20" left="10" />
       </div>
       <div sx={{ display: "flex", maxWidth: "600px", height: "50px" }}>
-        <SkeletonLoader width="230px" height="20px" />
-        <SkeletonLoader width="130px" height="20px" />
+        <SkeletonLoader width="230" height="20" />
+        <SkeletonLoader width="130" height="20" left="10" />
       </div>
-      <div sx={{ display: "flex", maxWidth: "200px", height: "50px" }}>
-        <SkeletonLoader width="50px" height="50px" variant="circle" />
-        <SkeletonLoader width="230px" height="20px" top="20px" />
+      <div sx={{ display: "flex", maxWidth: "600px", height: "30px" }}>
+        <SkeletonLoader width="30" height="30" variant="circle" />
+        <SkeletonLoader width="230" height="30" left="20" />
       </div>
     </>
   )
