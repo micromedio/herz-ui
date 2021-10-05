@@ -1,5 +1,8 @@
-### Table skeleton loader
+### Skeleton loader
 
 ```jsx
-<TableSkeleton />
+<>
+  <SkeletonLoader width="230" height="20" />
+  <SkeletonLoader width="130" height="20" />
+</>
 ```

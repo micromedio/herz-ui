@@ -1,34 +1,29 @@
 /** @jsxImportSource theme-ui */
 import React from "react"
 import { Meta, Story } from "@storybook/react/types-6-0"
-import TableSkeleton from "./TableSkeleton"
-import DetailPageSkeleton from "./DetailPageSkeleton"
-import SidePanelSkeleton from "./SidePanelSkeleton"
+import SkeletonLoader from "./SkeletonLoader"
 
 export default {
   title: "Design System/Skeleton Loader",
 } as Meta
 
-const TableTemplate: Story = () => {
-  return <TableSkeleton />
-}
-
-const DetailPageTemplate: Story = () => {
+const SkeletonTemplate: Story = () => {
   return (
-    <div sx={{ width: "500px" }}>
-      <DetailPageSkeleton />
-    </div>
+    <>
+      <div sx={{ display: "flex", maxWidth: "600px", height: "50px" }}>
+        <SkeletonLoader width="230px" height="20px" />
+        <SkeletonLoader width="130px" height="20px" />
+      </div>
+      <div sx={{ display: "flex", maxWidth: "600px", height: "50px" }}>
+        <SkeletonLoader width="230px" height="20px" />
+        <SkeletonLoader width="130px" height="20px" />
+      </div>
+      <div sx={{ display: "flex", maxWidth: "200px", height: "50px" }}>
+        <SkeletonLoader width="50px" height="50px" variant="circle" />
+        <SkeletonLoader width="230px" height="20px" top="20px" />
+      </div>
+    </>
   )
 }
 
-const SidePanelTemplate: Story = () => {
-  return (
-    <div sx={{ width: "384px" }}>
-      <SidePanelSkeleton />
-    </div>
-  )
-}
-
-export const TableSkeletonTemplate = TableTemplate.bind({})
-export const DetailPageSkeletonTemplate = DetailPageTemplate.bind({})
-export const SidePanelSkeletonSkeletonTemplate = SidePanelTemplate.bind({})
+export const Skeleton = SkeletonTemplate.bind({})

@@ -74,11 +74,7 @@ export type { PopoverProps } from "./Popover/Popover"
 export { default as Radio } from "./Radio/Radio"
 export type { RadioProps } from "./Radio/Radio"
 
-export { default as TableSkeleton } from "./SkeletonLoader/TableSkeleton"
-
-export { default as DetailPageSkeleton } from "./SkeletonLoader/DetailPageSkeleton"
-
-export { default as SidePanelSkeleton } from "./SkeletonLoader/SidePanelSkeleton"
+export { default as SkeletonLoader } from "./SkeletonLoader/SkeletonLoader"
 
 export { default as Select } from "./Select/Select"
 export type { SelectProps } from "./Select/Select"
