@@ -10,9 +10,7 @@ export default {
 const SkeletonTemplate: Story<SkeletonLoaderProps> = (props) => {
   return (
     <>
-      <div sx={{ display: "flex", maxWidth: "600px", height: "50px" }}>
-        <SkeletonLoader {...props} />
-      </div>
+      <SkeletonLoader {...props} />
     </>
   )
 }
@@ -24,7 +22,7 @@ SkeletonText.args = {
   width: 230,
   height: 20,
   left: 20,
-  top: 20,
+  top: 0,
   variant: "text",
 }
 

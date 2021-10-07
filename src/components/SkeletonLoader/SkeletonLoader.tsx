@@ -24,7 +24,7 @@ const SkeletonLoader = ({
   }
   return (
     <>
-      <ContentLoader viewBox={`0 0 ${width} ${height}`}>
+      <ContentLoader viewBox={`0 0 100 100`}>
         <rect
           x={left}
           y={top}
