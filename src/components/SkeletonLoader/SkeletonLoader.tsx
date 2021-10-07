@@ -3,21 +3,21 @@ import React from "react"
 import ContentLoader from "react-content-loader"
 
 export interface SkeletonLoaderProps {
-  variant?: string
-  width?: string
-  height?: string
+  variant?: "circle" | "text"
+  width?: number
+  height?: number
   radius?: string
-  top?: string
-  left?: string
+  top?: number
+  left?: number
 }
 
 const SkeletonLoader = ({
-  variant,
-  width = "50",
-  height = "50",
+  variant = "text",
+  width = 50,
+  height = 50,
   radius = "4",
-  top = "0",
-  left = "0",
+  top = 0,
+  left = 0,
 }: SkeletonLoaderProps) => {
   if (variant === "circle") {
     radius = "50%"

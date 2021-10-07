@@ -1,29 +1,37 @@
 /** @jsxImportSource theme-ui */
 import React from "react"
 import { Meta, Story } from "@storybook/react/types-6-0"
-import SkeletonLoader from "./SkeletonLoader"
+import SkeletonLoader, { SkeletonLoaderProps } from "./SkeletonLoader"
 
 export default {
   title: "Design System/Skeleton Loader",
 } as Meta
 
-const SkeletonTemplate: Story = () => {
+const SkeletonTemplate: Story<SkeletonLoaderProps> = (props) => {
   return (
     <>
       <div sx={{ display: "flex", maxWidth: "600px", height: "50px" }}>
-        <SkeletonLoader width="230" height="20" />
-        <SkeletonLoader width="130" height="20" left="10" />
-      </div>
-      <div sx={{ display: "flex", maxWidth: "600px", height: "50px" }}>
-        <SkeletonLoader width="230" height="20" />
-        <SkeletonLoader width="130" height="20" left="10" />
-      </div>
-      <div sx={{ display: "flex", maxWidth: "600px", height: "30px" }}>
-        <SkeletonLoader width="30" height="30" variant="circle" />
-        <SkeletonLoader width="230" height="30" left="20" />
+        <SkeletonLoader {...props} />
       </div>
     </>
   )
 }
 
-export const Skeleton = SkeletonTemplate.bind({})
+export const SkeletonText = SkeletonTemplate.bind({})
+export const SkeletonCircle = SkeletonTemplate.bind({})
+
+SkeletonText.args = {
+  width: 230,
+  height: 20,
+  left: 20,
+  top: 20,
+  variant: "text",
+}
+
+SkeletonCircle.args = {
+  width: 80,
+  height: 80,
+  left: 0,
+  top: 0,
+  variant: "circle",
+}
