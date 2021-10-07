@@ -23,6 +23,7 @@ SkeletonText.args = {
   height: 20,
   left: 20,
   top: 0,
+  radius: "4px",
   variant: "text",
 }
 
