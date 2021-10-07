@@ -75,6 +75,7 @@ export { default as Radio } from "./Radio/Radio"
 export type { RadioProps } from "./Radio/Radio"
 
 export { default as SkeletonLoader } from "./SkeletonLoader/SkeletonLoader"
+export type { SkeletonLoaderProps } from "./SkeletonLoader/SkeletonLoader"
 
 export { default as Select } from "./Select/Select"
 export type { SelectProps } from "./Select/Select"
