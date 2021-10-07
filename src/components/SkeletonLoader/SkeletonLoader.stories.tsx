@@ -19,7 +19,7 @@ export const SkeletonText = SkeletonTemplate.bind({})
 export const SkeletonCircle = SkeletonTemplate.bind({})
 
 SkeletonText.args = {
-  width: 230,
+  width: 60,
   height: 20,
   left: 20,
   top: 0,
