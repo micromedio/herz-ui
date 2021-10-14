@@ -1,3 +1,17 @@
+#### 0.14.0 (2021-10-14)
+
+##### Continuous Integration
+
+*  fix chromatic deploy on master ([1fc265eb](https://github.com/micromed-dev/herz-ui/commit/1fc265eb96a6e51f689c12652fe122821016da64))
+
+##### Documentation Changes
+
+*  Added docusaurus initial docs STC-532 ([#150](https://github.com/micromed-dev/herz-ui/pull/150)) ([83c94a1c](https://github.com/micromed-dev/herz-ui/commit/83c94a1c5a1766bd329e92631aed53bc568f2462))
+
+##### New Features
+
+* **Skeleton:**  Added Skeleton component STC-47 ([#152](https://github.com/micromed-dev/herz-ui/pull/152)) ([f802c361](https://github.com/micromed-dev/herz-ui/commit/f802c361b4905d73e50613ac408f747a8af5935f))
+
 #### 0.13.1 (2021-10-04)
 
 ##### Bug Fixes
