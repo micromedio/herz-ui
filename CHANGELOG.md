@@ -1,3 +1,13 @@
+#### 0.15.0 (2021-11-08)
+
+##### New Features
+
+*  Added ValuesList component STC-596 ([#154](https://github.com/micromed-dev/herz-ui/pull/154)) ([b65ca8f1](https://github.com/micromed-dev/herz-ui/commit/b65ca8f15d38fb4dc29fc02d9e0294daef772e84))
+
+##### Bug Fixes
+
+*  fixed theme-ui peer dep to exact version 0.10.0 ([#153](https://github.com/micromed-dev/herz-ui/pull/153)) ([f0d49416](https://github.com/micromed-dev/herz-ui/commit/f0d49416d455138afaa5a0981976fa21d7e98114))
+
 #### 0.14.0 (2021-10-14)
 
 ##### Continuous Integration
