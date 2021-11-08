@@ -12,6 +12,9 @@ export interface ValueListProps {
   }>
 }
 
+/**
+ * @deprecated Component depracated, use `ValuesList` instead
+ */
 const ValueList = ({
   alignValues = "end",
   className,
