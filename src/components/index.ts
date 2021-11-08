@@ -115,3 +115,6 @@ export type { IUploaderProps as UploaderProps } from "./Uploader/Uploader"
 
 export { default as ValueList } from "./ValueList/ValueList"
 export type { ValueListProps } from "./ValueList/ValueList"
+
+export { default as ValuesList } from "./ValuesList/ValuesList"
+export type { ValuesListProps } from "./ValuesList/ValuesList"

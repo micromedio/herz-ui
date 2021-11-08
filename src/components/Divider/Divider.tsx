@@ -1,8 +1,15 @@
 /** @jsxImportSource theme-ui */
 
-const Divider = () => {
+import { HTMLAttributes } from "react"
+
+export interface DividerProps {
+  className?: HTMLAttributes<HTMLHRElement>["className"]
+}
+
+const Divider = ({ className }: DividerProps) => {
   return (
     <hr
+      className={className}
       sx={{
         border: "none",
         height: "1px",
