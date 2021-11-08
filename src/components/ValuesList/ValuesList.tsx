@@ -27,7 +27,6 @@ const ValuesList = ({
         rowGap: itemSpacing,
         py: itemSpacing,
         "& > div:nth-of-type(2n)": {
-          pl: 8,
           justifyContent: alignValues === "end" ? "flex-end" : "flex-start",
         },
       }}

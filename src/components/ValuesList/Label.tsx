@@ -12,6 +12,8 @@ export const Label = ({ children, className }: LabelProps) => {
     <div
       className={className}
       sx={{
+        display: "flex",
+        alignItems: "center",
         color: "text.40",
         height: "100%",
         pr: 2,
