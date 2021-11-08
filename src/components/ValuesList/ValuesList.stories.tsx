@@ -33,7 +33,11 @@ Default.args = {
   ),
 }
 
-export const WithIcons = Template.bind({})
+const CustomTemplate: Story<ValuesListProps> = (props) => (
+  <ValuesList {...props} sx={{ gridTemplateColumns: "1fr auto" }} />
+)
+
+export const WithIcons = CustomTemplate.bind({})
 WithIcons.args = {
   alignValues: "start",
   children: (
@@ -58,7 +62,7 @@ WithIcons.args = {
   ),
 }
 
-export const WithLessSpacing = Template.bind({})
+export const WithLessSpacing = CustomTemplate.bind({})
 WithLessSpacing.args = {
   alignValues: "start",
   itemSpacing: "12px",
