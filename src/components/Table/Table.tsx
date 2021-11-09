@@ -113,14 +113,13 @@ const Table = ({
       onChange: onRowSelectionChange,
     })
 
-  const loadingRows: Array<DataType> = useMemo(() => {
-    const rowsArray = []
-    // eslint-disable-next-line unicorn/new-for-builtins
-    for (let index = 0; index < initialPageSize; index++) {
-      rowsArray.push({ id: `${index}` })
-    }
-    return rowsArray
-  }, [initialPageSize])
+  const loadingRows: Array<DataType> = useMemo(
+    () =>
+      Array.from({ length: initialPageSize })
+        .fill("")
+        .map((_, index) => ({ id: `${index}` })),
+    [initialPageSize]
+  )
 
   const {
     getTableBodyProps,
@@ -449,7 +448,7 @@ const Table = ({
                                 </div>
                               )
                             }
-                            const Loader = columns[index].Loader
+                            const Loader = columns[index]?.Loader
                             if (loading) {
                               if (Loader) return Loader()
                               return <Skeleton variant="text" width="100%" />
