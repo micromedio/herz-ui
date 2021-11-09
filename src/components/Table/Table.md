@@ -330,6 +330,69 @@ const columns = React.useMemo(() => {
 )
 ```
 
+#### Default Loading State
+
+```js
+const columns = React.useMemo(() => {
+  return [
+    {
+      Header: "Study #",
+      accessor: "id",
+      highlight: true,
+    },
+    {
+      Header: "Patient",
+      accessor: "patient.name",
+    },
+    {
+      Header: "Referring physician",
+      accessor: "physician.name",
+    },
+  ]
+}, [])
+
+return (
+  <Table
+    columns={columns}
+    data={[]}
+    initialPageSize={5}
+    loading
+  />
+)
+```
+
+#### Loading State With Custom Render
+
+```js
+import { Spinner } from ".."
+const columns = [
+  {
+    Header: "Study #",
+    accessor: "id",
+    highlight: true,
+    Loader: () => <Spinner />
+  },
+  {
+    Header: "Patient",
+    accessor: "patient.name",
+    Loader: () => <>Loading ...</>
+  },
+  {
+    Header: "Referring physician",
+    accessor: "physician.name",
+    Loader: () => <>Loading ...</>
+  },
+]
+;(
+  <Table
+    columns={columns}
+    data={[]}
+    initialPageSize={5}
+    loading
+  />
+)
+```
+
 ### Filtering
 
 As the filters will live outsite the table, this component doesn't handle any filtering logic at the moment. So to handle filtering you have to manually filter the data before passing it to the table.
