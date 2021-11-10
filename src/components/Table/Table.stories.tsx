@@ -6,6 +6,7 @@ import data from "./__mocks__/data"
 import _ from "lodash"
 import { action } from "@storybook/addon-actions"
 import Paper from "../Paper/Paper"
+import { Spinner } from ".."
 
 export default {
   title: "Design System/Table",
@@ -223,4 +224,32 @@ SelectRowsExample.args = {
   data,
   initialPageSize: 5,
   rowsSelectable: true,
+}
+
+export const LoadingDefault = Template.bind({})
+
+LoadingDefault.args = {
+  columns,
+  data: [],
+  loading: true,
+}
+
+export const LoadingWithCustomRender = Template.bind({})
+
+LoadingWithCustomRender.args = {
+  columns: columns.map((column, index) => ({
+    ...column,
+    Loader: () => (index % 2 ? <Spinner /> : <>Loading ...</>),
+  })),
+  data: [
+    {
+      ...data[0],
+      id: "WORD_BREAK_TEST",
+      physician: {
+        name: "really_long_string_without_spaces_that_should_break_into_a_new_line",
+      },
+    },
+    ...data,
+  ],
+  loading: true,
 }

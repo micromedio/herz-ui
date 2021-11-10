@@ -8,8 +8,8 @@ import {
   useSortBy,
   SortingRule,
 } from "react-table"
-import { Pagination, Select } from "../"
-import { HTMLAttributes, memo, useEffect, useMemo } from "react"
+import { Pagination, Select, Skeleton } from "../"
+import { HTMLAttributes, memo, ReactElement, useEffect, useMemo } from "react"
 import useRowSelection from "./useRowSelection"
 import Icon from "../Icon/Icon"
 import Checkbox from "../Checkbox/Checkbox"
@@ -23,7 +23,7 @@ interface DataType extends Record<string, unknown> {
 
 export interface TableProps {
   /** Definition of the table columns */
-  columns: Array<Column<DataType>>
+  columns: Array<Column<DataType> & { Loader?: () => ReactElement }>
   /** Data to be displayed in the table */
   data: Array<DataType>
 
@@ -82,7 +82,7 @@ export interface TableProps {
 const Table = ({
   columns,
   data,
-  // loading,
+  loading,
 
   rowClickable = false,
   onRowClick,
@@ -113,6 +113,14 @@ const Table = ({
       onChange: onRowSelectionChange,
     })
 
+  const loadingRows: Array<DataType> = useMemo(
+    () =>
+      Array.from({ length: initialPageSize })
+        .fill("")
+        .map((_, index) => ({ id: `${index}` })),
+    [initialPageSize]
+  )
+
   const {
     getTableBodyProps,
     getTableProps,
@@ -126,7 +134,7 @@ const Table = ({
   } = useTable(
     {
       columns,
-      data,
+      data: loading ? loadingRows : data,
 
       manualSortBy: manualSorting,
       manualPagination,
@@ -371,7 +379,7 @@ const Table = ({
                       },
                     }}
                   >
-                    {row.cells.map((cell) => {
+                    {row.cells.map((cell, index: number) => {
                       const { key, style, ...cellProps } = cell.getCellProps()
 
                       if (cell.column.id === INTERNAL_ACTIVE_COLUMN_ID) {
@@ -440,7 +448,11 @@ const Table = ({
                                 </div>
                               )
                             }
-
+                            const Loader = columns[index]?.Loader
+                            if (loading) {
+                              if (Loader) return Loader()
+                              return <Skeleton variant="text" width="100%" />
+                            }
                             return cell.render("Cell")
                           })()}
                         </div>
@@ -509,7 +521,17 @@ const Table = ({
               <Select.Option value={50}>50</Select.Option>
             </Select>
           </div>
-          <span>results per page from a total of {totalCount} results</span>
+          <span>
+            results per page from a total of{" "}
+            {totalCount || (
+              <Skeleton
+                sx={{ display: "inline-flex" }}
+                variant="text"
+                width={36}
+              />
+            )}{" "}
+            results
+          </span>
         </div>
         <Pagination
           page={pageIndex + 1}
