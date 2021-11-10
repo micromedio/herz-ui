@@ -1,3 +1,9 @@
+#### 0.16.0 (2021-11-10)
+
+##### New Features
+
+* **Table:**  Added the loading state STC-544 ([#155](https://github.com/micromed-dev/herz-ui/pull/155)) ([8b339a1b](https://github.com/micromed-dev/herz-ui/commit/8b339a1b48a2fcefc76af968ecfc6d819292fa8f))
+
 #### 0.15.0 (2021-11-08)
 
 ##### New Features
