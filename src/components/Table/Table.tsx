@@ -521,7 +521,17 @@ const Table = ({
               <Select.Option value={50}>50</Select.Option>
             </Select>
           </div>
-          <span>results per page from a total of {totalCount} results</span>
+          <span>
+            results per page from a total of{" "}
+            {totalCount || (
+              <Skeleton
+                sx={{ display: "inline-flex" }}
+                variant="text"
+                width={36}
+              />
+            )}{" "}
+            results
+          </span>
         </div>
         <Pagination
           page={pageIndex + 1}

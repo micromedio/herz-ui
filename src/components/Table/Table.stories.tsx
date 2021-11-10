@@ -230,16 +230,7 @@ export const LoadingDefault = Template.bind({})
 
 LoadingDefault.args = {
   columns,
-  data: [
-    {
-      ...data[0],
-      id: "WORD_BREAK_TEST",
-      physician: {
-        name: "really_long_string_without_spaces_that_should_break_into_a_new_line",
-      },
-    },
-    ...data,
-  ],
+  data: [],
   loading: true,
 }
 
