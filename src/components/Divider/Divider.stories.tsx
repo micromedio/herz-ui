@@ -14,6 +14,21 @@ const Template: Story = (props) => (
   </div>
 )
 
+const TemplateVertical: Story = (props) => (
+  <div style={{ display: "flex", gap: 8 }}>
+    Item 1
+    <Divider {...props} variant="vertical" />
+    Item 2
+    <Divider {...props} variant="vertical" />
+    Item 3
+    <Divider {...props} variant="vertical" />
+    Item 4
+  </div>
+)
+
 // Each story then reuses that template
 export const Default = Template.bind({})
 Default.args = {}
+
+export const Vertical = TemplateVertical.bind({})
+Vertical.args = {}
