@@ -6,10 +6,12 @@ import React, {
   TransitionEvent,
   useCallback,
   useEffect,
+  useImperativeHandle,
   useRef,
   useState,
 } from "react"
 import ReactDOM from "react-dom"
+import { useMeasure } from "react-use"
 
 enum MobileModalTypes {
   WITH_OVERFLOW = "overflow-herz-mobile-modal",
@@ -45,14 +47,20 @@ const MobileModal = ({
   threshold = 0.7,
   topSpacing = 80,
 }: MobileModalProps): JSX.Element => {
+  const [ref, { height: modalHeight }] = useMeasure<HTMLDivElement>()
+  const modalRef = useRef<HTMLDivElement>(null)
+  useImperativeHandle<HTMLDivElement | null, HTMLDivElement | null>(
+    ref,
+    () => modalRef.current
+  )
+
   const topLimit = useCallback(() => {
     if (modalRef.current) {
-      const clientHeight = modalRef.current.getClientRects()[0].height
-      const limitByClient = window.innerHeight - clientHeight
+      const limitByClient = window.innerHeight - modalHeight
       return limitByClient > topSpacing ? limitByClient : topSpacing
     }
     return topSpacing
-  }, [topSpacing])
+  }, [modalHeight, topSpacing])
 
   const bodyRef = useRef<HTMLBodyElement>(
     document.querySelector(`body`) as HTMLBodyElement
@@ -64,7 +72,6 @@ const MobileModal = ({
   const currentY = useRef<number>(0)
   const endTime = useRef<Date>(new Date())
   const isFirstRender = useRef<boolean>(true)
-  const modalRef = useRef<HTMLDivElement>(null)
   const startTime = useRef<Date>(new Date())
   const startY = useRef<number>(0)
 
@@ -370,57 +377,63 @@ const MobileModal = ({
         onTransitionEnd={handleTransitionEnd}
         ref={modalRef}
         sx={{
-          backgroundColor: `#fff`,
-          borderColor: `text.90`,
-          borderRadius: shouldDisplayBorders() ? 0 : 8,
-          borderBottomLeftRadius: 0,
-          borderBottomRightRadius: 0,
-          borderStyle: `solid`,
-          borderWidth: `1px`,
-          boxShadow: `0px 1px 12px rgba(0, 0, 0, 0.04)`,
           left: 0,
           height: !topSpacing ? `100vh` : `fit-content`,
-          maxHeight: `calc(100vh - ${topSpacing}px)`,
           minWidth: `100vw`,
-          overflowY: swipeState.isOpen ? `auto` : `hidden`,
-          padding: 8,
-          paddingTop: draggable ? 0 : 9,
           position: `fixed`,
           top: 0,
           transform: `translateY(${window.innerHeight - overflowHeight}px)`,
           zIndex: 5,
-          ...modalStyles,
         }}
       >
-        {draggable && (
-          <header
-            onTouchEnd={draggable ? handleTouchEnd : undefined}
-            onTouchMove={draggable ? handleTouchMove : undefined}
-            onTouchStart={draggable ? handleTouchStart : undefined}
-            sx={{
-              backgroundColor: `#fff`,
-              height: 48,
-              position: `sticky`,
-              top: 0,
-              width: `100%`,
-              zIndex: 6,
-              "&::before": {
-                boxSizing: `border-box`,
-                border: (theme) => `2px solid ${get(theme, "colors.text.90")}`,
-                borderRadius: 1,
-                content: `""`,
-                display: `block`,
-                height: 0,
-                // 84 (20px half of this component width and 64px for lateral paddings)
-                left: `calc((100% - 40px) / 2)`,
-                position: `relative`,
-                top: 5,
-                width: 40,
-              },
-            }}
-          />
-        )}
-        {children}
+        <div
+          sx={{
+            overflowY: swipeState.isOpen ? `auto` : `hidden`,
+            backgroundColor: `#fff`,
+            maxHeight: `calc(100vh - ${topSpacing}px)`,
+            boxShadow: `0px 1px 12px rgba(0, 0, 0, 0.04)`,
+            padding: 8,
+            paddingTop: draggable ? 0 : 9,
+            borderColor: `text.90`,
+            borderRadius: shouldDisplayBorders() ? 0 : 8,
+            borderBottomLeftRadius: 0,
+            borderBottomRightRadius: 0,
+            borderStyle: `solid`,
+            borderWidth: `1px`,
+            ...modalStyles,
+          }}
+        >
+          {draggable && (
+            <header
+              onTouchEnd={draggable ? handleTouchEnd : undefined}
+              onTouchMove={draggable ? handleTouchMove : undefined}
+              onTouchStart={draggable ? handleTouchStart : undefined}
+              sx={{
+                backgroundColor: `#fff`,
+                height: 48,
+                position: `sticky`,
+                top: 0,
+                width: `100%`,
+                zIndex: 6,
+                "&::before": {
+                  boxSizing: `border-box`,
+                  border: (theme) =>
+                    `2px solid ${get(theme, "colors.text.90")}`,
+                  borderRadius: 1,
+                  content: `""`,
+                  display: `block`,
+                  height: 0,
+                  // 84 (20px half of this component width and 64px for lateral paddings)
+                  left: `calc((100% - 40px) / 2)`,
+                  position: `relative`,
+                  top: 5,
+                  width: 40,
+                },
+              }}
+            />
+          )}
+          {children}
+        </div>
       </div>
     </React.Fragment>,
     portalRef.current
