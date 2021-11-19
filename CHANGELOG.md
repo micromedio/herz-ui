@@ -1,3 +1,13 @@
+#### 0.16.1 (2021-11-19)
+
+##### New Features
+
+* **Divider:**  Added variant prop with horizontal/vertical STC-545 ([#156](https://github.com/micromed-dev/herz-ui/pull/156)) ([3ac38fb5](https://github.com/micromed-dev/herz-ui/commit/3ac38fb58a0403a3038fee9883dc399eeef6c172))
+
+##### Bug Fixes
+
+* **MobileModal:**  Fix re-positioning of modal when content changes STC-633 ([#158](https://github.com/micromed-dev/herz-ui/pull/158)) ([f0e9df95](https://github.com/micromed-dev/herz-ui/commit/f0e9df95f8dcfee5b09988b41f5907f7db6d5770))
+
 #### 0.16.0 (2021-11-10)
 
 ##### New Features
