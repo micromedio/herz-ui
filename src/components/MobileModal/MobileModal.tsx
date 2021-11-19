@@ -52,7 +52,9 @@ const MobileModal = ({
       return limitByClient > topSpacing ? limitByClient : topSpacing
     }
     return topSpacing
-  }, [topSpacing])
+    // We need to recalculate the topLimit if the modalRef.current height changes, however modalRef.current reference will not change as it's a ref value, so the useCallback will not be re-called, so we are adding children to the dependency array to force the callback to be re-called when children changes, which would cause the modalRef.current height to change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [topSpacing, children])
 
   const bodyRef = useRef<HTMLBodyElement>(
     document.querySelector(`body`) as HTMLBodyElement
