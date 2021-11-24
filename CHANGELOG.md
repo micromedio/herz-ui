@@ -1,3 +1,9 @@
+#### 0.17.0 (2021-11-24)
+
+##### New Features
+
+* **LinearProgress:**  Created the LinearProgress STC-543 ([#159](https://github.com/micromed-dev/herz-ui/pull/159)) ([2bce0ff5](https://github.com/micromed-dev/herz-ui/commit/2bce0ff5d9d16212d5aaf8ec716e3b02cc8105bf))
+
 #### 0.16.1 (2021-11-19)
 
 ##### New Features
