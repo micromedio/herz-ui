@@ -55,6 +55,8 @@ const LinearProgress = React.forwardRef<HTMLDivElement, LinearProgressProps>(
     }: LinearProgressProps,
     ref
   ) {
+    const isIndeterminate = progress === undefined
+
     return (
       <div
         ref={ref}
@@ -67,7 +69,7 @@ const LinearProgress = React.forwardRef<HTMLDivElement, LinearProgressProps>(
         }}
         className={className}
       >
-        {!progress && (
+        {isIndeterminate && (
           <div
             sx={{
               animation: `${indeterminate1} 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite`,
@@ -85,7 +87,7 @@ const LinearProgress = React.forwardRef<HTMLDivElement, LinearProgressProps>(
         )}
         <div
           sx={{
-            animation: !progress
+            animation: isIndeterminate
               ? `${indeterminate2} 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite`
               : undefined,
             backgroundColor: color,
@@ -97,7 +99,7 @@ const LinearProgress = React.forwardRef<HTMLDivElement, LinearProgressProps>(
             top: 0,
             transformOrigin: "left",
             transition: "transform 0.2s linear",
-            width: progress
+            width: !isIndeterminate
               ? `calc(${Math.min(1, progress)} * 100%)`
               : undefined,
           }}
