@@ -1,3 +1,9 @@
+#### 0.17.1 (2021-11-24)
+
+##### Bug Fixes
+
+* **LinearProgress:**  Now exporting the component STC-543 ([#160](https://github.com/micromed-dev/herz-ui/pull/160)) ([ec01e1f0](https://github.com/micromed-dev/herz-ui/commit/ec01e1f0916ee54c30298d636918a5e88a0662de))
+
 #### 0.17.0 (2021-11-24)
 
 ##### New Features
