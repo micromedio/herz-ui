@@ -29,5 +29,8 @@ export const parameters = {
         value: "#fff"
       },
     ]
+  },
+  creevey: {
+    captureElement: "#root > *"
   }
 }
