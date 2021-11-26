@@ -6,6 +6,11 @@ import { action } from "@storybook/addon-actions"
 export default {
   title: "Design System/Radio",
   component: Radio,
+  parameters: {
+    creevey: {
+      captureElement: "#root",
+    },
+  },
 } as Meta
 
 const Template: Story<RadioProps> = (props) => (

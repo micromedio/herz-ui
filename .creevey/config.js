@@ -1,8 +1,8 @@
 const path = require("path");
 
 module.exports = {
-  diffOptions: { threshold: 0.01 },
-  maxRetries: 10,
+  diffOptions: { threshold: 0.005 },
+  maxRetries: 2,
   screenDir: path.join(__dirname, '../tests/images'),
   browsers: {
     chrome: {

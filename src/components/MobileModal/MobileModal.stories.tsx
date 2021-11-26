@@ -7,6 +7,7 @@ import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport"
 import { Icon } from ".."
 import ListSelect from "../ListSelect/ListSelect"
 import TextField from "../TextField/TextField"
+import { CreeveyMeta } from "creevey"
 
 export default {
   title: "Design System/MobileModal",
@@ -22,7 +23,7 @@ export default {
       captureElement: null,
     },
   },
-} as Meta
+} as Meta & CreeveyMeta
 
 const valueListItems = [
   {

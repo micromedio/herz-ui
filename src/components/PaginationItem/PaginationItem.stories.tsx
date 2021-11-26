@@ -5,13 +5,7 @@ import { Meta, Story } from "@storybook/react/types-6-0"
 export default {
   title: "Design System/Pagination/PaginationItem",
   component: PaginationItem,
-  decorators: [
-    (Story) => (
-      <div style={{ display: "flex" }}>
-        <Story />
-      </div>
-    ),
-  ],
+
   argTypes: {
     page: {
       control: {

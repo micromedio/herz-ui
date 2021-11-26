@@ -5,6 +5,11 @@ import Button from "../Button/Button"
 export default {
   title: "Design System/FloatingCard",
   component: FloatingCard,
+  parameters: {
+    creevey: {
+      captureElement: null,
+    },
+  },
 } as Meta
 
 const Template: Story<FloatingCardProps> = (props) => (

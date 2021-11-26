@@ -4,6 +4,11 @@ import { Meta, Story } from "@storybook/react/types-6-0"
 export default {
   title: "Design System/Popover",
   component: Popover,
+  parameters: {
+    creevey: {
+      captureElement: null,
+    },
+  },
 } as Meta
 
 const Template: Story<PopoverProps> = (props) => <Popover {...props} />

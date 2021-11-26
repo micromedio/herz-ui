@@ -7,6 +7,11 @@ import Button from "../Button/Button"
 export default {
   title: "Design System/DesktopModal",
   component: DesktopModal,
+  parameters: {
+    creevey: {
+      captureElement: null,
+    },
+  },
 } as Meta
 
 const Template: Story<DesktopModalProps> = (props: DesktopModalProps) => {

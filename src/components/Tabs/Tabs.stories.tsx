@@ -8,6 +8,11 @@ export default {
   title: "Design System/Tab",
   component: Tabs,
   decorators: [(Story) => <Story />],
+  parameters: {
+    creevey: {
+      captureElement: "#root",
+    },
+  },
 } as Meta
 
 const Template: Story<TabsProps> = (props) => (

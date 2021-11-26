@@ -2,18 +2,24 @@
 import React from "react"
 import LinearProgress, { LinearProgressProps } from "./LinearProgress"
 import { Meta, Story } from "@storybook/react/types-6-0"
+import { CreeveyMeta } from "creevey"
 
 export default {
   title: "Design System/LinearProgress",
   component: LinearProgress,
   decorators: [
     (Story) => (
-      <div sx={{ height: 700, width: 500 }}>
+      <div sx={{ width: 500 }}>
         <Story />
       </div>
     ),
   ],
-} as Meta
+  parameters: {
+    creevey: {
+      skip: true,
+    },
+  },
+} as Meta & CreeveyMeta
 
 const Template: Story<LinearProgressProps> = (props) => (
   <LinearProgress {...props} />
@@ -62,3 +68,8 @@ WithCustomHeight.args = {
 }
 
 export const WithProgress = DeterminateTemplate.bind({})
+WithProgress.parameters = {
+  creevey: {
+    skip: false,
+  },
+}

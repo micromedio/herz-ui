@@ -14,6 +14,11 @@ const mockedChildrenOptions = radioChildrensMock.map(({ value, label }) => (
 export default {
   title: "Design System/RadioGroup",
   component: Radio.Group,
+  parameters: {
+    creevey: {
+      captureElement: "#root",
+    },
+  },
 } as Meta
 
 const Template: Story<RadioGroupProps> = (props: RadioGroupProps) => (
