@@ -34,3 +34,5 @@ build-storybook.log*
 .vercel
 /storybook-static
 __diff_output__
+
+/report

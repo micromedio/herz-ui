@@ -21,5 +21,12 @@ jobs:
     - uses: ianwalter/puppeteer-container@v4.0.0
     - uses: actions/setup-node@v2
     - run: yarn install --frozen-lockfile
-    - run: yarn build-storybook
     - run: yarn test
+    - name: Tests
+      run: |
+        yarn storybook --ci &
+        npx wait-on http://localhost:6006 && yarn run creevey
+    - uses: actions/upload-artifact@v2
+      with:
+        name: report
+        path: report/

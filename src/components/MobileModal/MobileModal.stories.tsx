@@ -18,6 +18,9 @@ export default {
       //👇 Your own default viewport
       defaultViewport: "iphone5",
     },
+    creevey: {
+      captureElement: null,
+    },
   },
 } as Meta
 
