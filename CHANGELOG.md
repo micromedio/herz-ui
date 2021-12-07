@@ -1,3 +1,13 @@
+#### 0.18.0 (2021-12-07)
+
+##### New Features
+
+*  Added Dialog and DesktopModal STC-684 ([#162](https://github.com/micromed-dev/herz-ui/pull/162)) ([e03bd6a0](https://github.com/micromed-dev/herz-ui/commit/e03bd6a0548d71fd3a3d0cfb96bb2eb0fdca2ace))
+
+##### Other Changes
+
+*  Add creevey for visual testing STC-534 ([#161](https://github.com/micromed-dev/herz-ui/pull/161)) ([2f070cb9](https://github.com/micromed-dev/herz-ui/commit/2f070cb92d0a54229c13298beb31574f014d5fa6))
+
 #### 0.17.1 (2021-11-24)
 
 ##### Bug Fixes
