@@ -1,64 +1,111 @@
 /** @jsxImportSource theme-ui */
-import { HTMLAttributes, ReactNode } from "react"
-import Modal from "react-modal"
 import Paper from "../Paper/Paper"
+import "@reach/dialog/styles.css"
+import Dialog, { DialogProps } from "../Dialog/Dialog"
+import { ReactNode } from "react"
+import { Divider } from ".."
 
-export interface DesktopModalProps {
-  children: ReactNode
-  isVisible?: boolean
-  className?: HTMLAttributes<HTMLDivElement>["className"]
+export interface DesktopModalProps extends DialogProps {
+  title?: string
+  className?: string
+  onClose?: () => void
 }
 
 const DesktopModal = ({
   children,
   className,
-  isVisible = false,
+  ...dialogProps
 }: DesktopModalProps) => {
   return (
-    <Modal
-      ariaHideApp={false}
-      style={{
-        overlay: {
-          backgroundColor: "rgba(29, 29, 29, 0.6)",
-        },
-        content: {
-          border: "none",
-          top: "50%",
-          left: "50%",
-          right: "auto",
-          bottom: "auto",
-          marginRight: "-50%",
-          transform: "translate(-50%, -50%)",
-          borderRadius: 0,
-          padding: "32px",
-          backgroundColor: "transparent",
-          height: "100vh",
-          width: "100vw",
-        },
-      }}
-      isOpen={isVisible}
-    >
-      <div
+    <Dialog {...dialogProps}>
+      <Paper
+        className={className}
         sx={{
           display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          flexDirection: "column",
+          gap: 6,
+          p: 8,
+          mb: 4,
         }}
       >
-        <Paper
-          className={className}
-          sx={{
-            zIndex: 10,
-            gap: 5,
-            margin: "auto",
-            padding: "32px",
-            height: "fit-content",
-          }}
-        >
-          {children}
-        </Paper>
-      </div>
-    </Modal>
+        {children}
+      </Paper>
+    </Dialog>
+  )
+}
+
+DesktopModal.Header = function Header({
+  className,
+  children,
+}: {
+  className?: string
+  children: ReactNode
+}) {
+  return (
+    <>
+      <header
+        sx={{ display: "flex", justifyContent: "space-between", gap: 8 }}
+        className={className}
+      >
+        {children}
+      </header>
+      <Divider />
+    </>
+  )
+}
+
+DesktopModal.Body = function Body({
+  className,
+  children,
+}: {
+  className?: string
+  children: ReactNode
+}) {
+  return (
+    <>
+      <section
+        sx={{ variant: "text.body1", color: "text.40" }}
+        className={className}
+      >
+        {children}
+      </section>
+    </>
+  )
+}
+
+DesktopModal.Title = function Title({
+  className,
+  children,
+}: {
+  className?: string
+  children: ReactNode
+}) {
+  return (
+    <h1 sx={{ variant: "text.heading1", m: 0 }} className={className}>
+      {children}
+    </h1>
+  )
+}
+
+DesktopModal.Actions = function Actions({
+  className,
+  children,
+}: {
+  className?: string
+  children: ReactNode
+}) {
+  return (
+    <div
+      sx={{
+        display: "flex",
+        justifyContent: "end",
+        alignItems: "center",
+        gap: 2,
+      }}
+      className={className}
+    >
+      {children}
+    </div>
   )
 }
 

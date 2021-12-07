@@ -59,6 +59,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     outline: "none",
     border: "none",
 
+    ":focus": {
+      outline: "none",
+      border: "none",
+    },
+
     "&:disabled": {
       opacity: 0.3,
       cursor: "default",

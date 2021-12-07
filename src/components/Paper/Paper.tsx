@@ -9,6 +9,7 @@ export interface PaperProps {
   /** The content of the component */
   children?: React.ReactNode
   className?: HTMLAttributes<HTMLDivElement>["className"]
+  onClick?: HTMLAttributes<HTMLDivElement>["onClick"]
 }
 
 const Paper = ({
@@ -16,6 +17,7 @@ const Paper = ({
   padding = 6,
   children,
   className,
+  onClick,
 }: PaperProps) => {
   const boxShadow = useMemo(() => {
     if (elevation === 1) return "0px 1px 12px rgba(0, 0, 0, 0.04);"
@@ -33,6 +35,7 @@ const Paper = ({
         backgroundColor: "#FFF",
       }}
       className={className}
+      onClick={onClick}
     >
       {children}
     </div>

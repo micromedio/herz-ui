@@ -2,7 +2,7 @@ import { useState } from "react"
 import { render, waitFor } from "../../tests/utils"
 import userEvent from "@testing-library/user-event"
 import Button from "../Button/Button"
-import DesktopModal from "./DesktopModal"
+import Dialog from "./Dialog"
 
 describe("Desktop Modal | integration test", () => {
   const ModalWrapper = ({ open = false }: { open?: boolean }) => {
@@ -11,9 +11,9 @@ describe("Desktop Modal | integration test", () => {
     return (
       <>
         <Button onClick={() => setOpen(!isOpen)}>Toggle Open</Button>
-        <DesktopModal isOpen={isOpen}>
+        <Dialog isOpen={isOpen}>
           <div>Modal info</div>
-        </DesktopModal>
+        </Dialog>
       </>
     )
   }
