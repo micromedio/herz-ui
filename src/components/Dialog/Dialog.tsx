@@ -4,7 +4,6 @@ import {
   DialogContent,
   DialogOverlay,
 } from "@reach/dialog"
-import "@reach/dialog/styles.css"
 
 export type DialogProps = ReachDialogProps
 
@@ -14,6 +13,12 @@ const Dialog = ({ children, ...props }: DialogProps) => {
       {...props}
       sx={{
         backgroundColor: "rgba(29, 29, 29, 0.6)",
+        position: "fixed",
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+        overflow: "auto",
       }}
     >
       <DialogContent
@@ -22,13 +27,14 @@ const Dialog = ({ children, ...props }: DialogProps) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          "&&": {
-            p: 0,
-            my: "10vh",
-            minHeight: "80vh",
-            backgroundColor: "transparent",
-            width: "fit-content",
-          },
+
+          margin: "10vh auto",
+          outline: "none",
+
+          p: 0,
+          minHeight: "80vh",
+          backgroundColor: "transparent",
+          width: "fit-content",
         }}
         onClick={props.onDismiss}
       >

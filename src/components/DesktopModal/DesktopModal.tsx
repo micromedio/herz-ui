@@ -1,6 +1,5 @@
 /** @jsxImportSource theme-ui */
 import Paper from "../Paper/Paper"
-import "@reach/dialog/styles.css"
 import Dialog, { DialogProps } from "../Dialog/Dialog"
 import { ReactNode } from "react"
 import { Divider } from ".."
