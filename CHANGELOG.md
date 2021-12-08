@@ -1,3 +1,9 @@
+#### 0.18.1 (2021-12-08)
+
+##### New Features
+
+*  removed css import, added styles with sx STC-684 ([#163](https://github.com/micromed-dev/herz-ui/pull/163)) ([82f37ad5](https://github.com/micromed-dev/herz-ui/commit/82f37ad5baf1234139280c0e80cf51942781482a))
+
 #### 0.18.0 (2021-12-07)
 
 ##### New Features
