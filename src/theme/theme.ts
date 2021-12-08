@@ -166,6 +166,7 @@ export const theme: Theme = {
       fontSize: 2,
       fontWeight: "medium",
       lineHeight: "body",
+      "--reach-dialog": 1, // To remove warning from @reach/dialog, the dialog styles have been included directly into the DialogOverlay and DialogContent components, so we can avoid global .css imports
     },
   },
 }
