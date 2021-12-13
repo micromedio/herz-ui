@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react"
 import { render, screen } from "../../../tests/utils"
 import { axe } from "jest-axe"
-import EditableAutocomplete from "./Autocomplete"
+import EditableAutocomplete from "./EditableFieldAutocomplete"
 import userEvent from "@testing-library/user-event"
 import { mockedOptions } from "../../Autocomplete/__mocks__/options"
 

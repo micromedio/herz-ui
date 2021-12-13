@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import React, { HTMLAttributes } from "react"
+import { forwardRef, HTMLAttributes } from "react"
 import { keyframes } from "@emotion/react"
 
 const indeterminate1 = keyframes`
@@ -45,8 +45,8 @@ export interface LinearProgressProps {
   progress?: number
 }
 
-const LinearProgress = React.forwardRef<HTMLDivElement, LinearProgressProps>(
-  function LinearProgressComponent(
+const LinearProgress = forwardRef<HTMLDivElement, LinearProgressProps>(
+  function LinearProgress(
     {
       className,
       color = "secondary",

@@ -41,7 +41,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     ...htmlProps
   }: ButtonProps,
   ref
-) {
+): JSX.Element {
   const baseButton: ThemeUICSSObject = {
     display: "flex",
     gap: size === "large" ? 2 : 1,
