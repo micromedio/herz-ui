@@ -2,14 +2,14 @@
 import React, { useState } from "react"
 import { Meta, Story } from "@storybook/react/types-6-0"
 
-import Uploader, { IUploaderProps } from "./Uploader"
+import Uploader, { UploaderProps } from "./Uploader"
 
 export default {
   title: "Design System/Uploader",
   component: Uploader,
 } as Meta
 
-const DefaultTemplate: Story<IUploaderProps> = (props) => {
+const DefaultTemplate: Story<UploaderProps> = (props) => {
   const [files, setFiles] = useState<File[]>([])
 
   return (
