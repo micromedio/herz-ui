@@ -1,7 +1,7 @@
 import React from "react"
 import { render, screen } from "../../../tests/utils"
 import { axe } from "jest-axe"
-import EditableSelect from "./Select"
+import EditableSelect from "./EditableFieldSelect"
 import userEvent from "@testing-library/user-event"
 
 describe("EditableText", () => {

@@ -101,11 +101,17 @@ export type { SwitchProps } from "./Switch/Switch"
 export { default as Table } from "./Table/Table"
 export type { TableProps } from "./Table/Table"
 
-export { default as TextField } from "./TextField/TextField"
-export type { TextFieldProps } from "./TextField/TextField"
-
 export { default as TableFilters } from "./TableFilters/TableFilters"
 export type { TableFiltersProps } from "./TableFilters/TableFilters"
+
+export { default as Tabs } from "./Tabs/Tabs"
+export type { TabsProps } from "./Tabs/Tabs"
+
+export { default as Tag } from "./Tag/Tag"
+export type { TagProps } from "./Tag/Tag"
+
+export { default as TextField } from "./TextField/TextField"
+export type { TextFieldProps } from "./TextField/TextField"
 
 export { default as ThemeWrapper } from "../theme/ThemeWrapper"
 export type { IThemeWrapperProps as ThemeWrapperProps } from "../theme/ThemeWrapper"
@@ -114,7 +120,7 @@ export { default as Tooltip } from "./Tooltip/Tooltip"
 export type { TooltipProps } from "./Tooltip/Tooltip"
 
 export { default as Uploader } from "./Uploader/Uploader"
-export type { IUploaderProps as UploaderProps } from "./Uploader/Uploader"
+export type { UploaderProps } from "./Uploader/Uploader"
 
 export { default as ValueList } from "./ValueList/ValueList"
 export type { ValueListProps } from "./ValueList/ValueList"

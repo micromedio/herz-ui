@@ -31,7 +31,11 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
       'docusaurus-plugin-react-docgen-typescript',
       {
         // pass in a single string or an array of strings
-        src: ['../src/components/**/Button.tsx', '!../src/components/**/*test.*'],
+        src: [
+          '../src/components/**/*.tsx',
+          '!../src/components/**/*.test.tsx',
+          '!../src/components/**/*.stories.tsx',
+        ],
         global: false,
         parserOptions: {
           // pass parserOptions to react-docgen-typescript

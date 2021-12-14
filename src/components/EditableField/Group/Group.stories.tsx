@@ -1,9 +1,13 @@
 /** @jsxImportSource theme-ui */
-import EditableFieldGroup, { EditableFieldGroupProps } from "./Group"
+import EditableFieldGroup, {
+  EditableFieldGroupProps,
+} from "./EditableFieldGroup"
 import { Meta, Story } from "@storybook/react/types-6-0"
-import EditableText from "../Text/Text"
-import EditableSelect, { EditableFieldSelectProps } from "../Select/Select"
-import EditableFieldAutocomplete from "../Autocomplete/Autocomplete"
+import EditableText from "../Text/EditableFieldText"
+import EditableSelect, {
+  EditableFieldSelectProps,
+} from "../Select/EditableFieldSelect"
+import EditableFieldAutocomplete from "../Autocomplete/EditableFieldAutocomplete"
 import { useState } from "react"
 import { mockedOptions } from "../../Autocomplete/__mocks__/options"
 import Highlight from "../../Highlight/Highlight"

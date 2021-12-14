@@ -1,11 +1,11 @@
-import Group from "./Group/Group"
-import Text from "./Text/Text"
-import Select from "./Select/Select"
-import Autocomplete from "./Autocomplete/Autocomplete"
-export type { EditableFieldAutocompleteProps } from "./Autocomplete/Autocomplete"
-export type { EditableFieldGroupProps } from "./Group/Group"
-export type { EditableFieldTextProps } from "./Text/Text"
-export type { EditableFieldSelectProps } from "./Select/Select"
+import Group from "./Group/EditableFieldGroup"
+import Text from "./Text/EditableFieldText"
+import Select from "./Select/EditableFieldSelect"
+import Autocomplete from "./Autocomplete/EditableFieldAutocomplete"
+export type { EditableFieldAutocompleteProps } from "./Autocomplete/EditableFieldAutocomplete"
+export type { EditableFieldGroupProps } from "./Group/EditableFieldGroup"
+export type { EditableFieldTextProps } from "./Text/EditableFieldText"
+export type { EditableFieldSelectProps } from "./Select/EditableFieldSelect"
 
 const EditableField = {
   Autocomplete,

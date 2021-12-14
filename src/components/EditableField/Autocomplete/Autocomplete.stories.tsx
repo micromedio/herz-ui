@@ -1,7 +1,7 @@
 /** @jsxImportSource theme-ui */
 import EditableFieldAutocomplete, {
   EditableFieldAutocompleteProps,
-} from "./Autocomplete"
+} from "./EditableFieldAutocomplete"
 import { mockedOptions } from "../../Autocomplete/__mocks__/options"
 import { Meta, Story } from "@storybook/react/types-6-0"
 import { useState } from "react"

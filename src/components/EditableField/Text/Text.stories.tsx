@@ -1,4 +1,4 @@
-import EditableText, { EditableFieldTextProps } from "./Text"
+import EditableText, { EditableFieldTextProps } from "./EditableFieldText"
 import { Meta, Story } from "@storybook/react/types-6-0"
 import { useState } from "react"
 
