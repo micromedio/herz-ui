@@ -1,3 +1,14 @@
+#### 0.18.2 (2021-12-15)
+
+##### Chores
+
+* **DesktopModal:**  removed unused prop onClose ([#166](https://github.com/micromed-dev/herz-ui/pull/166)) ([d3cb7507](https://github.com/micromed-dev/herz-ui/commit/d3cb750720d45aca6383108d235efea3a226458f))
+
+##### Bug Fixes
+
+* **Dialog:**  added zindex to dialog overlay ([#167](https://github.com/micromed-dev/herz-ui/pull/167)) ([0cbf1ca0](https://github.com/micromed-dev/herz-ui/commit/0cbf1ca074325ae9f6451ff8ca3e35c43f5ef90f))
+*  remove event listeners on cleanup ([#165](https://github.com/micromed-dev/herz-ui/pull/165)) ([ff4e2e38](https://github.com/micromed-dev/herz-ui/commit/ff4e2e380d4920d63620c025192db3557a5f0218))
+
 #### 0.18.1 (2021-12-08)
 
 ##### New Features
