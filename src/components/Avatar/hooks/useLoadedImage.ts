@@ -27,6 +27,11 @@ const useLoadedImage = (
     image.addEventListener("error", setError)
     image.src = source
     if (sourceSet) image.srcset = sourceSet
+
+    return () => {
+      image.removeEventListener("load", setLoaded)
+      image.removeEventListener("error", setError)
+    }
   }, [setError, setLoaded, source, sourceSet])
 
   return status
