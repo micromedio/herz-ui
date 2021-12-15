@@ -19,6 +19,7 @@ const Dialog = ({ children, ...props }: DialogProps) => {
         bottom: 0,
         left: 0,
         overflow: "auto",
+        zIndex: 10,
       }}
     >
       <DialogContent
