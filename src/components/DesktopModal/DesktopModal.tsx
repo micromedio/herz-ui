@@ -7,7 +7,6 @@ import { Divider } from ".."
 export interface DesktopModalProps extends DialogProps {
   title?: string
   className?: string
-  onClose?: () => void
 }
 
 const DesktopModal = ({
