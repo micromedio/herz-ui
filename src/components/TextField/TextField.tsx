@@ -170,7 +170,7 @@ const TextField = forwardRef<
             placeholder={placeholder}
             iconName={iconName}
             value={props.value}
-            disabled={disabled || readOnly}
+            disabled={disabled}
             onChange={props.onChange}
             onBlur={props.onBlur}
             state={state}
@@ -181,6 +181,7 @@ const TextField = forwardRef<
             cols={cols}
             aria-describedby={helperTextId}
             form={form}
+            readOnly={readOnly}
           />
         )}
         {helperText && (

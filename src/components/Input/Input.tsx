@@ -79,6 +79,7 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
       autoExpand = true,
       rows = 1,
       cols,
+      readOnly,
       ...htmlProps
     }: InputProps,
     ref
@@ -165,12 +166,14 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
                 borderColor: "primary",
               },
             }[state],
-            "&:focus-within": {
-              borderColor: "secondary",
-              boxShadow: (theme) =>
-                `0px 0px 0px 4px ${get(theme, "colors.secondary.alpha.90")}`,
-              backgroundColor: "#FFF",
-            },
+            ...(!readOnly && {
+              "&:focus-within": {
+                borderColor: "secondary",
+                boxShadow: (theme) =>
+                  `0px 0px 0px 4px ${get(theme, "colors.secondary.alpha.90")}`,
+                backgroundColor: "#FFF",
+              },
+            }),
           }}
           className={className}
           style={style}
