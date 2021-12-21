@@ -28,7 +28,9 @@ const Template: Story<TextFieldProps> = (props: TextFieldProps) => {
 }
 
 const SelectTemplate: Story<TextFieldProps> = (props: TextFieldProps) => {
-  const [value, setValue] = useState<SelectProps["value"]>()
+  const [value, setValue] = useState<SelectProps["value"]>(
+    props.select ? props?.selectProps?.value : ""
+  )
 
   return (
     <TextField
@@ -91,6 +93,27 @@ Select.args = {
       CNPJ
     </SelectComponent.Option>,
   ],
+}
+
+export const ReadOnlySelect = SelectTemplate.bind({})
+ReadOnlySelect.args = {
+  id: "field-id",
+  label: "Label",
+  helperText: "Text to help explain the input",
+  // placeholder: " ",
+  select: true,
+  children: [
+    <SelectComponent.Option key="CPF" value="CPF">
+      CPF
+    </SelectComponent.Option>,
+    <SelectComponent.Option key="CNPJ" value="CNPJ">
+      CNPJ
+    </SelectComponent.Option>,
+  ],
+  selectProps: {
+    value: "CPF",
+  },
+  readOnly: true,
 }
 
 export const Error = Template.bind({})

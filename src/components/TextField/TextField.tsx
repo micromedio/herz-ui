@@ -106,7 +106,7 @@ const TextField = forwardRef<
         flexDirection: "column",
         gap: 2,
         width: "100%",
-        opacity: readOnly ? 0.4 : 1,
+        opacity: readOnly ? 0.3 : 1,
       }}
     >
       {label && (
@@ -159,6 +159,8 @@ const TextField = forwardRef<
             {...props.selectProps}
             fullWidth
             highlightFilled={false}
+            disabled={disabled || readOnly}
+            styles={readOnly ? { root: { opacity: 1 } } : undefined}
           >
             {props.children}
           </Select>
