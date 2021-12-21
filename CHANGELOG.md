@@ -1,3 +1,9 @@
+#### 0.18.3 (2021-12-21)
+
+##### New Features
+
+* **TextField:**  Added readOnly prop ([#168](https://github.com/micromed-dev/herz-ui/pull/168)) ([68d1aca1](https://github.com/micromed-dev/herz-ui/commit/68d1aca152be68217de96b73dade2a7d8ea868a1))
+
 #### 0.18.2 (2021-12-15)
 
 ##### Chores
