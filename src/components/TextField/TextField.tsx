@@ -19,6 +19,8 @@ interface BaseTextFieldProps {
   disabled?: boolean
   /** If `true`, the `input` is required */
   required?: boolean
+  /** If `true`, the component is read only, used only to display data */
+  readOnly?: boolean
 
   /** Text to show after label if field is required */
   requiredText?: string
@@ -81,6 +83,7 @@ const TextField = forwardRef<
     state = "default",
     helperText,
     required = false,
+    readOnly = false,
     requiredText = "required",
     optionalText = "optional",
     iconName,
@@ -98,7 +101,13 @@ const TextField = forwardRef<
 
   return (
     <div
-      sx={{ display: "flex", flexDirection: "column", gap: 2, width: "100%" }}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        width: "100%",
+        opacity: readOnly ? 0.4 : 1,
+      }}
     >
       {label && (
         <div sx={{ display: "flex", gap: 1 }}>
@@ -112,14 +121,16 @@ const TextField = forwardRef<
           >
             {label}
           </label>
-          <span
-            sx={{
-              color: "text.40",
-              variant: "text.body2",
-            }}
-          >
-            ({required ? requiredText : optionalText})
-          </span>
+          {!readOnly && (
+            <span
+              sx={{
+                color: "text.40",
+                variant: "text.body2",
+              }}
+            >
+              ({required ? requiredText : optionalText})
+            </span>
+          )}
         </div>
       )}
 
@@ -159,7 +170,7 @@ const TextField = forwardRef<
             placeholder={placeholder}
             iconName={iconName}
             value={props.value}
-            disabled={disabled}
+            disabled={disabled || readOnly}
             onChange={props.onChange}
             onBlur={props.onBlur}
             state={state}

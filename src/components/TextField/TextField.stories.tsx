@@ -58,6 +58,14 @@ Example.args = {
   iconName: "IconSearch",
 }
 
+export const ReadOnly = Template.bind({})
+ReadOnly.args = {
+  ...Example.args,
+  iconName: undefined,
+  value: "Read Only Text Value",
+  readOnly: true,
+}
+
 export const WithoutLabels = Template.bind({})
 WithoutLabels.args = {}
 
