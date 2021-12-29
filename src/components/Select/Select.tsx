@@ -259,6 +259,7 @@ const Select = ({
       )}
 
       <Popover
+        alwaysRenderContent
         isVisible={isOpen}
         appendTo={isBrowser ? document?.body : undefined}
         trigger={["manual"]}
@@ -361,9 +362,11 @@ const Select = ({
             ...(!disabled && { cursor: "pointer" }),
 
             "&:hover": hoverStyles,
+            "&:focus": stateStyles.active,
             ...(isOpen && stateStyles.active),
             ...styles?.button,
           }}
+          tabIndex="0"
           type="button"
           {...getToggleButtonProps({
             id,

@@ -8,6 +8,8 @@ import { ssrSafeCreateDiv } from "../../helpers/ssr"
 import LazyTippy from "./LazyTippy"
 
 export interface PopoverProps {
+  /** Content is always rendered, even when the Popover is not mounted or hidden */
+  alwaysRenderContent?: boolean
   /** Popover content */
   content: React.ReactNode
   /** Reference element */
@@ -57,6 +59,7 @@ export interface PopoverProps {
 }
 
 const Popover = ({
+  alwaysRenderContent = false,
   content,
   children,
   placement = "auto",
@@ -172,6 +175,7 @@ const Popover = ({
   return (
     <React.Fragment>
       <LazyTippy
+        alwaysRenderContent={alwaysRenderContent}
         content={content}
         theme={theme}
         visible={isVisible}
