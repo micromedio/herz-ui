@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 
 import Button from "../Button/Button"
 import Icon from "../Icon/Icon"
@@ -41,6 +41,14 @@ export const SelectOptionCustom = ({
   } = context
 
   const isSelected = JSON.stringify(selectedItem) === JSON.stringify(value)
+
+  useEffect(() => {
+    if (highlightedIndex === index) {
+      setIsOpen(true)
+    } else {
+      setIsOpen(false)
+    }
+  }, [highlightedIndex, index])
 
   return (
     <Popover
@@ -99,9 +107,6 @@ export const SelectOptionCustom = ({
           index,
           disabled,
         })}
-        onClick={() => {
-          setIsOpen((value) => !value)
-        }}
       >
         <div
           sx={{

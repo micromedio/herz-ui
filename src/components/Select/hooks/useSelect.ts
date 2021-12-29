@@ -133,13 +133,19 @@ export function useSelect({
             switch (type) {
               case useDownshiftSelect.stateChangeTypes.MenuKeyDownEnter:
               case useDownshiftSelect.stateChangeTypes.MenuKeyDownSpaceButton:
+              case useDownshiftSelect.stateChangeTypes.MenuMouseLeave:
+              case useDownshiftSelect.stateChangeTypes.ItemClick:
                 const index = options.findIndex(({ value }) => {
                   return (
                     JSON.stringify(value) ===
                     JSON.stringify(changes.selectedItem)
                   )
                 })
-                if (options[index]?.isCustom) return state
+                if (
+                  options[index]?.isCustom ||
+                  options[state.highlightedIndex]?.isCustom
+                )
+                  return state
                 break
             }
             return changes
