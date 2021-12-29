@@ -44,6 +44,7 @@
   "scripts": {
     "dev": "styleguidist server",
     "test": "react-scripts test",
+    "img-test": "creevey --ui",
     "build": "rollup -c",
     "release": "yarn build && dotenv release-it --",
     "changelog": "changelog",
