@@ -124,7 +124,7 @@ const MobileModal = ({
   }, [draggable, swipeState.isOpen])
 
   useEffect(() => {
-    if (modalRef.current) {
+    if (modalRef.current && !draggable) {
       if (!isFirstRender.current) {
         if (open) {
           modalRef.current.style.transition = `transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)`
@@ -154,7 +154,7 @@ const MobileModal = ({
         isFirstRender.current = false
       }
     }
-  }, [open, overflowHeight, topLimit])
+  }, [draggable, open, overflowHeight, topLimit])
 
   function handleDismiss(): void {
     if (onDismiss) onDismiss()
