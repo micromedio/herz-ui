@@ -1,3 +1,11 @@
+#### 0.19.0 (2021-12-30)
+
+##### Bug Fixes
+
+* **MobileModal:**  Fixes closing when input STC-794 ([#171](https://github.com/micromed-dev/herz-ui/pull/171)) ([48b81ece](https://github.com/micromed-dev/herz-ui/commit/48b81ece1ec678c61bda03ef6f3f1a821289c012))
+* **DateSelect:**  Fixes a11y on the Custom option STC-793 ([#170](https://github.com/micromed-dev/herz-ui/pull/170)) ([1c2d0db3](https://github.com/micromed-dev/herz-ui/commit/1c2d0db38fc203604bf0f8b1b28245371dc97744))
+* **Select:**  Fixes a11y issues STC-786 ([#169](https://github.com/micromed-dev/herz-ui/pull/169)) ([0cbb6970](https://github.com/micromed-dev/herz-ui/commit/0cbb6970600f32b426ca6b9e5ac2441e8e7d7b02))
+
 #### 0.18.3 (2021-12-21)
 
 ##### New Features
