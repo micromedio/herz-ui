@@ -1,9 +1,14 @@
 /** @jsxImportSource theme-ui */
-import React, { useCallback, useMemo, useState } from "react"
+import React, {
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { useThemeUI } from "theme-ui"
 import { useTabContext } from "./context"
 import { TabContext } from "./context"
-import { useTextDimensions } from "./hooks/useTextDimensions"
 
 export interface TabsProps {
   initialOpenIndex?: number
@@ -65,12 +70,15 @@ const TabButton = ({ title }: TabButtonProps) => {
   const isFirstTab = useMemo(() => index === 0, [index])
   const isOpen = useMemo(() => openIndex === index, [index, openIndex])
   const { theme } = useThemeUI()
+  const textRef = useRef<HTMLSpanElement>(null)
 
-  const { height, width } = useTextDimensions(
-    "text",
-    title,
-    `font-family: Gilroy; font-size: 13px; font-weight: 600; line-height: 20px;`
-  )
+  const [width, setWidth] = useState(0)
+
+  useLayoutEffect(() => {
+    if (textRef.current) {
+      setWidth(textRef.current.clientWidth)
+    }
+  }, [])
 
   const containerWidth = useMemo(() => {
     if (isFirstTab)
@@ -118,67 +126,73 @@ const TabButton = ({ title }: TabButtonProps) => {
     } 0 c -1.53 0 -3.53 1 -4.06 2 z`
   }, [containerWidth, isFirstTab])
 
-  const { textX, textY } = useMemo(() => {
-    /**
-     * To center the text on the y axis, it is needed to calculate the sum
-     * of the SVG height and half of the text height divided by 2.
-     */
-    const textY = (SVG_HEIGHT + height / 2) / 2
-    if (isFirstTab) {
-      return {
-        textX:
-          (containerWidth -
-            OUTSIDE_BOTTOM_TO_TOP_CURVE_WIDTH +
-            LEFT_RIGHT_ORANGE_RECT_TO_BORDER_DISTANCE) /
-          2,
-        textY,
-      }
-    }
-    return { textX: containerWidth / 2, textY }
-  }, [containerWidth, height, isFirstTab])
-
   const tabToggler = useCallback(() => {
     if (openIndex !== index) toggleOpen(index)
   }, [index, openIndex, toggleOpen])
 
   return (
-    <svg
-      aria-disabled="false"
-      aria-expanded={isOpen}
-      height={SVG_HEIGHT}
-      role="button"
-      sx={{ cursor: "pointer", mb: "-0.8px", zIndex: 1 }}
+    <div
       onClick={tabToggler}
-      width={containerWidth}
+      sx={{
+        cursor: "pointer",
+        display: "grid",
+        height: SVG_HEIGHT,
+        mb: "-1px",
+      }}
     >
-      <path
-        d={borderPath}
-        fill={isOpen ? "#ffffff" : "transparent"}
-        stroke={isOpen ? theme.colors?.text?.[90] : "transparent"}
-        strokeWidth={1}
+      <svg
+        aria-disabled="false"
+        aria-expanded={isOpen}
+        height={SVG_HEIGHT}
+        role="button"
         sx={{
-          transition: "all 0.15s cubic-bezier(0.16, 1, 0.3, 1)",
-          transitionProperty: "fill, stroke",
+          cursor: "pointer",
+          mb: "-0.8px",
+          gridColumn: 1,
+          gridRow: 1,
+          zIndex: 1,
         }}
-      />
-      <path
-        d={orangeRectPath}
-        fill={isOpen ? theme.colors?.primary?.[0] : "transparent"}
+        width={containerWidth}
+      >
+        <path
+          d={borderPath}
+          fill={isOpen ? "#ffffff" : "transparent"}
+          stroke={isOpen ? theme.colors?.text?.[90] : "transparent"}
+          strokeWidth={1}
+          sx={{
+            transition: "all 0.15s cubic-bezier(0.16, 1, 0.3, 1)",
+            transitionProperty: "fill, stroke",
+          }}
+        />
+        <path
+          d={orangeRectPath}
+          fill={isOpen ? theme.colors?.primary?.[0] : "transparent"}
+          sx={{
+            transition: "all 0.15s cubic-bezier(0.16, 1, 0.3, 1)",
+            transitionProperty: "fill, stroke",
+          }}
+        />
+      </svg>
+      <span
+        ref={textRef}
         sx={{
-          transition: "all 0.15s cubic-bezier(0.16, 1, 0.3, 1)",
-          transitionProperty: "fill, stroke",
+          alignSelf: "center",
+          fill: isOpen ? "text" : "text.40",
+          gridColumn: 1,
+          gridRow: 1,
+          justifySelf: "center",
+          mr:
+            index === 0
+              ? OUTSIDE_BOTTOM_TO_TOP_CURVE_WIDTH -
+                LEFT_RIGHT_ORANGE_RECT_TO_BORDER_DISTANCE
+              : undefined,
+          variant: "text.heading4",
+          zIndex: 2,
         }}
-      />
-      <text
-        dominantBaseline="central"
-        sx={{ fill: isOpen ? "text" : "text.40", variant: "text.heading4" }}
-        textAnchor="middle"
-        x={textX}
-        y={textY}
       >
         {title}
-      </text>
-    </svg>
+      </span>
+    </div>
   )
 }
 
