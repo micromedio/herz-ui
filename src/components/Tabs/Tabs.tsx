@@ -1,14 +1,9 @@
 /** @jsxImportSource theme-ui */
-import React, {
-  useCallback,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react"
+import React, { useCallback, useMemo, useState } from "react"
 import { useThemeUI } from "theme-ui"
 import { useTabContext } from "./context"
 import { TabContext } from "./context"
+import { useMeasure } from "react-use"
 
 export interface TabsProps {
   initialOpenIndex?: number
@@ -70,15 +65,7 @@ const TabButton = ({ title }: TabButtonProps) => {
   const isFirstTab = useMemo(() => index === 0, [index])
   const isOpen = useMemo(() => openIndex === index, [index, openIndex])
   const { theme } = useThemeUI()
-  const textRef = useRef<HTMLSpanElement>(null)
-
-  const [width, setWidth] = useState(0)
-
-  useLayoutEffect(() => {
-    if (textRef.current) {
-      setWidth(textRef.current.clientWidth)
-    }
-  }, [])
+  const [textRef, { width }] = useMeasure<HTMLSpanElement>()
 
   const containerWidth = useMemo(() => {
     if (isFirstTab)
@@ -177,7 +164,7 @@ const TabButton = ({ title }: TabButtonProps) => {
         ref={textRef}
         sx={{
           alignSelf: "center",
-          fill: isOpen ? "text" : "text.40",
+          color: isOpen ? "text" : "text.40",
           gridColumn: 1,
           gridRow: 1,
           justifySelf: "center",
@@ -187,6 +174,7 @@ const TabButton = ({ title }: TabButtonProps) => {
                 LEFT_RIGHT_ORANGE_RECT_TO_BORDER_DISTANCE
               : undefined,
           variant: "text.heading4",
+          width: "fit-content",
           zIndex: 2,
         }}
       >
