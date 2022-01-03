@@ -227,6 +227,7 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
               onChange={onChange}
               onBlur={onBlur}
               aria-invalid={state === "error"}
+              readOnly={readOnly}
               size={1} // Input has a default size property of 20, which limits it's minimum width. Setting it to 1 and handling width through the parent so that we can control the input width better.
               {...htmlProps}
               sx={{
