@@ -1,7 +1,9 @@
 /** @jsxImportSource theme-ui */
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useMemo, useState } from "react"
+import { useThemeUI } from "theme-ui"
 import { useTabContext } from "./context"
 import { TabContext } from "./context"
+import { useTextDimensions } from "./hooks/useTextDimensions"
 
 export interface TabsProps {
   initialOpenIndex?: number
@@ -39,7 +41,7 @@ const Tabs = ({ children, initialOpenIndex }: TabsProps) => {
   )
   return (
     <>
-      <div sx={{ display: "flex", flexDirection: "row" }}>
+      <div sx={{ display: "flex", flexDirection: "row", flexWrap: "nowrap" }}>
         {tabButton.map((item) => item)}
       </div>
       <div>{tabPanel.map((item) => item)}</div>
@@ -51,50 +53,132 @@ export interface TabButtonProps {
   title: string
 }
 
+const OUTSIDE_BOTTOM_TO_TOP_CURVE_WIDTH = 18.53
+const ORANGE_RECT_LINES_WIDTH_DIFF = 8.12
+const LEFT_RIGHT_ORANGE_RECT_TO_BORDER_DISTANCE = 6.5
+const TEXT_PADDING = 6
+
+const SVG_HEIGHT = 36
+
 const TabButton = ({ title }: TabButtonProps) => {
   const { index, toggleOpen, openIndex } = useTabContext()
-  const isOpen = openIndex === index
+  const isFirstTab = useMemo(() => index === 0, [index])
+  const isOpen = useMemo(() => openIndex === index, [index, openIndex])
+  const { theme } = useThemeUI()
+
+  const { height, width } = useTextDimensions(
+    "text",
+    title,
+    `font-family: Gilroy; font-size: 13px; font-weight: 600; line-height: 20px;`
+  )
+
+  const containerWidth = useMemo(() => {
+    if (isFirstTab)
+      return (
+        width +
+        TEXT_PADDING * 2 +
+        OUTSIDE_BOTTOM_TO_TOP_CURVE_WIDTH +
+        LEFT_RIGHT_ORANGE_RECT_TO_BORDER_DISTANCE
+      )
+    return width + OUTSIDE_BOTTOM_TO_TOP_CURVE_WIDTH * 2 + TEXT_PADDING * 2
+  }, [isFirstTab, width])
+
+  const borderPath = useMemo(() => {
+    if (isFirstTab) {
+      return `m 0.5 36 l 0 -27 c 0 -4 2 -8 6.53 -8 l ${
+        containerWidth -
+        OUTSIDE_BOTTOM_TO_TOP_CURVE_WIDTH -
+        LEFT_RIGHT_ORANGE_RECT_TO_BORDER_DISTANCE
+      } 0 c 4.47 0 6.47 4 6.47 8 l 0 17 c 0 5 5 10 12 10`
+    }
+    return `m 0 36 c 8 -1 12 -6 12 -12 l 0 -15 c 0 -4 2 -8 6.53 -8 l ${
+      containerWidth - OUTSIDE_BOTTOM_TO_TOP_CURVE_WIDTH * 2
+    } 0 c 4.47 0 6.47 4 6.47 8 l 0 17 c 0 5 5 10 12 10`
+  }, [containerWidth, isFirstTab])
+
+  const orangeRectPath = useMemo(() => {
+    if (isFirstTab) {
+      return `m 2.97 3.3 l ${
+        containerWidth -
+        OUTSIDE_BOTTOM_TO_TOP_CURVE_WIDTH -
+        LEFT_RIGHT_ORANGE_RECT_TO_BORDER_DISTANCE +
+        ORANGE_RECT_LINES_WIDTH_DIFF
+      } 0 c 0 -1 -2.59 -2 -4.06 -2 l -${
+        containerWidth -
+        OUTSIDE_BOTTOM_TO_TOP_CURVE_WIDTH -
+        LEFT_RIGHT_ORANGE_RECT_TO_BORDER_DISTANCE
+      } 0 c -1.53 0 -3.53 1 -4.06 2 z`
+    }
+    return `m 14.47 3.3 l ${
+      containerWidth -
+      OUTSIDE_BOTTOM_TO_TOP_CURVE_WIDTH * 2 +
+      ORANGE_RECT_LINES_WIDTH_DIFF
+    } 0 c 0 -1 -2.59 -2 -4.06 -2 l -${
+      containerWidth - OUTSIDE_BOTTOM_TO_TOP_CURVE_WIDTH * 2
+    } 0 c -1.53 0 -3.53 1 -4.06 2 z`
+  }, [containerWidth, isFirstTab])
+
+  const { textX, textY } = useMemo(() => {
+    /**
+     * To center the text on the y axis, it is needed to calculate the sum
+     * of the SVG height and half of the text height divided by 2.
+     */
+    const textY = (SVG_HEIGHT + height / 2) / 2
+    if (isFirstTab) {
+      return {
+        textX:
+          (containerWidth -
+            OUTSIDE_BOTTOM_TO_TOP_CURVE_WIDTH +
+            LEFT_RIGHT_ORANGE_RECT_TO_BORDER_DISTANCE) /
+          2,
+        textY,
+      }
+    }
+    return { textX: containerWidth / 2, textY }
+  }, [containerWidth, height, isFirstTab])
+
+  const tabToggler = useCallback(() => {
+    if (openIndex !== index) toggleOpen(index)
+  }, [index, openIndex, toggleOpen])
+
   return (
-    <div
-      role="button"
+    <svg
       aria-disabled="false"
       aria-expanded={isOpen}
-      sx={{
-        px: 6,
-        py: 2,
-        cursor: "pointer",
-        position: "relative",
-        overflow: "hidden",
-        borderRadius: 2,
-        height: "36px",
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0,
-        border: "1px solid",
-        borderColor: isOpen ? "text.90" : "transparent",
-        borderBottom: "none",
-        boxSizing: "border-box",
-        backgroundColor: isOpen ? "white" : "transparent",
-        transition: "background-color 150ms linear",
-        boxShadow: isOpen ? "0px 1px 12px rgba(0, 0, 0, 0.04)" : "none",
-      }}
-      onClick={() => toggleOpen(index)}
+      height={SVG_HEIGHT}
+      role="button"
+      sx={{ cursor: "pointer", mb: "-0.8px", zIndex: 1 }}
+      onClick={tabToggler}
+      width={containerWidth}
     >
-      <span
+      <path
+        d={borderPath}
+        fill={isOpen ? "#ffffff" : "transparent"}
+        stroke={isOpen ? theme.colors?.text?.[90] : "transparent"}
+        strokeWidth={1}
         sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          height: "2px",
-          width: "100%",
-          backgroundColor: isOpen ? "primary" : "transparent",
+          transition: "all 0.15s cubic-bezier(0.16, 1, 0.3, 1)",
+          transitionProperty: "fill, stroke",
         }}
       />
-      <span
-        sx={{ variant: "text.heading4", color: isOpen ? "text" : "text.40" }}
+      <path
+        d={orangeRectPath}
+        fill={isOpen ? theme.colors?.primary?.[0] : "transparent"}
+        sx={{
+          transition: "all 0.15s cubic-bezier(0.16, 1, 0.3, 1)",
+          transitionProperty: "fill, stroke",
+        }}
+      />
+      <text
+        dominantBaseline="central"
+        sx={{ fill: isOpen ? "text" : "text.40", variant: "text.heading4" }}
+        textAnchor="middle"
+        x={textX}
+        y={textY}
       >
         {title}
-      </span>
-    </div>
+      </text>
+    </svg>
   )
 }
 

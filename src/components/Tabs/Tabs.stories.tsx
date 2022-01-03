@@ -16,24 +16,20 @@ export default {
 } as Meta
 
 const Template: Story<TabsProps> = (props) => (
-  <Tabs {...props} initialOpenIndex={1} />
+  <Tabs initialOpenIndex={1} {...props}>
+    <Tabs.Tab key={0} title="Tab 1" />,
+    <Tabs.Tab key={1} title="Tab 2" />,
+    <Tabs.Tab key={2} title="Tab 3" />,
+    <Tabs.Panel index={0}>Stuff Goes here</Tabs.Panel>,
+    <Tabs.Panel index={1}>Other Goes here</Tabs.Panel>,
+    <Tabs.Panel index={2}>More Stuff Goes here</Tabs.Panel>,
+  </Tabs>
 )
 
 // Each story then reuses that template
 export const Default = Template.bind({})
-Default.args = {
-  children: [
-    <Tabs.Tab title="Tab 1" />,
-    <Tabs.Tab title="Tab 2" />,
-    <Tabs.Tab title="Tab 3" />,
-    <Tabs.Panel index={0}>Stuff Goes here</Tabs.Panel>,
-    <Tabs.Panel index={1}>Other Goes here</Tabs.Panel>,
-    <Tabs.Panel index={2}>More Stuff Goes here</Tabs.Panel>,
-  ],
-}
 
 export const WithInitialOpen = Template.bind({})
 WithInitialOpen.args = {
-  ...Default.args,
   initialOpenIndex: 0,
 }
