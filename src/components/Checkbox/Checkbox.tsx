@@ -6,6 +6,7 @@ export interface ICheckboxProps {
   checked?: boolean
   indeterminate?: boolean
   disabled?: boolean
+  id?: string
   label?: React.ReactNode
   name?: string
   onChange?(event: React.ChangeEvent<HTMLInputElement>): void
@@ -35,6 +36,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
       checked = false,
       disabled = false,
       indeterminate = false,
+      id,
       label,
       name,
       onChange,
@@ -54,7 +56,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
         <input
           {...restProps}
           type="checkbox"
-          id={name}
+          id={id}
           name={name}
           onChange={(!disabled && onChange) || undefined}
           ref={(input) => {
@@ -134,7 +136,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
               width: "auto",
               cursor: disabled ? "auto" : "pointer",
             }}
-            htmlFor={name}
+            htmlFor={id}
           >
             {label}
           </label>

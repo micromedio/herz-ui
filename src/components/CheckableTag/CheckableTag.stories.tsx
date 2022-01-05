@@ -1,18 +1,18 @@
 import React, { useState } from "react"
 import { Meta, Story } from "@storybook/react/types-6-0"
 
-import Checkbox, { ICheckboxProps } from "./Checkbox"
+import CheckableTag, { CheckableTagProps } from "./CheckableTag"
 
 export default {
-  title: "Design System/Checkbox",
-  component: Checkbox,
+  title: "Design System/CheckableTag",
+  component: CheckableTag,
 } as Meta
 
-const Template: Story<ICheckboxProps> = (props) => {
+const Template: Story<CheckableTagProps> = (props) => {
   const [checked, setChecked] = useState(false)
 
   return (
-    <Checkbox
+    <CheckableTag
       {...props}
       id="checkbox"
       name="checkbox"
@@ -30,13 +30,6 @@ export const Labeled = Template.bind({})
 
 Labeled.args = {
   label: "Check me",
-}
-
-export const Indeterminate = Template.bind({})
-
-Indeterminate.args = {
-  label: "I'm indeterminate",
-  indeterminate: true,
 }
 
 export const Disabled = Template.bind({})
