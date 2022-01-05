@@ -8,8 +8,8 @@ export default {
   component: CheckableTag,
 } as Meta
 
-const Template: Story<CheckableTagProps> = (props) => {
-  const [checked, setChecked] = useState(false)
+const Template: Story<CheckableTagProps> = (props: CheckableTagProps) => {
+  const [checked, setChecked] = useState(props?.checked || false)
 
   return (
     <CheckableTag
@@ -26,9 +26,22 @@ export const Default = Template.bind({})
 
 Default.args = {}
 
+export const DefaultChecked = Template.bind({})
+
+DefaultChecked.args = {
+  checked: true,
+}
+
 export const Labeled = Template.bind({})
 
 Labeled.args = {
+  label: "Check me",
+}
+
+export const LabeledChecked = Template.bind({})
+
+LabeledChecked.args = {
+  checked: true,
   label: "Check me",
 }
 
