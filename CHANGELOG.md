@@ -1,3 +1,14 @@
+#### 0.20.0 (2022-01-06)
+
+##### Chores
+
+*  pass readOnly prop to input element ([#172](https://github.com/micromed-dev/herz-ui/pull/172)) ([1b0712a1](https://github.com/micromed-dev/herz-ui/commit/1b0712a12d0155178c6c309ee131f859aa376670))
+
+##### New Features
+
+* **CheckableTag:**  Added new CheckableTag component STC-825 ([#174](https://github.com/micromed-dev/herz-ui/pull/174)) ([7e6f4f4b](https://github.com/micromed-dev/herz-ui/commit/7e6f4f4be01964fe961a822b4576127da47cd27c))
+* **Tabs:**  Changed the Tabs component to follow the prototype STC-799 ([#173](https://github.com/micromed-dev/herz-ui/pull/173)) ([8d14b8bf](https://github.com/micromed-dev/herz-ui/commit/8d14b8bf5c114d8313a2e328c056106957d06c08))
+
 #### 0.19.0 (2021-12-30)
 
 ##### Bug Fixes
