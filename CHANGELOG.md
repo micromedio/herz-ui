@@ -1,3 +1,9 @@
+#### 0.20.1 (2022-01-12)
+
+##### New Features
+
+* **Tabs:**  Added className prop, and improved a11y ([#175](https://github.com/micromed-dev/herz-ui/pull/175)) ([9e9fb099](https://github.com/micromed-dev/herz-ui/commit/9e9fb099e8385d94f17d83c590bbacab307ef34b))
+
 #### 0.20.0 (2022-01-06)
 
 ##### Chores
