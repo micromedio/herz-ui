@@ -3,6 +3,8 @@ import { createContext, useContext } from "react"
 export interface TabContext {
   index: number
   openIndex?: number
+  panelId?: string
+  tabId?: string
   toggleOpen: (index: number) => void
 }
 

@@ -1,16 +1,24 @@
 /** @jsxImportSource theme-ui */
-import React, { useCallback, useMemo, useState } from "react"
+import React, {
+  KeyboardEvent,
+  ReactElement,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { useThemeUI } from "theme-ui"
 import { useTabContext } from "./context"
 import { TabContext } from "./context"
 import { useMeasure } from "react-use"
 
 export interface TabsProps {
-  initialOpenIndex?: number
   children: React.ReactNode
+  className?: string
+  initialOpenIndex?: number
 }
 
-const Tabs = ({ children, initialOpenIndex }: TabsProps) => {
+const Tabs = ({ children, className, initialOpenIndex }: TabsProps) => {
   const [openIndex, setOpenIndex] = useState<number | undefined>(
     initialOpenIndex
   )
@@ -23,15 +31,31 @@ const Tabs = ({ children, initialOpenIndex }: TabsProps) => {
     [openIndex]
   )
 
-  const allItems = React.Children.toArray(children)
-    .filter((child) => {
+  const allItems = (
+    React.Children.toArray(children).filter((child) => {
       return React.isValidElement(child)
-    })
-    .map((child, index) => (
-      <TabContext.Provider value={{ index, toggleOpen, openIndex }} key={index}>
+    }) as Array<ReactElement>
+  ).map((child, index, array) => {
+    let tabId = ""
+    let panelId = ""
+    if (child.props.title !== undefined) {
+      const { title } = child.props
+      tabId = `${title}-tab`
+      panelId = `${title}-content-panel`
+    } else {
+      const { title } = array[child.props.index].props
+      tabId = `${title}-tab`
+      panelId = `${title}-content-panel`
+    }
+    return (
+      <TabContext.Provider
+        value={{ index, openIndex, panelId, tabId, toggleOpen }}
+        key={index}
+      >
         {child}
       </TabContext.Provider>
-    ))
+    )
+  })
 
   const tabButton = allItems.filter((item) =>
     item.props.children.props.hasOwnProperty("title")
@@ -40,12 +64,14 @@ const Tabs = ({ children, initialOpenIndex }: TabsProps) => {
     item.props.children.props.hasOwnProperty("index")
   )
   return (
-    <>
-      <div sx={{ display: "flex", flexDirection: "row", flexWrap: "nowrap" }}>
+    <div className={className}>
+      <header
+        sx={{ display: "flex", flexDirection: "row", flexWrap: "nowrap" }}
+      >
         {tabButton.map((item) => item)}
-      </div>
-      <div>{tabPanel.map((item) => item)}</div>
-    </>
+      </header>
+      {tabPanel.map((item) => item)}
+    </div>
   )
 }
 
@@ -61,11 +87,12 @@ const TEXT_PADDING = 6
 const SVG_HEIGHT = 36
 
 const TabButton = ({ title }: TabButtonProps) => {
-  const { index, toggleOpen, openIndex } = useTabContext()
+  const { index, openIndex, panelId, tabId, toggleOpen } = useTabContext()
   const isFirstTab = useMemo(() => index === 0, [index])
   const isOpen = useMemo(() => openIndex === index, [index, openIndex])
   const { theme } = useThemeUI()
   const [textRef, { width }] = useMeasure<HTMLSpanElement>()
+  const tabRef = useRef<HTMLDivElement>(null)
 
   const containerWidth = useMemo(() => {
     if (isFirstTab)
@@ -113,19 +140,64 @@ const TabButton = ({ title }: TabButtonProps) => {
     } 0 c -1.53 0 -3.53 1 -4.06 2 z`
   }, [containerWidth, isFirstTab])
 
-  const tabToggler = useCallback(() => {
-    if (openIndex !== index) toggleOpen(index)
+  const keyboardTabToggler = useCallback(
+    (event: KeyboardEvent<HTMLDivElement>) => {
+      if (event.code === "Space" && openIndex !== index) {
+        toggleOpen(index)
+        tabRef.current?.blur()
+      }
+    },
+    [index, openIndex, toggleOpen]
+  )
+
+  const mouseTabToggler = useCallback(() => {
+    if (openIndex !== index) {
+      toggleOpen(index)
+      tabRef.current?.blur()
+    }
   }, [index, openIndex, toggleOpen])
+
+  const hoverOrFocusedStyles = useMemo(
+    () =>
+      isOpen
+        ? { "& > svg > path:first-of-type": { fill: "text.95" } }
+        : {
+            "& > span": {
+              backgroundColor: "text.95",
+              borderRadius: 1,
+              color: "text",
+              padding: 1,
+            },
+          },
+    [isOpen]
+  )
 
   return (
     <div
-      onClick={tabToggler}
+      aria-controls={panelId}
+      aria-selected={openIndex === index}
+      id={tabId}
+      onClick={mouseTabToggler}
+      onKeyPress={keyboardTabToggler}
+      ref={tabRef}
       sx={{
         cursor: "pointer",
         display: "grid",
         height: SVG_HEIGHT,
         mb: "-1px",
+
+        role: "tab",
+
+        "&:focus": {
+          outline: "none",
+          ...hoverOrFocusedStyles,
+        },
+
+        "&:hover": {
+          ...hoverOrFocusedStyles,
+        },
       }}
+      tabIndex={0}
     >
       <svg
         aria-disabled="false"
@@ -190,10 +262,10 @@ export interface TabPanelProps {
 }
 
 const TabPanel = ({ children, index }: TabPanelProps) => {
-  const { openIndex } = useTabContext()
+  const { openIndex, panelId, tabId } = useTabContext()
   const isOpen = openIndex === index
   return (
-    <>
+    <section aria-labelledby={tabId} id={panelId} role="tabpanel">
       {isOpen && (
         <div
           id={index.toString()}
@@ -213,7 +285,7 @@ const TabPanel = ({ children, index }: TabPanelProps) => {
           {children}
         </div>
       )}
-    </>
+    </section>
   )
 }
 
