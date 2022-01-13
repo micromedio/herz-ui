@@ -125,8 +125,6 @@ const Select = ({
     onSelectedItemsChange,
   })
 
-  console.log({ value, selectedItem })
-
   const hasSelectedItem = useMemo(() => {
     return selectedItem || selectedItem === 0
   }, [selectedItem])
