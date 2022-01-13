@@ -77,6 +77,28 @@ describe("Select", () => {
     expect(onChangeMock).toHaveBeenCalled()
   })
 
+  it("works with 'number' values in the options", async () => {
+    const onChangeMock = jest.fn()
+    const { getByText, getByRole } = render(
+      <Select onChange={onChangeMock}>
+        <Select.Option value={0}>Zero</Select.Option>
+        <Select.Option value={1}>One</Select.Option>
+      </Select>
+    )
+
+    /** Act: enable the options by clicking on the button */
+    const button = getByRole("button")
+    fireEvent.click(button)
+
+    const option1 = getByText("One")
+    fireEvent.click(option1)
+    expect(onChangeMock).toHaveBeenCalledWith(1)
+
+    const option0 = getByText("Zero")
+    fireEvent.click(option0)
+    expect(onChangeMock).toHaveBeenCalledWith(0)
+  })
+
   describe("onSelectedItemsChange", () => {
     it("allows to add and remove a multi select item", async () => {
       const onSelectedItemsChangeMock = jest.fn()

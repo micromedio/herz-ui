@@ -200,7 +200,7 @@ const Select = ({
   }, [defaultSelectedItems, selectedItems])
 
   const isInitialValueSelected =
-    defaultValue &&
+    (defaultValue || defaultValue === 0) &&
     JSON.stringify(defaultValue) === JSON.stringify(selectedItem)
 
   const isSelectFilled =
