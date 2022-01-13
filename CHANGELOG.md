@@ -1,3 +1,9 @@
+#### 0.20.2 (2022-01-13)
+
+##### Bug Fixes
+
+* **Select:**  Fix Select not working for defined but falsy values ([#176](https://github.com/micromed-dev/herz-ui/pull/176)) ([4c2dc89a](https://github.com/micromed-dev/herz-ui/commit/4c2dc89a55beaea390155318b767fe88201bd6f4))
+
 #### 0.20.1 (2022-01-12)
 
 ##### New Features
