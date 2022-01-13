@@ -17,7 +17,7 @@ export default {
 
 const Template: Story<SelectProps> = (props: SelectProps) => {
   const [value, setValue] = useState<SelectProps["value"]>(
-    props.value || props.defaultValue || ""
+    props.value || props.defaultValue
   )
 
   return (
@@ -70,7 +70,7 @@ WithLabel.args = {
 export const WithDefaultValue = Template.bind({})
 WithDefaultValue.args = {
   children: [
-    <Select.Option key={200} value={200}>
+    <Select.Option key={0} value={0}>
       <span
         style={{
           display: "flex",
@@ -91,7 +91,7 @@ WithDefaultValue.args = {
     </Select.Option>,
     ...mockedChildrenOptions,
   ],
-  defaultValue: 200,
+  defaultValue: 0,
 }
 
 export const MultipleSelection = MultiTemplate.bind({})

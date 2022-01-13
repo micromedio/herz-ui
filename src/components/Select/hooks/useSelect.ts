@@ -62,7 +62,7 @@ export function useSelect({
   const handleSelectedItemChange = ({
     selectedItem,
   }: UseSelectStateChange<SelectValue>) => {
-    onChange?.(selectedItem || "")
+    if (selectedItem || selectedItem === 0) onChange?.(selectedItem)
   }
 
   const { getDropdownProps } = useMultipleSelection({

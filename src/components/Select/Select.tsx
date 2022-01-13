@@ -125,6 +125,10 @@ const Select = ({
     onSelectedItemsChange,
   })
 
+  const hasSelectedItem = useMemo(() => {
+    return selectedItem || selectedItem === 0
+  }, [selectedItem])
+
   const stateStyles: Record<string, ThemeUICSSObject> = {
     resting: {
       backgroundColor: "text.alpha.95",
@@ -181,13 +185,13 @@ const Select = ({
 
   const selectedOption = useMemo(() => {
     return (
-      (selectedItem &&
+      (hasSelectedItem &&
         options.find(
           ({ value }) => JSON.stringify(selectedItem) === JSON.stringify(value)
         )) ||
       undefined
     )
-  }, [options, selectedItem])
+  }, [hasSelectedItem, options, selectedItem])
 
   const areInitialItemsSelected = useMemo(() => {
     return (
@@ -196,13 +200,13 @@ const Select = ({
   }, [defaultSelectedItems, selectedItems])
 
   const isInitialValueSelected =
-    defaultValue &&
+    (defaultValue || defaultValue === 0) &&
     JSON.stringify(defaultValue) === JSON.stringify(selectedItem)
 
   const isSelectFilled =
     !areInitialItemsSelected &&
     !isInitialValueSelected &&
-    (selectedItem || selectedItems.length > 0)
+    (hasSelectedItem || selectedItems.length > 0)
 
   const hoverStyles = useMemo(() => {
     if (disabled) return {}
@@ -221,7 +225,7 @@ const Select = ({
   function defaultRenderButtonLabel() {
     return multi
       ? getMultiSelectLabel()
-      : (selectedItem && selectedOption?.label) ||
+      : (hasSelectedItem && selectedOption?.label) ||
           (placeholder !== undefined && placeholder) ||
           "Select an option"
   }
