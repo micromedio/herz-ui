@@ -181,7 +181,7 @@ const Select = ({
 
   const selectedOption = useMemo(() => {
     return (
-      (selectedItem &&
+      (selectedItem !== undefined &&
         options.find(
           ({ value }) => JSON.stringify(selectedItem) === JSON.stringify(value)
         )) ||
@@ -202,7 +202,7 @@ const Select = ({
   const isSelectFilled =
     !areInitialItemsSelected &&
     !isInitialValueSelected &&
-    (selectedItem || selectedItems.length > 0)
+    (selectedItem !== undefined || selectedItems.length > 0)
 
   const hoverStyles = useMemo(() => {
     if (disabled) return {}
@@ -221,7 +221,7 @@ const Select = ({
   function defaultRenderButtonLabel() {
     return multi
       ? getMultiSelectLabel()
-      : (selectedItem && selectedOption?.label) ||
+      : (selectedItem !== undefined && selectedOption?.label) ||
           (placeholder !== undefined && placeholder) ||
           "Select an option"
   }
