@@ -19,6 +19,9 @@ export type { ButtonProps } from "./Button/Button"
 export { default as Card } from "./Card/Card"
 export type { CardProps } from "./Card/Card"
 
+export { default as CheckableTag } from "./CheckableTag/CheckableTag"
+export type { CheckableTagProps } from "./CheckableTag/CheckableTag"
+
 export { default as Checkbox } from "./Checkbox/Checkbox"
 export type { ICheckboxProps as CheckboxProps } from "./Checkbox/Checkbox"
 
