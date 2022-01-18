@@ -1,3 +1,13 @@
+#### 0.20.3 (2022-01-18)
+
+##### New Features
+
+*  Added box shadows to theme STC-831 ([#178](https://github.com/micromed-dev/herz-ui/pull/178)) ([031d5147](https://github.com/micromed-dev/herz-ui/commit/031d5147f387d90a7449c6d5a5a2259837c218fb))
+
+##### Bug Fixes
+
+*  Fixes the missing exports for CheckableTag ([#177](https://github.com/micromed-dev/herz-ui/pull/177)) ([74aa87a6](https://github.com/micromed-dev/herz-ui/commit/74aa87a6a85968df17b8348b6a06e7af16ba3d81))
+
 #### 0.20.2 (2022-01-13)
 
 ##### Bug Fixes
