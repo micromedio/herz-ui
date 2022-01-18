@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import React, { MouseEvent, useMemo } from "react"
-import { get, ThemeUICSSObject } from "theme-ui"
+import { ThemeUICSSObject } from "theme-ui"
 import Button from "../../Button/Button"
 import Spinner from "../../Spinner/Spinner"
 
@@ -22,8 +22,7 @@ const ButtonControl = ({
   const buttonStyles: ThemeUICSSObject = useMemo(
     () => ({
       backgroundColor: "#FFF",
-      boxShadow: (theme) =>
-        `0px 1px 12px ${get(theme, "colors.text.alpha.85")}`,
+      boxShadow: "dark",
       borderRadius: 2,
 
       "&:hover": {

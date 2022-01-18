@@ -279,7 +279,7 @@ const TabPanel = ({ children, index }: TabPanelProps) => {
             border: "1px solid",
             borderColor: "text.90",
             backgroundColor: "text.95",
-            boxShadow: isOpen ? "0px 1px 12px rgba(0, 0, 0, 0.04)" : "none",
+            boxShadow: isOpen ? "main" : "none",
           }}
         >
           {children}
