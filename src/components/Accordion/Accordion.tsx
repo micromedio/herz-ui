@@ -33,12 +33,14 @@ export interface AccordionProps {
     | "text"
     | "success"
     | "warning"
+  className?: HTMLAttributes<HTMLDivElement>["className"]
 }
 
 const Accordion = ({
   children,
   initialOpenIndex,
   activeBackgroundColor = "secondary",
+  className,
 }: AccordionProps) => {
   const [openIndex, setOpenIndex] = useState<number | undefined>(
     initialOpenIndex
@@ -63,7 +65,7 @@ const Accordion = ({
       </AccordionContext.Provider>
     ))
 
-  return <div>{insertDivider(allItems)}</div>
+  return <div className={className}>{insertDivider(allItems)}</div>
 }
 
 export interface AccordionItemProps {
