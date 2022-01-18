@@ -379,7 +379,7 @@ const MobileModal = ({
           borderBottomRightRadius: 0,
           borderStyle: `solid`,
           borderWidth: `1px`,
-          boxShadow: `0px 1px 12px rgba(0, 0, 0, 0.04)`,
+          boxShadow: "main",
           left: 0,
           height: !topSpacing ? `100vh` : `fit-content`,
           maxHeight: `calc(100vh - ${topSpacing}px)`,

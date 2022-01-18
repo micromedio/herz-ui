@@ -225,7 +225,7 @@ const SubNavigationMenu = ({
           }}
           sx={{
             backgroundColor: "#ffffff",
-            boxShadow: "0px 1px 12px rgba(29, 29, 29, 0.16)",
+            boxShadow: "dark",
             padding: "6px",
             position: "absolute",
             right: "-14px",

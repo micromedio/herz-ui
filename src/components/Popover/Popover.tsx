@@ -221,7 +221,7 @@ const Popover = ({
             outline: 0,
             transitionProperty: "transform,visibility,opacity",
             borderRadius,
-            boxShadow: "0px 1px 12px rgba(0, 0, 0, 0.16)",
+            boxShadow: "dark",
             ".tippy-content": {
               position: "relative",
               ...(noPadding

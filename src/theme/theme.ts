@@ -97,6 +97,10 @@ export const theme: Theme = {
     body: 20 / 14,
   },
 
+  shadows: {
+    main: `0px 1px 12px ${colorPalette.text.alpha["95"]}`,
+    dark: `0px 1px 12px ${colorPalette.text.alpha["85"]}`,
+  },
   text: {
     default: {
       fontFamily: "body",

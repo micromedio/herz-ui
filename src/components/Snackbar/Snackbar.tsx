@@ -54,7 +54,7 @@ const Snackbar = ({ type, title, body, onClose }: SnackbarProps) => {
         padding: 3,
         width: "fit-content",
         backgroundColor: "text",
-        boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.2)",
+        boxShadow: "dark",
         borderRadius: 3,
         color: "text.40",
       }}

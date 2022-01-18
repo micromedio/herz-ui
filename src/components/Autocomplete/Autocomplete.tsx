@@ -365,7 +365,7 @@ export default forwardRef(function Autocomplete<T>(
                 background: "#fff",
                 border: "1px solid #E8E8E9",
                 borderRadius: 4,
-                boxShadow: "0px 1px 12px rgba(0, 0, 0, 0.16)",
+                boxShadow: "main",
                 flexWrap: props.multiSelect ? "wrap" : undefined,
                 minWidth: containerRef.current?.getClientRects()[0].width,
                 outline: "0",

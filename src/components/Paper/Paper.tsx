@@ -20,8 +20,8 @@ const Paper = ({
   onClick,
 }: PaperProps) => {
   const boxShadow = useMemo(() => {
-    if (elevation === 1) return "0px 1px 12px rgba(0, 0, 0, 0.04);"
-    if (elevation >= 2) return "0px 1px 12px rgba(0, 0, 0, 0.16)"
+    if (elevation === 1) return "main"
+    if (elevation >= 2) return "dark"
 
     return "none"
   }, [elevation])
