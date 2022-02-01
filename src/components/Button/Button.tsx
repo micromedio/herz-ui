@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import { get, ThemeUICSSObject } from "theme-ui"
-import { MouseEvent, ButtonHTMLAttributes, forwardRef } from "react"
+import { MouseEvent, ButtonHTMLAttributes, forwardRef, useMemo } from "react"
 import Icon, { IconProps } from "../Icon/Icon"
 import { Spinner } from ".."
 
@@ -110,23 +110,26 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     },
   }
 
-  const spinnerColors: Record<string, ThemeUICSSObject> = {
-    filled: {
-      "--dot-color": (t) =>
-        color === "text" ? get(t, `colors.text.70`) : "#fff",
-      stroke: color === "text" ? "text.40" : "#fff",
-    },
-    filledLight: {
-      "--dot-color": (t) =>
-        get(t, `colors.${color}.${color === "text" ? 70 : 40}`),
-      stroke: (t) => get(t, `colors.${color}.${color === "text" ? 40 : 0}`),
-    },
-    plain: {
-      "--dot-color": (t) =>
-        get(t, `colors.${color}.${color === "text" ? 70 : 40}`),
-      stroke: (t) => get(t, `colors.${color}.${color === "text" ? 40 : 0}`),
-    },
-  }
+  const spinnerStyles = useMemo<ThemeUICSSObject>(() => {
+    const variants: Record<string, ThemeUICSSObject> = {
+      filled: {
+        "--dot-color": (t) =>
+          color === "text" ? get(t, `colors.text.70`) : "#fff",
+        stroke: color === "text" ? "text.40" : "#fff",
+      },
+      filledLight: {
+        "--dot-color": (t) =>
+          get(t, `colors.${color}.${color === "text" ? 70 : 40}`),
+        stroke: (t) => get(t, `colors.${color}.${color === "text" ? 40 : 0}`),
+      },
+      plain: {
+        "--dot-color": (t) =>
+          get(t, `colors.${color}.${color === "text" ? 70 : 40}`),
+        stroke: (t) => get(t, `colors.${color}.${color === "text" ? 40 : 0}`),
+      },
+    }
+    return variants[variant]
+  }, [variant, color])
 
   return (
     <button
@@ -147,7 +150,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     >
       {iconName &&
         (loading ? (
-          <Spinner sx={spinnerColors[variant]} />
+          <Spinner sx={spinnerStyles} />
         ) : (
           <Icon
             name={iconName}
@@ -172,7 +175,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
           {loading && !iconName && (
             <Spinner
               sx={{
-                ...spinnerColors[variant],
+                ...spinnerStyles,
                 position: "absolute",
               }}
             />
