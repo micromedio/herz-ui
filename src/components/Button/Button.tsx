@@ -56,7 +56,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 
     borderRadius: 2,
     cursor: "pointer",
-    // position: "relative",
     transition: "all .2s linear",
     variant: "text.button1",
     outline: "none",
