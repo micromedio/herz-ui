@@ -1,7 +1,8 @@
 /** @jsxImportSource theme-ui */
 import { get, ThemeUICSSObject } from "theme-ui"
-import { MouseEvent, ButtonHTMLAttributes, forwardRef } from "react"
+import { MouseEvent, ButtonHTMLAttributes, forwardRef, useMemo } from "react"
 import Icon, { IconProps } from "../Icon/Icon"
+import { Spinner } from ".."
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: string | React.ReactNode
@@ -11,6 +12,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: "primary" | "secondary" | "success" | "text"
 
   disabled?: boolean
+  loading?: boolean
 
   size?: "small" | "large"
 
@@ -35,6 +37,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     color = "primary",
     size = "large",
     disabled,
+    loading = false,
     iconName,
     styles,
     type = "button",
@@ -53,7 +56,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 
     borderRadius: 2,
     cursor: "pointer",
-    position: "relative",
     transition: "all .2s linear",
     variant: "text.button1",
     outline: "none",
@@ -107,12 +109,33 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     },
   }
 
+  const spinnerStyles = useMemo<ThemeUICSSObject>(() => {
+    const variants: Record<string, ThemeUICSSObject> = {
+      filled: {
+        "--dot-color": (t) =>
+          color === "text" ? get(t, `colors.text.70`) : "#fff",
+        stroke: color === "text" ? "text.40" : "#fff",
+      },
+      filledLight: {
+        "--dot-color": (t) =>
+          get(t, `colors.${color}.${color === "text" ? 70 : 40}`),
+        stroke: (t) => get(t, `colors.${color}.${color === "text" ? 40 : 0}`),
+      },
+      plain: {
+        "--dot-color": (t) =>
+          get(t, `colors.${color}.${color === "text" ? 70 : 40}`),
+        stroke: (t) => get(t, `colors.${color}.${color === "text" ? 40 : 0}`),
+      },
+    }
+    return variants[variant]
+  }, [variant, color])
+
   return (
     <button
       ref={ref}
       onClick={onClick}
       {...htmlProps}
-      disabled={disabled}
+      disabled={disabled || loading}
       type={type}
       sx={{
         ...baseButton,
@@ -124,14 +147,41 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
         ...styles?.root,
       }}
     >
-      {iconName && (
-        <Icon
-          name={iconName}
-          size={size === "small" ? 16 : 20}
-          sx={styles?.icon}
-        />
+      {iconName &&
+        (loading ? (
+          <Spinner sx={spinnerStyles} />
+        ) : (
+          <Icon
+            name={iconName}
+            size={size === "small" ? 16 : 20}
+            sx={styles?.icon}
+          />
+        ))}
+      {children && (
+        <span
+          sx={{
+            ...styles?.childrenWrapper,
+            ...(loading && !iconName
+              ? {
+                  color: "transparent",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }
+              : {}),
+          }}
+        >
+          {loading && !iconName && (
+            <Spinner
+              sx={{
+                ...spinnerStyles,
+                position: "absolute",
+              }}
+            />
+          )}
+          {children}
+        </span>
       )}
-      {children && <span sx={styles?.childrenWrapper}>{children}</span>}
     </button>
   )
 })

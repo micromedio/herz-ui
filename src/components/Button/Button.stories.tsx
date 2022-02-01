@@ -87,3 +87,17 @@ Icon.args = {
   color: "text",
   iconName: "IconPlus",
 }
+
+export const Loading = Template.bind({})
+Loading.args = {
+  ...Basic.args,
+  iconName: undefined,
+  loading: true,
+  color: "primary",
+}
+
+export const IconLoading = Template.bind({})
+IconLoading.args = {
+  ...Loading.args,
+  iconName: "IconPlus",
+}
