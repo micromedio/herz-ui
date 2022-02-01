@@ -1,3 +1,9 @@
+#### 0.20.4 (2022-02-01)
+
+##### New Features
+
+* **Button:**  Added loading state STC-597 ([#179](https://github.com/micromed-dev/herz-ui/pull/179)) ([256d0450](https://github.com/micromed-dev/herz-ui/commit/256d04501f79e2acdc81eea4230657de79a87869))
+
 #### 0.20.3 (2022-01-18)
 
 ##### New Features
