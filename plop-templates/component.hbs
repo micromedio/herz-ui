@@ -1,0 +1,21 @@
+/** @jsxImportSource theme-ui */
+import { forwardRef } from "react"
+
+export interface {{pascalCase componentName}}Props {
+  children?: string | React.ReactNode
+}
+
+const {{pascalCase componentName}} = forwardRef<HTMLDivElement, {{pascalCase componentName}}Props>(function {{pascalCase componentName}}(
+  {
+    children,
+  }: {{pascalCase componentName}}Props,
+  ref
+): JSX.Element {
+  return (
+    <div ref={ref}>
+      {children}
+    </div>
+  )
+})
+
+export default {{pascalCase componentName}}
