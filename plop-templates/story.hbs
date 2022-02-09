@@ -1,0 +1,13 @@
+/** @jsxImportSource theme-ui */
+import { ComponentMeta } from "@storybook/react"
+
+import {{pascalCase componentName}} from "./{{pascalCase componentName}}"
+
+type StoryMeta = ComponentMeta<typeof {{pascalCase componentName}}>
+
+export default {
+  title: "Design System/{{pascalCase componentName}}",
+  component: {{pascalCase componentName}},
+} as StoryMeta
+
+export const Default = {} as StoryMeta
