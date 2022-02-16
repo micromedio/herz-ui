@@ -1,9 +1,10 @@
 /** @jsxImportSource theme-ui */
-import React from "react"
+import React, { HTMLAttributes } from "react"
 import Icon from "../Icon/Icon"
 
 export interface BreadcrumbsProps {
   children?: React.ReactNode
+  className?: HTMLAttributes<HTMLElement>["className"]
 }
 
 const BreadcrumbsSeparator = () => {
@@ -14,7 +15,7 @@ const BreadcrumbsSeparator = () => {
   )
 }
 
-const Breadcrumbs = ({ children }: BreadcrumbsProps) => {
+const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
   let allItems = React.Children.toArray(children).filter((child) =>
     React.isValidElement(child)
   )
@@ -51,6 +52,7 @@ const Breadcrumbs = ({ children }: BreadcrumbsProps) => {
 
   return (
     <nav
+      className={className}
       sx={{
         display: "flex",
         flexWrap: "wrap",
@@ -59,6 +61,7 @@ const Breadcrumbs = ({ children }: BreadcrumbsProps) => {
         m: 0,
         color: "text.40",
         variant: "text.body1",
+        overflow: "hidden",
       }}
     >
       <ol
@@ -72,6 +75,7 @@ const Breadcrumbs = ({ children }: BreadcrumbsProps) => {
             color: "inherit",
             textDecoration: "none",
           },
+          overflow: "hidden",
         }}
       >
         {insertSeparator(allItems)}
