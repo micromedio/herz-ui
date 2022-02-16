@@ -1,3 +1,16 @@
+#### 0.20.5 (2022-02-16)
+
+##### Chores
+
+*  Added plop generator for new components STC-699 ([#183](https://github.com/micromed-dev/herz-ui/pull/183)) ([3a2a8a9a](https://github.com/micromed-dev/herz-ui/commit/3a2a8a9a9552cf83b67d0e1259ce5db3b88cc31c))
+*  Added divider documentation on Docusaurus STC-745 ([#182](https://github.com/micromed-dev/herz-ui/pull/182)) ([b71dff2c](https://github.com/micromed-dev/herz-ui/commit/b71dff2ce02829b9f0d6fc423914ee866938732a))
+*  Added new button variations to docusaurus STC-740 ([#181](https://github.com/micromed-dev/herz-ui/pull/181)) ([8a882233](https://github.com/micromed-dev/herz-ui/commit/8a882233593c0a77587e5090987971ae0215eb81))
+*  Added Card docs to docusaurus STC-743 ([#180](https://github.com/micromed-dev/herz-ui/pull/180)) ([d393d877](https://github.com/micromed-dev/herz-ui/commit/d393d877e7dd537a8b3a05b879c4183fa13875a3))
+
+##### New Features
+
+* **Breadcrumbs:**  added className and some default styles STC-823 ([#184](https://github.com/micromed-dev/herz-ui/pull/184)) ([cebdafa0](https://github.com/micromed-dev/herz-ui/commit/cebdafa04626554e9a7e46de713ff6e71d0297ce))
+
 #### 0.20.4 (2022-02-01)
 
 ##### New Features
