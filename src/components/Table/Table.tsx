@@ -18,7 +18,7 @@ const INTERNAL_SELECTION_COLUMN_ID = "INTERNAL_SELECTION_COLUMN_ID"
 const INTERNAL_ACTIVE_COLUMN_ID = "INTERNAL_ACTIVE_COLUMN_ID"
 
 export interface TableProps<
-  T extends Record<string, unknown> = Record<string, never>
+  T extends Record<string, unknown> = Record<string, unknown> & { id: string }
 > {
   /** Definition of the table columns */
   columns: Array<Column<T> & { Loader?: () => ReactElement }>
@@ -79,7 +79,9 @@ export interface TableProps<
   uniqueFieldKey?: keyof T
 }
 
-function Table<T extends Record<string, unknown> = Record<string, never>>({
+function Table<
+  T extends Record<string, unknown> = Record<string, unknown> & { id: string }
+>({
   columns,
   data,
   loading,
@@ -149,7 +151,7 @@ function Table<T extends Record<string, unknown> = Record<string, never>>({
         ...(initialSortBy ? { sortBy: [initialSortBy] } : {}),
       },
       getRowId: (row, relativeIndex) =>
-        `${row?.[uniqueFieldKey]}` ?? `${relativeIndex}`,
+        row?.[uniqueFieldKey] ? `${row?.[uniqueFieldKey]}` : `${relativeIndex}`,
     },
     useSortBy,
     usePagination,
