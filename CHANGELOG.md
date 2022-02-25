@@ -1,3 +1,9 @@
+#### 0.21.0 (2022-02-25)
+
+##### New Features
+
+* **Table:**  Added type generic for the Table component STC-929 ([#185](https://github.com/micromed-dev/herz-ui/pull/185)) ([74c819f8](https://github.com/micromed-dev/herz-ui/commit/74c819f8197b8ffbe2b0e345e1ca84b2973f30a8))
+
 #### 0.20.5 (2022-02-16)
 
 ##### Chores
