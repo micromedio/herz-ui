@@ -7,6 +7,7 @@ import _ from "lodash"
 import { action } from "@storybook/addon-actions"
 import Paper from "../Paper/Paper"
 import { Spinner } from ".."
+import { Column } from "react-table"
 
 export default {
   title: "Design System/Table",
@@ -72,9 +73,11 @@ const columns = [
     accessor: "startDate",
     Cell: ({ value }: { value: Date }) => value.toLocaleDateString(),
   },
-] as TableProps["columns"]
+] as Array<Column<typeof data[0]>>
 
-const Template: Story<TableProps> = (props) => <Table {...props} />
+const Template: Story<TableProps<typeof data[0]>> = (props) => (
+  <Table<typeof data[0]> {...props} />
+)
 
 // Each story then reuses that template
 export const Example = Template.bind({})
@@ -93,7 +96,9 @@ Example.args = {
   ],
 }
 
-const ActiveRowTemplate: Story<TableProps> = (props: TableProps) => {
+const ActiveRowTemplate: Story<TableProps<typeof data[0]>> = (
+  props: TableProps<typeof data[0]>
+) => {
   const [activeRowIds, setActiveRowIds] = useState<TableProps["activeRowIds"]>({
     HBPM457: true,
   })
@@ -114,7 +119,9 @@ ActiveRowExample.args = {
   rowClickable: true,
 }
 
-const ControlledPaginationTemplate: Story<TableProps> = (props: TableProps) => {
+const ControlledPaginationTemplate: Story<TableProps<typeof data[0]>> = (
+  props: TableProps<typeof data[0]>
+) => {
   const [paginatedData, setPaginatedData] = useState(props.data.slice(0, 10))
   const [pageSize, setPageSize] = useState(10)
 
@@ -153,7 +160,9 @@ ControlledPaginationExample.args = {
   data,
 }
 
-const ControlledSortingTemplate: Story<TableProps> = (props: TableProps) => {
+const ControlledSortingTemplate: Story<TableProps<typeof data[0]>> = (
+  props: TableProps<typeof data[0]>
+) => {
   const [sortedData, setSortedData] = useState(props.data)
 
   const onTableChange = useCallback(
@@ -191,7 +200,9 @@ ControlledSortingExample.args = {
   },
 }
 
-const SelectRowsTemplate: Story<TableProps> = (props: TableProps) => {
+const SelectRowsTemplate: Story<TableProps<typeof data[0]>> = (
+  props: TableProps<typeof data[0]>
+) => {
   const [selectedRowIds, setSeletedRowIds] = useState<Record<string, boolean>>({
     HBPM557: true,
     HBPM510: true,
@@ -239,7 +250,9 @@ export const LoadingWithCustomRender = Template.bind({})
 LoadingWithCustomRender.args = {
   columns: columns.map((column, index) => ({
     ...column,
-    Loader: () => (index % 2 ? <Spinner /> : <>Loading ...</>),
+    Loader() {
+      return index % 2 ? <Spinner /> : <>Loading ...</>
+    },
   })),
   data: [
     {
