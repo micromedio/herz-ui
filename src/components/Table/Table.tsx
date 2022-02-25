@@ -17,20 +17,18 @@ import Checkbox from "../Checkbox/Checkbox"
 const INTERNAL_SELECTION_COLUMN_ID = "INTERNAL_SELECTION_COLUMN_ID"
 const INTERNAL_ACTIVE_COLUMN_ID = "INTERNAL_ACTIVE_COLUMN_ID"
 
-interface DataType extends Record<string, unknown> {
-  id: string
-}
-
-export interface TableProps {
+export interface TableProps<
+  T extends Record<string, unknown> = Record<string, never>
+> {
   /** Definition of the table columns */
-  columns: Array<Column<DataType> & { Loader?: () => ReactElement }>
+  columns: Array<Column<T> & { Loader?: () => ReactElement }>
   /** Data to be displayed in the table */
-  data: Array<DataType>
+  data: Array<T>
 
   /** If `true`, the table will have clickable rows */
   rowClickable?: boolean
   /** Callback called when a row is clicked */
-  onRowClick?: (row: DataType) => void
+  onRowClick?: (row: T) => void
   /** Active row ids */
   activeRowIds?: Record<string, boolean>
 
@@ -77,9 +75,11 @@ export interface TableProps {
 
   className?: HTMLAttributes<HTMLDivElement>["className"]
   style?: HTMLAttributes<HTMLDivElement>["style"]
+
+  uniqueFieldKey?: keyof T
 }
 
-const Table = ({
+function Table<T extends Record<string, unknown> = Record<string, never>>({
   columns,
   data,
   loading,
@@ -106,19 +106,20 @@ const Table = ({
   onTableChange,
   className,
   style,
-}: TableProps) => {
+  uniqueFieldKey = "id",
+}: TableProps<T>) {
   const { selectedRowIds, setRowsSelected, toggleRowSelected } =
     useRowSelection({
       selectedRowIds: controlledSelectedRowIds,
       onChange: onRowSelectionChange,
     })
 
-  const loadingRows: Array<DataType> = useMemo(
+  const loadingRows: Array<T> = useMemo(
     () =>
       Array.from({ length: initialPageSize })
         .fill("")
-        .map((_, index) => ({ id: `${index}` })),
-    [initialPageSize]
+        .map((_, index) => ({ [uniqueFieldKey]: `${index}` } as T)),
+    [initialPageSize, uniqueFieldKey]
   )
 
   const {
@@ -147,7 +148,8 @@ const Table = ({
         pageIndex: initialPageIndex,
         ...(initialSortBy ? { sortBy: [initialSortBy] } : {}),
       },
-      getRowId: (row, relativeIndex) => row?.id ?? relativeIndex,
+      getRowId: (row, relativeIndex) =>
+        `${row?.[uniqueFieldKey]}` ?? `${relativeIndex}`,
     },
     useSortBy,
     usePagination,
@@ -155,18 +157,18 @@ const Table = ({
 
     (hooks) => {
       hooks.visibleColumns.push((allColumns) => {
-        const selectColumn: Column<DataType> = {
+        const selectColumn: Column<T> = {
           id: INTERNAL_SELECTION_COLUMN_ID,
           width: 48,
           fixedWidth: true,
         }
-        const activeColumn: Column<DataType> = {
+        const activeColumn: Column<T> = {
           id: INTERNAL_ACTIVE_COLUMN_ID,
           width: 80,
           fixedWidth: true,
         }
 
-        let columns: Column<DataType>[] = [...allColumns]
+        let columns: Column<T>[] = [...allColumns]
 
         if (rowsSelectable) {
           columns = [selectColumn, ...columns]
@@ -543,4 +545,4 @@ const Table = ({
   )
 }
 
-export default memo(Table)
+export default memo(Table) as typeof Table
