@@ -1,3 +1,9 @@
+#### 0.21.1 (2022-03-09)
+
+##### New Features
+
+* **Paper:**  Added the ref prop to the component ([#186](https://github.com/micromed-dev/herz-ui/pull/186)) ([6f478630](https://github.com/micromed-dev/herz-ui/commit/6f4786304741896c6edd2a504b9d910f5d7c08a0))
+
 #### 0.21.0 (2022-02-25)
 
 ##### New Features
