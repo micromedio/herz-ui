@@ -135,6 +135,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
               marginLeft: 2,
               width: "auto",
               cursor: disabled ? "auto" : "pointer",
+              flexGrow: 1,
             }}
             htmlFor={id}
           >
