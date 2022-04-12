@@ -1,3 +1,14 @@
+#### 0.21.2 (2022-04-12)
+
+##### Documentation Changes
+
+*  Added new Avatar docs STC-737 ([#188](https://github.com/micromed-dev/herz-ui/pull/188)) ([3a429c7e](https://github.com/micromed-dev/herz-ui/commit/3a429c7e2d206d02bad611bc856bc25f65b10fe0))
+*  Added Accordion docs STC-732 ([#187](https://github.com/micromed-dev/herz-ui/pull/187)) ([052501bd](https://github.com/micromed-dev/herz-ui/commit/052501bd1fde64756b4f44a209cad5e4d811d8bf))
+
+##### New Features
+
+* **Checkbox:**  grow label to container size ([#190](https://github.com/micromed-dev/herz-ui/pull/190)) ([70ff8cf3](https://github.com/micromed-dev/herz-ui/commit/70ff8cf3a9feb1a5977297e9d912552830fdd8c0))
+
 #### 0.21.1 (2022-03-09)
 
 ##### New Features
