@@ -1,3 +1,9 @@
+#### 0.21.3 (2022-05-26)
+
+##### New Features
+
+* **EditableField:**  added `unit` prop to EditableField.Text DHP-1056 ([#191](https://github.com/micromed-dev/herz-ui/pull/191)) ([37debed4](https://github.com/micromed-dev/herz-ui/commit/37debed49fc6f8d81d84fbd3ea2e56872dfa3efe))
+
 #### 0.21.2 (2022-04-12)
 
 ##### Documentation Changes
