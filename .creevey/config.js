@@ -7,6 +7,7 @@ module.exports = {
   browsers: {
     chrome: {
       browserName: 'chrome',
+      version: '101.0',
       // Define initial viewport size
       viewport: { width: 1024, height: 768 },
       // Increase parallel sessions
@@ -14,6 +15,7 @@ module.exports = {
     },
     firefox: {
       browserName: 'firefox',
+      version: '99.0',
       viewport: { width: 1024, height: 768 },
       limit: 2,
     },

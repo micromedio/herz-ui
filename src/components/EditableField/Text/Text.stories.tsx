@@ -36,6 +36,12 @@ Default.args = {
   value: "Handle 123",
 }
 
+export const WithUnit = Template.bind({})
+WithUnit.args = {
+  value: "123",
+  unit: "cm",
+}
+
 export const Loading = Template.bind({})
 Loading.args = {
   value: "Handle 123",

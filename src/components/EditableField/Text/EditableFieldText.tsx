@@ -37,6 +37,7 @@ export interface EditableFieldTextProps {
   // When true renders a textarea instead of an input
   multiline?: boolean
   rows?: number
+  unit?: string
 }
 
 const EditableText = forwardRef<
@@ -57,6 +58,7 @@ const EditableText = forwardRef<
     controlsGroup = false,
     multiline,
     rows = 1,
+    unit,
   }: EditableFieldTextProps,
   ref
 ) {
@@ -278,6 +280,18 @@ const EditableText = forwardRef<
                 variant: "text.body1",
               }}
             />
+          )}
+          {unit && (
+            <label
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                color: "text.40",
+              }}
+            >
+              {unit}
+            </label>
           )}
           {
             {
