@@ -48,8 +48,7 @@ module.exports = {
       links: [
         {
           rel: "stylesheet",
-          href: "https://storage.googleapis.com/cndcdn/stylesheet.css",
-        },
+          href: "https://cdn.micromed.health/fonts/gilroy/stylesheet.css",        },
       ],
     },
   },
