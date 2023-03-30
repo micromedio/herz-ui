@@ -30,6 +30,7 @@ build-storybook.log*
 /theme
 /lib
 .vscode
+.npmrc
 
 .vercel
 /storybook-static
