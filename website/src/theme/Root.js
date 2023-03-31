@@ -7,7 +7,7 @@ const Root = ({ children }) => {
   return (
     <ThemeWrapper>
       <Head>
-        <link rel="stylesheet" href="https://cndcdn.storage.googleapis.com/stylesheet.css" />
+        <link rel="stylesheet" href="https://cdn.micromed.health/fonts/gilroy/stylesheet.css" />
       </Head>
       <>{children}</>
     </ThemeWrapper>
