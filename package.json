@@ -126,6 +126,7 @@
     "chromatic": "^5.9.0",
     "creevey": "^0.7.39",
     "dotenv-cli": "^4.0.0",
+    "esbuild": "^0.17.15",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "7.24.0",
