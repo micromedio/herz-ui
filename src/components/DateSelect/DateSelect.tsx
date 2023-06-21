@@ -173,7 +173,7 @@ const DateSelect = ({
                       textAlign: "end",
                     }}
                   >
-                    From
+                    Inicial
                   </label>
                   <Rifm
                     value={fromValue}
@@ -202,7 +202,7 @@ const DateSelect = ({
                       textAlign: "end",
                     }}
                   >
-                    To
+                    Final
                   </label>
 
                   <Rifm
@@ -232,7 +232,7 @@ const DateSelect = ({
                     sx={{ gridColumn: "span 2" }}
                     disabled={!isFormValid}
                   >
-                    Set
+                    Aplicar
                   </Button>
                 </div>
               </form>

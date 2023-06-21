@@ -331,7 +331,9 @@ const Select = ({
                   handleBulkAction(SELECT_BULK_ACTIONS.SELECT_ALL)
                 }}
               >
-                {selectedItems.length > 0 ? "Deselect all" : "Select all"}
+                {selectedItems.length > 0
+                  ? "Limpar seleções"
+                  : "Selecionar todos"}
               </Button>
             )}
           </div>
