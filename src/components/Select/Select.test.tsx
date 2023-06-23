@@ -144,10 +144,10 @@ describe("Select", () => {
       fireEvent.click(button)
 
       /** Trigger bulk actions */
-      const selectAllOption = await findByText("Select all")
+      const selectAllOption = await findByText("Selecionar todos")
       fireEvent.click(selectAllOption)
 
-      const deselectAllOptions = getByText("Deselect all")
+      const deselectAllOptions = getByText("Limpar seleções")
       fireEvent.click(deselectAllOptions)
 
       expect(onSelectedItemsChangeMock).toHaveBeenCalledTimes(2)

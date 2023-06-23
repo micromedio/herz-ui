@@ -116,7 +116,7 @@ export const SelectOptionCustom = ({
             gap: 2,
           }}
         >
-          <span>Custom...</span>
+          <span>Customizar...</span>
           <div
             sx={{
               display: "flex",
