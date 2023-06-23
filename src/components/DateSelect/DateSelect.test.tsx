@@ -18,12 +18,12 @@ describe("DateSelect", () => {
 
     expect(screen.queryByText(/today/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/tomorrow/i)).not.toBeInTheDocument()
-    expect(screen.queryByText(/custom/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/customizar/i)).not.toBeInTheDocument()
     userEvent.click(screen.getByText(/select an option/i))
     await waitFor(() => {
       expect(screen.getByText(/today/i)).toBeInTheDocument()
       expect(screen.getByText(/tomorrow/i)).toBeInTheDocument()
-      expect(screen.getByText(/custom/i)).toBeInTheDocument()
+      expect(screen.getByText(/customizar/i)).toBeInTheDocument()
     })
   })
 
@@ -77,21 +77,27 @@ describe("DateSelect", () => {
 
     userEvent.click(screen.getByText(/select an option/i))
     expect(
-      screen.queryByRole("textbox", { name: /to/i })
+      screen.queryByRole("textbox", { name: /inicial/i })
     ).not.toBeInTheDocument()
     expect(
-      screen.queryByRole("textbox", { name: /from/i })
+      screen.queryByRole("textbox", { name: /final/i })
     ).not.toBeInTheDocument()
     expect(
-      screen.queryByRole("button", { name: /set/i })
+      screen.queryByRole("button", { name: /aplicar/i })
     ).not.toBeInTheDocument()
     const customClikElement = await screen.findByText(/custom/i)
     userEvent.click(customClikElement)
 
     await waitFor(() => {
-      expect(screen.getByRole("textbox", { name: /to/i })).toBeInTheDocument()
-      expect(screen.getByRole("textbox", { name: /from/i })).toBeInTheDocument()
-      expect(screen.getByRole("button", { name: /set/i })).toBeInTheDocument()
+      expect(
+        screen.getByRole("textbox", { name: /inicial/i })
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole("textbox", { name: /final/i })
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole("button", { name: /aplicar/i })
+      ).toBeInTheDocument()
     })
   })
 
@@ -105,10 +111,10 @@ describe("DateSelect", () => {
     )
 
     userEvent.click(screen.getByText(/select an option/i))
-    await waitFor(() => userEvent.click(screen.getByText(/custom/i)))
-    const fromInput = screen.getByRole("textbox", { name: /from/i })
-    const toInput = screen.getByRole("textbox", { name: /to/i })
-    const setButton = screen.getByRole("button", { name: /set/i })
+    await waitFor(() => userEvent.click(screen.getByText(/customizar/i)))
+    const fromInput = screen.getByRole("textbox", { name: /inicial/i })
+    const toInput = screen.getByRole("textbox", { name: /final/i })
+    const setButton = screen.getByRole("button", { name: /aplicar/i })
     expect(setButton).toBeDisabled()
 
     // default format is MM/dd/yyyy
@@ -128,10 +134,10 @@ describe("DateSelect", () => {
     )
 
     userEvent.click(screen.getByText(/select an option/i))
-    await waitFor(() => userEvent.click(screen.getByText(/custom/i)))
-    const fromInput = screen.getByRole("textbox", { name: /from/i })
-    const toInput = screen.getByRole("textbox", { name: /to/i })
-    const setButton = screen.getByRole("button", { name: /set/i })
+    await waitFor(() => userEvent.click(screen.getByText(/customizar/i)))
+    const fromInput = screen.getByRole("textbox", { name: /inicial/i })
+    const toInput = screen.getByRole("textbox", { name: /final/i })
+    const setButton = screen.getByRole("button", { name: /aplicar/i })
     expect(setButton).toBeDisabled()
 
     // default format is MM/dd/yyyy
