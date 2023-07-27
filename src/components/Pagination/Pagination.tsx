@@ -36,8 +36,8 @@ const Pagination = ({
   defaultPage = 1,
   boundaryCount,
   siblingCount,
-  firstText = "First",
-  lastText = "Last",
+  firstText = "Primeiro",
+  lastText = "Último",
 }: PaginationProps) => {
   const { items } = usePagination({
     page,

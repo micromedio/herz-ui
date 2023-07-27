@@ -72,7 +72,7 @@ const DateSelect = ({
   hideCustom = false,
   fullWidth = false,
   children,
-  dateFormat = "dd/MM/yyyy",
+  dateFormat = "MM/dd/yyyy",
 }: DateSelectProps) => {
   const [fromValue, setFromValue] = useState("")
   const [toValue, setToValue] = useState("")
