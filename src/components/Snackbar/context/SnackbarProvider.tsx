@@ -91,6 +91,7 @@ const SnackbarProvider = ({
       value={{
         enqueueSnackbar,
         closeSnackbar,
+        position,
       }}
     >
       {children}
