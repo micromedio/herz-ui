@@ -122,6 +122,9 @@ export type { IThemeWrapperProps as ThemeWrapperProps } from "../theme/ThemeWrap
 export { default as Tooltip } from "./Tooltip/Tooltip"
 export type { TooltipProps } from "./Tooltip/Tooltip"
 
+export { default as PlusLabel } from "./PlusLabel/PlusLabel"
+export type { PlusLabelProps } from "./PlusLabel/PlusLabel"
+
 export { default as Uploader } from "./Uploader/Uploader"
 export type { UploaderProps } from "./Uploader/Uploader"
 
