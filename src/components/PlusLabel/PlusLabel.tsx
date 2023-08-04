@@ -20,7 +20,7 @@ export default function PlusLabel({
       sx={{
         display: "flex",
         "& label": { display: "flex" },
-        button: { marginLeft: ".5rem", padding: "0 .2rem" },
+        button: { marginLeft: ".5rem", padding: "0.1rem .3rem" },
       }}
     >
       {labels?.map(
