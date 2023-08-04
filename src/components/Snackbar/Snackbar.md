@@ -54,11 +54,32 @@ Snackbars are used to display feedback to the user, for example when something i
 />
 ```
 
-### useSnackbar hook
+### useSnackbar hook 
 
 The easiest way to use the snackbars is to wrap your app in the SnackbarProvider and use the useSnackbar hook.
 
-#### Example
+#### Example - without persistent
+```js
+import Button from '../Button/Button'
+import { useSnackbar } from "./hooks/useSnackbar"
+
+const { enqueueSnackbar } = useSnackbar()
+
+;(
+  <Button
+    variant="plain"
+    color="secondary"
+    onClick={() => enqueueSnackbar({
+      title: "Hello!",
+      type: "success",
+    })}
+  >
+    Show Snackbar
+  </Button>
+)
+```
+
+#### Example - with persistent
 ```js
 import Button from '../Button/Button'
 import { useSnackbar } from "./hooks/useSnackbar"
