@@ -21,3 +21,12 @@ import Button from '../Button/Button'
   <Button>this is the reference element</Button>
 </Tooltip>)
 ```
+
+#### custom:
+
+```js
+import Button from '../Button/Button'
+;(<Tooltip title="this tooltip is on the top of the reference" custom={<><h2>Tipos de permissões</h2><p><strong>Administrator:</strong> Lorem ipsum dolor</p></>} placement="top">
+  <Button>this is the reference element</Button>
+</Tooltip>)
+```

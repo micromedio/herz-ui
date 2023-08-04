@@ -8,6 +8,7 @@ export interface TooltipProps {
   trigger?: PopoverProps["trigger"]
   isVisible?: PopoverProps["isVisible"]
   isInteractive?: PopoverProps["isInteractive"]
+  custom?: React.ReactNode
 }
 
 export default function Tooltip({
@@ -17,6 +18,7 @@ export default function Tooltip({
   trigger,
   isVisible,
   isInteractive,
+  custom,
 }: TooltipProps) {
   return (
     <Popover
@@ -26,7 +28,18 @@ export default function Tooltip({
       isVisible={isVisible}
       isInteractive={isInteractive}
       content={
-        <div sx={{ variant: "text.body2", fontWeight: 600 }}>{title}</div>
+        <div
+          sx={{
+            variant: "text.body2",
+            fontWeight: 600,
+            fontSize: 12,
+            "h2,h3,h4,h5,h6": { color: "#fff", fontSize: "1rem" },
+            p: { color: "#BBBBBB" },
+            strong: { color: "#fff" },
+          }}
+        >
+          {title} {custom && custom}
+        </div>
       }
       borderRadius={2}
       theme="dark"
