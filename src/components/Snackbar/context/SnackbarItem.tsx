@@ -21,7 +21,7 @@ const SnackbarItem = ({
   body,
   onClose,
 }: SnackbarItemProps) => {
-  const { closeSnackbar } = useSnackbar()
+  const { closeSnackbar, position } = useSnackbar()
   const timerAutoHide = useRef<ReturnType<typeof setTimeout>>()
 
   const handleClose = useCallback(() => {
@@ -63,6 +63,7 @@ const SnackbarItem = ({
         type={type}
         body={body}
         onClose={showClose ? handleClose : undefined}
+        position={position}
       />
     </div>
   )

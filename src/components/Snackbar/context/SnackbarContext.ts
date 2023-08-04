@@ -11,6 +11,8 @@ export interface EnqueueSnackbarArguments extends SnackbarProps {
 export interface SnackbarContext {
   enqueueSnackbar: (props: EnqueueSnackbarArguments) => string
   closeSnackbar: (id?: string) => void
+
+  position: SnackbarProps["position"]
 }
 
 export const SnackbarContext = createContext<SnackbarContext | null>(null)

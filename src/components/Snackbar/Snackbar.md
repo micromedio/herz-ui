@@ -72,6 +72,7 @@ const { enqueueSnackbar } = useSnackbar()
     onClick={() => enqueueSnackbar({
       title: "Hello!",
       type: "success",
+      isPersistent:true,
     })}
   >
     Show Snackbar

@@ -10,9 +10,13 @@ export interface SnackbarProps {
   title: string
   body?: React.ReactNode
   onClose?: () => void
+  position?: {
+    horizontal: "left" | "center" | "right"
+    vertical: "top" | "bottom"
+  }
 }
 
-const Snackbar = ({ type, title, body, onClose }: SnackbarProps) => {
+const Snackbar = ({ type, title, body, onClose, position }: SnackbarProps) => {
   const typeIcon = useMemo(() => {
     switch (type) {
       case "success":
@@ -43,7 +47,27 @@ const Snackbar = ({ type, title, body, onClose }: SnackbarProps) => {
   return (
     <div
       sx={{
+        animation: "spin  0.5s forwards",
+        "@keyframes spin": {
+          from: {
+            ...(position?.horizontal === "right" && {
+              right: "-4rem",
+            }),
+            ...(position?.horizontal === "left" && {
+              left: "-4rem",
+            }),
+          },
+          to: {
+            ...(position?.horizontal === "right" && {
+              right: "0rem",
+            }),
+            ...(position?.horizontal === "left" && {
+              left: "0rem",
+            }),
+          },
+        },
         display: "grid",
+        position: "relative",
         gridTemplateAreas: `
           "icon title close"
           ${body ? `"icon body close"` : ""}
