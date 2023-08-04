@@ -47,8 +47,8 @@ const Snackbar = ({ type, title, body, onClose, position }: SnackbarProps) => {
   return (
     <div
       sx={{
-        animation: "spin  0.5s forwards",
-        "@keyframes spin": {
+        animation: "moves  0.3s  ease-out 1",
+        "@keyframes moves": {
           from: {
             ...(position?.horizontal === "right" && {
               right: "-4rem",
