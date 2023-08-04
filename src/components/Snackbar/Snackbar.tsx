@@ -104,13 +104,13 @@ const Snackbar = ({ type, title, body, onClose }: SnackbarProps) => {
               width: 20,
               height: 20,
               color: "#fff",
-              backgroundColor: "text.40",
+              backgroundColor: "transparent",
               "&&:hover": {
                 backgroundColor: "text.70",
               },
               "> svg": {
-                width: 14,
-                height: 14,
+                width: 20,
+                height: 20,
               },
             }}
             onClick={onClose}

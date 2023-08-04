@@ -44,6 +44,16 @@ Snackbars are used to display feedback to the user, for example when something i
 />
 ```
 
+#### With Close Button & Custom Body
+```jsx
+<Snackbar
+  type="success"
+  title="Success! Now close it"
+  onClose={() => alert("closed!")}
+  body={<>Enviamos convites para os novos membros realizarem o cadastro na plataforma</> }
+/>
+```
+
 ### useSnackbar hook
 
 The easiest way to use the snackbars is to wrap your app in the SnackbarProvider and use the useSnackbar hook.
