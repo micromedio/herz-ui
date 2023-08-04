@@ -61,6 +61,8 @@ export interface TableProps<
   initialPageSize?: number
   /** Initial page index */
   initialPageIndex?: number
+  /** If true removes pagination and do querys when scroll */
+  infiniteScroll?: boolean
 
   /** Callback called when pagination or sorting changes */
   onTableChange?: ({
@@ -104,6 +106,8 @@ function Table<
   totalCount: controlledTotalCount = data.length,
   initialPageSize = 10,
   initialPageIndex = 0,
+
+  infiniteScroll,
 
   onTableChange,
   className,
@@ -356,13 +360,13 @@ function Table<
               >
                 <div
                   sx={{
-                    p: 2,
+                    p: 0,
                     minWidth: "fit-content",
                     borderBottom: (theme) =>
                       `1px solid ${get(theme, "colors.text.90")}`,
                     transition: "all 0.2s",
                     backgroundColor: !!selectedRowIds[row.id]
-                      ? "secondary.alpha.95"
+                      ? "#fafafa"
                       : "transparent",
                   }}
                 >
@@ -372,13 +376,17 @@ function Table<
                       if (rowClickable) onRowClick?.(row.original)
                     }}
                     sx={{
-                      borderRadius: 3,
+                      p: 2,
+                      borderRadius: 0,
                       transition: "all 0.2s",
                       cursor: rowClickable ? "pointer" : "auto",
 
                       "&:hover": {
+                        "*": {
+                          fontWeight: "semibold",
+                        },
                         backgroundColor: !selectedRowIds[row.id]
-                          ? "secondary.alpha.95"
+                          ? "#fafafa" //"secondary.alpha.95"
                           : "transparent",
                       },
                     }}
@@ -404,9 +412,9 @@ function Table<
                                 : {}),
                             }}
                           >
-                            {!!activeRowIds?.[row.id] && (
+                            {/* {!!activeRowIds?.[row.id] && (
                               <Icon name="IconEye" />
-                            )}
+                            )} */}
                           </div>
                         )
                       }
@@ -491,58 +499,63 @@ function Table<
       </div>
 
       {/* Pagination */}
-      <div
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          px: 8,
-          pt: 6,
-        }}
-      >
+
+      {!infiniteScroll && (
         <div
           sx={{
             display: "flex",
-            gap: 2,
+            justifyContent: "space-between",
             alignItems: "center",
-            variant: "text.body1",
-            color: "text.40",
+            px: 8,
+            pt: 6,
           }}
         >
-          <span>Showing</span>
-          <div sx={{ flexShrink: 0 }}>
-            <Select
-              value={pageSize}
-              defaultValue={initialPageSize}
-              onChange={(selectedItem) => {
-                if (selectedItem)
-                  setPageSize(Number.parseInt(selectedItem.toString() ?? "10"))
-              }}
-            >
-              <Select.Option value={5}>5</Select.Option>
-              <Select.Option value={10}>10</Select.Option>
-              <Select.Option value={25}>25</Select.Option>
-              <Select.Option value={50}>50</Select.Option>
-            </Select>
+          <div
+            sx={{
+              display: "flex",
+              gap: 2,
+              alignItems: "center",
+              variant: "text.body1",
+              color: "text.40",
+            }}
+          >
+            <span>Mostrando</span>
+            <div sx={{ flexShrink: 0 }}>
+              <Select
+                value={pageSize}
+                defaultValue={initialPageSize}
+                onChange={(selectedItem) => {
+                  if (selectedItem)
+                    setPageSize(
+                      Number.parseInt(selectedItem.toString() ?? "10")
+                    )
+                }}
+              >
+                <Select.Option value={5}>5</Select.Option>
+                <Select.Option value={10}>10</Select.Option>
+                <Select.Option value={25}>25</Select.Option>
+                <Select.Option value={50}>50</Select.Option>
+              </Select>
+            </div>
+            <span>
+              itens por página de um total de{" "}
+              {totalCount || (
+                <Skeleton
+                  sx={{ display: "inline-flex" }}
+                  variant="text"
+                  width={36}
+                />
+              )}{" "}
+              resultados
+            </span>
           </div>
-          <span>
-            results per page from a total of{" "}
-            {totalCount || (
-              <Skeleton
-                sx={{ display: "inline-flex" }}
-                variant="text"
-                width={36}
-              />
-            )}{" "}
-            results
-          </span>
+          <Pagination
+            page={pageIndex + 1}
+            count={pageCount}
+            onChange={(page) => gotoPage(page - 1)}
+          />
         </div>
-        <Pagination
-          page={pageIndex + 1}
-          count={pageCount}
-          onChange={(page) => gotoPage(page - 1)}
-        />
-      </div>
+      )}
     </div>
   )
 }

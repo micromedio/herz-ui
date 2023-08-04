@@ -4,5 +4,15 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.js"
-  ]
+  ],
+  "rules": {
+    "react/no-unknown-property": [
+      2,
+      {
+        "ignore": [
+          "jsx"
+        ]
+      }
+    ]
+  }
 }
