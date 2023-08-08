@@ -31,6 +31,7 @@ interface CommonProps<T extends unknown> {
   label?: string
   /** It basically returns the changes object of Combobox state with the input value, which must be used to filter the auto-complete options. */
   onInputValueChange: (comboboxStateChange: UseComboboxStateChange<T>) => void
+
   /** Event triggered when the menu open or close */
   onIsOpenChange?: (isOpen?: boolean) => void
   /** Text to show after label if field is not required (optional) */
@@ -38,6 +39,10 @@ interface CommonProps<T extends unknown> {
   /** The Array with the options to be rendered */
   options: T[]
   /** It will return the string equivalent of the item which will be used for displaying the item in the <input> once selected */
+  inputTag?: boolean
+
+  validationRegex?: RegExp
+  onKeyEnter?: (inputValue: string) => void
   optionToString?: (option: T | null) => string
   /** Placeholder text content */
   placeholder?: string
@@ -99,10 +104,13 @@ interface MultiProps<T extends unknown> extends CommonProps<T> {
   keepSearchAfterSelect?: boolean
   /** Whether the component is multiselect or not */
   multiSelect: true
+
   /** The event handler for removing the Tag */
   onRemove?: (option: T) => void
   /** Callback fired when the selected item is changed */
   onSelectedItemsChange: (changes: T[]) => void
+
+  onKeyEnter?: (inputValue: string) => void
   /** Renders the selected items as html */
   renderSelectedItems?: (option: T[], isOpen?: boolean) => ReactNode
   /** The value of the `input` element */
@@ -128,6 +136,9 @@ export default forwardRef(function Autocomplete<T>(
     id,
     label,
     onInputValueChange,
+    onKeyEnter,
+    validationRegex,
+    inputTag,
     onIsOpenChange,
     optionalText,
     options,
@@ -291,6 +302,15 @@ export default forwardRef(function Autocomplete<T>(
         ref: inputRef,
         type: "text",
         value: inputValue || "",
+        onKeyPress:
+          props.multiSelect && inputTag
+            ? (event) => {
+                event.key === "Enter" &&
+                  inputValue &&
+                  onKeyEnter &&
+                  onKeyEnter(inputValue)
+              }
+            : undefined,
         onKeyDown: props.multiSelect
           ? (event) => {
               /* istanbul ignore else */
@@ -362,6 +382,7 @@ export default forwardRef(function Autocomplete<T>(
             <div
               {...getMenuProps({}, { suppressRefError: true })}
               sx={{
+                display: inputTag ? "none" : "block",
                 background: "#fff",
                 border: "1px solid #E8E8E9",
                 borderRadius: 4,
@@ -541,16 +562,22 @@ export default forwardRef(function Autocomplete<T>(
               >
                 {!!props.renderSelectedItems
                   ? props.renderSelectedItems(selectedOption as T[], isOpen)
-                  : (selectedOption as T[]).map((option, index) => (
-                      <Tag
-                        key={`${props.getOptionLabel?.(option)}-${index}`}
-                        color={props.tagColor}
-                        onRemove={() => props.onRemove?.(option)}
-                        showRemove={isOpen && !!props.onRemove}
-                      >
-                        {props.getOptionLabel?.(option)}
-                      </Tag>
-                    ))}
+                  : (selectedOption as any).map((option: any, index: any) => {
+                      const isValid = validationRegex
+                        ? validationRegex.test(option?.value as string)
+                        : true
+
+                      return (
+                        <Tag
+                          key={`${props.getOptionLabel?.(option)}-${index}`}
+                          color={isValid ? props.tagColor : "primary"}
+                          onRemove={() => props.onRemove?.(option)}
+                          showRemove={isOpen && !!props.onRemove}
+                        >
+                          {props.getOptionLabel?.(option)}
+                        </Tag>
+                      )
+                    })}
                 {autocompleteInput}
               </div>
             )}
