@@ -151,3 +151,49 @@ const [items, setItems] = React.useState(mockedOptions)
   />
 );
 ```
+
+### Multiple Input With Tags
+```jsx
+import EditableField from '../EditableField'
+import Highlight from "../../Highlight/Highlight"
+const mockedOptions = []
+const [items, setItems] = React.useState(mockedOptions)
+  const [value, setValue] = React.useState([])
+  const [defaultValue, setDefaultValue] = React.useState([])
+
+;(
+  <EditableField.Autocomplete
+    defaultSelectedOption={defaultValue}
+    getOptionLabel={(option) => option.label}
+    multiSelect
+    inputTag
+    required
+
+    validationRegex={new RegExp(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/, "gm")}
+
+    onKeyEnter={(inputValue )=>{
+      setValue([...value,{label:inputValue, value:inputValue}]);
+    }}
+
+    onInputValueChange={({inputValue }) => {
+     
+
+    }}
+    onRemove={(option) => {
+      setValue(value.filter((selected) => selected.value !== option.value))
+    }}
+    onSave={(newValue) => {
+      console.log(newValue,'new')
+      setDefaultValue(newValue)
+    }}
+    onSelectedItemsChange={(options) => {
+      setValue(options)
+    }}
+    options={items.slice(0, 5)}
+    placeholder="Search by organization's name or handle"
+
+    selectedOption={value}
+    totalCount={items.length}
+  />
+);
+```

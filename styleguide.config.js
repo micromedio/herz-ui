@@ -27,9 +27,7 @@ module.exports = {
     {
       name: "Herz - Components - v2.0",
       content: "./docs/components.md",
-      components: ['src/components/Snackbar/**/*.tsx','src/components/Tooltip/**/*.tsx','src/components/PlusLabel/**/*.tsx'],
-      ignore: ["src/components/EditableField/**/*.tsx"],
-  
+      components: ['src/components/Snackbar/**/*.tsx','src/components/Tooltip/**/*.tsx','src/components/PlusLabel/**/*.tsx', 'src/components/EditableField/Autocomplete/*.tsx'],
     },
     {
       name: "Components",
