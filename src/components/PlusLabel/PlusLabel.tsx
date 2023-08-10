@@ -24,7 +24,7 @@ export default function PlusLabel({
       }}
     >
       {labels?.map(
-        (string, index) => index === 0 && <label key={index}>string</label>
+        (string, index) => index === 0 && <label key={index}>{string}</label>
       )}
       <Tooltip title={tooltip} custom={customTooltip} placement="top">
         <Button variant="filled" color="text">
