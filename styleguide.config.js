@@ -1,60 +1,66 @@
-const path = require("path")
-const { version } = require("./package.json")
+const path = require('path');
+const { version } = require('./package.json');
 
 module.exports = {
-  assetsDir: "src/assets/",
+  assetsDir: 'src/assets/',
   ignore: [
-    "src/components/**/*.test.tsx",
-    "src/components/**/*.stories.tsx",
-    "src/components/Button/ButtonExamples.tsx",
-    "src/components/EditableField/EditableField.tsx",
-    "src/components/Select/SelectOption.tsx",
-    "src/components/Select/SelectOptionCustom.tsx",
-    "src/components/RadioGroup/RadioGroupContext.tsx",
+    'src/components/**/*.test.tsx',
+    'src/components/**/*.stories.tsx',
+    'src/components/Button/ButtonExamples.tsx',
+    'src/components/EditableField/EditableField.tsx',
+    'src/components/Select/SelectOption.tsx',
+    'src/components/Select/SelectOptionCustom.tsx',
+    'src/components/RadioGroup/RadioGroupContext.tsx',
   ],
   version: `${version}`,
   styleguideComponents: {
-    Wrapper: path.join(__dirname, "src/docs/Providers"),
+    Wrapper: path.join(__dirname, 'src/docs/Providers'),
   },
-  require: ["normalize.css"],
-  propsParser: require("react-docgen-typescript").parse,
+  require: ['normalize.css'],
+  propsParser: require('react-docgen-typescript').parse,
   skipComponentsWithoutExample: true,
   sections: [
     {
-      name: "Introduction",
-      content: "./docs/index.md",
+      name: 'Introduction',
+      content: './docs/index.md',
     },
     {
-      name: "Herz - Components - v2.0",
-      content: "./docs/components.md",
-      components: ['src/components/Snackbar/**/*.tsx','src/components/Tooltip/**/*.tsx','src/components/PlusLabel/**/*.tsx', 'src/components/EditableField/Autocomplete/*.tsx'],
+      name: 'Herz - Components - v2.0',
+      content: './docs/components.md',
+      components: [
+        'src/components/Snackbar/**/*.tsx',
+        'src/components/Tooltip/**/*.tsx',
+        'src/components/PlusLabel/**/*.tsx',
+        'src/components/EditableField/Autocomplete/*.tsx',
+      ],
     },
     {
-      name: "Components",
-      content: "./docs/components.md",
-      components: "src/components/**/*.tsx",
-      ignore: ["src/components/EditableField/**/*.tsx"],
+      name: 'Components',
+      content: './docs/components.md',
+      components: 'src/components/**/*.tsx',
+      ignore: ['src/components/EditableField/**/*.tsx'],
       sections: [
         {
-          name: "EditableField",
-          components: "src/components/EditableField/**/*.tsx",
-          content: "src/components/EditableField/EditableField.md",
+          name: 'EditableField',
+          components: 'src/components/EditableField/**/*.tsx',
+          content: 'src/components/EditableField/EditableField.md',
         },
       ],
     },
   ],
   theme: {
     fontFamily: {
-      base: "Gilroy",
+      base: 'Gilroy',
     },
   },
   template: {
     head: {
       links: [
         {
-          rel: "stylesheet",
-          href: "https://cdn.micromed.health/fonts/gilroy/stylesheet.css",        },
+          rel: 'stylesheet',
+          href: 'https://cdn.micromed.health/fonts/gilroy/stylesheet.css',
+        },
       ],
     },
   },
-}
+};

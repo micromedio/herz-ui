@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
   diffOptions: { threshold: 0.02 },
@@ -20,4 +20,4 @@ module.exports = {
       limit: 2,
     },
   },
-}
+};

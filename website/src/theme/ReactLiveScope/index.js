@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import * as HerzUI from '@micromed/herz-ui'
+import * as HerzUI from '@micromed/herz-ui';
 
 // Add react-live imports you need here
 const ReactLiveScope = {

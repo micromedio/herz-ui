@@ -1,10 +1,10 @@
-import * as TablerIcons from "@tabler/icons"
+import * as TablerIcons from "@tabler/icons-react"
 import React, { SVGAttributes } from "react"
 
-type IconType = typeof import("@tabler/icons")
+type IconType = typeof import("@tabler/icons-react")
 
 export interface IconProps {
-  name: keyof IconType
+  name: keyof Omit<IconType, "iconsList" | "icons" | "createReactComponent">
 
   // set custom `width` and `height`
   size?: number

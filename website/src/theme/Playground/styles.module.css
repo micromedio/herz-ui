@@ -36,12 +36,10 @@
 
 .playgroundPreview {
   padding: 1rem;
-  /* background-color: var(--ifm-pre-background); */
-  background-color: #F9F9F9;
-
+  background-color: #f9f9f9;
   color: var(--theme-ui-colors-text);
   font-family: Gilroy;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 400;
   line-height: 1.4285714285714286;
 }
