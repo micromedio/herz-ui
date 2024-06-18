@@ -17,9 +17,7 @@ import {
 import Icon, { IconProps } from "../Icon/Icon"
 import { InputGroupContext } from "../InputGroup/Context"
 
-export interface InputProps
-  extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>,
-    TextareaHTMLAttributes<HTMLTextAreaElement | HTMLInputElement> {
+export type InputProps = {
   /** Input type */
   type?: HTMLInputElement["type"]
   /** The value of the `input` element, required for a controlled component */
@@ -51,7 +49,8 @@ export interface InputProps
   multiline?: boolean
   /** If true, the textarea will grow as the user types */
   autoExpand?: boolean
-}
+} & InputHTMLAttributes<HTMLInputElement> &
+  TextareaHTMLAttributes<HTMLTextAreaElement>
 
 export function autoExpander(element?: HTMLTextAreaElement): void {
   if (!element || !element.scrollHeight) return

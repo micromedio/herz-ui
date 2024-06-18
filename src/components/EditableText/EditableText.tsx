@@ -7,6 +7,8 @@ import {
   useRef,
   useImperativeHandle,
   useCallback,
+  FocusEvent,
+  MouseEvent,
 } from "react"
 import Button from "../Button/Button"
 import Spinner from "../Spinner/Spinner"
@@ -68,7 +70,7 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
     }
 
     const handleOnChange = useCallback(
-      (value, _event) => {
+      (_: unknown, _event: FocusEvent | MouseEvent) => {
         const event = Object.create(_event)
         event.type = "change"
         event.target = inputRef.current

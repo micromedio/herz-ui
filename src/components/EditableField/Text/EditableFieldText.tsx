@@ -79,7 +79,7 @@ const EditableText = forwardRef<
   }
 
   const onReset = useCallback(
-    (_event) => {
+    (_event: any) => {
       const event = Object.create(_event)
       event.type = "change"
       event.target = inputRef.current
