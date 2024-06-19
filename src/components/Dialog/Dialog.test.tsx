@@ -1,12 +1,12 @@
-import { useState } from "react"
-import { render, waitFor } from "../../tests/utils"
-import userEvent from "@testing-library/user-event"
-import Button from "../Button/Button"
-import Dialog from "./Dialog"
+import { useState } from 'react';
+import { render, waitFor } from '../../tests/utils';
+import userEvent from '@testing-library/user-event';
+import Button from '../Button/Button';
+import Dialog from './Dialog';
 
-describe("Desktop Modal | integration test", () => {
+describe('Desktop Modal | integration test', () => {
   const ModalWrapper = ({ open = false }: { open?: boolean }) => {
-    const [isOpen, setOpen] = useState(open)
+    const [isOpen, setOpen] = useState(open);
 
     return (
       <>
@@ -15,13 +15,13 @@ describe("Desktop Modal | integration test", () => {
           <div>Modal info</div>
         </Dialog>
       </>
-    )
-  }
-  test("if modal opens on click and renders info", async () => {
-    const { getByText } = render(<ModalWrapper />)
-    userEvent.click(getByText("Toggle open", { exact: false }))
+    );
+  };
+  test('if modal opens on click and renders info', async () => {
+    const { getByText } = render(<ModalWrapper />);
+    userEvent.click(getByText('Toggle open', { exact: false }));
     await waitFor(() => {
-      expect(getByText(/modal info/i)).toBeInTheDocument()
-    })
-  })
-})
+      expect(getByText(/modal info/i)).toBeInTheDocument();
+    });
+  });
+});

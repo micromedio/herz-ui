@@ -1,47 +1,47 @@
 /** @jsxImportSource theme-ui */
-import MobileModal, { MobileModalProps } from "./MobileModal"
-import { Meta, Story } from "@storybook/react/types-6-0"
-import Button from "../Button/Button"
-import React, { useState } from "react"
-import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport"
-import { Icon } from ".."
-import ListSelect from "../ListSelect/ListSelect"
-import TextField from "../TextField/TextField"
-import { CreeveyMeta } from "creevey"
+import MobileModal, { MobileModalProps } from './MobileModal';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import Button from '../Button/Button';
+import React, { useState } from 'react';
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { Icon } from '..';
+import ListSelect from '../ListSelect/ListSelect';
+import TextField from '../TextField/TextField';
+import { CreeveyMeta } from 'creevey';
 
 export default {
-  title: "Design System/MobileModal",
+  title: 'Design System/MobileModal',
   component: MobileModal,
   parameters: {
     viewport: {
       //👇 The viewports you want to use
       viewports: INITIAL_VIEWPORTS,
       //👇 Your own default viewport
-      defaultViewport: "iphone5",
+      defaultViewport: 'iphone5',
     },
     creevey: {
       captureElement: null,
     },
   },
-} as Meta & CreeveyMeta
+} as Meta & CreeveyMeta;
 
 const valueListItems = [
   {
-    label: "ICU 2nd Floor 2.4GHz",
-    value: "icu 2nd floor 2.4ghz",
-    suffix: <Icon name="IconWifi" sx={{ color: "secondary" }} />,
+    label: 'ICU 2nd Floor 2.4GHz',
+    value: 'icu 2nd floor 2.4ghz',
+    suffix: <Icon name="IconWifi" sx={{ color: 'secondary' }} />,
   },
   {
-    label: "ICU 1st Floor 2.4GHz",
-    value: "icu 1st floor 2.4ghz",
-    suffix: <Icon name="IconWifi2" sx={{ color: "secondary" }} />,
+    label: 'ICU 1st Floor 2.4GHz',
+    value: 'icu 1st floor 2.4ghz',
+    suffix: <Icon name="IconWifi2" sx={{ color: 'secondary' }} />,
   },
   {
-    label: "ICU Front Desk 2.4GHz",
-    value: "icu front desk 2.4ghz",
-    suffix: <Icon name="IconWifi1" sx={{ color: "secondary" }} />,
+    label: 'ICU Front Desk 2.4GHz',
+    value: 'icu front desk 2.4ghz',
+    suffix: <Icon name="IconWifi1" sx={{ color: 'secondary' }} />,
   },
-]
+];
 
 const ModalContent = () => (
   <React.Fragment>
@@ -50,7 +50,7 @@ const ModalContent = () => (
     </h1>
     <ListSelect options={valueListItems} />
   </React.Fragment>
-)
+);
 
 const DraggableTemplate: Story<MobileModalProps> = (
   props: MobileModalProps
@@ -65,13 +65,13 @@ const DraggableTemplate: Story<MobileModalProps> = (
         <ModalContent />
       </MobileModal>
     </div>
-  )
-}
+  );
+};
 
 const DraggableAndScrolalbleTemplate: Story<MobileModalProps> = (
   props: MobileModalProps
 ) => {
-  const [password, setPassword] = useState(``)
+  const [password, setPassword] = useState(``);
 
   return (
     <div style={{ height: `100%`, width: 300 }}>
@@ -84,7 +84,7 @@ const DraggableAndScrolalbleTemplate: Story<MobileModalProps> = (
         <div sx={{ margin: `16px 0` }}>
           <TextField
             onChange={(event) => {
-              setPassword(event.target.value)
+              setPassword(event.target.value);
             }}
             type="password"
             value={password}
@@ -92,7 +92,7 @@ const DraggableAndScrolalbleTemplate: Story<MobileModalProps> = (
           <Button
             color="primary"
             onClick={() => {
-              window.alert(`Connected with the password: ${password}`)
+              window.alert(`Connected with the password: ${password}`);
             }}
             sx={{ marginTop: 5, width: `100%` }}
           >
@@ -124,7 +124,7 @@ const DraggableAndScrolalbleTemplate: Story<MobileModalProps> = (
             (The Extremes of Good and Evil) by Cicero, written in 45 BC. This
             book is a treatise on the theory of ethics, very popular during the
             Renaissance. The first line of Lorem Ipsum, &ldquo;Lorem ipsum dolor
-            sit amet..&ldquo;, comes from a line in section 1.10.32.{" "}
+            sit amet..&ldquo;, comes from a line in section 1.10.32.{' '}
           </p>
           <p>
             The standard chunk of Lorem Ipsum used since the 1500s is reproduced
@@ -162,19 +162,19 @@ const DraggableAndScrolalbleTemplate: Story<MobileModalProps> = (
         </span>
       </MobileModal>
     </div>
-  )
-}
+  );
+};
 
 const NonDismissibleTemplate: Story<MobileModalProps> = (
   props: MobileModalProps
 ) => {
-  const [isOpen, setIsOpen] = useState<boolean>(props.open || false)
+  const [isOpen, setIsOpen] = useState<boolean>(props.open || false);
 
   return (
     <div style={{ height: `100%`, width: 300 }}>
       <Button
         onClick={() => {
-          setIsOpen(!isOpen)
+          setIsOpen(!isOpen);
         }}
       >
         Toggle Open
@@ -187,7 +187,7 @@ const NonDismissibleTemplate: Story<MobileModalProps> = (
             display: `flex`,
             flexDirection: `column`,
             justifyContent: `space-evenly`,
-            "> button:first-of-type": {
+            '> button:first-of-type': {
               alignSelf: `flex-start`,
               marginBottom: 64,
             },
@@ -197,7 +197,7 @@ const NonDismissibleTemplate: Story<MobileModalProps> = (
             color="text"
             iconName="IconChevronLeft"
             onClick={() => {
-              setIsOpen(!isOpen)
+              setIsOpen(!isOpen);
             }}
             variant="filled"
           >
@@ -207,19 +207,19 @@ const NonDismissibleTemplate: Story<MobileModalProps> = (
         </div>
       </MobileModal>
     </div>
-  )
-}
+  );
+};
 
 const DismissibleTemplate: Story<MobileModalProps> = (
   props: MobileModalProps
 ) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <div style={{ height: `100%`, width: 300 }}>
       <Button
         onClick={() => {
-          setIsOpen(!isOpen)
+          setIsOpen(!isOpen);
         }}
       >
         Toggle Open
@@ -227,7 +227,7 @@ const DismissibleTemplate: Story<MobileModalProps> = (
       <MobileModal
         {...props}
         onDismiss={() => {
-          setIsOpen(false)
+          setIsOpen(false);
         }}
         open={isOpen}
       >
@@ -238,7 +238,7 @@ const DismissibleTemplate: Story<MobileModalProps> = (
             display: `flex`,
             flexDirection: `column`,
             justifyContent: `space-evenly`,
-            "> button:first-of-type": {
+            '> button:first-of-type': {
               alignSelf: `flex-start`,
               marginBottom: 64,
             },
@@ -248,7 +248,7 @@ const DismissibleTemplate: Story<MobileModalProps> = (
             color="text"
             iconName="IconChevronLeft"
             onClick={() => {
-              setIsOpen(!isOpen)
+              setIsOpen(!isOpen);
             }}
             variant="filled"
           >
@@ -258,57 +258,57 @@ const DismissibleTemplate: Story<MobileModalProps> = (
         </div>
       </MobileModal>
     </div>
-  )
-}
+  );
+};
 
-export const Default = NonDismissibleTemplate.bind({})
+export const Default = NonDismissibleTemplate.bind({});
 
-export const DefaultOpen = NonDismissibleTemplate.bind({})
+export const DefaultOpen = NonDismissibleTemplate.bind({});
 DefaultOpen.args = {
   ...DefaultOpen.args,
   topSpacing: 160,
   open: true,
-}
+};
 
-export const Dismissible = DismissibleTemplate.bind({})
+export const Dismissible = DismissibleTemplate.bind({});
 Dismissible.args = {
   ...Dismissible.args,
   topSpacing: 160,
-}
+};
 
-export const Draggable = DraggableTemplate.bind({})
+export const Draggable = DraggableTemplate.bind({});
 Draggable.args = {
   ...Draggable.args,
   draggable: true,
   overflowHeight: 64,
-}
+};
 
-export const DraggableWithoutOverflow = DraggableTemplate.bind({})
+export const DraggableWithoutOverflow = DraggableTemplate.bind({});
 DraggableWithoutOverflow.args = {
   ...DraggableWithoutOverflow.args,
   draggable: true,
-}
+};
 
-export const DraggableAndScrollable = DraggableAndScrolalbleTemplate.bind({})
+export const DraggableAndScrollable = DraggableAndScrolalbleTemplate.bind({});
 DraggableAndScrollable.args = {
   ...DraggableWithoutOverflow.args,
   draggable: true,
   overflowHeight: 64,
   topSpacing: 128,
-}
+};
 
-export const DraggableFullscreen = DraggableAndScrolalbleTemplate.bind({})
+export const DraggableFullscreen = DraggableAndScrolalbleTemplate.bind({});
 DraggableFullscreen.args = {
   ...DraggableFullscreen.args,
   draggable: true,
   overflowHeight: 64,
   topSpacing: 0,
-}
+};
 
-export const DraggableAndDismissible = DraggableTemplate.bind({})
+export const DraggableAndDismissible = DraggableTemplate.bind({});
 DraggableAndDismissible.args = {
   ...DraggableAndDismissible.args,
   dismissible: true,
   draggable: true,
   overflowHeight: 64,
-}
+};

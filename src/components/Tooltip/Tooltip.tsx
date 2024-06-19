@@ -1,14 +1,14 @@
 /** @jsxImportSource theme-ui */
-import Popover, { PopoverProps } from "../Popover/Popover"
+import Popover, { PopoverProps } from '../Popover/Popover';
 
 export interface TooltipProps {
-  title: string
-  children: PopoverProps["children"]
-  placement?: PopoverProps["placement"]
-  trigger?: PopoverProps["trigger"]
-  isVisible?: PopoverProps["isVisible"]
-  isInteractive?: PopoverProps["isInteractive"]
-  custom?: React.ReactNode
+  title: string;
+  children: PopoverProps['children'];
+  placement?: PopoverProps['placement'];
+  trigger?: PopoverProps['trigger'];
+  isVisible?: PopoverProps['isVisible'];
+  isInteractive?: PopoverProps['isInteractive'];
+  custom?: React.ReactNode;
 }
 
 export default function Tooltip({
@@ -30,12 +30,12 @@ export default function Tooltip({
       content={
         <div
           sx={{
-            variant: "text.body2",
+            variant: 'text.body2',
             fontWeight: 600,
             fontSize: 12,
-            "h2,h3,h4,h5,h6": { color: "#fff", fontSize: "1rem" },
-            p: { color: "#BBBBBB" },
-            strong: { color: "#fff" },
+            'h2,h3,h4,h5,h6': { color: '#fff', fontSize: '1rem' },
+            p: { color: '#BBBBBB' },
+            strong: { color: '#fff' },
           }}
         >
           {title} {custom && custom}
@@ -46,5 +46,5 @@ export default function Tooltip({
     >
       {children}
     </Popover>
-  )
+  );
 }

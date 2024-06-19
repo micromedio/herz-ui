@@ -1,21 +1,21 @@
 /** @jsxImportSource theme-ui */
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from 'react';
 
-import Button from "../Button/Button"
-import Icon from "../Icon/Icon"
-import Popover from "../Popover/Popover"
-import { SelectContext } from "./context"
-import { SelectValue } from "./Select"
+import Button from '../Button/Button';
+import Icon from '../Icon/Icon';
+import Popover from '../Popover/Popover';
+import { SelectContext } from './context';
+import { SelectValue } from './Select';
 
 export interface SelectOptionCustomProps {
-  value: SelectValue
+  value: SelectValue;
   children: ({
     closeMenu,
     selectItem,
-  }: Pick<SelectContext, "closeMenu" | "selectItem">) => React.ReactNode
-  label?: React.ReactNode
-  disabled?: boolean
-  onHide?: () => void
+  }: Pick<SelectContext, 'closeMenu' | 'selectItem'>) => React.ReactNode;
+  label?: React.ReactNode;
+  disabled?: boolean;
+  onHide?: () => void;
 }
 
 export const SelectOptionCustom = ({
@@ -24,11 +24,11 @@ export const SelectOptionCustom = ({
   disabled = false,
   onHide,
 }: SelectOptionCustomProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-  const context = useContext(SelectContext)
+  const context = useContext(SelectContext);
   if (context === null) {
-    throw "<SelectOptionCustom> needs to be inside a <Select> component"
+    throw '<SelectOptionCustom> needs to be inside a <Select> component';
   }
 
   const {
@@ -38,17 +38,17 @@ export const SelectOptionCustom = ({
     selectedItem,
     closeMenu,
     getItemProps,
-  } = context
+  } = context;
 
-  const isSelected = JSON.stringify(selectedItem) === JSON.stringify(value)
+  const isSelected = JSON.stringify(selectedItem) === JSON.stringify(value);
 
   useEffect(() => {
     if (highlightedIndex === index) {
-      setIsOpen(true)
+      setIsOpen(true);
     } else {
-      setIsOpen(false)
+      setIsOpen(false);
     }
-  }, [highlightedIndex, index])
+  }, [highlightedIndex, index]);
 
   return (
     <Popover
@@ -61,8 +61,8 @@ export const SelectOptionCustom = ({
         mb: -4,
       }}
       onHide={() => {
-        setIsOpen(false)
-        onHide?.()
+        setIsOpen(false);
+        onHide?.();
       }}
       content={
         <div
@@ -79,26 +79,26 @@ export const SelectOptionCustom = ({
         variant="plain"
         color="secondary"
         sx={{
-          display: "flex",
-          width: "100%",
+          display: 'flex',
+          width: '100%',
           p: 2,
           ...(highlightedIndex === index
             ? {
-                backgroundColor: "secondary.alpha.85",
+                backgroundColor: 'secondary.alpha.85',
               }
             : {}),
           ...(isSelected
             ? {
-                color: "secondary",
-                backgroundColor: "secondary.90",
-                fontWeight: "bold",
+                color: 'secondary',
+                backgroundColor: 'secondary.90',
+                fontWeight: 'bold',
 
-                "&&:hover": {
-                  backgroundColor: "secondary.alpha.85",
+                '&&:hover': {
+                  backgroundColor: 'secondary.alpha.85',
                 },
               }
             : {}),
-          "> *:first-of-type": {
+          '> *:first-of-type': {
             flexGrow: 1,
           },
         }}
@@ -110,17 +110,17 @@ export const SelectOptionCustom = ({
       >
         <div
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
             gap: 2,
           }}
         >
           <span>Customizar...</span>
           <div
             sx={{
-              display: "flex",
-              alignItems: "center",
+              display: 'flex',
+              alignItems: 'center',
               width: 20,
               height: 20,
               p: 1,
@@ -131,7 +131,7 @@ export const SelectOptionCustom = ({
         </div>
       </Button>
     </Popover>
-  )
-}
+  );
+};
 
-SelectOptionCustom.isSelectOptionCustom = true
+SelectOptionCustom.isSelectOptionCustom = true;

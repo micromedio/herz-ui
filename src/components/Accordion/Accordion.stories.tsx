@@ -1,13 +1,13 @@
 /** @jsxImportSource theme-ui */
 
-import Accordion, { AccordionProps } from "./Accordion"
-import { Meta, Story } from "@storybook/react/types-6-0"
-import Paper from "../Paper/Paper"
-import Button from "../Button/Button"
-import ValueList from "../ValueList/ValueList"
+import Accordion, { AccordionProps } from './Accordion';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import Paper from '../Paper/Paper';
+import Button from '../Button/Button';
+import ValueList from '../ValueList/ValueList';
 
 export default {
-  title: "Design System/Accordion",
+  title: 'Design System/Accordion',
   component: Accordion,
   decorators: [
     (Story) => (
@@ -16,22 +16,22 @@ export default {
       </Paper>
     ),
   ],
-} as Meta
+} as Meta;
 
-const Template: Story<AccordionProps> = (props) => <Accordion {...props} />
+const Template: Story<AccordionProps> = (props) => <Accordion {...props} />;
 
 // Each story then reuses that template
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 Default.args = {
   children: [
-    <Accordion.Item key={4} title="#4" sx={{ display: "grid" }}>
+    <Accordion.Item key={4} title="#4" sx={{ display: 'grid' }}>
       <ValueList
         items={[
-          { label: "Start date", value: "05/13/2021, 9:00 AM" },
-          { label: "Finish date", value: "05/16/2021, 9:44 AM" },
-          { label: "Session length", value: "72 h 44 min" },
-          { label: "Abnormal QTc’s", value: "3" },
-          { label: "Highest QTc", value: "500 ms" },
+          { label: 'Start date', value: '05/13/2021, 9:00 AM' },
+          { label: 'Finish date', value: '05/16/2021, 9:44 AM' },
+          { label: 'Session length', value: '72 h 44 min' },
+          { label: 'Abnormal QTc’s', value: '3' },
+          { label: 'Highest QTc', value: '500 ms' },
         ]}
       />
       <Button color="secondary" variant="filledLight">
@@ -62,10 +62,10 @@ Default.args = {
       </p>
     </Accordion.Item>,
   ],
-}
+};
 
-export const WithInitialOpen = Template.bind({})
+export const WithInitialOpen = Template.bind({});
 WithInitialOpen.args = {
   ...Default.args,
   initialOpenIndex: 0,
-}
+};

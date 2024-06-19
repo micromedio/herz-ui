@@ -1,42 +1,42 @@
 /** @jsxImportSource theme-ui */
-import { SVGAttributes, useMemo } from "react"
-import { useThemeUI, get } from "theme-ui"
+import { SVGAttributes, useMemo } from 'react';
+import { useThemeUI, get } from 'theme-ui';
 
 export interface SpinnerProps {
-  color?: "primary" | "secondary" | "text"
-  size?: number
-  className?: SVGAttributes<SVGElement>["className"]
+  color?: 'primary' | 'secondary' | 'text';
+  size?: number;
+  className?: SVGAttributes<SVGElement>['className'];
 }
 
 const Spinner = ({
-  color = "secondary",
+  color = 'secondary',
   size = 20,
   className,
 }: SpinnerProps) => {
-  const { theme } = useThemeUI()
+  const { theme } = useThemeUI();
 
   const colorValue = useMemo(() => {
-    if (color === "text") return get(theme, "colors.text.40")
-    return theme.colors?.[color]?.[0] ?? get(theme, "colors.text.40")
-  }, [color, theme])
+    if (color === 'text') return get(theme, 'colors.text.40');
+    return theme.colors?.[color]?.[0] ?? get(theme, 'colors.text.40');
+  }, [color, theme]);
 
   return (
     <svg
       sx={{
-        animationName: "spin",
-        animationDuration: "1200ms",
-        animationIterationCount: "infinite",
-        animationTimingFunction: "linear",
-        "@keyframes spin": {
-          "0%": {
-            transform: "rotate(0deg)",
+        animationName: 'spin',
+        animationDuration: '1200ms',
+        animationIterationCount: 'infinite',
+        animationTimingFunction: 'linear',
+        '@keyframes spin': {
+          '0%': {
+            transform: 'rotate(0deg)',
           },
-          "100%": {
-            transform: "rotate(360deg)",
+          '100%': {
+            transform: 'rotate(360deg)',
           },
         },
         stroke: colorValue,
-        "--dot-color": "#E8E8E9",
+        '--dot-color': '#E8E8E9',
       }}
       width={size}
       height={size}
@@ -88,7 +88,7 @@ const Spinner = ({
         strokeLinejoin="round"
       />
     </svg>
-  )
-}
+  );
+};
 
-export default Spinner
+export default Spinner;

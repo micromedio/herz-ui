@@ -1,4 +1,3 @@
-
 ### Color Palette
 
 This is our default color Palette

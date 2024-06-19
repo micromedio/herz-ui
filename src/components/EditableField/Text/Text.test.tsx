@@ -1,31 +1,31 @@
-import React from "react"
-import { render, screen } from "../../../tests/utils"
-import { axe } from "jest-axe"
-import EditableText from "./EditableFieldText"
-import userEvent from "@testing-library/user-event"
+import React from 'react';
+import { render, screen } from '../../../tests/utils';
+import { axe } from 'jest-axe';
+import EditableText from './EditableFieldText';
+import userEvent from '@testing-library/user-event';
 
-describe("EditableText", () => {
-  test("value is shown", () => {
+describe('EditableText', () => {
+  test('value is shown', () => {
     // Arrange
-    render(<EditableText value="TEST_VALUE" defaultValue="TEST_VALUE" />)
+    render(<EditableText value="TEST_VALUE" defaultValue="TEST_VALUE" />);
 
     // Assert
-    expect(screen.getByRole("textbox")).toHaveValue("TEST_VALUE")
-  })
+    expect(screen.getByRole('textbox')).toHaveValue('TEST_VALUE');
+  });
 
-  test("input value changes when user types in the input", async () => {
+  test('input value changes when user types in the input', async () => {
     // Arrange
-    render(<EditableText value="TEST_VALUE" defaultValue="TEST_VALUE" />)
+    render(<EditableText value="TEST_VALUE" defaultValue="TEST_VALUE" />);
 
     // Act
-    userEvent.type(screen.getByRole("textbox"), "_MODIFIED")
-    expect(screen.getByRole("textbox")).toHaveValue("TEST_VALUE_MODIFIED")
-  })
+    userEvent.type(screen.getByRole('textbox'), '_MODIFIED');
+    expect(screen.getByRole('textbox')).toHaveValue('TEST_VALUE_MODIFIED');
+  });
 
-  test("onSave is called when save button is clicked", async () => {
+  test('onSave is called when save button is clicked', async () => {
     // Arrange
-    const onSave = jest.fn()
-    const onChange = jest.fn()
+    const onSave = jest.fn();
+    const onChange = jest.fn();
     render(
       <EditableText
         value="TEST_VALUE_MODIFIED"
@@ -33,43 +33,43 @@ describe("EditableText", () => {
         onSave={onSave}
         onChange={onChange}
       />
-    )
+    );
 
     // Act
-    userEvent.click(screen.getByLabelText("save"))
+    userEvent.click(screen.getByLabelText('save'));
 
-    expect(onSave).toHaveBeenCalledTimes(1)
-    expect(onSave).toHaveBeenCalledWith("TEST_VALUE_MODIFIED")
-  })
+    expect(onSave).toHaveBeenCalledTimes(1);
+    expect(onSave).toHaveBeenCalledWith('TEST_VALUE_MODIFIED');
+  });
 
-  test("input value is reset when reset button is clicked", async () => {
+  test('input value is reset when reset button is clicked', async () => {
     // Arrange
-    const onChange = jest.fn()
+    const onChange = jest.fn();
     render(
       <EditableText
         value="TEST_VALUE_MODIFIED"
         defaultValue="TEST_VALUE"
         onChange={onChange}
       />
-    )
+    );
 
     // Act
-    userEvent.click(screen.getByLabelText("reset"))
+    userEvent.click(screen.getByLabelText('reset'));
 
     // Assert
     expect(onChange).toHaveBeenCalledWith(
       expect.objectContaining({
-        target: expect.objectContaining({ value: "TEST_VALUE" }),
+        target: expect.objectContaining({ value: 'TEST_VALUE' }),
       })
-    )
-  })
+    );
+  });
 
-  describe("saveOnBlur", () => {
-    test("onSave is called when input is unfocused if saveOnBlur is true", async () => {
+  describe('saveOnBlur', () => {
+    test('onSave is called when input is unfocused if saveOnBlur is true', async () => {
       // Arrange
-      let value = "TEST_VALUE"
-      const onSave = jest.fn()
-      const onChange = jest.fn()
+      let value = 'TEST_VALUE';
+      const onSave = jest.fn();
+      const onChange = jest.fn();
       const { rerender } = render(
         <EditableText
           value={value}
@@ -78,10 +78,10 @@ describe("EditableText", () => {
           onChange={onChange}
           saveOnBlur
         />
-      )
+      );
 
       // Act
-      value = "TEST_VALUE_MODIFIED"
+      value = 'TEST_VALUE_MODIFIED';
       rerender(
         <EditableText
           value={value}
@@ -90,21 +90,21 @@ describe("EditableText", () => {
           onChange={onChange}
           saveOnBlur
         />
-      )
-      const input = screen.getByRole("textbox")
-      input.focus()
-      input.blur()
+      );
+      const input = screen.getByRole('textbox');
+      input.focus();
+      input.blur();
 
       // Assert
-      expect(onSave).toHaveBeenCalledTimes(1)
-      expect(onSave).toHaveBeenCalledWith("TEST_VALUE_MODIFIED")
-    })
+      expect(onSave).toHaveBeenCalledTimes(1);
+      expect(onSave).toHaveBeenCalledWith('TEST_VALUE_MODIFIED');
+    });
 
-    test("onSave is not called when input is unfocused if saveOnBlur is false", async () => {
+    test('onSave is not called when input is unfocused if saveOnBlur is false', async () => {
       // Arrange
-      let value = "TEST_VALUE"
-      const onSave = jest.fn()
-      const onChange = jest.fn()
+      let value = 'TEST_VALUE';
+      const onSave = jest.fn();
+      const onChange = jest.fn();
       const { rerender } = render(
         <EditableText
           value={value}
@@ -113,10 +113,10 @@ describe("EditableText", () => {
           onChange={onChange}
           saveOnBlur={false}
         />
-      )
+      );
 
       // Act
-      value = "TEST_VALUE_MODIFIED"
+      value = 'TEST_VALUE_MODIFIED';
       rerender(
         <EditableText
           value={value}
@@ -125,21 +125,21 @@ describe("EditableText", () => {
           onChange={onChange}
           saveOnBlur={false}
         />
-      )
-      const input = screen.getByRole("textbox")
-      input.focus()
-      input.blur()
+      );
+      const input = screen.getByRole('textbox');
+      input.focus();
+      input.blur();
 
       // Assert
-      expect(onSave).not.toHaveBeenCalled()
-    })
-  })
+      expect(onSave).not.toHaveBeenCalled();
+    });
+  });
 
-  describe("resetOnBlur", () => {
-    test("input value is reset on blur if resetOnBlur is true", async () => {
+  describe('resetOnBlur', () => {
+    test('input value is reset on blur if resetOnBlur is true', async () => {
       // Arrange
-      let value = "TEST_VALUE"
-      const onChange = jest.fn()
+      let value = 'TEST_VALUE';
+      const onChange = jest.fn();
       const { rerender } = render(
         <EditableText
           value={value}
@@ -147,10 +147,10 @@ describe("EditableText", () => {
           onChange={onChange}
           resetOnBlur
         />
-      )
+      );
 
       // Act
-      value = "TEST_VALUE_MODIFIED"
+      value = 'TEST_VALUE_MODIFIED';
       rerender(
         <EditableText
           value={value}
@@ -158,23 +158,23 @@ describe("EditableText", () => {
           onChange={onChange}
           resetOnBlur
         />
-      )
-      const input = screen.getByRole("textbox")
-      input.focus()
-      input.blur()
+      );
+      const input = screen.getByRole('textbox');
+      input.focus();
+      input.blur();
 
       // Assert
       expect(onChange).toHaveBeenCalledWith(
         expect.objectContaining({
-          target: expect.objectContaining({ value: "TEST_VALUE" }),
+          target: expect.objectContaining({ value: 'TEST_VALUE' }),
         })
-      )
-    })
+      );
+    });
 
-    test("input value is not reset on blur if resetOnBlur is false", async () => {
+    test('input value is not reset on blur if resetOnBlur is false', async () => {
       // Arrange
-      let value = "TEST_VALUE"
-      const onChange = jest.fn()
+      let value = 'TEST_VALUE';
+      const onChange = jest.fn();
       const { rerender } = render(
         <EditableText
           value={value}
@@ -182,10 +182,10 @@ describe("EditableText", () => {
           onChange={onChange}
           resetOnBlur={false}
         />
-      )
+      );
 
       // Act
-      value = "TEST_VALUE_MODIFIED"
+      value = 'TEST_VALUE_MODIFIED';
       rerender(
         <EditableText
           value={value}
@@ -193,37 +193,37 @@ describe("EditableText", () => {
           onChange={onChange}
           resetOnBlur={false}
         />
-      )
-      const input = screen.getByRole("textbox")
-      input.focus()
-      input.blur()
+      );
+      const input = screen.getByRole('textbox');
+      input.focus();
+      input.blur();
 
       // Assert
       expect(onChange).not.toHaveBeenCalledWith(
-        expect.objectContaining({ target: { value: "TEST_VALUE" } })
-      )
-    })
-  })
+        expect.objectContaining({ target: { value: 'TEST_VALUE' } })
+      );
+    });
+  });
 
-  test("passes a11y check", async () => {
+  test('passes a11y check', async () => {
     // Arrange
     const { container } = render(
       <EditableText value="TEST_VALUE" defaultValue="TEST_VALUE" />
-    )
-    const results = await axe(container)
+    );
+    const results = await axe(container);
 
     // Assert
-    expect(results).toHaveNoViolations()
-  })
+    expect(results).toHaveNoViolations();
+  });
 
-  test("render as textarea", async () => {
+  test('render as textarea', async () => {
     // Arrange
     const { getByRole } = render(
       <EditableText value="TEST_VALUE" defaultValue="TEST_VALUE" multiline />
-    )
-    const input = getByRole("textbox")
+    );
+    const input = getByRole('textbox');
 
     // Assert
-    expect(input.tagName).toEqual("TEXTAREA")
-  })
-})
+    expect(input.tagName).toEqual('TEXTAREA');
+  });
+});

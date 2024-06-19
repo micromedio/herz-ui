@@ -2,9 +2,8 @@ body.sb-show-main.sb-main-padded {
   padding: 16px;
 }
 
-
 .ReactModal__Content::-webkit-scrollbar {
-  right: "0";
+  right: '0';
 }
 .ReactModal__Content {
   width: 100vw;

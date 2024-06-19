@@ -1,21 +1,21 @@
-import React from "react"
-import TableFilters, { TableFiltersProps } from "./TableFilters"
-import { Meta, Story } from "@storybook/react/types-6-0"
-import Button from "../Button/Button"
-import Select from "../Select/Select"
-import Input from "../Input/Input"
+import React from 'react';
+import TableFilters, { TableFiltersProps } from './TableFilters';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import Button from '../Button/Button';
+import Select from '../Select/Select';
+import Input from '../Input/Input';
 
 export default {
-  title: "Design System/TableFilters",
+  title: 'Design System/TableFilters',
   component: TableFilters,
-} as Meta
+} as Meta;
 
 const Template: Story<TableFiltersProps> = (props) => (
   <TableFilters {...props} />
-)
+);
 
 // Each story then reuses that template
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
   children: (
     <React.Fragment>
@@ -47,9 +47,9 @@ Example.args = {
       </TableFilters.Item>
     </React.Fragment>
   ),
-}
+};
 
-export const WithoutSearch = Template.bind({})
+export const WithoutSearch = Template.bind({});
 WithoutSearch.args = {
   children: (
     <React.Fragment>
@@ -76,9 +76,9 @@ WithoutSearch.args = {
       </TableFilters.Item>
     </React.Fragment>
   ),
-}
+};
 
-export const CustomOrder = Template.bind({})
+export const CustomOrder = Template.bind({});
 CustomOrder.args = {
   children: (
     <React.Fragment>
@@ -120,4 +120,4 @@ CustomOrder.args = {
       </TableFilters.Item>
     </React.Fragment>
   ),
-}
+};

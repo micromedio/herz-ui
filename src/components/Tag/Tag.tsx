@@ -1,17 +1,17 @@
 /** @jsxImportSource theme-ui */
-import React from "react"
-import { get } from "theme-ui"
-import Icon from "../Icon/Icon"
+import React from 'react';
+import { get } from 'theme-ui';
+import Icon from '../Icon/Icon';
 
 export interface TagProps {
-  color?: "primary" | "secondary" | "text" | "success"
-  children: React.ReactNode
-  onRemove?: () => void
-  showRemove?: boolean
+  color?: 'primary' | 'secondary' | 'text' | 'success';
+  children: React.ReactNode;
+  onRemove?: () => void;
+  showRemove?: boolean;
 }
 
 const Tag = ({
-  color = "secondary",
+  color = 'secondary',
   children,
   onRemove,
   showRemove = false,
@@ -19,10 +19,10 @@ const Tag = ({
   return (
     <span
       sx={{
-        alignItems: "center",
-        display: "flex",
-        height: "fit-content",
-        width: "fit-content",
+        alignItems: 'center',
+        display: 'flex',
+        height: 'fit-content',
+        width: 'fit-content',
         gap: 1,
         px: 2,
         borderRadius: 2,
@@ -32,9 +32,9 @@ const Tag = ({
     >
       <span
         sx={{
-          cursor: "default",
-          variant: "text.caption",
-          fontWeight: "bold",
+          cursor: 'default',
+          variant: 'text.caption',
+          fontWeight: 'bold',
         }}
       >
         {children}
@@ -46,17 +46,17 @@ const Tag = ({
           aria-label="remove"
           onClick={onRemove}
           sx={{
-            display: "flex",
-            alignItems: "center",
-            color: "text.40",
-            cursor: "pointer",
+            display: 'flex',
+            alignItems: 'center',
+            color: 'text.40',
+            cursor: 'pointer',
           }}
         >
           <Icon name="IconX" size={12} stroke={3} />
         </span>
       )}
     </span>
-  )
-}
+  );
+};
 
-export default Tag
+export default Tag;

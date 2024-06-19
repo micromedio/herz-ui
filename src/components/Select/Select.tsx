@@ -1,72 +1,72 @@
 /** @jsxImportSource theme-ui */
-import React, { useContext, useMemo } from "react"
-import { get, ThemeUICSSObject } from "theme-ui"
+import React, { useContext, useMemo } from 'react';
+import { get, ThemeUICSSObject } from 'theme-ui';
 
 import {
   useSelect,
   SELECT_BULK_ACTIONS,
   UseSelectProps,
-} from "./hooks/useSelect"
-import { Button, Popover, Icon } from ".."
-import { InputGroupContext } from "../InputGroup/Context"
-import { getDataFromChildren, isArrayEqual } from "./utils"
-import { SelectOption } from "./SelectOption"
-import { SelectContext } from "./context"
-import { isBrowser } from "../../helpers/ssr"
+} from './hooks/useSelect';
+import { Button, Popover, Icon } from '..';
+import { InputGroupContext } from '../InputGroup/Context';
+import { getDataFromChildren, isArrayEqual } from './utils';
+import { SelectOption } from './SelectOption';
+import { SelectContext } from './context';
+import { isBrowser } from '../../helpers/ssr';
 
-export type SelectValue = string | number | Record<string, unknown>
-export type SelectedItems = Array<SelectValue>
+export type SelectValue = string | number | Record<string, unknown>;
+export type SelectedItems = Array<SelectValue>;
 
 export type SelectOptionType = {
-  value: SelectValue
-  label: React.ReactNode
-  isCustom?: boolean
-}
+  value: SelectValue;
+  label: React.ReactNode;
+  isCustom?: boolean;
+};
 
 export interface SelectProps {
   /** The id of the Select. Use this prop to make label and `helperText` accessible for screen readers */
-  id?: string
+  id?: string;
   /** Label text to be placed before the element */
-  label?: string
+  label?: string;
   /** The placeholder text, shown when there is no selected value */
-  placeholder?: string
+  placeholder?: string;
   /** The value of the `select` element, required for a controlled component */
-  value?: SelectValue
+  value?: SelectValue;
   /** Default value which will not trigger the `filled` select state */
-  defaultValue?: SelectValue
+  defaultValue?: SelectValue;
   /** Whether the component is disabled or not */
-  disabled?: boolean
+  disabled?: boolean;
   /** Whether the user can select multiple options or not */
-  multi?: boolean
+  multi?: boolean;
   /** Current selected items for multiple selection */
-  selectedItems?: SelectedItems
+  selectedItems?: SelectedItems;
   /** Default array of selected items which will not trigger the `filled` select state */
-  defaultSelectedItems?: SelectedItems
+  defaultSelectedItems?: SelectedItems;
   /** Callback fired when the value is changed */
-  onChange?: (changes: SelectValue) => void
+  onChange?: (changes: SelectValue) => void;
   /** Callback fired when the selected items change for multiple selection */
-  onSelectedItemsChange?: (changes: SelectedItems) => void
+  onSelectedItemsChange?: (changes: SelectedItems) => void;
   /** Highlight the select when it's in a `filled` state */
-  highlightFilled?: boolean
+  highlightFilled?: boolean;
   /** Select grows to fill the width of the parent */
-  fullWidth?: boolean
-  children: React.ReactNode
+  fullWidth?: boolean;
+  children: React.ReactNode;
   renderButtonLabel?: ({
     value,
     selectedOption,
     selectedItems,
   }: {
-    value?: SelectValue
-    selectedOption?: SelectOptionType
-    selectedItems?: SelectedItems
-  }) => React.ReactNode
+    value?: SelectValue;
+    selectedOption?: SelectOptionType;
+    selectedItems?: SelectedItems;
+  }) => React.ReactNode;
   styles?: {
-    root?: ThemeUICSSObject
-    popoverContent?: ThemeUICSSObject
-    button?: ThemeUICSSObject
-  }
-  isOpen?: UseSelectProps["isOpen"]
-  onIsOpenChange?: (value: boolean) => void
+    root?: ThemeUICSSObject;
+    popoverContent?: ThemeUICSSObject;
+    button?: ThemeUICSSObject;
+  };
+  isOpen?: UseSelectProps['isOpen'];
+  onIsOpenChange?: (value: boolean) => void;
 }
 
 /**
@@ -92,12 +92,12 @@ const Select = ({
   isOpen: isOpenProp,
   onIsOpenChange,
 }: SelectProps) => {
-  const inputGroupContext = useContext(InputGroupContext)
-  const isGrouped = !!inputGroupContext
+  const inputGroupContext = useContext(InputGroupContext);
+  const isGrouped = !!inputGroupContext;
 
   const options = useMemo(() => {
-    return getDataFromChildren(children)
-  }, [children])
+    return getDataFromChildren(children);
+  }, [children]);
 
   const {
     isOpen,
@@ -123,65 +123,65 @@ const Select = ({
     selectedItems,
     onChange,
     onSelectedItemsChange,
-  })
+  });
 
   const hasSelectedItem = useMemo(() => {
-    return selectedItem || selectedItem === 0
-  }, [selectedItem])
+    return selectedItem || selectedItem === 0;
+  }, [selectedItem]);
 
   const stateStyles: Record<string, ThemeUICSSObject> = {
     resting: {
-      backgroundColor: "text.alpha.95",
-      color: "text.40",
-      boxShadow: "unset",
-      borderColor: "transparent",
+      backgroundColor: 'text.alpha.95',
+      color: 'text.40',
+      boxShadow: 'unset',
+      borderColor: 'transparent',
     },
     hover: {
-      backgroundColor: "text.alpha.90",
-      color: "text",
-      boxShadow: "unset",
-      borderColor: "transparent",
+      backgroundColor: 'text.alpha.90',
+      color: 'text',
+      boxShadow: 'unset',
+      borderColor: 'transparent',
     },
     active: {
-      backgroundColor: "#fff",
-      color: "text",
+      backgroundColor: '#fff',
+      color: 'text',
       boxShadow: (t) =>
-        `0px 0px 0px 4px ${get(t, "colors.secondary.alpha.95")}`,
-      borderColor: "secondary",
-      fontWeight: "semibold",
+        `0px 0px 0px 4px ${get(t, 'colors.secondary.alpha.95')}`,
+      borderColor: 'secondary',
+      fontWeight: 'semibold',
     },
     filled: {
-      backgroundColor: "secondary.alpha.90",
-      color: "text",
-      boxShadow: "unset",
+      backgroundColor: 'secondary.alpha.90',
+      color: 'text',
+      boxShadow: 'unset',
       ...(highlightFilled
         ? {
-            borderColor: "secondary",
-            fontWeight: "semibold",
+            borderColor: 'secondary',
+            fontWeight: 'semibold',
           }
         : {}),
     },
     filledHover: {
-      backgroundColor: "secondary.alpha.85",
+      backgroundColor: 'secondary.alpha.85',
     },
-  }
+  };
 
   const getMultiSelectLabel = () => {
     if (selectedItems.length > 0) {
       if (selectedItems.length === options.length) {
-        return "All"
+        return 'All';
       }
       if (selectedItems.length === 1) {
         return options.find(
           ({ value }) =>
             JSON.stringify(selectedItems[0]) === JSON.stringify(value)
-        )?.label
+        )?.label;
       }
-      return selectedItems.length + " selected"
+      return selectedItems.length + ' selected';
     }
 
-    return placeholder || "Select one or more options"
-  }
+    return placeholder || 'Select one or more options';
+  };
 
   const selectedOption = useMemo(() => {
     return (
@@ -190,29 +190,29 @@ const Select = ({
           ({ value }) => JSON.stringify(selectedItem) === JSON.stringify(value)
         )) ||
       undefined
-    )
-  }, [hasSelectedItem, options, selectedItem])
+    );
+  }, [hasSelectedItem, options, selectedItem]);
 
   const areInitialItemsSelected = useMemo(() => {
     return (
       defaultSelectedItems && isArrayEqual(defaultSelectedItems, selectedItems)
-    )
-  }, [defaultSelectedItems, selectedItems])
+    );
+  }, [defaultSelectedItems, selectedItems]);
 
   const isInitialValueSelected =
     (defaultValue || defaultValue === 0) &&
-    JSON.stringify(defaultValue) === JSON.stringify(selectedItem)
+    JSON.stringify(defaultValue) === JSON.stringify(selectedItem);
 
   const isSelectFilled =
     !areInitialItemsSelected &&
     !isInitialValueSelected &&
-    (hasSelectedItem || selectedItems.length > 0)
+    (hasSelectedItem || selectedItems.length > 0);
 
   const hoverStyles = useMemo(() => {
-    if (disabled) return {}
-    if (isOpen) return stateStyles.active
-    if (isSelectFilled) return stateStyles.filledHover
-    return stateStyles.hover
+    if (disabled) return {};
+    if (isOpen) return stateStyles.active;
+    if (isSelectFilled) return stateStyles.filledHover;
+    return stateStyles.hover;
   }, [
     disabled,
     isOpen,
@@ -220,28 +220,28 @@ const Select = ({
     stateStyles.active,
     stateStyles.filledHover,
     stateStyles.hover,
-  ])
+  ]);
 
   function defaultRenderButtonLabel() {
     return multi
       ? getMultiSelectLabel()
       : (hasSelectedItem && selectedOption?.label) ||
           (placeholder !== undefined && placeholder) ||
-          "Select an option"
+          'Select an option';
   }
 
   return (
     <div
       sx={{
-        display: "flex",
-        alignItems: "center",
-        position: "relative",
+        display: 'flex',
+        alignItems: 'center',
+        position: 'relative',
         opacity: disabled ? 0.3 : 1,
-        variant: "text.body1",
+        variant: 'text.body1',
         ...(isGrouped && {
           ...(!inputGroupContext?.isLast && {
-            borderRight: "1px solid",
-            borderColor: "text.90",
+            borderRight: '1px solid',
+            borderColor: 'text.90',
             flexGrow: 0,
           }),
         }),
@@ -253,8 +253,8 @@ const Select = ({
           sx={{
             marginRight: 2,
             fontSize: 14,
-            color: "text.40",
-            ...(!disabled ? { cursor: "pointer" } : {}),
+            color: 'text.40',
+            ...(!disabled ? { cursor: 'pointer' } : {}),
           }}
           {...getLabelProps({ disabled, htmlFor: id })}
         >
@@ -266,7 +266,7 @@ const Select = ({
         alwaysRenderContent
         isVisible={isOpen}
         appendTo={isBrowser ? document?.body : undefined}
-        trigger={["manual"]}
+        trigger={['manual']}
         isInteractive
         placement="bottom-start"
         noPadding
@@ -283,7 +283,7 @@ const Select = ({
             onBlur={null}
             sx={{
               maxHeight: 350,
-              overflowY: "auto",
+              overflowY: 'auto',
               padding: 4,
               outline: 0,
               margin: 0,
@@ -292,7 +292,7 @@ const Select = ({
             }}
           >
             {React.Children.map(children, (child, index) => {
-              if (!React.isValidElement(child)) return null
+              if (!React.isValidElement(child)) return null;
 
               return (
                 <SelectContext.Provider
@@ -310,7 +310,7 @@ const Select = ({
                 >
                   {child}
                 </SelectContext.Provider>
-              )
+              );
             })}
 
             {multi && (
@@ -318,22 +318,22 @@ const Select = ({
                 variant="plain"
                 color="secondary"
                 sx={{
-                  cursor: "pointer",
-                  width: "100%",
-                  justifyContent: "start",
+                  cursor: 'pointer',
+                  width: '100%',
+                  justifyContent: 'start',
                 }}
                 onClick={() => {
                   if (selectedItems.length > 0) {
-                    handleBulkAction(SELECT_BULK_ACTIONS.DESELECT_ALL)
-                    return true
+                    handleBulkAction(SELECT_BULK_ACTIONS.DESELECT_ALL);
+                    return true;
                   }
 
-                  handleBulkAction(SELECT_BULK_ACTIONS.SELECT_ALL)
+                  handleBulkAction(SELECT_BULK_ACTIONS.SELECT_ALL);
                 }}
               >
                 {selectedItems.length > 0
-                  ? "Limpar seleções"
-                  : "Selecionar todos"}
+                  ? 'Limpar seleções'
+                  : 'Selecionar todos'}
               </Button>
             )}
           </div>
@@ -341,16 +341,16 @@ const Select = ({
       >
         <button
           sx={{
-            display: "flex",
+            display: 'flex',
             gap: 2,
             borderRadius: 2,
             height: [40, 36],
             paddingX: 3,
-            justifyContent: "space-between",
-            alignItems: "center",
+            justifyContent: 'space-between',
+            alignItems: 'center',
             outline: 0,
-            border: "2px solid transparent",
-            transition: "all .2s linear",
+            border: '2px solid transparent',
+            transition: 'all .2s linear',
 
             ...(isGrouped && {
               ...(!inputGroupContext?.isFirst && {
@@ -365,10 +365,10 @@ const Select = ({
 
             ...(fullWidth ? { flexGrow: 1 } : {}),
             ...(isSelectFilled ? stateStyles.filled : stateStyles.resting),
-            ...(!disabled && { cursor: "pointer" }),
+            ...(!disabled && { cursor: 'pointer' }),
 
-            "&:hover": hoverStyles,
-            "&:focus": stateStyles.active,
+            '&:hover': hoverStyles,
+            '&:focus': stateStyles.active,
             ...(isOpen && stateStyles.active),
             ...styles?.button,
           }}
@@ -376,7 +376,7 @@ const Select = ({
           type="button"
           {...getToggleButtonProps({
             id,
-            "aria-labelledby": "",
+            'aria-labelledby': '',
             ...getDropdownProps({ preventKeyAction: isOpen }),
             disabled,
           })}
@@ -389,8 +389,8 @@ const Select = ({
         </button>
       </Popover>
     </div>
-  )
-}
+  );
+};
 
-Select.Option = SelectOption
-export default Select
+Select.Option = SelectOption;
+export default Select;

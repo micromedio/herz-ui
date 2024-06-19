@@ -1,28 +1,28 @@
 Default CheckableTag example:
 
 ```js
-const [checked, setChecked] = React.useState(false)
+const [checked, setChecked] = React.useState(false);
 
-;<CheckableTag
+<CheckableTag
   checked={checked}
   onChange={() => setChecked((previousState) => !previousState)}
-/>
+/>;
 ```
 
 Labeled CheckableTag example:
 
 ```js
-const [checked, setChecked] = React.useState(false)
+const [checked, setChecked] = React.useState(false);
 
-;<CheckableTag
+<CheckableTag
   label="Check me"
   checked={checked}
   onChange={() => setChecked((previousState) => !previousState)}
-/>
+/>;
 ```
 
 Disabled CheckableTag state example:
 
 ```js
-;<CheckableTag label="Uncheckable" disabled={true} />
+<CheckableTag label="Uncheckable" disabled={true} />;
 ```

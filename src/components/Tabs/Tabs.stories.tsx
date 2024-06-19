@@ -1,19 +1,19 @@
 /* eslint-disable react/jsx-key */
 /** @jsxImportSource theme-ui */
 
-import Tabs, { TabsProps } from "./Tabs"
-import { Meta, Story } from "@storybook/react/types-6-0"
+import Tabs, { TabsProps } from './Tabs';
+import { Meta, Story } from '@storybook/react/types-6-0';
 
 export default {
-  title: "Design System/Tab",
+  title: 'Design System/Tab',
   component: Tabs,
   decorators: [(Story) => <Story />],
   parameters: {
     creevey: {
-      captureElement: "#root",
+      captureElement: '#root',
     },
   },
-} as Meta
+} as Meta;
 
 const Template: Story<TabsProps> = (props) => (
   <Tabs initialOpenIndex={1} {...props}>
@@ -24,12 +24,12 @@ const Template: Story<TabsProps> = (props) => (
     <Tabs.Panel index={1}>Other Goes here</Tabs.Panel>,
     <Tabs.Panel index={2}>More Stuff Goes here</Tabs.Panel>,
   </Tabs>
-)
+);
 
 // Each story then reuses that template
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 
-export const WithInitialOpen = Template.bind({})
+export const WithInitialOpen = Template.bind({});
 WithInitialOpen.args = {
   initialOpenIndex: 0,
-}
+};

@@ -1,134 +1,134 @@
 /** @jsxImportSource theme-ui */
-import { get, ThemeUICSSObject } from "theme-ui"
-import { MouseEvent, ButtonHTMLAttributes, forwardRef, useMemo } from "react"
-import Icon, { IconProps } from "../Icon/Icon"
-import { Spinner } from ".."
+import { get, ThemeUICSSObject } from 'theme-ui';
+import { MouseEvent, ButtonHTMLAttributes, forwardRef, useMemo } from 'react';
+import Icon, { IconProps } from '../Icon/Icon';
+import { Spinner } from '..';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children?: string | React.ReactNode
+  children?: string | React.ReactNode;
 
-  variant?: "filled" | "plain" | "filledLight"
+  variant?: 'filled' | 'plain' | 'filledLight';
 
-  color?: "primary" | "secondary" | "success" | "text"
+  color?: 'primary' | 'secondary' | 'success' | 'text';
 
-  disabled?: boolean
-  loading?: boolean
+  disabled?: boolean;
+  loading?: boolean;
 
-  size?: "small" | "large"
+  size?: 'small' | 'large';
 
-  onClick?: (event: MouseEvent<HTMLButtonElement>) => void
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 
-  iconName?: IconProps["name"]
+  iconName?: IconProps['name'];
 
   styles?: {
-    childrenWrapper?: ThemeUICSSObject
-    icon?: ThemeUICSSObject
-    root?: ThemeUICSSObject
-  }
+    childrenWrapper?: ThemeUICSSObject;
+    icon?: ThemeUICSSObject;
+    root?: ThemeUICSSObject;
+  };
 
-  type?: ButtonHTMLAttributes<HTMLButtonElement>["type"]
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     children,
     onClick,
-    variant = "filled",
-    color = "primary",
-    size = "large",
+    variant = 'filled',
+    color = 'primary',
+    size = 'large',
     disabled,
     loading = false,
     iconName,
     styles,
-    type = "button",
+    type = 'button',
     ...htmlProps
   }: ButtonProps,
   ref
 ): JSX.Element {
   const baseButton: ThemeUICSSObject = {
-    display: "flex",
-    gap: size === "large" ? 2 : 1,
-    paddingX: size === "large" ? 3 : 1,
-    paddingY: size === "large" ? 2 : 1,
+    display: 'flex',
+    gap: size === 'large' ? 2 : 1,
+    paddingX: size === 'large' ? 3 : 1,
+    paddingY: size === 'large' ? 2 : 1,
 
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
 
     borderRadius: 2,
-    cursor: "pointer",
-    transition: "all .2s linear",
-    variant: "text.button1",
-    outline: "none",
-    border: "none",
+    cursor: 'pointer',
+    transition: 'all .2s linear',
+    variant: 'text.button1',
+    outline: 'none',
+    border: 'none',
 
-    ":focus": {
-      outline: "none",
-      border: "none",
+    ':focus': {
+      outline: 'none',
+      border: 'none',
     },
 
-    "&:disabled": {
+    '&:disabled': {
       opacity: 0.3,
-      cursor: "default",
+      cursor: 'default',
     },
-  }
+  };
 
   const filled: ThemeUICSSObject = {
-    color: color === "text" ? "text.40" : "#fff",
+    color: color === 'text' ? 'text.40' : '#fff',
     backgroundColor: (t) =>
-      color === "text"
-        ? get(t, "colors.text.alpha.95")
+      color === 'text'
+        ? get(t, 'colors.text.alpha.95')
         : get(t, `colors.${color}`),
-    "&:not([disabled])": {
-      "&:hover": {
+    '&:not([disabled])': {
+      '&:hover': {
         backgroundColor: (t) =>
-          color === "text"
-            ? get(t, "colors.text.90")
+          color === 'text'
+            ? get(t, 'colors.text.90')
             : get(t, `colors.${color}.shade.10`),
       },
     },
-  }
+  };
 
   const filledLight: ThemeUICSSObject = {
-    color: (t) => get(t, `colors.${color}.${color === "text" ? 40 : 0}`),
+    color: (t) => get(t, `colors.${color}.${color === 'text' ? 40 : 0}`),
     backgroundColor: (t) => get(t, `colors.${color}.alpha.95`),
-    "&:not([disabled])": {
-      "&:hover": {
+    '&:not([disabled])': {
+      '&:hover': {
         backgroundColor: (t) => get(t, `colors.${color}.alpha.90`),
       },
     },
-  }
+  };
 
   const plain: ThemeUICSSObject = {
     paddingX: 1,
-    backgroundColor: "transparent",
-    color: (t) => get(t, `colors.${color}.${color === "text" ? 40 : 0}`),
-    "&:not([disabled])": {
-      "&:hover": {
+    backgroundColor: 'transparent',
+    color: (t) => get(t, `colors.${color}.${color === 'text' ? 40 : 0}`),
+    '&:not([disabled])': {
+      '&:hover': {
         backgroundColor: (t) => get(t, `colors.${color}.alpha.90`),
       },
     },
-  }
+  };
 
   const spinnerStyles = useMemo<ThemeUICSSObject>(() => {
     const variants: Record<string, ThemeUICSSObject> = {
       filled: {
-        "--dot-color": (t) =>
-          color === "text" ? get(t, `colors.text.70`) : "#fff",
-        stroke: color === "text" ? "text.40" : "#fff",
+        '--dot-color': (t) =>
+          color === 'text' ? get(t, `colors.text.70`) : '#fff',
+        stroke: color === 'text' ? 'text.40' : '#fff',
       },
       filledLight: {
-        "--dot-color": (t) =>
-          get(t, `colors.${color}.${color === "text" ? 70 : 40}`),
-        stroke: (t) => get(t, `colors.${color}.${color === "text" ? 40 : 0}`),
+        '--dot-color': (t) =>
+          get(t, `colors.${color}.${color === 'text' ? 70 : 40}`),
+        stroke: (t) => get(t, `colors.${color}.${color === 'text' ? 40 : 0}`),
       },
       plain: {
-        "--dot-color": (t) =>
-          get(t, `colors.${color}.${color === "text" ? 70 : 40}`),
-        stroke: (t) => get(t, `colors.${color}.${color === "text" ? 40 : 0}`),
+        '--dot-color': (t) =>
+          get(t, `colors.${color}.${color === 'text' ? 70 : 40}`),
+        stroke: (t) => get(t, `colors.${color}.${color === 'text' ? 40 : 0}`),
       },
-    }
-    return variants[variant]
-  }, [variant, color])
+    };
+    return variants[variant];
+  }, [variant, color]);
 
   return (
     <button
@@ -153,7 +153,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
         ) : (
           <Icon
             name={iconName}
-            size={size === "small" ? 16 : 20}
+            size={size === 'small' ? 16 : 20}
             sx={styles?.icon}
           />
         ))}
@@ -163,10 +163,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
             ...styles?.childrenWrapper,
             ...(loading && !iconName
               ? {
-                  color: "transparent",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  color: 'transparent',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }
               : {}),
           }}
@@ -175,7 +175,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
             <Spinner
               sx={{
                 ...spinnerStyles,
-                position: "absolute",
+                position: 'absolute',
               }}
             />
           )}
@@ -183,7 +183,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
         </span>
       )}
     </button>
-  )
-})
+  );
+});
 
-export default Button
+export default Button;

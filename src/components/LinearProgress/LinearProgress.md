@@ -33,8 +33,8 @@
 ```js
 <div
   style={{
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap',
     gap: 2,
   }}
 >

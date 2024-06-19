@@ -1,59 +1,59 @@
-import ListSelect, { ListSelectProps } from "./ListSelect"
-import { Meta, Story } from "@storybook/react/types-6-0"
-import Icon from "../Icon/Icon"
-import { useState } from "react"
-import { action } from "@storybook/addon-actions"
+import ListSelect, { ListSelectProps } from './ListSelect';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import Icon from '../Icon/Icon';
+import { useState } from 'react';
+import { action } from '@storybook/addon-actions';
 
 export default {
-  title: "Design System/ListSelect",
+  title: 'Design System/ListSelect',
   component: ListSelect,
-} as Meta
+} as Meta;
 
 const Template: Story<ListSelectProps> = (props: ListSelectProps) => {
-  const [selected, setSelected] = useState<ListSelectProps["selected"]>(
+  const [selected, setSelected] = useState<ListSelectProps['selected']>(
     props?.selected
-  )
+  );
 
   return (
     <ListSelect
       {...props}
       onSelect={(value) => {
-        action("onSelect")(value)
-        setSelected(value)
+        action('onSelect')(value);
+        setSelected(value);
       }}
       selected={selected}
     />
-  )
-}
+  );
+};
 
 // Each story then reuses that template
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 Default.args = {
-  selected: "walk",
+  selected: 'walk',
   options: [
     {
-      label: "Walk",
-      value: "walk",
+      label: 'Walk',
+      value: 'walk',
       suffix: <Icon name="IconWalk" />,
-      affix: "WALK",
+      affix: 'WALK',
     },
     {
-      label: "Train",
-      value: "train",
+      label: 'Train',
+      value: 'train',
       suffix: <Icon name="IconTrain" />,
-      affix: "TRAIN",
+      affix: 'TRAIN',
     },
     {
-      label: "Car",
-      value: "car",
+      label: 'Car',
+      value: 'car',
       suffix: <Icon name="IconCar" />,
-      affix: "CAR",
+      affix: 'CAR',
     },
     {
-      label: "Plane",
-      value: "plane",
+      label: 'Plane',
+      value: 'plane',
       suffix: <Icon name="IconPlane" />,
-      affix: "PLANE",
+      affix: 'PLANE',
     },
   ],
-}
+};

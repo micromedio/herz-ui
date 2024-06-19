@@ -1,31 +1,31 @@
 /** @jsxImportSource theme-ui */
 import EditableFieldAutocomplete, {
   EditableFieldAutocompleteProps,
-} from "./EditableFieldAutocomplete"
-import { mockedOptions } from "../../Autocomplete/__mocks__/options"
-import { Meta, Story } from "@storybook/react/types-6-0"
-import { useState } from "react"
-import Highlight from "../../Highlight/Highlight"
+} from './EditableFieldAutocomplete';
+import { mockedOptions } from '../../Autocomplete/__mocks__/options';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import { useState } from 'react';
+import Highlight from '../../Highlight/Highlight';
 
 export default {
-  title: "Design System/EditableField/Autocomplete",
+  title: 'Design System/EditableField/Autocomplete',
   component: EditableFieldAutocomplete,
-} as Meta
+} as Meta;
 
-type AutocompleteItem = typeof mockedOptions[0]
+type AutocompleteItem = typeof mockedOptions[0];
 
 const Template: Story<EditableFieldAutocompleteProps<AutocompleteItem>> = (
   props: Partial<
-    Omit<EditableFieldAutocompleteProps<AutocompleteItem>, "multiSelect">
+    Omit<EditableFieldAutocompleteProps<AutocompleteItem>, 'multiSelect'>
   >
 ) => {
-  const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
+  const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions);
   const [value, setValue] = useState<AutocompleteItem | null | undefined>(
     mockedOptions[0]
-  )
+  );
   const [defaultValue, setDefaultValue] = useState<
     AutocompleteItem | undefined
-  >(mockedOptions[0])
+  >(mockedOptions[0]);
 
   return (
     <EditableFieldAutocomplete<AutocompleteItem>
@@ -34,20 +34,20 @@ const Template: Story<EditableFieldAutocompleteProps<AutocompleteItem>> = (
         props.buttons
           ? [
               {
-                color: "secondary",
-                children: "More info",
+                color: 'secondary',
+                children: 'More info',
                 onClick: () => {
-                  alert("Clicked on more info!")
+                  alert('Clicked on more info!');
                 },
-                variant: "plain",
+                variant: 'plain',
               },
               {
-                color: "secondary",
-                children: "Clear",
+                color: 'secondary',
+                children: 'Clear',
                 onClick: () => {
-                  setValue(null)
+                  setValue(null);
                 },
-                variant: "plain",
+                variant: 'plain',
               },
             ]
           : undefined
@@ -62,27 +62,27 @@ const Template: Story<EditableFieldAutocompleteProps<AutocompleteItem>> = (
                   .startsWith(inputValue.toLocaleLowerCase())
               : true
           )
-        )
+        );
       }}
       onSave={(newValue) => {
-        props.onSave?.(newValue)
-        setDefaultValue((newValue as AutocompleteItem) || null)
+        props.onSave?.(newValue);
+        setDefaultValue((newValue as AutocompleteItem) || null);
       }}
       onSelectedItemChange={(options) => {
-        setValue(options)
+        setValue(options);
       }}
       options={items.slice(0, 5)}
       optionToString={(option) =>
-        option && !Array.isArray(option) ? option.label : ""
+        option && !Array.isArray(option) ? option.label : ''
       }
       placeholder="Search by organization's name or handle"
       renderOption={({ defaultStyles, option }) => (
         <div
           sx={{
             ...defaultStyles,
-            alignContent: "center",
-            alignItems: "center",
-            display: "flex",
+            alignContent: 'center',
+            alignItems: 'center',
+            display: 'flex',
             padding: 2,
           }}
         >
@@ -92,24 +92,24 @@ const Template: Story<EditableFieldAutocompleteProps<AutocompleteItem>> = (
       selectedOption={value}
       totalCount={items.length}
     />
-  )
-}
+  );
+};
 
 const MultiAutocompleteTemplate: Story<
   EditableFieldAutocompleteProps<AutocompleteItem>
 > = (
   props: Omit<
     Partial<EditableFieldAutocompleteProps<AutocompleteItem>>,
-    "multiSelect"
+    'multiSelect'
   >
 ) => {
-  const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
+  const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions);
   const [value, setValue] = useState<AutocompleteItem[] | null | undefined>(
     (props.selectedOption as AutocompleteItem[]) || []
-  )
+  );
   const [defaultValue, setDefaultValue] = useState<
     AutocompleteItem[] | undefined
-  >((props.defaultSelectedOption as AutocompleteItem[]) || [])
+  >((props.defaultSelectedOption as AutocompleteItem[]) || []);
 
   return (
     <EditableFieldAutocomplete<AutocompleteItem>
@@ -126,17 +126,17 @@ const MultiAutocompleteTemplate: Story<
                   .startsWith(inputValue.toLocaleLowerCase())
               : true
           )
-        )
+        );
       }}
       onRemove={(option) => {
-        setValue(value?.filter((selected) => selected.value !== option.value))
+        setValue(value?.filter((selected) => selected.value !== option.value));
       }}
       onSave={(newValue) => {
-        props.onSave?.(newValue)
-        setDefaultValue(newValue as AutocompleteItem[])
+        props.onSave?.(newValue);
+        setDefaultValue(newValue as AutocompleteItem[]);
       }}
       onSelectedItemsChange={(options) => {
-        setValue(options)
+        setValue(options);
       }}
       options={items.slice(0, 5)}
       placeholder="Search by organization's name or handle"
@@ -144,9 +144,9 @@ const MultiAutocompleteTemplate: Story<
         <div
           sx={{
             ...defaultStyles,
-            alignContent: "center",
-            alignItems: "center",
-            display: "flex",
+            alignContent: 'center',
+            alignItems: 'center',
+            display: 'flex',
             padding: 2,
           }}
         >
@@ -156,9 +156,9 @@ const MultiAutocompleteTemplate: Story<
       selectedOption={value}
       totalCount={items.length}
     />
-  )
-}
+  );
+};
 
-export const SingleSelect = Template.bind({})
+export const SingleSelect = Template.bind({});
 
-export const MultiSelect = MultiAutocompleteTemplate.bind({})
+export const MultiSelect = MultiAutocompleteTemplate.bind({});

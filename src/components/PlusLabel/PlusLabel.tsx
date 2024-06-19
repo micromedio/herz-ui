@@ -1,11 +1,11 @@
 /** @jsxImportSource theme-ui */
-import Button from "../Button/Button"
-import Tooltip from "../Tooltip/Tooltip"
+import Button from '../Button/Button';
+import Tooltip from '../Tooltip/Tooltip';
 
 export interface PlusLabelProps {
-  labels: string[]
-  tooltip: string
-  customTooltip?: React.ReactNode
+  labels: string[];
+  tooltip: string;
+  customTooltip?: React.ReactNode;
 }
 
 export default function PlusLabel({
@@ -13,14 +13,14 @@ export default function PlusLabel({
   labels,
   customTooltip,
 }: PlusLabelProps) {
-  const additionalDataNumber = " +" + (labels?.length - 1)
+  const additionalDataNumber = ' +' + (labels?.length - 1);
 
   return (
     <div
       sx={{
-        display: "flex",
-        "& label": { display: "flex" },
-        button: { marginLeft: ".5rem", padding: "0.1rem .3rem" },
+        display: 'flex',
+        '& label': { display: 'flex' },
+        button: { marginLeft: '.5rem', padding: '0.1rem .3rem' },
       }}
     >
       {labels?.map(
@@ -32,5 +32,5 @@ export default function PlusLabel({
         </Button>
       </Tooltip>
     </div>
-  )
+  );
 }

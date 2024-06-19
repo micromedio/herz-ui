@@ -1,9 +1,9 @@
 /** @jsxImportSource theme-ui */
-import ThemeWrapper from "../theme/ThemeWrapper"
-import SnackbarProvider from "../components/Snackbar/context/SnackbarProvider"
+import ThemeWrapper from '../theme/ThemeWrapper';
+import SnackbarProvider from '../components/Snackbar/context/SnackbarProvider';
 
 export interface ProvidersProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const Providers = ({ children }: ProvidersProps) => {
@@ -11,7 +11,7 @@ const Providers = ({ children }: ProvidersProps) => {
     <ThemeWrapper>
       <SnackbarProvider>{children}</SnackbarProvider>
     </ThemeWrapper>
-  )
-}
+  );
+};
 
-export default Providers
+export default Providers;

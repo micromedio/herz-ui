@@ -1,15 +1,15 @@
-import React, { useState } from "react"
-import TextField, { TextFieldProps } from "./TextField"
-import { Meta, Story } from "@storybook/react/types-6-0"
-import SelectComponent, { SelectProps } from "../Select/Select"
+import React, { useState } from 'react';
+import TextField, { TextFieldProps } from './TextField';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import SelectComponent, { SelectProps } from '../Select/Select';
 
 export default {
-  title: "Design System/TextField",
+  title: 'Design System/TextField',
   component: TextField,
-} as Meta
+} as Meta;
 
 const Template: Story<TextFieldProps> = (props: TextFieldProps) => {
-  const [value, setValue] = useState(!props.select ? props.value : "")
+  const [value, setValue] = useState(!props.select ? props.value : '');
 
   return (
     <TextField
@@ -18,19 +18,19 @@ const Template: Story<TextFieldProps> = (props: TextFieldProps) => {
         ? {
             value,
             onChange: (event) => {
-              if (props.onChange) props.onChange(event)
-              setValue(event.target.value)
+              if (props.onChange) props.onChange(event);
+              setValue(event.target.value);
             },
           }
         : {})}
     />
-  )
-}
+  );
+};
 
 const SelectTemplate: Story<TextFieldProps> = (props: TextFieldProps) => {
-  const [value, setValue] = useState<SelectProps["value"]>(
-    props.select ? props?.selectProps?.value : ""
-  )
+  const [value, setValue] = useState<SelectProps['value']>(
+    props.select ? props?.selectProps?.value : ''
+  );
 
   return (
     <TextField
@@ -48,42 +48,42 @@ const SelectTemplate: Story<TextFieldProps> = (props: TextFieldProps) => {
     >
       {props.select ? props.children : null}
     </TextField>
-  )
-}
+  );
+};
 
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 Example.args = {
   select: false,
-  id: "field-id",
-  label: "Label",
-  helperText: "Text to help explain the input",
-  iconName: "IconSearch",
-}
+  id: 'field-id',
+  label: 'Label',
+  helperText: 'Text to help explain the input',
+  iconName: 'IconSearch',
+};
 
-export const ReadOnly = Template.bind({})
+export const ReadOnly = Template.bind({});
 ReadOnly.args = {
   ...Example.args,
   iconName: undefined,
-  value: "Read Only Text Value",
+  value: 'Read Only Text Value',
   readOnly: true,
-}
+};
 
-export const WithoutLabels = Template.bind({})
-WithoutLabels.args = {}
+export const WithoutLabels = Template.bind({});
+WithoutLabels.args = {};
 
-export const Filled = Template.bind({})
+export const Filled = Template.bind({});
 Filled.args = {
   ...Example.args,
   select: false,
-  value: "Filled input",
-}
+  value: 'Filled input',
+};
 
-export const Select = SelectTemplate.bind({})
+export const Select = SelectTemplate.bind({});
 Select.args = {
-  id: "field-id",
-  label: "Label",
-  helperText: "Text to help explain the input",
-  placeholder: " ",
+  id: 'field-id',
+  label: 'Label',
+  helperText: 'Text to help explain the input',
+  placeholder: ' ',
   select: true,
   children: [
     <SelectComponent.Option key="CPF" value="CPF">
@@ -93,13 +93,13 @@ Select.args = {
       CNPJ
     </SelectComponent.Option>,
   ],
-}
+};
 
-export const ReadOnlySelect = SelectTemplate.bind({})
+export const ReadOnlySelect = SelectTemplate.bind({});
 ReadOnlySelect.args = {
-  id: "field-id",
-  label: "Label",
-  helperText: "Text to help explain the input",
+  id: 'field-id',
+  label: 'Label',
+  helperText: 'Text to help explain the input',
   // placeholder: " ",
   select: true,
   children: [
@@ -111,62 +111,62 @@ ReadOnlySelect.args = {
     </SelectComponent.Option>,
   ],
   selectProps: {
-    value: "CPF",
+    value: 'CPF',
   },
   readOnly: true,
-}
+};
 
-export const Error = Template.bind({})
+export const Error = Template.bind({});
 Error.args = {
   ...Example.args,
-  value: "Filled input",
-  state: "error",
-  helperText: "Text to explain the input error",
-}
+  value: 'Filled input',
+  state: 'error',
+  helperText: 'Text to explain the input error',
+};
 
-export const Success = Template.bind({})
+export const Success = Template.bind({});
 Success.args = {
   ...Example.args,
-  value: "Filled input",
-  state: "success",
-  helperText: "Text to explain the success",
-}
+  value: 'Filled input',
+  state: 'success',
+  helperText: 'Text to explain the success',
+};
 
-export const TextArea = Template.bind({})
+export const TextArea = Template.bind({});
 TextArea.args = {
   select: false,
-  id: "field-id",
-  label: "Label",
-  helperText: "Text to help explain the input",
-  iconName: "IconSearch",
+  id: 'field-id',
+  label: 'Label',
+  helperText: 'Text to help explain the input',
+  iconName: 'IconSearch',
   multiline: true,
-}
+};
 
-export const TextAreaWithoutLabels = Template.bind({})
+export const TextAreaWithoutLabels = Template.bind({});
 TextAreaWithoutLabels.args = {
   multiline: true,
   rows: 2,
-}
+};
 
-export const TextAreaFilled = Template.bind({})
+export const TextAreaFilled = Template.bind({});
 TextAreaFilled.args = {
   ...TextArea.args,
-  value: "Filled input",
+  value: 'Filled input',
   rows: 2,
-}
+};
 
-export const TextAreaError = Template.bind({})
+export const TextAreaError = Template.bind({});
 TextAreaError.args = {
   ...TextArea.args,
-  value: "Filled input",
-  state: "error",
-  helperText: "Text to explain the input error",
-}
+  value: 'Filled input',
+  state: 'error',
+  helperText: 'Text to explain the input error',
+};
 
-export const TextAreaSuccess = Template.bind({})
+export const TextAreaSuccess = Template.bind({});
 TextAreaSuccess.args = {
   ...TextArea.args,
-  value: "Filled input",
-  state: "success",
-  helperText: "Text to explain the success",
-}
+  value: 'Filled input',
+  state: 'success',
+  helperText: 'Text to explain the success',
+};

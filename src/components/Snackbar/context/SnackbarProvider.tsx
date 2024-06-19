@@ -1,37 +1,37 @@
 /** @jsxImportSource theme-ui */
-import { useCallback, useMemo, useState } from "react"
-import { SnackbarContext } from "./SnackbarContext"
-import SnackbarItem, { SnackbarItemProps } from "./SnackbarItem"
+import { useCallback, useMemo, useState } from 'react';
+import { SnackbarContext } from './SnackbarContext';
+import SnackbarItem, { SnackbarItemProps } from './SnackbarItem';
 
 export interface SnackbarProviderProps {
-  children: React.ReactNode
-  autoHideDuration?: number
+  children: React.ReactNode;
+  autoHideDuration?: number;
   position?: {
-    vertical: "top" | "bottom"
-    horizontal: "left" | "center" | "right"
-  }
+    vertical: 'top' | 'bottom';
+    horizontal: 'left' | 'center' | 'right';
+  };
 }
 
-const SNACKBAR_MARGIN = 3
+const SNACKBAR_MARGIN = 3;
 
 const SnackbarProvider = ({
   children,
   autoHideDuration = 2000,
-  position = { vertical: "bottom", horizontal: "right" },
+  position = { vertical: 'bottom', horizontal: 'right' },
 }: SnackbarProviderProps) => {
-  const [snacks, setSnacks] = useState<Array<SnackbarItemProps>>([])
+  const [snacks, setSnacks] = useState<Array<SnackbarItemProps>>([]);
 
-  const closeSnackbar = useCallback<SnackbarContext["closeSnackbar"]>(
+  const closeSnackbar = useCallback<SnackbarContext['closeSnackbar']>(
     (snackId) => {
-      if (snackId === undefined) setSnacks([])
-      else setSnacks((snacks) => snacks.filter(({ id }) => id !== snackId))
+      if (snackId === undefined) setSnacks([]);
+      else setSnacks((snacks) => snacks.filter(({ id }) => id !== snackId));
     },
     []
-  )
+  );
 
-  const enqueueSnackbar = useCallback<SnackbarContext["enqueueSnackbar"]>(
+  const enqueueSnackbar = useCallback<SnackbarContext['enqueueSnackbar']>(
     (snack) => {
-      const id = `${Date.now()}${Math.random()}`
+      const id = `${Date.now()}${Math.random()}`;
 
       setSnacks((currentSnacks) => [
         ...currentSnacks,
@@ -40,42 +40,42 @@ const SnackbarProvider = ({
           autoHideDuration,
           ...snack,
         },
-      ])
-      return id
+      ]);
+      return id;
     },
     [autoHideDuration]
-  )
+  );
 
   const snackbars = useMemo(() => {
     return (
       <div
         sx={{
-          position: "fixed",
-          display: "flex",
+          position: 'fixed',
+          display: 'flex',
           gap: 2,
 
-          ...(position.vertical === "top"
+          ...(position.vertical === 'top'
             ? {
                 top: SNACKBAR_MARGIN,
-                flexDirection: "column",
+                flexDirection: 'column',
               }
             : {
                 bottom: SNACKBAR_MARGIN,
-                flexDirection: "column-reverse",
+                flexDirection: 'column-reverse',
               }),
 
-          ...(position.horizontal === "right" && {
+          ...(position.horizontal === 'right' && {
             right: SNACKBAR_MARGIN,
-            alignItems: "flex-end",
+            alignItems: 'flex-end',
           }),
-          ...(position.horizontal === "left" && {
+          ...(position.horizontal === 'left' && {
             left: SNACKBAR_MARGIN,
-            alignItems: "flex-start",
+            alignItems: 'flex-start',
           }),
-          ...(position.horizontal === "center" && {
-            left: "50%",
-            transform: "translateX(-50%)",
-            alignItems: "center",
+          ...(position.horizontal === 'center' && {
+            left: '50%',
+            transform: 'translateX(-50%)',
+            alignItems: 'center',
           }),
         }}
       >
@@ -83,8 +83,8 @@ const SnackbarProvider = ({
           <SnackbarItem key={snack.id} {...snack} />
         ))}
       </div>
-    )
-  }, [position.horizontal, position.vertical, snacks])
+    );
+  }, [position.horizontal, position.vertical, snacks]);
 
   return (
     <SnackbarContext.Provider
@@ -97,7 +97,7 @@ const SnackbarProvider = ({
       {children}
       {snackbars}
     </SnackbarContext.Provider>
-  )
-}
+  );
+};
 
-export default SnackbarProvider
+export default SnackbarProvider;

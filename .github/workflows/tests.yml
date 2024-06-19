@@ -1,31 +1,30 @@
 name: Test
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-    - run: yarn install --frozen-lockfile
-    - run: yarn test
-    - name: Tests
-      run: |
-        yarn storybook --ci &
-        yarn run creevey
-    - uses: actions/upload-artifact@v2
-      with:
-        name: report
-        path: report/
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: yarn install --frozen-lockfile
+      - run: yarn test
+      - name: Tests
+        run: |
+          yarn storybook --ci &
+          yarn run creevey
+      - uses: actions/upload-artifact@v2
+        with:
+          name: report
+          path: report/

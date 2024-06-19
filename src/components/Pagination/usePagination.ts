@@ -1,28 +1,28 @@
-import { useMemo, useState } from "react"
-import { PaginationItemProps } from "../PaginationItem/PaginationItem"
+import { useMemo, useState } from 'react';
+import { PaginationItemProps } from '../PaginationItem/PaginationItem';
 
 interface UsePaginationProps {
   /** The page selected by default when the component is uncontrolled */
-  defaultPage?: number
+  defaultPage?: number;
   /** The total number of pages */
-  count?: number
+  count?: number;
   /** If true, the pagination component will be disabled */
-  disabled?: boolean
+  disabled?: boolean;
 
   /** The current page */
-  page?: number
+  page?: number;
   /** Callback fired when the page is changed */
-  onChange?: (page: number) => void
+  onChange?: (page: number) => void;
 
   /** Number of always visible pages at the beginning and end */
-  boundaryCount?: number
+  boundaryCount?: number;
   /** Number of always visible pages before and after the current page */
-  siblingCount?: number
+  siblingCount?: number;
 
-  showFirstButton?: boolean
-  showPreviousButton?: boolean
-  showNextButton?: boolean
-  showLastButton?: boolean
+  showFirstButton?: boolean;
+  showPreviousButton?: boolean;
+  showNextButton?: boolean;
+  showLastButton?: boolean;
 }
 
 const createRange = ({
@@ -31,16 +31,16 @@ const createRange = ({
   siblingCount,
   boundaryCount,
 }: {
-  page: number
-  count: number
-  siblingCount: number
-  boundaryCount: number
+  page: number;
+  count: number;
+  siblingCount: number;
+  boundaryCount: number;
 }) => {
-  const last = count
-  const left = page - siblingCount
-  const right = page + siblingCount + 1
-  const range = []
-  let rangeWithDots: (PaginationItemProps["type"] | number)[] = []
+  const last = count;
+  const left = page - siblingCount;
+  const right = page + siblingCount + 1;
+  const range = [];
+  let rangeWithDots: (PaginationItemProps['type'] | number)[] = [];
 
   for (let index = 1; index <= last; index++) {
     if (
@@ -51,34 +51,34 @@ const createRange = ({
       // close to the current page
       (index >= left && index < right)
     ) {
-      range.push(index)
+      range.push(index);
     }
   }
 
-  let previous
+  let previous;
   for (const index of range) {
     if (previous) {
       if (index - previous === 2) {
-        rangeWithDots.push(previous + 1)
+        rangeWithDots.push(previous + 1);
       } else if (index - previous !== 1) {
-        rangeWithDots.push("ellipsis")
+        rangeWithDots.push('ellipsis');
       }
     }
-    rangeWithDots.push(index)
-    previous = index
+    rangeWithDots.push(index);
+    previous = index;
   }
 
   if (boundaryCount === 0) {
     if (page - siblingCount > 1) {
-      rangeWithDots = ["ellipsis", ...rangeWithDots]
+      rangeWithDots = ['ellipsis', ...rangeWithDots];
     }
     if (page + siblingCount < last) {
-      rangeWithDots = [...rangeWithDots, "ellipsis"]
+      rangeWithDots = [...rangeWithDots, 'ellipsis'];
     }
   }
 
-  return rangeWithDots
-}
+  return rangeWithDots;
+};
 
 const usePagination = ({
   page: pageProp,
@@ -93,68 +93,68 @@ const usePagination = ({
   showNextButton = false,
   showLastButton = true,
 }: UsePaginationProps = {}) => {
-  const isControlled = pageProp !== undefined
+  const isControlled = pageProp !== undefined;
 
-  const [pageState, setPage] = useState(pageProp ?? defaultPage)
+  const [pageState, setPage] = useState(pageProp ?? defaultPage);
 
   const page = useMemo(() => {
-    if (pageProp !== undefined) return pageProp
-    return pageState
-  }, [pageState, pageProp])
+    if (pageProp !== undefined) return pageProp;
+    return pageState;
+  }, [pageState, pageProp]);
 
   const handleClick = (value?: number) => {
     if (value) {
       if (!isControlled) {
-        setPage(value)
+        setPage(value);
       }
       if (onChange) {
-        onChange(value)
+        onChange(value);
       }
     }
-  }
+  };
 
-  let itemList = createRange({ page, count, siblingCount, boundaryCount })
+  let itemList = createRange({ page, count, siblingCount, boundaryCount });
 
-  if (showPreviousButton) itemList = ["previous", ...itemList]
-  if (showNextButton) itemList = [...itemList, "next"]
-  if (showFirstButton) itemList = ["first", ...itemList]
-  if (showLastButton) itemList = [...itemList, "last"]
+  if (showPreviousButton) itemList = ['previous', ...itemList];
+  if (showNextButton) itemList = [...itemList, 'next'];
+  if (showFirstButton) itemList = ['first', ...itemList];
+  if (showLastButton) itemList = [...itemList, 'last'];
 
   // Map the button type to its page number
-  const buttonPage = (type: PaginationItemProps["type"]) => {
+  const buttonPage = (type: PaginationItemProps['type']) => {
     switch (type) {
-      case "first":
-        return 1
-      case "previous":
-        return page - 1
-      case "next":
-        return page + 1
-      case "last":
-        return count
+      case 'first':
+        return 1;
+      case 'previous':
+        return page - 1;
+      case 'next':
+        return page + 1;
+      case 'last':
+        return count;
       default:
-        return 0
+        return 0;
     }
-  }
+  };
 
   const items = itemList.map((item) => {
-    let type: PaginationItemProps["type"]
-    let selected: boolean
-    let disabled: boolean
-    let pageNumber: number
+    let type: PaginationItemProps['type'];
+    let selected: boolean;
+    let disabled: boolean;
+    let pageNumber: number;
 
-    if (typeof item === "number") {
-      type = "page"
-      selected = item === page
-      pageNumber = item
-      disabled = disabledProp
+    if (typeof item === 'number') {
+      type = 'page';
+      selected = item === page;
+      pageNumber = item;
+      disabled = disabledProp;
     } else {
-      type = item
-      selected = false
-      pageNumber = buttonPage(item)
+      type = item;
+      selected = false;
+      pageNumber = buttonPage(item);
       disabled =
         disabledProp ||
-        (item !== "ellipsis" &&
-          (item === "next" || item === "last" ? page >= count : page <= 1))
+        (item !== 'ellipsis' &&
+          (item === 'next' || item === 'last' ? page >= count : page <= 1));
     }
 
     return {
@@ -163,12 +163,12 @@ const usePagination = ({
       page: pageNumber,
       selected,
       disabled,
-    }
-  })
+    };
+  });
 
   return {
     items,
-  }
-}
+  };
+};
 
-export default usePagination
+export default usePagination;

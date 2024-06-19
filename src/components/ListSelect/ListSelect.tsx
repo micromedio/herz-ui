@@ -1,21 +1,21 @@
 /** @jsxImportSource theme-ui */
-import { Fragment, ReactNode, useMemo } from "react"
+import { Fragment, ReactNode, useMemo } from 'react';
 
-import Divider from "../Divider/Divider"
-import Icon from "../Icon/Icon"
+import Divider from '../Divider/Divider';
+import Icon from '../Icon/Icon';
 
 type SelectOption = {
-  label: ReactNode
-  value: string | number
-  affix?: ReactNode
-  suffix?: ReactNode
-}
+  label: ReactNode;
+  value: string | number;
+  affix?: ReactNode;
+  suffix?: ReactNode;
+};
 
 export interface ListSelectProps {
-  options: Array<SelectOption>
-  selected?: SelectOption["value"] | Array<SelectOption["value"]>
-  onSelect?: (value: SelectOption["value"]) => void
-  onDeselect?: (value: SelectOption["value"]) => void
+  options: Array<SelectOption>;
+  selected?: SelectOption['value'] | Array<SelectOption['value']>;
+  onSelect?: (value: SelectOption['value']) => void;
+  onDeselect?: (value: SelectOption['value']) => void;
 }
 
 const ListSelect = ({
@@ -25,66 +25,66 @@ const ListSelect = ({
   onDeselect,
 }: ListSelectProps) => {
   const selectedArray = useMemo(() => {
-    return Array.isArray(selected) ? selected : [selected]
-  }, [selected])
+    return Array.isArray(selected) ? selected : [selected];
+  }, [selected]);
 
   return (
     <div
       sx={{
-        display: "grid",
+        display: 'grid',
         gap: 2,
       }}
     >
-      {options.map(({ label, value, suffix, affix = "" }, index) => {
-        const isSelected = selectedArray.includes(value)
+      {options.map(({ label, value, suffix, affix = '' }, index) => {
+        const isSelected = selectedArray.includes(value);
         return (
           <Fragment key={value}>
             {index !== 0 && <Divider />}
             <button
               onClick={() => {
                 if (isSelected) {
-                  onDeselect?.(value)
+                  onDeselect?.(value);
                 } else {
-                  onSelect?.(value)
+                  onSelect?.(value);
                 }
               }}
               sx={{
-                display: "flex",
+                display: 'flex',
                 gap: 3,
-                outline: "none",
-                border: "none",
-                cursor: "pointer",
-                alignItems: "center",
+                outline: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                alignItems: 'center',
                 px: 3,
                 py: 2,
                 borderRadius: 2,
                 backgroundColor: isSelected
-                  ? "secondary.alpha.90"
-                  : "transparent",
-                variant: "text.body1",
-                fontWeight: isSelected ? "semibold" : "medium",
-                color: isSelected ? "secondary" : "text",
-                ":focus": {
+                  ? 'secondary.alpha.90'
+                  : 'transparent',
+                variant: 'text.body1',
+                fontWeight: isSelected ? 'semibold' : 'medium',
+                color: isSelected ? 'secondary' : 'text',
+                ':focus': {
                   backgroundColor: isSelected
-                    ? "secondary.alpha.90"
-                    : "secondary.alpha.85",
+                    ? 'secondary.alpha.90'
+                    : 'secondary.alpha.85',
                 },
-                ":hover": {
+                ':hover': {
                   backgroundColor: isSelected
-                    ? "secondary.alpha.85"
-                    : "text.alpha.95",
+                    ? 'secondary.alpha.85'
+                    : 'text.alpha.95',
                 },
-                transition: "all .2s linear",
+                transition: 'all .2s linear',
               }}
             >
               {suffix}
-              <span sx={{ flexGrow: 1, textAlign: "start" }}>{label}</span>
+              <span sx={{ flexGrow: 1, textAlign: 'start' }}>{label}</span>
               {isSelected ? (
                 <span
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     p: 1,
                   }}
                 >
@@ -93,8 +93,8 @@ const ListSelect = ({
               ) : (
                 <span
                   sx={{
-                    fontWeight: "semibold",
-                    color: "text.40",
+                    fontWeight: 'semibold',
+                    color: 'text.40',
                   }}
                 >
                   {affix}
@@ -102,10 +102,10 @@ const ListSelect = ({
               )}
             </button>
           </Fragment>
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
-export default ListSelect
+export default ListSelect;

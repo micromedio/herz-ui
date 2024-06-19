@@ -5,23 +5,23 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import * as React from "react"
+import * as React from 'react';
 import {
   LiveProvider,
   LiveEditor,
   LiveError,
   LivePreview,
   LiveProviderProps,
-} from "react-live"
-import clsx from "clsx"
-import Translate from "@docusaurus/Translate"
-import useIsBrowser from "@docusaurus/useIsBrowser"
-import usePrismTheme from "@theme/hooks/usePrismTheme"
-import styles from "./styles.module.css"
-import { Button } from "@micromed/herz-ui"
+} from 'react-live';
+import clsx from 'clsx';
+import Translate from '@docusaurus/Translate';
+import useIsBrowser from '@docusaurus/useIsBrowser';
+import usePrismTheme from '@theme/hooks/usePrismTheme';
+import styles from './styles.module.css';
+import { Button } from '@micromed/herz-ui';
 
 function Header({ children }: { children: React.ReactNode }) {
-  return <div className={clsx(styles.playgroundHeader)}>{children}</div>
+  return <div className={clsx(styles.playgroundHeader)}>{children}</div>;
 }
 
 function ResultWithHeader() {
@@ -40,19 +40,19 @@ function ResultWithHeader() {
         <LiveError />
       </div>
     </>
-  )
+  );
 }
 
 function EditorWithHeader() {
-  const [show, setShow] = React.useState(false)
+  const [show, setShow] = React.useState(false);
 
   return (
     <>
       <Header>
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
+            display: 'flex',
+            justifyContent: 'space-between',
           }}
         >
           <Translate
@@ -67,35 +67,35 @@ function EditorWithHeader() {
             variant="plain"
             onClick={() => setShow((value) => !value)}
             color="secondary"
-            iconName={show ? "IconChevronUp" : "IconChevronDown"}
+            iconName={show ? 'IconChevronUp' : 'IconChevronDown'}
           >
-            {show ? "Hide" : "Show"}
+            {show ? 'Hide' : 'Show'}
           </Button>
         </div>
       </Header>
       <LiveEditor
         className={styles.playgroundEditor}
         style={{
-          display: show ? "block" : "none",
+          display: show ? 'block' : 'none',
         }}
       />
     </>
-  )
+  );
 }
 
 export default function Playground({
   children,
   transformCode,
   ...properties
-}: { children: string } & Omit<LiveProviderProps, "children" | "ref">) {
-  const isBrowser = useIsBrowser()
-  const prismTheme = usePrismTheme()
+}: { children: string } & Omit<LiveProviderProps, 'children' | 'ref'>) {
+  const isBrowser = useIsBrowser();
+  const prismTheme = usePrismTheme();
 
   return (
     <div className={styles.playgroundContainer}>
       <LiveProvider
         key={isBrowser.toString()}
-        code={isBrowser ? children.replace(/\n$/, "") : ""}
+        code={isBrowser ? children.replace(/\n$/, '') : ''}
         transformCode={transformCode || ((code) => `${code};`)}
         theme={prismTheme}
         {...properties}
@@ -104,5 +104,5 @@ export default function Playground({
         <ResultWithHeader />
       </LiveProvider>
     </div>
-  )
+  );
 }

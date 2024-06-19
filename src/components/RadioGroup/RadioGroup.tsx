@@ -1,11 +1,11 @@
-import React, { ChangeEvent, ReactNode } from "react"
-import RadioGroupContext from "./RadioGroupContext"
+import React, { ChangeEvent, ReactNode } from 'react';
+import RadioGroupContext from './RadioGroupContext';
 
 export interface RadioGroupProps {
-  name?: string
-  value: string
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void
-  children?: ReactNode
+  name?: string;
+  value: string;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  children?: ReactNode;
 }
 
 export function RadioGroup({
@@ -18,5 +18,5 @@ export function RadioGroup({
     <RadioGroupContext.Provider value={{ name, onChange, value }}>
       {children}
     </RadioGroupContext.Provider>
-  )
+  );
 }

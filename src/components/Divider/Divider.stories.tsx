@@ -1,10 +1,10 @@
-import Divider from "./Divider"
-import { Meta, Story } from "@storybook/react/types-6-0"
+import Divider from './Divider';
+import { Meta, Story } from '@storybook/react/types-6-0';
 
 export default {
-  title: "Design System/Divider",
+  title: 'Design System/Divider',
   component: Divider,
-} as Meta
+} as Meta;
 
 const Template: Story = (props) => (
   <div>
@@ -12,10 +12,10 @@ const Template: Story = (props) => (
     <Divider {...props} />
     Item 2
   </div>
-)
+);
 
 const TemplateVertical: Story = (props) => (
-  <div style={{ display: "flex", gap: 8 }}>
+  <div style={{ display: 'flex', gap: 8 }}>
     Item 1
     <Divider {...props} variant="vertical" />
     Item 2
@@ -24,11 +24,11 @@ const TemplateVertical: Story = (props) => (
     <Divider {...props} variant="vertical" />
     Item 4
   </div>
-)
+);
 
 // Each story then reuses that template
-export const Default = Template.bind({})
-Default.args = {}
+export const Default = Template.bind({});
+Default.args = {};
 
-export const Vertical = TemplateVertical.bind({})
-Vertical.args = {}
+export const Vertical = TemplateVertical.bind({});
+Vertical.args = {};

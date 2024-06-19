@@ -1,107 +1,107 @@
 /** @jsxImportSource theme-ui */
-import React, { useCallback, useMemo, useState } from "react"
-import Table, { TableProps } from "./Table"
-import { Meta, Story } from "@storybook/react/types-6-0"
-import data from "./__mocks__/data"
-import _ from "lodash"
-import { action } from "@storybook/addon-actions"
-import Paper from "../Paper/Paper"
-import { Spinner } from ".."
-import { Column } from "react-table"
+import React, { useCallback, useMemo, useState } from 'react';
+import Table, { TableProps } from './Table';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import data from './__mocks__/data';
+import _ from 'lodash';
+import { action } from '@storybook/addon-actions';
+import Paper from '../Paper/Paper';
+import { Spinner } from '..';
+import { Column } from 'react-table';
 
 export default {
-  title: "Design System/Table",
+  title: 'Design System/Table',
   component: Table,
   decorators: [
     (Story) => (
-      <Paper sx={{ display: "grid", height: 700, px: 0 }}>
+      <Paper sx={{ display: 'grid', height: 700, px: 0 }}>
         <Story />
       </Paper>
     ),
   ],
-} as Meta
+} as Meta;
 
 const columns = [
   {
-    Header: "Study #",
-    accessor: "id",
+    Header: 'Study #',
+    accessor: 'id',
     highlight: true,
   },
   {
-    Header: "Patient",
-    accessor: "patient.name",
+    Header: 'Patient',
+    accessor: 'patient.name',
     Cell({
       row,
     }: {
-      row: { original: { patient: { name: string; ssn: string } } }
+      row: { original: { patient: { name: string; ssn: string } } };
     }) {
       return (
         <div
           sx={{
-            display: "flex",
-            flexDirection: "column",
+            display: 'flex',
+            flexDirection: 'column',
             gap: 1,
           }}
         >
           <span>{row.original?.patient?.name}</span>
-          <span sx={{ variant: "text.body2", color: "text.40" }}>
+          <span sx={{ variant: 'text.body2', color: 'text.40' }}>
             SSN {row.original?.patient?.ssn}
           </span>
         </div>
-      )
+      );
     },
   },
   {
-    Header: "Referring physician",
-    accessor: "physician.name",
+    Header: 'Referring physician',
+    accessor: 'physician.name',
   },
   {
-    Header: "Study status",
-    accessor: "status",
-    Cell: ({ value }: { value: "draft" | "pre-registered" | "pending" }) => {
+    Header: 'Study status',
+    accessor: 'status',
+    Cell: ({ value }: { value: 'draft' | 'pre-registered' | 'pending' }) => {
       return (
         {
-          draft: "In Draft",
-          "pre-registered": "Pre-registered",
-          pending: "Pending report",
-        }[value] ?? ""
-      )
+          draft: 'In Draft',
+          'pre-registered': 'Pre-registered',
+          pending: 'Pending report',
+        }[value] ?? ''
+      );
     },
   },
   {
-    Header: "Start date",
-    accessor: "startDate",
+    Header: 'Start date',
+    accessor: 'startDate',
     Cell: ({ value }: { value: Date }) => value.toLocaleDateString(),
   },
-] as Array<Column<typeof data[0]>>
+] as Array<Column<typeof data[0]>>;
 
 const Template: Story<TableProps<typeof data[0]>> = (props) => (
   <Table<typeof data[0]> {...props} />
-)
+);
 
 // Each story then reuses that template
-export const Example = Template.bind({})
+export const Example = Template.bind({});
 
 Example.args = {
   columns,
   data: [
     {
       ...data[0],
-      id: "WORD_BREAK_TEST",
+      id: 'WORD_BREAK_TEST',
       physician: {
-        name: "really_long_string_without_spaces_that_should_break_into_a_new_line",
+        name: 'really_long_string_without_spaces_that_should_break_into_a_new_line',
       },
     },
     ...data,
   ],
-}
+};
 
 const ActiveRowTemplate: Story<TableProps<typeof data[0]>> = (
   props: TableProps<typeof data[0]>
 ) => {
-  const [activeRowIds, setActiveRowIds] = useState<TableProps["activeRowIds"]>({
+  const [activeRowIds, setActiveRowIds] = useState<TableProps['activeRowIds']>({
     HBPM457: true,
-  })
+  });
 
   return (
     <Table
@@ -109,38 +109,38 @@ const ActiveRowTemplate: Story<TableProps<typeof data[0]>> = (
       onRowClick={({ id }) => setActiveRowIds({ [id]: true })}
       activeRowIds={activeRowIds}
     />
-  )
-}
-export const ActiveRowExample = ActiveRowTemplate.bind({})
+  );
+};
+export const ActiveRowExample = ActiveRowTemplate.bind({});
 
 ActiveRowExample.args = {
   columns,
   data,
   rowClickable: true,
-}
+};
 
 const ControlledPaginationTemplate: Story<TableProps<typeof data[0]>> = (
   props: TableProps<typeof data[0]>
 ) => {
-  const [paginatedData, setPaginatedData] = useState(props.data.slice(0, 10))
-  const [pageSize, setPageSize] = useState(10)
+  const [paginatedData, setPaginatedData] = useState(props.data.slice(0, 10));
+  const [pageSize, setPageSize] = useState(10);
 
   const pageCount = useMemo(() => {
-    const size = props.data.length
-    return Math.ceil(size / pageSize)
-  }, [props.data, pageSize])
+    const size = props.data.length;
+    return Math.ceil(size / pageSize);
+  }, [props.data, pageSize]);
 
   const onTableChange = useCallback(
     ({ pageIndex, pageSize }) => {
-      setPageSize(pageSize)
+      setPageSize(pageSize);
 
       // simulating server-side pagination
       setPaginatedData(
         props.data.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
-      )
+      );
     },
     [props.data]
-  )
+  );
 
   return (
     <Table
@@ -151,34 +151,36 @@ const ControlledPaginationTemplate: Story<TableProps<typeof data[0]>> = (
       totalCount={data.length}
       onTableChange={onTableChange}
     />
-  )
-}
-export const ControlledPaginationExample = ControlledPaginationTemplate.bind({})
+  );
+};
+export const ControlledPaginationExample = ControlledPaginationTemplate.bind(
+  {}
+);
 
 ControlledPaginationExample.args = {
   columns,
   data,
-}
+};
 
 const ControlledSortingTemplate: Story<TableProps<typeof data[0]>> = (
   props: TableProps<typeof data[0]>
 ) => {
-  const [sortedData, setSortedData] = useState(props.data)
+  const [sortedData, setSortedData] = useState(props.data);
 
   const onTableChange = useCallback(
     ({ sortBy }) => {
-      let temporaryData = props.data
+      let temporaryData = props.data;
       // simulating server-side sorting
       if (sortBy) {
         temporaryData = _.sortBy(temporaryData, (item) =>
           _.get(item, sortBy.id)
-        )
-        if (sortBy.desc) temporaryData = temporaryData.reverse()
+        );
+        if (sortBy.desc) temporaryData = temporaryData.reverse();
       }
-      setSortedData(temporaryData)
+      setSortedData(temporaryData);
     },
     [props.data]
-  )
+  );
 
   return (
     <Table
@@ -187,18 +189,18 @@ const ControlledSortingTemplate: Story<TableProps<typeof data[0]>> = (
       data={sortedData}
       onTableChange={onTableChange}
     />
-  )
-}
-export const ControlledSortingExample = ControlledSortingTemplate.bind({})
+  );
+};
+export const ControlledSortingExample = ControlledSortingTemplate.bind({});
 
 ControlledSortingExample.args = {
   columns,
   data,
   initialSortBy: {
-    id: "patient.name",
+    id: 'patient.name',
     desc: true,
   },
-}
+};
 
 const SelectRowsTemplate: Story<TableProps<typeof data[0]>> = (
   props: TableProps<typeof data[0]>
@@ -206,17 +208,17 @@ const SelectRowsTemplate: Story<TableProps<typeof data[0]>> = (
   const [selectedRowIds, setSeletedRowIds] = useState<Record<string, boolean>>({
     HBPM557: true,
     HBPM510: true,
-  })
+  });
 
-  const onRowSelectionChangeAction = action("onRowSelectionChange")
+  const onRowSelectionChangeAction = action('onRowSelectionChange');
 
   const onRowSelectionChange = useCallback(
     (rowIds) => {
-      onRowSelectionChangeAction(rowIds)
-      setSeletedRowIds(rowIds)
+      onRowSelectionChangeAction(rowIds);
+      setSeletedRowIds(rowIds);
     },
     [setSeletedRowIds, onRowSelectionChangeAction]
-  )
+  );
 
   return (
     <React.Fragment>
@@ -226,43 +228,43 @@ const SelectRowsTemplate: Story<TableProps<typeof data[0]>> = (
         onRowSelectionChange={onRowSelectionChange}
       />
     </React.Fragment>
-  )
-}
-export const SelectRowsExample = SelectRowsTemplate.bind({})
+  );
+};
+export const SelectRowsExample = SelectRowsTemplate.bind({});
 
 SelectRowsExample.args = {
   columns,
   data,
   initialPageSize: 5,
   rowsSelectable: true,
-}
+};
 
-export const LoadingDefault = Template.bind({})
+export const LoadingDefault = Template.bind({});
 
 LoadingDefault.args = {
   columns,
   data: [],
   loading: true,
-}
+};
 
-export const LoadingWithCustomRender = Template.bind({})
+export const LoadingWithCustomRender = Template.bind({});
 
 LoadingWithCustomRender.args = {
   columns: columns.map((column, index) => ({
     ...column,
     Loader() {
-      return index % 2 ? <Spinner /> : <>Loading ...</>
+      return index % 2 ? <Spinner /> : <>Loading ...</>;
     },
   })),
   data: [
     {
       ...data[0],
-      id: "WORD_BREAK_TEST",
+      id: 'WORD_BREAK_TEST',
       physician: {
-        name: "really_long_string_without_spaces_that_should_break_into_a_new_line",
+        name: 'really_long_string_without_spaces_that_should_break_into_a_new_line',
       },
     },
     ...data,
   ],
   loading: true,
-}
+};

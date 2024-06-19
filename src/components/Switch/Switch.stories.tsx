@@ -1,8 +1,8 @@
-import { Switch, SwitchProps } from "./Switch"
-import { Meta, Story } from "@storybook/react/types-6-0"
+import { Switch, SwitchProps } from './Switch';
+import { Meta, Story } from '@storybook/react/types-6-0';
 
 export default {
-  title: "Design System/Switch",
+  title: 'Design System/Switch',
   component: Switch,
   decorators: [
     (Story) => (
@@ -11,65 +11,65 @@ export default {
       </div>
     ),
   ],
-} as Meta
+} as Meta;
 
-const Template: Story<SwitchProps> = (props) => <Switch {...props} />
+const Template: Story<SwitchProps> = (props) => <Switch {...props} />;
 
 // Each story then reuses that template
-export const Unchecked = Template.bind({})
+export const Unchecked = Template.bind({});
 Unchecked.args = {
   checked: false,
   disabled: false,
-  color: "secondary",
-}
+  color: 'secondary',
+};
 
-export const Primary = Template.bind({})
+export const Primary = Template.bind({});
 Primary.args = {
   checked: true,
   disabled: false,
-  color: "primary",
-}
+  color: 'primary',
+};
 
-export const Secondary = Template.bind({})
+export const Secondary = Template.bind({});
 Secondary.args = {
   checked: true,
   disabled: false,
-  color: "secondary",
-}
+  color: 'secondary',
+};
 
-export const Success = Template.bind({})
+export const Success = Template.bind({});
 Success.args = {
   checked: true,
   disabled: false,
-  color: "success",
-}
+  color: 'success',
+};
 
-export const Text = Template.bind({})
+export const Text = Template.bind({});
 Text.args = {
   checked: true,
   disabled: false,
-  color: "text",
-}
+  color: 'text',
+};
 
-export const Warning = Template.bind({})
+export const Warning = Template.bind({});
 Warning.args = {
   checked: true,
   disabled: false,
-  color: "warning",
-}
+  color: 'warning',
+};
 
-export const Disabled = Template.bind({})
+export const Disabled = Template.bind({});
 Disabled.args = {
   checked: true,
   disabled: true,
-  color: "primary",
-}
+  color: 'primary',
+};
 
-export const Labeled = Template.bind({})
+export const Labeled = Template.bind({});
 Labeled.args = {
   checked: true,
   disabled: false,
-  color: "primary",
-  label: "Switch Label",
-  id: "switch",
-}
+  color: 'primary',
+  label: 'Switch Label',
+  id: 'switch',
+};

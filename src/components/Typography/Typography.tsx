@@ -1,7 +1,7 @@
 /** @jsxImportSource theme-ui */
 export interface TypographyProps {
-  color?: "primary" | "secondary" | "text"
-  size?: number
+  color?: 'primary' | 'secondary' | 'text';
+  size?: number;
 }
 
 const Typography = () => {
@@ -17,7 +17,7 @@ const Typography = () => {
       <p sx={{ variant: `text.caption` }}>Caption - 12/20</p>
       <p sx={{ variant: `text.button1` }}>Button - 14/20</p>
     </div>
-  )
-}
+  );
+};
 
-export default Typography
+export default Typography;

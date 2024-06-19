@@ -1,21 +1,21 @@
 /** @jsxImportSource theme-ui */
-import { useState } from "react"
-import { Meta, Story } from "@storybook/react/types-6-0"
-import DesktopModal, { DesktopModalProps } from "./DesktopModal"
-import Button from "../Button/Button"
+import { useState } from 'react';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import DesktopModal, { DesktopModalProps } from './DesktopModal';
+import Button from '../Button/Button';
 
 export default {
-  title: "Design System/DesktopModal",
+  title: 'Design System/DesktopModal',
   component: DesktopModal,
   parameters: {
     creevey: {
       captureElement: null,
     },
   },
-} as Meta
+} as Meta;
 
 const Template: Story<DesktopModalProps> = () => {
-  const [isOpen, setModalOpen] = useState(true)
+  const [isOpen, setModalOpen] = useState(true);
 
   return (
     <>
@@ -44,6 +44,6 @@ const Template: Story<DesktopModalProps> = () => {
         </DesktopModal.Actions>
       </DesktopModal>
     </>
-  )
-}
-export const Default = Template.bind({})
+  );
+};
+export const Default = Template.bind({});

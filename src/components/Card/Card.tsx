@@ -1,54 +1,54 @@
 /** @jsxImportSource theme-ui */
-import { ReactNode } from "react"
+import { ReactNode } from 'react';
 
-import Button, { ButtonProps } from "../Button/Button"
-import Paper from "../Paper/Paper"
+import Button, { ButtonProps } from '../Button/Button';
+import Paper from '../Paper/Paper';
 
 export interface CardProps {
   /** Header text */
-  title: string
+  title: string;
 
   /** Body content */
-  children: ReactNode
+  children: ReactNode;
 
   /** Actions */
   actions?: Array<{
     /** Button label */
-    label: string
+    label: string;
     /** Button color */
-    color?: ButtonProps["color"]
+    color?: ButtonProps['color'];
     /** Button variant */
-    variant?: ButtonProps["variant"]
+    variant?: ButtonProps['variant'];
     /** Button disabled */
-    disabled?: boolean
+    disabled?: boolean;
     /** Callback on action button click */
-    onClick: ButtonProps["onClick"]
-  }>
+    onClick: ButtonProps['onClick'];
+  }>;
 }
 
 const Card = ({ title, children, actions }: CardProps) => {
   return (
-    <Paper padding={0} sx={{ display: "grid", gap: 2, p: 6 }}>
+    <Paper padding={0} sx={{ display: 'grid', gap: 2, p: 6 }}>
       <div
         sx={{
-          variant: "text.heading3",
+          variant: 'text.heading3',
         }}
       >
         {title}
       </div>
       <div
         sx={{
-          variant: "text.body1",
+          variant: 'text.body1',
         }}
       >
         {children}
       </div>
       <div
         sx={{
-          display: "flex",
+          display: 'flex',
           gap: 5,
-          flexWrap: "wrap",
-          alignItems: "center",
+          flexWrap: 'wrap',
+          alignItems: 'center',
         }}
       >
         {actions &&
@@ -56,8 +56,8 @@ const Card = ({ title, children, actions }: CardProps) => {
             (
               {
                 label,
-                color = "secondary",
-                variant = "plain",
+                color = 'secondary',
+                variant = 'plain',
                 disabled = false,
                 onClick,
               },
@@ -82,7 +82,7 @@ const Card = ({ title, children, actions }: CardProps) => {
           )}
       </div>
     </Paper>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

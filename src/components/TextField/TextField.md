@@ -7,21 +7,28 @@
 #### Controlled:
 
 ```js
-const [value, setValue] = React.useState('controlled input value')
+const [value, setValue] = React.useState('controlled input value');
 
-return <TextField value={value} onChange={(event) => setValue(event.target.value)} />
+return (
+  <TextField value={value} onChange={(event) => setValue(event.target.value)} />
+);
 ```
 
 #### With Label:
 
 ```js
-<TextField label="Email"  />
+<TextField label="Email" />
 ```
 
 #### Label and Helper text:
 
 ```js
-<TextField label="Doc. type" helperText="SSN, Passport, Driver’s license..." id="docType" required />
+<TextField
+  label="Doc. type"
+  helperText="SSN, Passport, Driver’s license..."
+  id="docType"
+  required
+/>
 ```
 
 #### With unit:
@@ -45,9 +52,16 @@ return <TextField value={value} onChange={(event) => setValue(event.target.value
 #### Text Area Controlled:
 
 ```js
-const [value, setValue] = React.useState('Controlled input value\n\n\n')
+const [value, setValue] = React.useState('Controlled input value\n\n\n');
 
-return <TextField multiline rows={2} value={value} onChange={(event) => setValue(event.target.value)} />
+return (
+  <TextField
+    multiline
+    rows={2}
+    value={value}
+    onChange={(event) => setValue(event.target.value)}
+  />
+);
 ```
 
 #### Text Area With Label:
@@ -59,11 +73,23 @@ return <TextField multiline rows={2} value={value} onChange={(event) => setValue
 #### Text Area Label and Helper text:
 
 ```js
-<TextField multiline rows={2} label="Awesome Text Area" helperText="This is an awesome Text Area made to type awesome texts" id="awesomeTextArea" required />
+<TextField
+  multiline
+  rows={2}
+  label="Awesome Text Area"
+  helperText="This is an awesome Text Area made to type awesome texts"
+  id="awesomeTextArea"
+  required
+/>
 ```
 
 #### Text Area With Icon:
 
 ```js
-<TextField multiline rows={3} placeholder="Type an awesome text" iconName="IconAlignJustified" />
+<TextField
+  multiline
+  rows={3}
+  placeholder="Type an awesome text"
+  iconName="IconAlignJustified"
+/>
 ```

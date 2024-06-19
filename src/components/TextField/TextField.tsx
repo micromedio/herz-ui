@@ -1,74 +1,74 @@
 /** @jsxImportSource theme-ui */
-import { ChangeEvent, FocusEvent, forwardRef } from "react"
-import Select, { SelectProps } from "../Select/Select"
-import Input, { InputProps } from "../Input/Input"
+import { ChangeEvent, FocusEvent, forwardRef } from 'react';
+import Select, { SelectProps } from '../Select/Select';
+import Input, { InputProps } from '../Input/Input';
 
 interface BaseTextFieldProps {
   /** Input type */
-  type?: HTMLInputElement["type"]
+  type?: HTMLInputElement['type'];
   /** The label content */
-  label?: string
+  label?: string;
   /** Placeholder text content */
-  placeholder?: string
+  placeholder?: string;
 
   /** The helper text content */
-  helperText?: string
+  helperText?: string;
   /** Controls which state the `input` will be displayed in */
-  state?: "default" | "error" | "success"
+  state?: 'default' | 'error' | 'success';
   /** If `true`, the `input` element will be disabled */
-  disabled?: boolean
+  disabled?: boolean;
   /** If `true`, the `input` is required */
-  required?: boolean
+  required?: boolean;
   /** If `true`, the component is read only, used only to display data */
-  readOnly?: boolean
+  readOnly?: boolean;
 
   /** Text to show after label if field is required */
-  requiredText?: string
+  requiredText?: string;
   /** Text to show after label if field is not required (optional) */
-  optionalText?: string
+  optionalText?: string;
 
   /** The id of the `input` element. Use this prop to make label and `helperText` accessible for screen readers */
-  id?: string
+  id?: string;
   /** Text at the end of the input */
-  unit?: string
+  unit?: string;
 
-  iconName?: InputProps["iconName"]
+  iconName?: InputProps['iconName'];
 
   /** Will render a textarea instead of an input if `true` */
-  multiline?: boolean
+  multiline?: boolean;
   /** If true, the textarea will grow as the user types */
-  autoExpand?: boolean
+  autoExpand?: boolean;
   /** Number of textarea cols */
-  cols?: number
+  cols?: number;
   /** Number of textarea rows */
-  rows?: number
+  rows?: number;
   /** Input form id */
-  form?: string
+  form?: string;
 }
 
 interface InputTextFieldProps extends BaseTextFieldProps {
   /** The value of the `input` element, required for a controlled component */
-  value?: string
+  value?: string;
   /** Callback fired when the value is changed */
   onChange?: (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void
+  ) => void;
   /** Callback fired when the input is unfocused */
-  onBlur?: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onBlur?: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 
   /** Will render a Select instead of an Input if `true` */
-  select?: false
+  select?: false;
 }
 
 interface SelectTextFieldProps extends BaseTextFieldProps {
   /** Will render a Select instead of an Input if `true` */
-  select: true
+  select: true;
   /** Props passed to the Select component when `select` is `true` */
-  selectProps: Omit<SelectProps, "fullWidth" | "hightlightFilled" | "children">
-  children: SelectProps["children"]
+  selectProps: Omit<SelectProps, 'fullWidth' | 'hightlightFilled' | 'children'>;
+  children: SelectProps['children'];
 }
 
-export type TextFieldProps = InputTextFieldProps | SelectTextFieldProps
+export type TextFieldProps = InputTextFieldProps | SelectTextFieldProps;
 
 const TextField = forwardRef<
   HTMLInputElement | HTMLTextAreaElement,
@@ -76,16 +76,16 @@ const TextField = forwardRef<
 >(function TextField(props: TextFieldProps, ref) {
   const {
     id,
-    type = "text",
+    type = 'text',
     label,
     placeholder,
     disabled = false,
-    state = "default",
+    state = 'default',
     helperText,
     required = false,
     readOnly = false,
-    requiredText = "required",
-    optionalText = "optional",
+    requiredText = 'required',
+    optionalText = 'optional',
     iconName,
     unit,
     multiline,
@@ -94,29 +94,29 @@ const TextField = forwardRef<
     cols,
     form,
     select,
-  } = props
+  } = props;
 
-  const helperTextId = helperText && id ? `${id}-helper-text` : undefined
-  const inputLabelId = label && id ? `${id}-label` : undefined
+  const helperTextId = helperText && id ? `${id}-helper-text` : undefined;
+  const inputLabelId = label && id ? `${id}-label` : undefined;
 
   return (
     <div
       sx={{
-        display: "flex",
-        flexDirection: "column",
+        display: 'flex',
+        flexDirection: 'column',
         gap: 2,
-        width: "100%",
+        width: '100%',
         opacity: readOnly ? 0.3 : 1,
       }}
     >
       {label && (
-        <div sx={{ display: "flex", gap: 1 }}>
+        <div sx={{ display: 'flex', gap: 1 }}>
           <label
             htmlFor={id}
             id={inputLabelId}
             sx={{
-              color: "text",
-              variant: "text.body1",
+              color: 'text',
+              variant: 'text.body1',
             }}
           >
             {label}
@@ -124,8 +124,8 @@ const TextField = forwardRef<
           {!readOnly && (
             <span
               sx={{
-                color: "text.40",
-                variant: "text.body2",
+                color: 'text.40',
+                variant: 'text.body2',
               }}
             >
               ({required ? requiredText : optionalText})
@@ -136,18 +136,18 @@ const TextField = forwardRef<
 
       <div
         sx={{
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
           gap: 2,
           borderRadius: 2,
 
           ...{
             default: {},
             success: {
-              backgroundColor: "success.alpha.95",
+              backgroundColor: 'success.alpha.95',
             },
             error: {
-              backgroundColor: "primary.alpha.95",
+              backgroundColor: 'primary.alpha.95',
             },
           }[state],
         }}
@@ -192,20 +192,20 @@ const TextField = forwardRef<
             sx={{
               ...{
                 default: {
-                  color: "text.40",
-                  variant: "text.body2",
+                  color: 'text.40',
+                  variant: 'text.body2',
                 },
                 success: {
                   px: 3,
                   pb: 2,
-                  color: "success",
-                  variant: "text.body1",
+                  color: 'success',
+                  variant: 'text.body1',
                 },
                 error: {
                   px: 3,
                   pb: 2,
-                  color: "primary",
-                  variant: "text.body1",
+                  color: 'primary',
+                  variant: 'text.body1',
                 },
               }[state],
             }}
@@ -215,7 +215,7 @@ const TextField = forwardRef<
         )}
       </div>
     </div>
-  )
-})
+  );
+});
 
-export default TextField
+export default TextField;

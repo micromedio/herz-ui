@@ -7,26 +7,37 @@ The Tooltip will be positioned properly whenever it "pops out" from the flow of 
 #### default example:
 
 ```js
-import Button from '../Button/Button'
-;(<Tooltip title="this is the actual tooltip">
+import Button from '../Button/Button';
+<Tooltip title="this is the actual tooltip">
   <Button>this is the reference element</Button>
-</Tooltip>)
+</Tooltip>;
 ```
 
 #### placed on top example:
 
 ```js
-import Button from '../Button/Button'
-;(<Tooltip title="this tooltip is on the top of the reference" placement="top">
+import Button from '../Button/Button';
+<Tooltip title="this tooltip is on the top of the reference" placement="top">
   <Button>this is the reference element</Button>
-</Tooltip>)
+</Tooltip>;
 ```
 
 #### custom:
 
 ```js
-import Button from '../Button/Button'
-;(<Tooltip title="this tooltip is on the top of the reference" custom={<><h2>Tipos de permissões</h2><p><strong>Administrator:</strong> Lorem ipsum dolor</p></>} placement="top">
+import Button from '../Button/Button';
+<Tooltip
+  title="this tooltip is on the top of the reference"
+  custom={
+    <>
+      <h2>Tipos de permissões</h2>
+      <p>
+        <strong>Administrator:</strong> Lorem ipsum dolor
+      </p>
+    </>
+  }
+  placement="top"
+>
   <Button>this is the reference element</Button>
-</Tooltip>)
+</Tooltip>;
 ```

@@ -1,16 +1,16 @@
-import * as React from "react"
-import { ThemeProvider } from "theme-ui"
+import * as React from 'react';
+import { ThemeProvider } from 'theme-ui';
 
-import { theme } from "./theme"
+import { theme } from './theme';
 
 export interface IThemeWrapperProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const ThemeWrapper = function (props: IThemeWrapperProps) {
-  const { children } = props
+  const { children } = props;
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>
-}
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+};
 
-export default ThemeWrapper
+export default ThemeWrapper;

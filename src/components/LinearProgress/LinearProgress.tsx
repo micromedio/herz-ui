@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
-import { forwardRef, HTMLAttributes } from "react"
-import { keyframes } from "@emotion/react"
+import { forwardRef, HTMLAttributes } from 'react';
+import { keyframes } from '@emotion/react';
 
 const indeterminate1 = keyframes`
   0% {
@@ -15,7 +15,7 @@ const indeterminate1 = keyframes`
     left: 100%;
     right: -90%;
   }
-`
+`;
 
 const indeterminate2 = keyframes`
   0% {
@@ -30,42 +30,42 @@ const indeterminate2 = keyframes`
     left: 107%;
     right: -8%;
   }
-`
+`;
 
 export interface LinearProgressProps {
-  className?: HTMLAttributes<HTMLDivElement>["className"]
+  className?: HTMLAttributes<HTMLDivElement>['className'];
 
   /** LinearProgress color */
-  color?: "primary" | "secondary" | "success" | "warning"
+  color?: 'primary' | 'secondary' | 'success' | 'warning';
 
   /** LinearProgress height */
-  height?: number
+  height?: number;
 
   /** Represents the progress (between 0 and 1) for LinearProgress, the default value is undefined and it renders an animated and indeterminate LinearProgress. */
-  progress?: number
+  progress?: number;
 }
 
 const LinearProgress = forwardRef<HTMLDivElement, LinearProgressProps>(
   function LinearProgress(
     {
       className,
-      color = "secondary",
+      color = 'secondary',
       height = 4,
       progress,
     }: LinearProgressProps,
     ref
   ) {
-    const isIndeterminate = progress === undefined
+    const isIndeterminate = progress === undefined;
 
     return (
       <div
         ref={ref}
         sx={{
-          backgroundColor: "text.90",
-          position: "relative",
+          backgroundColor: 'text.90',
+          position: 'relative',
           height,
-          overflow: "hidden",
-          width: "100%",
+          overflow: 'hidden',
+          width: '100%',
         }}
         className={className}
       >
@@ -74,14 +74,14 @@ const LinearProgress = forwardRef<HTMLDivElement, LinearProgressProps>(
             sx={{
               animation: `${indeterminate1} 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite`,
               backgroundColor: color,
-              borderRadius: "2px",
+              borderRadius: '2px',
               bottom: 0,
               height,
               left: 0,
-              position: "absolute",
+              position: 'absolute',
               top: 0,
-              transformOrigin: "left",
-              transition: "transform 0.2s linear",
+              transformOrigin: 'left',
+              transition: 'transform 0.2s linear',
             }}
           />
         )}
@@ -91,22 +91,22 @@ const LinearProgress = forwardRef<HTMLDivElement, LinearProgressProps>(
               ? `${indeterminate2} 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite`
               : undefined,
             backgroundColor: color,
-            borderRadius: "2px",
+            borderRadius: '2px',
             bottom: 0,
             height,
             left: 0,
-            position: "absolute",
+            position: 'absolute',
             top: 0,
-            transformOrigin: "left",
-            transition: "transform 0.2s linear",
+            transformOrigin: 'left',
+            transition: 'transform 0.2s linear',
             width: !isIndeterminate
               ? `calc(${Math.min(1, progress)} * 100%)`
               : undefined,
           }}
         />
       </div>
-    )
+    );
   }
-)
+);
 
-export default LinearProgress
+export default LinearProgress;

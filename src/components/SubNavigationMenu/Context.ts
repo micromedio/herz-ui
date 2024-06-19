@@ -1,13 +1,13 @@
-import { createContext, useContext } from "react"
+import { createContext, useContext } from 'react';
 
 interface SubNavigationMenuContextData {
-  isCollapsed: boolean
-  collapsedHidden: boolean
+  isCollapsed: boolean;
+  collapsedHidden: boolean;
 }
 
 export const SubNavigationMenuContext =
-  createContext<SubNavigationMenuContextData | null>(null)
+  createContext<SubNavigationMenuContextData | null>(null);
 
 export const useSubNavigationMenu = (): SubNavigationMenuContextData | null => {
-  return useContext(SubNavigationMenuContext)
-}
+  return useContext(SubNavigationMenuContext);
+};

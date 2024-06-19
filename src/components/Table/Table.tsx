@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import { get } from "theme-ui"
+import { get } from 'theme-ui';
 import {
   useTable,
   Column,
@@ -7,62 +7,62 @@ import {
   useFlexLayout,
   useSortBy,
   SortingRule,
-} from "react-table"
-import { Pagination, Select, Skeleton } from "../"
-import { HTMLAttributes, memo, ReactElement, useEffect, useMemo } from "react"
-import useRowSelection from "./useRowSelection"
-import Icon from "../Icon/Icon"
-import Checkbox from "../Checkbox/Checkbox"
+} from 'react-table';
+import { Pagination, Select, Skeleton } from '../';
+import { HTMLAttributes, memo, ReactElement, useEffect, useMemo } from 'react';
+import useRowSelection from './useRowSelection';
+import Icon from '../Icon/Icon';
+import Checkbox from '../Checkbox/Checkbox';
 
-const INTERNAL_SELECTION_COLUMN_ID = "INTERNAL_SELECTION_COLUMN_ID"
-const INTERNAL_ACTIVE_COLUMN_ID = "INTERNAL_ACTIVE_COLUMN_ID"
+const INTERNAL_SELECTION_COLUMN_ID = 'INTERNAL_SELECTION_COLUMN_ID';
+const INTERNAL_ACTIVE_COLUMN_ID = 'INTERNAL_ACTIVE_COLUMN_ID';
 
 export interface TableProps<
   T extends Record<string, unknown> = Record<string, unknown> & { id: string }
 > {
   /** Definition of the table columns */
-  columns: Array<Column<T> & { Loader?: () => ReactElement }>
+  columns: Array<Column<T> & { Loader?: () => ReactElement }>;
   /** Data to be displayed in the table */
-  data: Array<T>
+  data: Array<T>;
 
   /** If `true`, the table will have clickable rows */
-  rowClickable?: boolean
+  rowClickable?: boolean;
   /** Callback called when a row is clicked */
-  onRowClick?: (row: T) => void
+  onRowClick?: (row: T) => void;
   /** Active row ids */
-  activeRowIds?: Record<string, boolean>
+  activeRowIds?: Record<string, boolean>;
 
   /** If `true`, the table will have selectable rows with a checkbox */
-  rowsSelectable?: boolean
+  rowsSelectable?: boolean;
   /** Selected row ids */
-  selectedRowIds?: Record<string, boolean>
+  selectedRowIds?: Record<string, boolean>;
   /** Callback called when row selection changes */
-  onRowSelectionChange?: (selectedRowIds: Record<string, boolean>) => void
+  onRowSelectionChange?: (selectedRowIds: Record<string, boolean>) => void;
 
   /** If `true`, the table will be displayed in a loading state */
-  loading?: boolean
+  loading?: boolean;
 
   // If `true`, the table sorting will be controlled by the parent */
-  manualSorting?: boolean
+  manualSorting?: boolean;
 
   /** Initial sorting rules */
   initialSortBy?: {
-    id: string
-    desc?: boolean
-  }
+    id: string;
+    desc?: boolean;
+  };
 
   /** If `true`, the table pagination will be controlled by the parent */
-  manualPagination?: boolean
+  manualPagination?: boolean;
   /** Used if manualPagination is `true`. The total count of items in the table */
-  totalCount?: number
+  totalCount?: number;
   /** Used if manualPagination is `true`. The total count of pages in the table */
-  pageCount?: number
+  pageCount?: number;
   /** Initial page size */
-  initialPageSize?: number
+  initialPageSize?: number;
   /** Initial page index */
-  initialPageIndex?: number
+  initialPageIndex?: number;
   /** If true removes pagination and do querys when scroll */
-  infiniteScroll?: boolean
+  infiniteScroll?: boolean;
 
   /** Callback called when pagination or sorting changes */
   onTableChange?: ({
@@ -70,15 +70,15 @@ export interface TableProps<
     pageSize,
     sortBy,
   }: {
-    pageIndex: number
-    pageSize: number
-    sortBy?: SortingRule<string>
-  }) => void
+    pageIndex: number;
+    pageSize: number;
+    sortBy?: SortingRule<string>;
+  }) => void;
 
-  className?: HTMLAttributes<HTMLDivElement>["className"]
-  style?: HTMLAttributes<HTMLDivElement>["style"]
+  className?: HTMLAttributes<HTMLDivElement>['className'];
+  style?: HTMLAttributes<HTMLDivElement>['style'];
 
-  uniqueFieldKey?: keyof T
+  uniqueFieldKey?: keyof T;
 }
 
 function Table<
@@ -112,21 +112,21 @@ function Table<
   onTableChange,
   className,
   style,
-  uniqueFieldKey = "id",
+  uniqueFieldKey = 'id',
 }: TableProps<T>) {
   const { selectedRowIds, setRowsSelected, toggleRowSelected } =
     useRowSelection({
       selectedRowIds: controlledSelectedRowIds,
       onChange: onRowSelectionChange,
-    })
+    });
 
   const loadingRows: Array<T> = useMemo(
     () =>
       Array.from({ length: initialPageSize })
-        .fill("")
+        .fill('')
         .map((_, index) => ({ [uniqueFieldKey]: `${index}` } as T)),
     [initialPageSize, uniqueFieldKey]
-  )
+  );
 
   const {
     getTableBodyProps,
@@ -167,81 +167,81 @@ function Table<
           id: INTERNAL_SELECTION_COLUMN_ID,
           width: 48,
           fixedWidth: true,
-        }
+        };
         const activeColumn: Column<T> = {
           id: INTERNAL_ACTIVE_COLUMN_ID,
           width: 80,
           fixedWidth: true,
-        }
+        };
 
-        let columns: Column<T>[] = [...allColumns]
+        let columns: Column<T>[] = [...allColumns];
 
         if (rowsSelectable) {
-          columns = [selectColumn, ...columns]
+          columns = [selectColumn, ...columns];
         }
         if (activeRowIds && Object.keys(activeRowIds).length > 0) {
-          columns = [...columns, activeColumn]
+          columns = [...columns, activeColumn];
         }
 
-        return columns
-      })
+        return columns;
+      });
     }
-  )
+  );
 
   useEffect(() => {
     onTableChange?.({
       pageIndex,
       pageSize,
       sortBy: sortBy?.[0],
-    })
-  }, [onTableChange, pageIndex, pageSize, sortBy])
+    });
+  }, [onTableChange, pageIndex, pageSize, sortBy]);
 
   const totalCount = useMemo(() => {
-    if (manualPagination) return controlledTotalCount
-    return data.length
-  }, [manualPagination, controlledTotalCount, data])
+    if (manualPagination) return controlledTotalCount;
+    return data.length;
+  }, [manualPagination, controlledTotalCount, data]);
 
   const allPageRowsSelected = useMemo(() => {
-    return !page.some((row) => !selectedRowIds[row.id])
-  }, [page, selectedRowIds])
+    return !page.some((row) => !selectedRowIds[row.id]);
+  }, [page, selectedRowIds]);
 
   const somePageRowsSelected = useMemo(() => {
-    return page.some((row) => selectedRowIds[row.id])
-  }, [page, selectedRowIds])
+    return page.some((row) => selectedRowIds[row.id]);
+  }, [page, selectedRowIds]);
 
   return (
     <div
       {...getTableProps()}
       sx={{
-        display: "grid",
-        gridTemplateRows: "minmax(0, 1fr) auto",
-        overflow: "auto",
-        width: "100%",
-        backgroundColor: "#fff",
+        display: 'grid',
+        gridTemplateRows: 'minmax(0, 1fr) auto',
+        overflow: 'auto',
+        width: '100%',
+        backgroundColor: '#fff',
       }}
       className={className}
       style={style}
     >
-      <div sx={{ overflow: "auto", backgroundColor: "inherit" }}>
+      <div sx={{ overflow: 'auto', backgroundColor: 'inherit' }}>
         {/* Table Headers */}
         <div
           sx={{
-            minWidth: "fit-content",
-            position: "sticky",
+            minWidth: 'fit-content',
+            position: 'sticky',
             top: 0,
-            backgroundColor: "inherit",
+            backgroundColor: 'inherit',
             zIndex: 1,
           }}
         >
           {headerGroups.map((headerGroup) => {
             const { key, ...headerGroupProps } =
-              headerGroup.getHeaderGroupProps()
+              headerGroup.getHeaderGroupProps();
             return (
               <div
                 key={key}
                 sx={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr auto",
+                  display: 'grid',
+                  gridTemplateColumns: '1fr auto',
                 }}
               >
                 <div
@@ -249,27 +249,27 @@ function Table<
                   key={key}
                   sx={{
                     borderBottom: (theme) =>
-                      `1px solid ${get(theme, "colors.text.90")}`,
+                      `1px solid ${get(theme, 'colors.text.90')}`,
                     px: 2,
                   }}
                 >
                   {headerGroup.headers.map((column) => {
                     const { key, style, ...headerProps } =
-                      column.getHeaderProps(column.getSortByToggleProps())
+                      column.getHeaderProps(column.getSortByToggleProps());
 
                     return (
                       <div
                         {...headerProps}
                         key={key}
                         sx={{
-                          display: "flex",
-                          alignItems: "center",
+                          display: 'flex',
+                          alignItems: 'center',
                           pl: 7,
                           pb: 3,
-                          color: column.isSorted ? "text" : "text.40",
+                          color: column.isSorted ? 'text' : 'text.40',
                           variant: column.isSorted
-                            ? "text.heading3"
-                            : "text.body1",
+                            ? 'text.heading3'
+                            : 'text.body1',
                           ...style,
                           ...(column.fixedWidth ? { flexGrow: 0 } : {}),
                         }}
@@ -288,46 +288,46 @@ function Table<
                             }
                             aria-label={
                               allPageRowsSelected
-                                ? "unselect all rows"
-                                : "select all rows"
+                                ? 'unselect all rows'
+                                : 'select all rows'
                             }
                           />
                         ) : (
                           <div
                             sx={{
-                              display: "flex",
-                              alignItems: "center",
+                              display: 'flex',
+                              alignItems: 'center',
                               gap: 1,
                               flexGrow: 1,
                               justifyContent: {
-                                start: "flex-start",
-                                end: "flex-end",
-                                center: "center",
-                              }[column.align || "start"],
+                                start: 'flex-start',
+                                end: 'flex-end',
+                                center: 'center',
+                              }[column.align || 'start'],
                             }}
                           >
-                            {column.render("Header")}
+                            {column.render('Header')}
                             {column.isSorted ? (
                               column.isSortedDesc ? (
                                 <Icon
                                   name="IconArrowNarrowDown"
                                   size={16}
-                                  sx={{ color: "text" }}
+                                  sx={{ color: 'text' }}
                                 />
                               ) : (
                                 <Icon
                                   name="IconArrowNarrowUp"
                                   size={16}
-                                  sx={{ color: "text" }}
+                                  sx={{ color: 'text' }}
                                 />
                               )
                             ) : (
-                              ""
+                              ''
                             )}
                           </div>
                         )}
                       </div>
-                    )
+                    );
                   })}
                 </div>
                 {activeRowIds && (
@@ -335,12 +335,12 @@ function Table<
                     sx={{
                       width: 4,
                       borderBottom: (theme) =>
-                        `1px solid ${get(theme, "colors.text.90")}`,
+                        `1px solid ${get(theme, 'colors.text.90')}`,
                     }}
                   />
                 )}
               </div>
-            )
+            );
           })}
         </div>
 
@@ -348,51 +348,51 @@ function Table<
         <div {...getTableBodyProps()}>
           {/* Rows */}
           {page.map((row) => {
-            prepareRow(row)
-            const { key, ...rowProps } = row.getRowProps()
+            prepareRow(row);
+            const { key, ...rowProps } = row.getRowProps();
             return (
               <div
                 key={key}
                 sx={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr auto",
+                  display: 'grid',
+                  gridTemplateColumns: '1fr auto',
                 }}
               >
                 <div
                   sx={{
                     p: 0,
-                    minWidth: "fit-content",
+                    minWidth: 'fit-content',
                     borderBottom: (theme) =>
-                      `1px solid ${get(theme, "colors.text.90")}`,
-                    transition: "all 0.2s",
+                      `1px solid ${get(theme, 'colors.text.90')}`,
+                    transition: 'all 0.2s',
                     backgroundColor: !!selectedRowIds[row.id]
-                      ? "#fafafa"
-                      : "transparent",
+                      ? '#fafafa'
+                      : 'transparent',
                   }}
                 >
                   <div
                     {...rowProps}
                     onClick={() => {
-                      if (rowClickable) onRowClick?.(row.original)
+                      if (rowClickable) onRowClick?.(row.original);
                     }}
                     sx={{
                       p: 2,
                       borderRadius: 0,
-                      transition: "all 0.2s",
-                      cursor: rowClickable ? "pointer" : "auto",
+                      transition: 'all 0.2s',
+                      cursor: rowClickable ? 'pointer' : 'auto',
 
-                      "&:hover": {
-                        "*": {
-                          fontWeight: "semibold",
+                      '&:hover': {
+                        '*': {
+                          fontWeight: 'semibold',
                         },
                         backgroundColor: !selectedRowIds[row.id]
-                          ? "#fafafa" //"secondary.alpha.95"
-                          : "transparent",
+                          ? '#fafafa' //"secondary.alpha.95"
+                          : 'transparent',
                       },
                     }}
                   >
                     {row.cells.map((cell, index: number) => {
-                      const { key, style, ...cellProps } = cell.getCellProps()
+                      const { key, style, ...cellProps } = cell.getCellProps();
 
                       if (cell.column.id === INTERNAL_ACTIVE_COLUMN_ID) {
                         return (
@@ -400,10 +400,10 @@ function Table<
                             {...cellProps}
                             key={key}
                             sx={{
-                              display: "flex",
-                              justifyContent: "flex-end",
-                              alignItems: "center",
-                              color: "secondary",
+                              display: 'flex',
+                              justifyContent: 'flex-end',
+                              alignItems: 'center',
+                              color: 'secondary',
                               pl: 7,
                               pr: 7,
                               ...style,
@@ -416,7 +416,7 @@ function Table<
                               <Icon name="IconEye" />
                             )} */}
                           </div>
-                        )
+                        );
                       }
 
                       return (
@@ -424,21 +424,21 @@ function Table<
                           {...cellProps}
                           key={key}
                           sx={{
-                            display: "flex",
+                            display: 'flex',
                             pl: 7,
                             py: 2,
-                            color: cell.column.highlight ? "secondary" : "text",
-                            variant: "text.body1",
+                            color: cell.column.highlight ? 'secondary' : 'text',
+                            variant: 'text.body1',
                             justifyContent: {
-                              start: "flex-start",
-                              end: "flex-end",
-                              center: "center",
-                            }[cell.column.align || "start"],
-                            alignItems: "center",
+                              start: 'flex-start',
+                              end: 'flex-end',
+                              center: 'center',
+                            }[cell.column.align || 'start'],
+                            alignItems: 'center',
                             fontWeight: activeRowIds?.[row.id]
-                              ? "semibold"
-                              : "medium",
-                            wordBreak: "break-all",
+                              ? 'semibold'
+                              : 'medium',
+                            wordBreak: 'break-all',
                             ...style,
                             ...(cell.column.fixedWidth ? { flexGrow: 0 } : {}),
                           }}
@@ -449,7 +449,7 @@ function Table<
                             ) {
                               return (
                                 <div
-                                  sx={{ display: "flex" }}
+                                  sx={{ display: 'flex' }}
                                   onClick={(event) => event.stopPropagation()} // So that checkbox click doesn't bubble up to the row and triggers onRowClick()
                                 >
                                   <Checkbox
@@ -458,17 +458,17 @@ function Table<
                                     aria-label={`select row ${row.id}`}
                                   />
                                 </div>
-                              )
+                              );
                             }
-                            const Loader = columns[index]?.Loader
+                            const Loader = columns[index]?.Loader;
                             if (loading) {
-                              if (Loader) return Loader()
-                              return <Skeleton variant="text" width="100%" />
+                              if (Loader) return Loader();
+                              return <Skeleton variant="text" width="100%" />;
                             }
-                            return cell.render("Cell")
+                            return cell.render('Cell');
                           })()}
                         </div>
-                      )
+                      );
                     })}
                   </div>
                 </div>
@@ -477,23 +477,23 @@ function Table<
                     sx={{
                       width: 4,
                       borderBottom: (theme) =>
-                        `1px solid ${get(theme, "colors.text.90")}`,
+                        `1px solid ${get(theme, 'colors.text.90')}`,
                       ...(activeRowIds[row.id]
                         ? {
-                            backgroundColor: "primary",
+                            backgroundColor: 'primary',
                             boxShadow: (theme) =>
                               `0px 1px 12px ${get(
                                 theme,
-                                "colors.primary.alpha.70"
+                                'colors.primary.alpha.70'
                               )}`,
-                            borderRadius: "4px 0px 0px 4px",
+                            borderRadius: '4px 0px 0px 4px',
                           }
                         : {}),
                     }}
                   />
                 )}
               </div>
-            )
+            );
           })}
         </div>
       </div>
@@ -503,20 +503,20 @@ function Table<
       {!infiniteScroll && (
         <div
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
             px: 8,
             pt: 6,
           }}
         >
           <div
             sx={{
-              display: "flex",
+              display: 'flex',
               gap: 2,
-              alignItems: "center",
-              variant: "text.body1",
-              color: "text.40",
+              alignItems: 'center',
+              variant: 'text.body1',
+              color: 'text.40',
             }}
           >
             <span>Mostrando</span>
@@ -527,8 +527,8 @@ function Table<
                 onChange={(selectedItem) => {
                   if (selectedItem)
                     setPageSize(
-                      Number.parseInt(selectedItem.toString() ?? "10")
-                    )
+                      Number.parseInt(selectedItem.toString() ?? '10')
+                    );
                 }}
               >
                 <Select.Option value={5}>5</Select.Option>
@@ -538,14 +538,14 @@ function Table<
               </Select>
             </div>
             <span>
-              itens por página de um total de{" "}
+              itens por página de um total de{' '}
               {totalCount || (
                 <Skeleton
-                  sx={{ display: "inline-flex" }}
+                  sx={{ display: 'inline-flex' }}
                   variant="text"
                   width={36}
                 />
-              )}{" "}
+              )}{' '}
               resultados
             </span>
           </div>
@@ -557,7 +557,7 @@ function Table<
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default memo(Table) as typeof Table
+export default memo(Table) as typeof Table;

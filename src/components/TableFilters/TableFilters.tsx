@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import React, { HTMLAttributes } from "react"
+import React, { HTMLAttributes } from 'react';
 
 const Item = ({
   label,
@@ -8,18 +8,18 @@ const Item = ({
   minWidth,
   grows = false,
 }: {
-  label?: string
-  children?: React.ReactNode
-  className?: HTMLAttributes<HTMLDivElement>["className"]
-  minWidth?: number
-  grows?: boolean
+  label?: string;
+  children?: React.ReactNode;
+  className?: HTMLAttributes<HTMLDivElement>['className'];
+  minWidth?: number;
+  grows?: boolean;
 }) => {
   return (
     <div
       sx={{
-        display: "flex",
+        display: 'flex',
         gap: 2,
-        alignItems: "center",
+        alignItems: 'center',
         flexBasis: minWidth,
         flexGrow: grows ? 1 : 0,
       }}
@@ -28,8 +28,8 @@ const Item = ({
       {label && (
         <div
           sx={{
-            variant: "text.body1",
-            color: "text.40",
+            variant: 'text.body1',
+            color: 'text.40',
           }}
         >
           {label}
@@ -37,28 +37,28 @@ const Item = ({
       )}
       {children}
     </div>
-  )
-}
+  );
+};
 
 export interface TableFiltersProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const TableFilters = ({ children }: TableFiltersProps) => {
   return (
     <div
       sx={{
-        display: "flex",
+        display: 'flex',
         gap: 5,
-        flexWrap: "wrap",
-        alignItems: "center",
+        flexWrap: 'wrap',
+        alignItems: 'center',
       }}
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-TableFilters.Item = Item
+TableFilters.Item = Item;
 
-export default TableFilters
+export default TableFilters;

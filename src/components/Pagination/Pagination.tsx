@@ -1,31 +1,31 @@
 /** @jsxImportSource theme-ui */
-import React from "react"
+import React from 'react';
 
-import usePagination from "./usePagination"
-import PaginationItem from "../PaginationItem/PaginationItem"
+import usePagination from './usePagination';
+import PaginationItem from '../PaginationItem/PaginationItem';
 
 export interface PaginationProps {
   /** The page selected by default when the component is uncontrolled */
-  defaultPage?: number
+  defaultPage?: number;
   /** The total number of pages */
-  count?: number
+  count?: number;
   /** If `true`, the pagination component will be disabled */
-  disabled?: boolean
+  disabled?: boolean;
 
   /** The current page */
-  page?: number
+  page?: number;
   /** Callback fired when the page is changed */
-  onChange?: (page: number) => void
+  onChange?: (page: number) => void;
 
   /** Number of always visible pages at the beginning and end */
-  boundaryCount?: number
+  boundaryCount?: number;
   /** Number of always visible pages before and after the current page */
-  siblingCount?: number
+  siblingCount?: number;
 
   /** Text to show for the `first` button */
-  firstText?: string
+  firstText?: string;
   /** Text to show for the `last` button */
-  lastText?: string
+  lastText?: string;
 }
 
 const Pagination = ({
@@ -36,8 +36,8 @@ const Pagination = ({
   defaultPage = 1,
   boundaryCount,
   siblingCount,
-  firstText = "Primeiro",
-  lastText = "Último",
+  firstText = 'Primeiro',
+  lastText = 'Último',
 }: PaginationProps) => {
   const { items } = usePagination({
     page,
@@ -47,12 +47,12 @@ const Pagination = ({
     count,
     boundaryCount,
     siblingCount,
-  })
+  });
 
   return (
     <div
       sx={{
-        display: "flex",
+        display: 'flex',
         gap: 2,
       }}
     >
@@ -69,7 +69,7 @@ const Pagination = ({
         />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default Pagination
+export default Pagination;

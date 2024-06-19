@@ -3,57 +3,125 @@ This is the basic component for all buttons.
 ## Variants
 
 ```jsx live
-<div style={{ alignItems: "center", display: "grid", gridTemplateColumns: "repeat(3, max-content)", gap: 8 }}>
+<div
+  style={{
+    alignItems: 'center',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, max-content)',
+    gap: 8,
+  }}
+>
   <Button variant="filled">Filled</Button>
   <Button variant="filledLight">Filled Light</Button>
   <Button variant="plain">Plain</Button>
 
-  <Button disabled variant="filled">Filled</Button>
-  <Button disabled variant="filledLight">Filled Light</Button>
-  <Button disabled variant="plain">Plain</Button>
+  <Button disabled variant="filled">
+    Filled
+  </Button>
+  <Button disabled variant="filledLight">
+    Filled Light
+  </Button>
+  <Button disabled variant="plain">
+    Plain
+  </Button>
 
-  <Button loading variant="filled">Filled</Button>
-  <Button loading variant="filledLight">Filled Light</Button>
-  <Button loading variant="plain">Plain</Button>
+  <Button loading variant="filled">
+    Filled
+  </Button>
+  <Button loading variant="filledLight">
+    Filled Light
+  </Button>
+  <Button loading variant="plain">
+    Plain
+  </Button>
 </div>
 ```
 
 ## Colors
 
 ### Filled
+
 ```jsx live
-<div style={{ alignItems: "center", display: "grid", gridTemplateColumns: "repeat(4, max-content)", gap: 8 }}>
+<div
+  style={{
+    alignItems: 'center',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, max-content)',
+    gap: 8,
+  }}
+>
   <Button variant="filled">Primary</Button>
-  <Button color="secondary" variant="filled">Secondary</Button>
-  <Button color="success" variant="filled">Success</Button>
-  <Button color="text" variant="filled">Text</Button>
+  <Button color="secondary" variant="filled">
+    Secondary
+  </Button>
+  <Button color="success" variant="filled">
+    Success
+  </Button>
+  <Button color="text" variant="filled">
+    Text
+  </Button>
 </div>
 ```
 
 ### Filled light
+
 ```jsx live
-<div style={{ alignItems: "center", display: "grid", gridTemplateColumns: "repeat(4, max-content)", gap: 8 }}>
+<div
+  style={{
+    alignItems: 'center',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, max-content)',
+    gap: 8,
+  }}
+>
   <Button variant="filledLight">Primary</Button>
-  <Button color="secondary" variant="filledLight">Secondary</Button>
-  <Button color="success" variant="filledLight">Success</Button>
-  <Button color="text" variant="filledLight">Text</Button>
+  <Button color="secondary" variant="filledLight">
+    Secondary
+  </Button>
+  <Button color="success" variant="filledLight">
+    Success
+  </Button>
+  <Button color="text" variant="filledLight">
+    Text
+  </Button>
 </div>
 ```
 
 ### Plain
+
 ```jsx live
-<div style={{ alignItems: "center", display: "grid", gridTemplateColumns: "repeat(4, max-content)", gap: 8 }}>
+<div
+  style={{
+    alignItems: 'center',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, max-content)',
+    gap: 8,
+  }}
+>
   <Button variant="plain">Primary</Button>
-  <Button color="secondary" variant="plain">Secondary</Button>
-  <Button color="success" variant="plain">Success</Button>
-  <Button color="text" variant="plain">Text</Button>
+  <Button color="secondary" variant="plain">
+    Secondary
+  </Button>
+  <Button color="success" variant="plain">
+    Success
+  </Button>
+  <Button color="text" variant="plain">
+    Text
+  </Button>
 </div>
 ```
 
 ## Sizes
 
 ```jsx live
-<div style={{ alignItems: "center", display: "grid", gridTemplateColumns: "repeat(2, max-content)", gap: 8 }}>
+<div
+  style={{
+    alignItems: 'center',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, max-content)',
+    gap: 8,
+  }}
+>
   <Button size="small">Small</Button>
   <Button size="large">Large</Button>
 </div>
@@ -62,60 +130,100 @@ This is the basic component for all buttons.
 ## Disabled
 
 ```jsx live
-<div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-  <Button disabled color="primary">Primary</Button>
-  <Button disabled color="secondary">Secondary</Button>
-  <Button disabled color="success">Success</Button>
-  <Button disabled color="text">Text</Button>
+<div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+  <Button disabled color="primary">
+    Primary
+  </Button>
+  <Button disabled color="secondary">
+    Secondary
+  </Button>
+  <Button disabled color="success">
+    Success
+  </Button>
+  <Button disabled color="text">
+    Text
+  </Button>
 </div>
 ```
 
 ## Loading
 
 ### Filled
+
 ```jsx live
-<div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-  <Button color="primary" loading>Primary</Button>
-  <Button color="secondary" loading>Secondary</Button>
-  <Button color="success" loading>Success</Button>
-  <Button color="text" loading>Text</Button>
+<div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+  <Button color="primary" loading>
+    Primary
+  </Button>
+  <Button color="secondary" loading>
+    Secondary
+  </Button>
+  <Button color="success" loading>
+    Success
+  </Button>
+  <Button color="text" loading>
+    Text
+  </Button>
 </div>
 ```
 
 ### Filled Light
+
 ```jsx live
-<div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-  <Button color="primary" loading variant="filledLight">Primary</Button>
-  <Button color="secondary" loading variant="filledLight">Secondary</Button>
-  <Button color="success" loading variant="filledLight">Success</Button>
-  <Button color="text" loading variant="filledLight">Text</Button>
+<div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+  <Button color="primary" loading variant="filledLight">
+    Primary
+  </Button>
+  <Button color="secondary" loading variant="filledLight">
+    Secondary
+  </Button>
+  <Button color="success" loading variant="filledLight">
+    Success
+  </Button>
+  <Button color="text" loading variant="filledLight">
+    Text
+  </Button>
 </div>
 ```
 
 ### Plain
+
 ```jsx live
-<div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-  <Button color="primary" loading variant="plain">Primary</Button>
-  <Button color="secondary" loading variant="plain">Secondary</Button>
-  <Button color="success" loading variant="plain">Success</Button>
-  <Button color="text" loading variant="plain">Text</Button>
+<div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+  <Button color="primary" loading variant="plain">
+    Primary
+  </Button>
+  <Button color="secondary" loading variant="plain">
+    Secondary
+  </Button>
+  <Button color="success" loading variant="plain">
+    Success
+  </Button>
+  <Button color="text" loading variant="plain">
+    Text
+  </Button>
 </div>
 ```
 
 ### Loading with Icon
+
 ```jsx live
-<div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+<div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
   <Button color="primary" iconName="IconPlus" loading variant="plain" />
-  <Button color="secondary" iconName="IconRouter" loading>With Text</Button>
+  <Button color="secondary" iconName="IconRouter" loading>
+    With Text
+  </Button>
 </div>
 ```
 
 ## With Icon
 
 ```jsx live
-<div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+<div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
   <Button color="primary" iconName="IconPlus" variant="plain" />
-  <Button color="secondary" iconName="IconRouter">With Text</Button>
+  <Button color="secondary" iconName="IconRouter">
+    With Text
+  </Button>
 </div>
 ```
 
@@ -125,11 +233,21 @@ Please note the use is focused in custom SVG's or custom icons
 
 ```jsx live
 <Button variant="filled" color="text">
-  <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"><title>MS-SymbolLockup</title><rect x="1" y="1" width="9" height="9" fill="#f25022"/><rect x="1" y="11" width="9" height="9" fill="#00a4ef"/><rect x="11" y="1" width="9" height="9" fill="#7fba00"/><rect x="11" y="11" width="9" height="9" fill="#ffb900"/></svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="21"
+    height="21"
+    viewBox="0 0 21 21"
+  >
+    <title>MS-SymbolLockup</title>
+    <rect x="1" y="1" width="9" height="9" fill="#f25022" />
+    <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
+    <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
+    <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
+  </svg>
 </Button>
 ```
 
 ## API
 
 - [Button](/docs/apis/button)
-

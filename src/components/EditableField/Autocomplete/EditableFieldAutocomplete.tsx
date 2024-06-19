@@ -1,22 +1,22 @@
 /** @jsxImportSource theme-ui */
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { get, ThemeUICSSObject } from "theme-ui"
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { get, ThemeUICSSObject } from 'theme-ui';
 import Autocomplete, {
   AutocompleteProps,
-} from "../../Autocomplete/Autocomplete"
-import useEditableFieldGroup from "../hooks/useEditableFieldGroup"
-import ButtonControl from "../ButtonControl/ButtonControl"
+} from '../../Autocomplete/Autocomplete';
+import useEditableFieldGroup from '../hooks/useEditableFieldGroup';
+import ButtonControl from '../ButtonControl/ButtonControl';
 
 export type EditableFieldAutocompleteProps<T> = AutocompleteProps<T> & {
-  name?: string
+  name?: string;
 
-  status?: "error" | "success" | "loading"
-  helperText?: string
+  status?: 'error' | 'success' | 'loading';
+  helperText?: string;
 
-  onSave?: (value: AutocompleteProps<T>["selectedOption"]) => void
+  onSave?: (value: AutocompleteProps<T>['selectedOption']) => void;
 
-  controlsGroup?: boolean
-}
+  controlsGroup?: boolean;
+};
 
 const EditableFieldAutocomplete = <T extends unknown>({
   name,
@@ -26,9 +26,9 @@ const EditableFieldAutocomplete = <T extends unknown>({
   controlsGroup,
   ...autocompleteProps
 }: EditableFieldAutocompleteProps<T>) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isFocused, setIsFocused] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const [isOpen, setIsOpen] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const {
     hasChanged: hasGroupChanged,
@@ -40,24 +40,24 @@ const EditableFieldAutocomplete = <T extends unknown>({
     onReset: groupOnReset,
     register,
     status: groupStatus,
-  } = useEditableFieldGroup()
+  } = useEditableFieldGroup();
 
   const state = useMemo(() => {
-    if (groupStatus) return groupStatus
-    if (status) return status
-    return "default"
-  }, [groupStatus, status])
+    if (groupStatus) return groupStatus;
+    if (status) return status;
+    return 'default';
+  }, [groupStatus, status]);
 
   const value = useMemo(() => {
-    return autocompleteProps.selectedOption
-  }, [autocompleteProps.selectedOption])
+    return autocompleteProps.selectedOption;
+  }, [autocompleteProps.selectedOption]);
 
   const showButtons = useMemo(() => {
     return register
-      ? controlsGroup && (hasGroupChanged || state === "loading")
+      ? controlsGroup && (hasGroupChanged || state === 'loading')
       : JSON.stringify(value) !==
           JSON.stringify(autocompleteProps.defaultSelectedOption) ||
-          state === "loading"
+          state === 'loading';
   }, [
     autocompleteProps.defaultSelectedOption,
     controlsGroup,
@@ -65,37 +65,37 @@ const EditableFieldAutocomplete = <T extends unknown>({
     register,
     state,
     value,
-  ])
+  ]);
 
   const isAutocompleteFocused = useMemo(() => {
-    return register ? isGroupFocused : isFocused
-  }, [isFocused, isGroupFocused, register])
+    return register ? isGroupFocused : isFocused;
+  }, [isFocused, isGroupFocused, register]);
 
   const resetValues = useCallback(() => {
     if (autocompleteProps.multiSelect) {
       if (autocompleteProps.defaultSelectedOption) {
         autocompleteProps.onSelectedItemsChange(
           autocompleteProps.defaultSelectedOption
-        )
+        );
       }
     } else {
       if (autocompleteProps.defaultSelectedOption) {
         autocompleteProps.onSelectedItemChange(
           autocompleteProps.defaultSelectedOption
-        )
+        );
       }
     }
-  }, [autocompleteProps])
+  }, [autocompleteProps]);
 
   const saveValues = useCallback(() => {
-    onSave?.(autocompleteProps.selectedOption)
-  }, [autocompleteProps.selectedOption, onSave])
+    onSave?.(autocompleteProps.selectedOption);
+  }, [autocompleteProps.selectedOption, onSave]);
 
-  const onResetRef = useRef(resetValues)
+  const onResetRef = useRef(resetValues);
 
   useEffect(() => {
-    onResetRef.current = resetValues
-  }, [resetValues])
+    onResetRef.current = resetValues;
+  }, [resetValues]);
 
   useEffect(() => {
     if (name)
@@ -103,8 +103,8 @@ const EditableFieldAutocomplete = <T extends unknown>({
         name,
         value,
         defaultValue: autocompleteProps.defaultSelectedOption,
-      })
-  }, [autocompleteProps.defaultSelectedOption, groupOnChange, name, value])
+      });
+  }, [autocompleteProps.defaultSelectedOption, groupOnChange, name, value]);
 
   useEffect(() => {
     if (register) {
@@ -114,42 +114,42 @@ const EditableFieldAutocomplete = <T extends unknown>({
           name,
           ref: containerRef,
           reset: () => onResetRef.current?.(),
-        })
+        });
       } else {
-        throw "An <EditableField.Autocomplete /> component wrapped in an <EditableField.Group /> needs to have a `name` prop"
+        throw 'An <EditableField.Autocomplete /> component wrapped in an <EditableField.Group /> needs to have a `name` prop';
       }
     }
-  }, [name, register])
+  }, [name, register]);
 
   const stateStyles: Record<string, ThemeUICSSObject> = {
     active: {
-      backgroundColor: "#fff",
-      color: "text",
+      backgroundColor: '#fff',
+      color: 'text',
       boxShadow: (theme) =>
-        `0px 0px 0px 4px ${get(theme, "colors.secondary.alpha.95")}`,
-      borderColor: "secondary",
-      fontWeight: "semibold",
+        `0px 0px 0px 4px ${get(theme, 'colors.secondary.alpha.95')}`,
+      borderColor: 'secondary',
+      fontWeight: 'semibold',
     },
-  }
+  };
 
   return (
     <div
       ref={containerRef}
       onFocus={(event) => {
-        groupOnFocus?.(event)
-        setIsFocused(true)
+        groupOnFocus?.(event);
+        setIsFocused(true);
       }}
       onBlur={(event) => {
-        event.persist()
-        groupOnBlur?.(event)
-        const toElement = event.relatedTarget
+        event.persist();
+        groupOnBlur?.(event);
+        const toElement = event.relatedTarget;
 
         const blurredInside = containerRef.current?.contains(
           toElement as Element
-        )
+        );
 
         if (!blurredInside && !register && !showButtons) {
-          setIsFocused(false)
+          setIsFocused(false);
         }
       }}
       sx={{
@@ -159,26 +159,26 @@ const EditableFieldAutocomplete = <T extends unknown>({
           default: {},
           loading: {},
           success: {
-            backgroundColor: "success.alpha.95",
+            backgroundColor: 'success.alpha.95',
           },
           error: {
-            backgroundColor: "primary.alpha.95",
+            backgroundColor: 'primary.alpha.95',
           },
         }[state],
       }}
     >
       <ButtonControl
-        isLoading={state === "loading"}
+        isLoading={state === 'loading'}
         showButtons={showButtons}
         onSave={() => {
-          if (groupOnSave) groupOnSave()
-          else saveValues()
-          setIsFocused(false)
+          if (groupOnSave) groupOnSave();
+          else saveValues();
+          setIsFocused(false);
         }}
         onReset={() => {
-          if (groupOnReset) groupOnReset()
-          else resetValues()
-          setIsFocused(false)
+          if (groupOnReset) groupOnReset();
+          else resetValues();
+          setIsFocused(false);
         }}
       >
         <Autocomplete
@@ -189,45 +189,45 @@ const EditableFieldAutocomplete = <T extends unknown>({
             ...autocompleteProps?.styles,
             root: {
               borderRadius: 2,
-              "&:hover": {
-                ...(state === "default" && {
-                  backgroundColor: "text.alpha.95",
+              '&:hover': {
+                ...(state === 'default' && {
+                  backgroundColor: 'text.alpha.95',
                 }),
               },
               ...autocompleteProps?.styles?.root,
             },
             inputRoot: {
-              display: "flex",
-              width: "100%",
-              alignItems: "center",
+              display: 'flex',
+              width: '100%',
+              alignItems: 'center',
               gap: 2,
 
               paddingY: 1,
               paddingX: 3,
-              backgroundColor: "transparent",
+              backgroundColor: 'transparent',
               outline: 0,
               borderRadius: 2,
-              border: "2px solid",
-              borderColor: "transparent",
-              color: "text",
+              border: '2px solid',
+              borderColor: 'transparent',
+              color: 'text',
 
               ...{
                 default: {},
                 loading: stateStyles.active,
                 success: {
-                  borderColor: "success",
+                  borderColor: 'success',
                 },
                 error: {
-                  borderColor: "primary",
+                  borderColor: 'primary',
                 },
               }[state],
 
-              transition: "all 0.2s",
-              "&:hover": {},
+              transition: 'all 0.2s',
+              '&:hover': {},
               ...((isOpen || isAutocompleteFocused || showButtons) &&
                 stateStyles.active),
-              "> span": {
-                variant: "text.body1",
+              '> span': {
+                variant: 'text.body1',
               },
               ...autocompleteProps?.styles?.inputRoot,
             },
@@ -239,15 +239,15 @@ const EditableFieldAutocomplete = <T extends unknown>({
           sx={{
             px: 3,
             py: 2,
-            variant: "text.body1",
+            variant: 'text.body1',
             ...{
               default: {},
               loading: {},
               success: {
-                color: "success",
+                color: 'success',
               },
               error: {
-                color: "primary",
+                color: 'primary',
               },
             }[state],
           }}
@@ -256,7 +256,7 @@ const EditableFieldAutocomplete = <T extends unknown>({
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default EditableFieldAutocomplete
+export default EditableFieldAutocomplete;

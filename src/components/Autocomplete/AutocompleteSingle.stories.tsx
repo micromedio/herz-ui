@@ -1,31 +1,31 @@
 /** @jsxImportSource theme-ui */
-import React, { useState } from "react"
-import { Meta, Story } from "@storybook/react/types-6-0"
+import React, { useState } from 'react';
+import { Meta, Story } from '@storybook/react/types-6-0';
 
-import Autocomplete, { AutocompleteProps } from "./Autocomplete"
-import { mockedOptions } from "./__mocks__/options"
-import Highlight from "../Highlight/Highlight"
+import Autocomplete, { AutocompleteProps } from './Autocomplete';
+import { mockedOptions } from './__mocks__/options';
+import Highlight from '../Highlight/Highlight';
 // import Tag from "../Tag/Tag"
 
-type AutocompleteItem = typeof mockedOptions[0]
+type AutocompleteItem = typeof mockedOptions[0];
 
 export default {
-  title: "Design System/Autocomplete/SingleSelect",
+  title: 'Design System/Autocomplete/SingleSelect',
   component: Autocomplete,
-} as Meta
+} as Meta;
 
 const Template: Story<AutocompleteProps<AutocompleteItem>> = (
   props: Partial<
     Omit<
       AutocompleteProps<AutocompleteItem>,
-      "defaultSelectedOption" | "multiSelect"
+      'defaultSelectedOption' | 'multiSelect'
     >
   >
 ) => {
-  const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
+  const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions);
   const [value, setValue] = useState<AutocompleteItem | null | undefined>(
     props.buttons ? mockedOptions[0] : null
-  )
+  );
 
   return (
     <Autocomplete<AutocompleteItem>
@@ -34,20 +34,20 @@ const Template: Story<AutocompleteProps<AutocompleteItem>> = (
         props.buttons
           ? [
               {
-                color: "secondary",
-                children: "More info",
+                color: 'secondary',
+                children: 'More info',
                 onClick: () => {
-                  alert("Clicked on more info!")
+                  alert('Clicked on more info!');
                 },
-                variant: "plain",
+                variant: 'plain',
               },
               {
-                color: "secondary",
-                children: "Clear",
+                color: 'secondary',
+                children: 'Clear',
                 onClick: () => {
-                  setValue(null)
+                  setValue(null);
                 },
-                variant: "plain",
+                variant: 'plain',
               },
             ]
           : undefined
@@ -61,20 +61,20 @@ const Template: Story<AutocompleteProps<AutocompleteItem>> = (
                   .startsWith(inputValue.toLocaleLowerCase())
               : true
           )
-        )
+        );
       }}
       options={items.slice(0, 5)}
       optionToString={(option) =>
-        option && !Array.isArray(option) ? option.label : ""
+        option && !Array.isArray(option) ? option.label : ''
       }
       placeholder="Search by organization's name or handle"
       renderOption={({ defaultStyles, option }) => (
         <div
           sx={{
             ...defaultStyles,
-            alignContent: "center",
-            alignItems: "center",
-            display: "flex",
+            alignContent: 'center',
+            alignItems: 'center',
+            display: 'flex',
             padding: 2,
           }}
         >
@@ -82,46 +82,46 @@ const Template: Story<AutocompleteProps<AutocompleteItem>> = (
         </div>
       )}
       onSelectedItemChange={(selectedOption) => {
-        setValue(selectedOption)
+        setValue(selectedOption);
       }}
       selectedOption={value}
       totalCount={items.length}
     />
-  )
-}
+  );
+};
 
 const RenderSelectedTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
   props: Partial<
     Omit<
       AutocompleteProps<AutocompleteItem>,
-      "defaultSelectedOption" | "multiSelect"
+      'defaultSelectedOption' | 'multiSelect'
     >
   >
 ) => {
-  const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
+  const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions);
   const [value, setValue] = useState<AutocompleteItem | null | undefined>(
     mockedOptions[0]
-  )
+  );
 
   return (
     <Autocomplete<AutocompleteItem>
       {...props}
       buttons={[
         {
-          color: "secondary",
-          children: "More info",
+          color: 'secondary',
+          children: 'More info',
           onClick: () => {
-            alert("Clicked on more info!")
+            alert('Clicked on more info!');
           },
-          variant: "plain",
+          variant: 'plain',
         },
         {
-          color: "secondary",
-          children: "Clear",
+          color: 'secondary',
+          children: 'Clear',
           onClick: () => {
-            setValue(null)
+            setValue(null);
           },
-          variant: "plain",
+          variant: 'plain',
         },
       ]}
       onInputValueChange={({ inputValue }) => {
@@ -133,18 +133,18 @@ const RenderSelectedTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
                   .startsWith(inputValue.toLocaleLowerCase())
               : true
           )
-        )
+        );
       }}
       options={items.slice(0, 5)}
-      optionToString={(option) => (option ? option.label : "")}
+      optionToString={(option) => (option ? option.label : '')}
       placeholder="Search by organization's name or handle"
       renderOption={({ defaultStyles, option }) => (
         <div
           sx={{
             ...defaultStyles,
-            alignContent: "center",
-            alignItems: "center",
-            display: "flex",
+            alignContent: 'center',
+            alignItems: 'center',
+            display: 'flex',
             padding: 2,
           }}
         >
@@ -154,15 +154,15 @@ const RenderSelectedTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
       renderSelectedItem={(selectedOption) => {
         return (
           <span>
-            {selectedOption.label}{" "}
+            {selectedOption.label}{' '}
             <strong>
-              <sup sx={{ position: "relative", left: 3, top: "-5px" }}>
+              <sup sx={{ position: 'relative', left: 3, top: '-5px' }}>
                 {selectedOption.A}
               </sup>
               <sub
                 sx={{
-                  position: "relative",
-                  top: "5px",
+                  position: 'relative',
+                  top: '5px',
                 }}
               >
                 {selectedOption.Z}
@@ -170,47 +170,47 @@ const RenderSelectedTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
               {selectedOption.symbol}
             </strong>
           </span>
-        )
+        );
       }}
       onSelectedItemChange={(selectedOption) => {
-        setValue(selectedOption)
+        setValue(selectedOption);
       }}
       selectedOption={value}
       totalCount={items.length}
     />
-  )
-}
+  );
+};
 
 const WithHighlightTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
   props: Partial<
     Omit<
       AutocompleteProps<AutocompleteItem>,
-      "defaultSelectedOption" | "multiSelect"
+      'defaultSelectedOption' | 'multiSelect'
     >
   >
 ) => {
-  const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
-  const [value, setValue] = useState<AutocompleteItem | null | undefined>(null)
+  const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions);
+  const [value, setValue] = useState<AutocompleteItem | null | undefined>(null);
 
   return (
     <Autocomplete<AutocompleteItem>
       {...props}
       buttons={[
         {
-          color: "secondary",
-          children: "More info",
+          color: 'secondary',
+          children: 'More info',
           onClick: () => {
-            alert("Clicked on more info!")
+            alert('Clicked on more info!');
           },
-          variant: "plain",
+          variant: 'plain',
         },
         {
-          color: "secondary",
-          children: "Clear",
+          color: 'secondary',
+          children: 'Clear',
           onClick: () => {
-            setValue(null)
+            setValue(null);
           },
-          variant: "plain",
+          variant: 'plain',
         },
       ]}
       onInputValueChange={({ inputValue }) => {
@@ -222,18 +222,18 @@ const WithHighlightTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
                   .startsWith(inputValue.toLocaleLowerCase())
               : true
           )
-        )
+        );
       }}
       options={items.slice(0, 5)}
-      optionToString={(option) => (option ? option.label : "")}
+      optionToString={(option) => (option ? option.label : '')}
       placeholder="Search by organization's name or handle"
       renderOption={({ defaultStyles, option, inputValue }) => (
         <div
           sx={{
             ...defaultStyles,
-            alignContent: "center",
-            alignItems: "center",
-            display: "flex",
+            alignContent: 'center',
+            alignItems: 'center',
+            display: 'flex',
             padding: 2,
           }}
         >
@@ -243,15 +243,15 @@ const WithHighlightTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
       renderSelectedItem={(selectedOption) => {
         return (
           <span>
-            {selectedOption.label}{" "}
+            {selectedOption.label}{' '}
             <strong>
-              <sup sx={{ position: "relative", left: 3, top: "-5px" }}>
+              <sup sx={{ position: 'relative', left: 3, top: '-5px' }}>
                 {selectedOption.A}
               </sup>
               <sub
                 sx={{
-                  position: "relative",
-                  top: "5px",
+                  position: 'relative',
+                  top: '5px',
                 }}
               >
                 {selectedOption.Z}
@@ -259,37 +259,37 @@ const WithHighlightTemplate: Story<AutocompleteProps<AutocompleteItem>> = (
               {selectedOption.symbol}
             </strong>
           </span>
-        )
+        );
       }}
       onSelectedItemChange={(selectedOption) => {
-        setValue(selectedOption)
+        setValue(selectedOption);
       }}
       selectedOption={value}
       totalCount={items.length}
     />
-  )
-}
+  );
+};
 
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 Default.args = {
   buttons: undefined,
-}
+};
 
-export const WithLabelAndHelperText = Template.bind({})
+export const WithLabelAndHelperText = Template.bind({});
 WithLabelAndHelperText.args = {
-  helperText: "This is a helper text",
-  label: "Label",
-  optionalText: "optional",
-}
+  helperText: 'This is a helper text',
+  label: 'Label',
+  optionalText: 'optional',
+};
 
-export const WithActionButtons = Template.bind({})
+export const WithActionButtons = Template.bind({});
 WithActionButtons.args = {
   buttons: [],
-  helperText: "This is a helper text",
-  label: "Label",
-  optionalText: "optional",
-}
+  helperText: 'This is a helper text',
+  label: 'Label',
+  optionalText: 'optional',
+};
 
-export const CustomSelectedRender = RenderSelectedTemplate.bind({})
+export const CustomSelectedRender = RenderSelectedTemplate.bind({});
 
-export const WithHighlight = WithHighlightTemplate.bind({})
+export const WithHighlight = WithHighlightTemplate.bind({});

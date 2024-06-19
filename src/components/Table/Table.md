@@ -3,33 +3,27 @@ The table component is used to display tabular data, with options for sorting an
 ### Basic Example:
 
 ```jsx
-import mockData from "./__mocks__/data"
+import mockData from './__mocks__/data';
 
 const columns = React.useMemo(() => {
   return [
     {
-      Header: "Study #",
-      accessor: "id",
+      Header: 'Study #',
+      accessor: 'id',
       highlight: true,
     },
     {
-      Header: "Patient",
-      accessor: "patient.name",
+      Header: 'Patient',
+      accessor: 'patient.name',
     },
     {
-      Header: "Referring physician",
-      accessor: "physician.name",
+      Header: 'Referring physician',
+      accessor: 'physician.name',
     },
-  ]
-}, [])
+  ];
+}, []);
 
-;(
-  <Table
-    data={mockData}
-    columns={columns}
-    initialPageSize={5}
-  />
-)
+<Table data={mockData} columns={columns} initialPageSize={5} />;
 ```
 
 ## Columns definition
@@ -62,27 +56,27 @@ One way we could declare our columns is like this:
 ```js static
 const columns = [
   {
-    Header: "Study #",
-    accessor: "id",
+    Header: 'Study #',
+    accessor: 'id',
     highlight: true,
   },
   {
-    Header: "Patient",
-    accessor: "patient.name",
+    Header: 'Patient',
+    accessor: 'patient.name',
   },
   {
-    Header: "Patient SSN",
-    accessor: "patient.ssn",
+    Header: 'Patient SSN',
+    accessor: 'patient.ssn',
   },
   {
-    Header: "Referring physician",
-    accessor: "physician.name",
+    Header: 'Referring physician',
+    accessor: 'physician.name',
   },
   {
-    Header: "Status",
-    accessor: "status",
+    Header: 'Status',
+    accessor: 'status',
   },
-]
+];
 ```
 
 The order of the array is the order in which the columns will show up, each item in the array specifies how to render that column.
@@ -90,18 +84,21 @@ The order of the array is the order in which the columns will show up, each item
 Some of the main properties of each column object are:
 
 ##### Header (`string`)
+
 - Controls the title of the column
 
 ##### accessor (`string`)
+
 - The key path to access the data of this column (e.g. the patient name is under `patient.name` in the data object)
 
 ##### hightlight (`boolean`)
+
 - If `true`, rows render with the highlight color
 
 ##### align (`start` | `end` | `center`)
+
 - Defaults to `start`
 - Controls the alignment of the text in this column, in the header as well as the rows
-
 
 ## Controlled Pagination / Sorting
 
@@ -120,40 +117,40 @@ While the data is not paginated by the component, the current page and page size
 This example shows how the pagination of the data can be controlled externally from the Table component. In a real application the data will probably be coming from a server after a delay, in which case you can set the `loading` prop to `true` while that is happening.
 
 ```js static
-const [paginatedData, setPaginatedData] = React.useState(data.slice(0, 10))
-const [pageSize, setPageSize] = React.useState(5)
+const [paginatedData, setPaginatedData] = React.useState(data.slice(0, 10));
+const [pageSize, setPageSize] = React.useState(5);
 
 const pageCount = React.useMemo(() => {
-  const size = data.length
-  return Math.ceil(size / pageSize)
-}, [pageSize])
+  const size = data.length;
+  return Math.ceil(size / pageSize);
+}, [pageSize]);
 
 const onTableChange = React.useCallback(({ pageIndex, pageSize }) => {
-  setPageSize(pageSize)
+  setPageSize(pageSize);
 
   // simulating server-side pagination
   setPaginatedData(
     mockData.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
-  )
-}, [])
+  );
+}, []);
 
 const columns = React.useMemo(() => {
   return [
     {
-      Header: "Study #",
-      accessor: "id",
+      Header: 'Study #',
+      accessor: 'id',
       highlight: true,
     },
     {
-      Header: "Patient",
-      accessor: "patient.name",
+      Header: 'Patient',
+      accessor: 'patient.name',
     },
     {
-      Header: "Referring physician",
-      accessor: "physician.name",
+      Header: 'Referring physician',
+      accessor: 'physician.name',
     },
-  ]
-}, [])
+  ];
+}, []);
 
 return (
   <Table
@@ -165,58 +162,56 @@ return (
     onTableChange={onTableChange}
     initialPageSize={pageSize}
   />
-)
+);
 ```
 
 ```js
-import mockData from "./__mocks__/data"
+import mockData from './__mocks__/data';
 
-const [paginatedData, setPaginatedData] = React.useState(mockData.slice(0, 10))
-const [pageSize, setPageSize] = React.useState(5)
+const [paginatedData, setPaginatedData] = React.useState(mockData.slice(0, 10));
+const [pageSize, setPageSize] = React.useState(5);
 
 const pageCount = React.useMemo(() => {
-  const size = mockData.length
-  return Math.ceil(size / pageSize)
-}, [pageSize])
+  const size = mockData.length;
+  return Math.ceil(size / pageSize);
+}, [pageSize]);
 
 const onTableChange = React.useCallback(({ pageIndex, pageSize }) => {
-  setPageSize(pageSize)
+  setPageSize(pageSize);
 
   // simulating server-side pagination
   setPaginatedData(
     mockData.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
-  )
-}, [])
+  );
+}, []);
 
 const columns = React.useMemo(() => {
   return [
     {
-      Header: "Study #",
-      accessor: "id",
+      Header: 'Study #',
+      accessor: 'id',
       highlight: true,
     },
     {
-      Header: "Patient",
-      accessor: "patient.name",
+      Header: 'Patient',
+      accessor: 'patient.name',
     },
     {
-      Header: "Referring physician",
-      accessor: "physician.name",
+      Header: 'Referring physician',
+      accessor: 'physician.name',
     },
-  ]
-}, [])
+  ];
+}, []);
 
-;(
-  <Table
-    columns={columns}
-    data={paginatedData}
-    manualPagination
-    pageCount={pageCount}
-    totalCount={mockData.length}
-    onTableChange={onTableChange}
-    initialPageSize={5}
-  />
-)
+<Table
+  columns={columns}
+  data={paginatedData}
+  manualPagination
+  pageCount={pageCount}
+  totalCount={mockData.length}
+  onTableChange={onTableChange}
+  initialPageSize={5}
+/>;
 ```
 
 In this case you can see the sorting is not manual, so sorting is handled by the Table, however as the only data available for the table is that of the current page, you can see that only the items in the current page change order.
@@ -232,42 +227,40 @@ While the data is not sorted by the component, which columns are sorted and in w
 This example shows how the sorting of the data can be controlled externally from the Table component. In a real application the data will probably be coming from a server after a delay, in which case you can set the `loading` prop to `true` while that is happening.
 
 ```js static
-import _ from 'lodash'
+import _ from 'lodash';
 
-const [sortedData, setSortedData] = React.useState(data)
+const [sortedData, setSortedData] = React.useState(data);
 
 const onTableChange = React.useCallback(
   ({ sortBy }) => {
-    let temporaryData = data
+    let temporaryData = data;
     // simulating server-side sorting
     if (sortBy) {
-      temporaryData = _.sortBy(temporaryData, (item) =>
-        _.get(item, sortBy.id)
-      )
-      if (sortBy.desc) temporaryData = temporaryData.reverse()
+      temporaryData = _.sortBy(temporaryData, (item) => _.get(item, sortBy.id));
+      if (sortBy.desc) temporaryData = temporaryData.reverse();
     }
-    setSortedData(temporaryData)
+    setSortedData(temporaryData);
   },
   [data]
-)
+);
 
 const columns = React.useMemo(() => {
   return [
     {
-      Header: "Study #",
-      accessor: "id",
+      Header: 'Study #',
+      accessor: 'id',
       highlight: true,
     },
     {
-      Header: "Patient",
-      accessor: "patient.name",
+      Header: 'Patient',
+      accessor: 'patient.name',
     },
     {
-      Header: "Referring physician",
-      accessor: "physician.name",
+      Header: 'Referring physician',
+      accessor: 'physician.name',
     },
-  ]
-}, [])
+  ];
+}, []);
 
 return (
   <Table
@@ -277,57 +270,50 @@ return (
     onTableChange={onTableChange}
     initialPageSize={5}
   />
-)
+);
 ```
 
 ```js
-import _ from 'lodash'
-import mockData from "./__mocks__/data"
+import _ from 'lodash';
+import mockData from './__mocks__/data';
 
-const [sortedData, setSortedData] = React.useState(mockData)
+const [sortedData, setSortedData] = React.useState(mockData);
 
-const onTableChange = React.useCallback(
-  ({ sortBy }) => {
-    let temporaryData = mockData
-    // simulating server-side sorting
-    if (sortBy) {
-      temporaryData = _.sortBy(temporaryData, (item) =>
-        _.get(item, sortBy.id)
-      )
-      if (sortBy.desc) temporaryData = temporaryData.reverse()
-    }
-    setSortedData(temporaryData)
-  },
-  []
-)
+const onTableChange = React.useCallback(({ sortBy }) => {
+  let temporaryData = mockData;
+  // simulating server-side sorting
+  if (sortBy) {
+    temporaryData = _.sortBy(temporaryData, (item) => _.get(item, sortBy.id));
+    if (sortBy.desc) temporaryData = temporaryData.reverse();
+  }
+  setSortedData(temporaryData);
+}, []);
 
 const columns = React.useMemo(() => {
   return [
     {
-      Header: "Study #",
-      accessor: "id",
+      Header: 'Study #',
+      accessor: 'id',
       highlight: true,
     },
     {
-      Header: "Patient",
-      accessor: "patient.name",
+      Header: 'Patient',
+      accessor: 'patient.name',
     },
     {
-      Header: "Referring physician",
-      accessor: "physician.name",
+      Header: 'Referring physician',
+      accessor: 'physician.name',
     },
-  ]
-}, [])
+  ];
+}, []);
 
-;(
-  <Table
-    columns={columns}
-    manualSorting
-    data={sortedData}
-    onTableChange={onTableChange}
-    initialPageSize={5}
-  />
-)
+<Table
+  columns={columns}
+  manualSorting
+  data={sortedData}
+  onTableChange={onTableChange}
+  initialPageSize={5}
+/>;
 ```
 
 #### Default Loading State
@@ -336,61 +322,47 @@ const columns = React.useMemo(() => {
 const columns = React.useMemo(() => {
   return [
     {
-      Header: "Study #",
-      accessor: "id",
+      Header: 'Study #',
+      accessor: 'id',
       highlight: true,
     },
     {
-      Header: "Patient",
-      accessor: "patient.name",
+      Header: 'Patient',
+      accessor: 'patient.name',
     },
     {
-      Header: "Referring physician",
-      accessor: "physician.name",
+      Header: 'Referring physician',
+      accessor: 'physician.name',
     },
-  ]
-}, [])
+  ];
+}, []);
 
-return (
-  <Table
-    columns={columns}
-    data={[]}
-    initialPageSize={5}
-    loading
-  />
-)
+return <Table columns={columns} data={[]} initialPageSize={5} loading />;
 ```
 
 #### Loading State With Custom Render
 
 ```js
-import { Spinner } from ".."
+import { Spinner } from '..';
 const columns = [
   {
-    Header: "Study #",
-    accessor: "id",
+    Header: 'Study #',
+    accessor: 'id',
     highlight: true,
-    Loader: () => <Spinner />
+    Loader: () => <Spinner />,
   },
   {
-    Header: "Patient",
-    accessor: "patient.name",
-    Loader: () => <>Loading ...</>
+    Header: 'Patient',
+    accessor: 'patient.name',
+    Loader: () => <>Loading ...</>,
   },
   {
-    Header: "Referring physician",
-    accessor: "physician.name",
-    Loader: () => <>Loading ...</>
+    Header: 'Referring physician',
+    accessor: 'physician.name',
+    Loader: () => <>Loading ...</>,
   },
-]
-;(
-  <Table
-    columns={columns}
-    data={[]}
-    initialPageSize={5}
-    loading
-  />
-)
+];
+<Table columns={columns} data={[]} initialPageSize={5} loading />;
 ```
 
 ### Filtering

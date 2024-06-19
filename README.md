@@ -4,10 +4,10 @@
 
 ## Table of Contents
 
-* ### [Installation](#installation)
-* ### [Want to Contribuite](#contribute)
-* ### [Getting started](#starting)
-* ### [Testing in another project](#testlocally)
+- ### [Installation](#installation)
+- ### [Want to Contribuite](#contribute)
+- ### [Getting started](#starting)
+- ### [Testing in another project](#testlocally)
 <br/>
 
 ## <a name="installation"></a> Installation
@@ -27,21 +27,26 @@ yarn add @micromed/herz-ui
 you'll find our component documentation on our [website](https://herz-ui.micromed.io/)
 
 ## <a name="contribute"></a> Want to contribute?
+
 If you found a bug, have issues or feature proposals, feel free to open an Issue or send us a Pull Request, you can also read more about our [contribution guidelines](https://github.com/micromedio/herz-ui/blob/master/CONTRIBUTING.md)
+
 ## <a name="starting"></a>Getting started
+
 <br/>
 
 ### **Setup**
 
 clonning the repo
+
 ```
 git clone https://github.com/micromedio/herz-ui.git
 cd herz-ui
 ```
 
 installing dependencies with yarn
+
 ```
-yarn 
+yarn
 ```
 
 ### **Running in development:**
@@ -57,34 +62,39 @@ yarn dev
 - You will also see any lint errors in the console
 
 - Project will be available at [localhost:6060](http://localhost:6060)
-<br/><br/>
+  <br/><br/>
 
 ### **Building for production**
 
 ```
 yarn build
 ```
+
 - Builds the app for production to the styleguide/ folder
 - Compiles the exported modules into lib/ folder
 - bundles react in production mode optimizing for best performance
-<br/><br/>
+  <br/><br/>
 
 ### **Testing**
+
 ```
 yarn test
 ```
+
 - Launches the test runner in the interactive watch mode.
-<br/><br/>
+  <br/><br/>
 
 ```
 yarn build-storybook
 ```
+
 - Build storybook as a static project
-<br/><br/>
+  <br/><br/>
 
 ```
 yarn storybook
 ```
+
 - Runs storybook at [localhost:6006](http://localhost:6006)
 
 <br/><br/>
@@ -98,16 +108,21 @@ One problem that can arise from that is that there will be two `react` versions 
 To fix this we need to not only link our local `herz-ui` to the other project, but also link `react` and `react-dom` from the other project to `hearz-ui`, so it uses those versions instead of the ones in `herz-ui` node_modules. The solution is [this](https://github.com/facebook/react/issues/13991#issuecomment-735945718):
 
 1. In the external project folder run:
+
 ```
 pushd node_modules/react && yarn link; popd
 pushd node_modules/react-dom && yarn link; popd
 ```
+
 2. In the `herz-ui` folder run:
+
 ```
 yarn link
 yarn link react && yarn link react-dom
 ```
+
 3. In the external project folder run:
+
 ```
 yarn link "@micromed/herz-ui"
 ```

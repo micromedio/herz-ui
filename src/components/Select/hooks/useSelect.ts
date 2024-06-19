@@ -3,14 +3,14 @@ import {
   useSelect as useDownshiftSelect,
   UseSelectProps as UseDownshiftSelectProps,
   UseSelectStateChange,
-} from "downshift"
+} from 'downshift';
 
 import {
   SelectProps,
   SelectedItems,
   SelectValue,
   SelectOptionType,
-} from "../Select"
+} from '../Select';
 
 export enum SELECT_BULK_ACTIONS {
   DESELECT_ALL,
@@ -18,14 +18,14 @@ export enum SELECT_BULK_ACTIONS {
 }
 
 export interface UseSelectProps {
-  options: Array<SelectOptionType>
-  multi: SelectProps["multi"]
-  value: SelectProps["value"]
-  selectedItems: SelectProps["selectedItems"]
-  onChange: SelectProps["onChange"]
-  onSelectedItemsChange: SelectProps["onSelectedItemsChange"]
-  isOpen: UseDownshiftSelectProps<SelectValue>["isOpen"]
-  onIsOpenChange: UseDownshiftSelectProps<SelectValue>["onIsOpenChange"]
+  options: Array<SelectOptionType>;
+  multi: SelectProps['multi'];
+  value: SelectProps['value'];
+  selectedItems: SelectProps['selectedItems'];
+  onChange: SelectProps['onChange'];
+  onSelectedItemsChange: SelectProps['onSelectedItemsChange'];
+  isOpen: UseDownshiftSelectProps<SelectValue>['isOpen'];
+  onIsOpenChange: UseDownshiftSelectProps<SelectValue>['onIsOpenChange'];
 }
 
 export function useSelect({
@@ -41,33 +41,33 @@ export function useSelect({
   const handleRemoveSelectedItems = (selectedItem: SelectValue[]) => {
     const newSelected: SelectedItems = selectedItems.filter(
       (previousSelected) => !selectedItem.includes(previousSelected)
-    )
-    onSelectedItemsChange?.(newSelected)
-  }
+    );
+    onSelectedItemsChange?.(newSelected);
+  };
 
   const handleAddSelectedItems = (selectedItem: SelectValue[]) => {
-    const newSelected: SelectedItems = selectedItems.concat(selectedItem)
-    onSelectedItemsChange?.(newSelected)
-  }
+    const newSelected: SelectedItems = selectedItems.concat(selectedItem);
+    onSelectedItemsChange?.(newSelected);
+  };
 
   const handleBulkAction = (type = SELECT_BULK_ACTIONS.SELECT_ALL) => {
     if (type === SELECT_BULK_ACTIONS.SELECT_ALL) {
-      handleAddSelectedItems(options.map(({ value }) => value))
+      handleAddSelectedItems(options.map(({ value }) => value));
     } else {
-      handleRemoveSelectedItems(selectedItems)
+      handleRemoveSelectedItems(selectedItems);
     }
-  }
+  };
 
   /** Handler for single selector item change */
   const handleSelectedItemChange = ({
     selectedItem,
   }: UseSelectStateChange<SelectValue>) => {
-    if (selectedItem || selectedItem === 0) onChange?.(selectedItem)
-  }
+    if (selectedItem || selectedItem === 0) onChange?.(selectedItem);
+  };
 
   const { getDropdownProps } = useMultipleSelection({
     selectedItems,
-  })
+  });
 
   const {
     isOpen: downshiftIsOpen,
@@ -89,7 +89,7 @@ export function useSelect({
     ...(multi
       ? {
           stateReducer: (state, actionAndChanges) => {
-            const { changes, type } = actionAndChanges
+            const { changes, type } = actionAndChanges;
 
             switch (type) {
               case useDownshiftSelect.stateChangeTypes.MenuKeyDownEnter:
@@ -102,9 +102,9 @@ export function useSelect({
                   isOpen: true,
                   /** Prevent highlightedIndex from changing */
                   highlightedIndex: state.highlightedIndex,
-                }
+                };
             }
-            return changes
+            return changes;
           },
           onStateChange: ({ type, selectedItem }) => {
             switch (type) {
@@ -112,23 +112,23 @@ export function useSelect({
               case useDownshiftSelect.stateChangeTypes.MenuKeyDownSpaceButton:
               case useDownshiftSelect.stateChangeTypes.ItemClick:
                 if (selectedItem) {
-                  const isSelected = selectedItems.includes(selectedItem)
+                  const isSelected = selectedItems.includes(selectedItem);
 
                   if (isSelected) {
-                    handleRemoveSelectedItems([selectedItem])
+                    handleRemoveSelectedItems([selectedItem]);
                   } else {
-                    handleAddSelectedItems([selectedItem])
+                    handleAddSelectedItems([selectedItem]);
                   }
                 }
-                break
+                break;
               default:
-                break
+                break;
             }
           },
         }
       : {
           stateReducer: (state, actionsAndChanges) => {
-            const { changes, type } = actionsAndChanges
+            const { changes, type } = actionsAndChanges;
 
             switch (type) {
               case useDownshiftSelect.stateChangeTypes.MenuKeyDownEnter:
@@ -139,20 +139,20 @@ export function useSelect({
                   return (
                     JSON.stringify(value) ===
                     JSON.stringify(changes.selectedItem)
-                  )
-                })
+                  );
+                });
                 if (
                   options[index]?.isCustom ||
                   options[state.highlightedIndex]?.isCustom
                 )
-                  return state
-                break
+                  return state;
+                break;
             }
-            return changes
+            return changes;
           },
           onSelectedItemChange: handleSelectedItemChange,
         }),
-  })
+  });
 
   return {
     isOpen: downshiftIsOpen,
@@ -167,5 +167,5 @@ export function useSelect({
     selectItem,
     closeMenu,
     openMenu,
-  }
+  };
 }

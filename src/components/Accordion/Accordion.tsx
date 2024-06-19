@@ -1,58 +1,58 @@
 /** @jsxImportSource theme-ui */
 
-import React, { HTMLAttributes, useCallback, useState } from "react"
-import Icon from "../Icon/Icon"
-import Divider from "../Divider/Divider"
-import { AccordionContext, useAccordionContext } from "./context"
-import { AnimatePresence, motion } from "framer-motion"
-import { get } from "theme-ui"
+import React, { HTMLAttributes, useCallback, useState } from 'react';
+import Icon from '../Icon/Icon';
+import Divider from '../Divider/Divider';
+import { AccordionContext, useAccordionContext } from './context';
+import { AnimatePresence, motion } from 'framer-motion';
+import { get } from 'theme-ui';
 
 const insertDivider = (items: Array<React.ReactNode>) => {
-  let result: Array<React.ReactNode> = []
+  let result: Array<React.ReactNode> = [];
 
   items.forEach((current, index) => {
     if (index < items.length - 1) {
       result = result.concat(
         current,
         <Divider aria-hidden key={`divider-${index}`} />
-      )
+      );
     } else {
-      result.push(current)
+      result.push(current);
     }
-  })
+  });
 
-  return result
-}
+  return result;
+};
 
 export interface AccordionProps {
-  initialOpenIndex?: number
-  children: React.ReactNode
+  initialOpenIndex?: number;
+  children: React.ReactNode;
   activeBackgroundColor?:
-    | "primary"
-    | "secondary"
-    | "text"
-    | "success"
-    | "warning"
-  className?: HTMLAttributes<HTMLDivElement>["className"]
+    | 'primary'
+    | 'secondary'
+    | 'text'
+    | 'success'
+    | 'warning';
+  className?: HTMLAttributes<HTMLDivElement>['className'];
 }
 
 const Accordion = ({
   children,
   initialOpenIndex,
-  activeBackgroundColor = "secondary",
+  activeBackgroundColor = 'secondary',
   className,
 }: AccordionProps) => {
   const [openIndex, setOpenIndex] = useState<number | undefined>(
     initialOpenIndex
-  )
+  );
 
   const toggleOpen = useCallback(
     (index: number) => {
-      if (openIndex === index) setOpenIndex(undefined)
-      else setOpenIndex(index)
+      if (openIndex === index) setOpenIndex(undefined);
+      else setOpenIndex(index);
     },
     [openIndex]
-  )
+  );
 
   const allItems = React.Children.toArray(children)
     .filter((child) => React.isValidElement(child))
@@ -63,28 +63,28 @@ const Accordion = ({
       >
         {child}
       </AccordionContext.Provider>
-    ))
+    ));
 
-  return <div className={className}>{insertDivider(allItems)}</div>
-}
+  return <div className={className}>{insertDivider(allItems)}</div>;
+};
 
 export interface AccordionItemProps {
-  title: string
-  children: React.ReactNode
-  className?: HTMLAttributes<HTMLDivElement>["className"]
+  title: string;
+  children: React.ReactNode;
+  className?: HTMLAttributes<HTMLDivElement>['className'];
 }
 
 const AccordionItem = ({ title, children, className }: AccordionItemProps) => {
   const { index, toggleOpen, openIndex, activeBackgroundColor } =
-    useAccordionContext()
-  const isOpen = openIndex === index
+    useAccordionContext();
+  const isOpen = openIndex === index;
 
   return (
     <div
       sx={{
         backgroundColor: (t) =>
-          isOpen ? get(t, `colors.${activeBackgroundColor}.97`) : "transparent",
-        transition: "background-color 150ms linear",
+          isOpen ? get(t, `colors.${activeBackgroundColor}.97`) : 'transparent',
+        transition: 'background-color 150ms linear',
       }}
     >
       <div
@@ -92,13 +92,13 @@ const AccordionItem = ({ title, children, className }: AccordionItemProps) => {
         aria-disabled="false"
         aria-expanded={isOpen}
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
+          display: 'flex',
+          justifyContent: 'space-between',
           px: 6,
           py: 3,
-          variant: "text.body1",
-          color: "text.40",
-          cursor: "pointer",
+          variant: 'text.body1',
+          color: 'text.40',
+          cursor: 'pointer',
         }}
         onClick={() => toggleOpen(index)}
       >
@@ -106,8 +106,8 @@ const AccordionItem = ({ title, children, className }: AccordionItemProps) => {
         <Icon
           name="IconChevronDown"
           sx={{
-            transition: "transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-            transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+            transition: 'transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
           }}
         />
       </div>
@@ -118,8 +118,8 @@ const AccordionItem = ({ title, children, className }: AccordionItemProps) => {
             animate="open"
             exit="collapsed"
             variants={{
-              open: { height: "auto" },
-              collapsed: { height: 0, overflow: "hidden" },
+              open: { height: 'auto' },
+              collapsed: { height: 0, overflow: 'hidden' },
             }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
@@ -136,8 +136,8 @@ const AccordionItem = ({ title, children, className }: AccordionItemProps) => {
         )}
       </AnimatePresence>
     </div>
-  )
-}
+  );
+};
 
-Accordion.Item = AccordionItem
-export default Accordion
+Accordion.Item = AccordionItem;
+export default Accordion;

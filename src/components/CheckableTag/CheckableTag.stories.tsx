@@ -1,15 +1,15 @@
-import React, { useState } from "react"
-import { Meta, Story } from "@storybook/react/types-6-0"
+import React, { useState } from 'react';
+import { Meta, Story } from '@storybook/react/types-6-0';
 
-import CheckableTag, { CheckableTagProps } from "./CheckableTag"
+import CheckableTag, { CheckableTagProps } from './CheckableTag';
 
 export default {
-  title: "Design System/CheckableTag",
+  title: 'Design System/CheckableTag',
   component: CheckableTag,
-} as Meta
+} as Meta;
 
 const Template: Story<CheckableTagProps> = (props: CheckableTagProps) => {
-  const [checked, setChecked] = useState(props?.checked || false)
+  const [checked, setChecked] = useState(props?.checked || false);
 
   return (
     <CheckableTag
@@ -19,35 +19,35 @@ const Template: Story<CheckableTagProps> = (props: CheckableTagProps) => {
       checked={checked}
       onChange={() => setChecked((previousState) => !previousState)}
     />
-  )
-}
+  );
+};
 
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 
-Default.args = {}
+Default.args = {};
 
-export const DefaultChecked = Template.bind({})
+export const DefaultChecked = Template.bind({});
 
 DefaultChecked.args = {
   checked: true,
-}
+};
 
-export const Labeled = Template.bind({})
+export const Labeled = Template.bind({});
 
 Labeled.args = {
-  label: "Check me",
-}
+  label: 'Check me',
+};
 
-export const LabeledChecked = Template.bind({})
+export const LabeledChecked = Template.bind({});
 
 LabeledChecked.args = {
   checked: true,
-  label: "Check me",
-}
+  label: 'Check me',
+};
 
-export const Disabled = Template.bind({})
+export const Disabled = Template.bind({});
 
 Disabled.args = {
   label: "I'm disabled",
   disabled: true,
-}
+};

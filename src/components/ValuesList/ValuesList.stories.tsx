@@ -1,23 +1,23 @@
 /** @jsxImportSource theme-ui */
-import { Fragment } from "react"
-import ValuesList, { ValuesListProps } from "./ValuesList"
-import { Meta, Story } from "@storybook/react/types-6-0"
-import Icon from "../Icon/Icon"
+import { Fragment } from 'react';
+import ValuesList, { ValuesListProps } from './ValuesList';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import Icon from '../Icon/Icon';
 
 export default {
-  title: "Design System/ValuesList",
+  title: 'Design System/ValuesList',
   component: ValuesList,
   parameters: {
     viewport: {
-      defaultViewport: "mobile1",
+      defaultViewport: 'mobile1',
     },
   },
-} as Meta
+} as Meta;
 
-const Template: Story<ValuesListProps> = (props) => <ValuesList {...props} />
+const Template: Story<ValuesListProps> = (props) => <ValuesList {...props} />;
 
 // Each story then reuses that template
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 Default.args = {
   children: (
     <Fragment>
@@ -31,59 +31,59 @@ Default.args = {
       </ValuesList.Item>
     </Fragment>
   ),
-}
+};
 
 const CustomTemplate: Story<ValuesListProps> = (props) => (
-  <ValuesList {...props} sx={{ gridTemplateColumns: "1fr auto" }} />
-)
+  <ValuesList {...props} sx={{ gridTemplateColumns: '1fr auto' }} />
+);
 
-export const WithIcons = CustomTemplate.bind({})
+export const WithIcons = CustomTemplate.bind({});
 WithIcons.args = {
-  alignValues: "start",
+  alignValues: 'start',
   children: (
     <Fragment>
       <ValuesList.Item>
         <ValuesList.Label>ECG Monitor</ValuesList.Label>
         <ValuesList.Value>
-          <span sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Icon name="IconRouter" sx={{ color: "secondary" }} /> WinCardio USB
+          <span sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Icon name="IconRouter" sx={{ color: 'secondary' }} /> WinCardio USB
           </span>
         </ValuesList.Value>
       </ValuesList.Item>
       <ValuesList.Item hideDivider>
         <ValuesList.Label>Electrodes</ValuesList.Label>
         <ValuesList.Value>
-          <span sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <span sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <Icon name="IconAlertTriangle" /> 6 connected
           </span>
         </ValuesList.Value>
       </ValuesList.Item>
     </Fragment>
   ),
-}
+};
 
-export const WithLessSpacing = CustomTemplate.bind({})
+export const WithLessSpacing = CustomTemplate.bind({});
 WithLessSpacing.args = {
-  alignValues: "start",
-  itemSpacing: "12px",
+  alignValues: 'start',
+  itemSpacing: '12px',
   children: (
     <Fragment>
       <ValuesList.Item>
         <ValuesList.Label>ECG Monitor</ValuesList.Label>
         <ValuesList.Value>
-          <span sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Icon name="IconRouter" sx={{ color: "secondary" }} /> WinCardio USB
+          <span sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Icon name="IconRouter" sx={{ color: 'secondary' }} /> WinCardio USB
           </span>
         </ValuesList.Value>
       </ValuesList.Item>
       <ValuesList.Item hideDivider>
         <ValuesList.Label>Electrodes</ValuesList.Label>
         <ValuesList.Value>
-          <span sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <span sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <Icon name="IconAlertTriangle" /> 6 connected
           </span>
         </ValuesList.Value>
       </ValuesList.Item>
     </Fragment>
   ),
-}
+};

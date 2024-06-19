@@ -2,7 +2,6 @@ The TableFilters component is supposed to be used with `Table` to provide action
 
 Using it is pretty simple, inside the `TableFilters` component, use one `TableFilters.Item` for each item, and inside the `Item` you can use a `Button`, `Input`, `Select` or whatever you need.
 
-
 ### TableFilters.Item Props
 
 ##### label
@@ -49,7 +48,7 @@ import { Button, Select, Input } from '../';
       <Select.Option value="pending">Pending</Select.Option>
     </Select>
   </TableFilters.Item>
-</TableFilters>
+</TableFilters>;
 ```
 
 Without a search input
@@ -79,5 +78,5 @@ import { Button, Select } from '../';
       <Select.Option value="pending">Pending</Select.Option>
     </Select>
   </TableFilters.Item>
-</TableFilters>
+</TableFilters>;
 ```

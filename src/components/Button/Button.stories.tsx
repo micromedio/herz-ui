@@ -1,44 +1,44 @@
-import React from "react"
-import Button, { ButtonProps } from "./Button"
-import { action } from "@storybook/addon-actions"
-import { Meta, Story } from "@storybook/react/types-6-0"
-import ButtonExamples from "./ButtonExamples"
+import React from 'react';
+import Button, { ButtonProps } from './Button';
+import { action } from '@storybook/addon-actions';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import ButtonExamples from './ButtonExamples';
 
 export default {
-  title: "Design System/Button",
+  title: 'Design System/Button',
   component: Button,
-} as Meta
+} as Meta;
 
-const ExamplesTemplate: Story = () => <ButtonExamples />
-export const Examples = ExamplesTemplate.bind({})
+const ExamplesTemplate: Story = () => <ButtonExamples />;
+export const Examples = ExamplesTemplate.bind({});
 
 const Template: Story<ButtonProps> = (props: ButtonProps) => (
   <Button {...props} />
-)
+);
 
-export const Basic = Template.bind({})
+export const Basic = Template.bind({});
 Basic.args = {
-  children: "Submit",
+  children: 'Submit',
   disabled: false,
-  variant: "filled",
-  color: "primary",
-  onClick: action("clicked"),
-  iconName: "IconPlus",
-  size: "large",
-}
+  variant: 'filled',
+  color: 'primary',
+  onClick: action('clicked'),
+  iconName: 'IconPlus',
+  size: 'large',
+};
 
-export const Filled = Template.bind({})
+export const Filled = Template.bind({});
 Filled.args = {
   ...Basic.args,
-  variant: "filled",
-  color: "text",
-}
+  variant: 'filled',
+  color: 'text',
+};
 
-export const FilledReactNode = Template.bind({})
+export const FilledReactNode = Template.bind({});
 FilledReactNode.args = {
   ...Basic.args,
-  variant: "filled",
-  color: "text",
+  variant: 'filled',
+  color: 'text',
   children: (
     <>
       <svg
@@ -56,48 +56,48 @@ FilledReactNode.args = {
     </>
   ),
   iconName: undefined,
-}
+};
 
-export const FilledLight = Template.bind({})
+export const FilledLight = Template.bind({});
 FilledLight.args = {
   ...Basic.args,
-  variant: "filledLight",
-  color: "secondary",
-}
+  variant: 'filledLight',
+  color: 'secondary',
+};
 
-export const Plain = Template.bind({})
+export const Plain = Template.bind({});
 Plain.args = {
   ...Basic.args,
-  variant: "plain",
-  color: "secondary",
-}
+  variant: 'plain',
+  color: 'secondary',
+};
 
-export const PlainSmall = Template.bind({})
+export const PlainSmall = Template.bind({});
 PlainSmall.args = {
   ...Basic.args,
-  variant: "plain",
-  size: "small",
-  color: "primary",
+  variant: 'plain',
+  size: 'small',
+  color: 'primary',
   iconName: undefined,
-  children: "children",
-}
+  children: 'children',
+};
 
-export const Icon = Template.bind({})
+export const Icon = Template.bind({});
 Icon.args = {
-  color: "text",
-  iconName: "IconPlus",
-}
+  color: 'text',
+  iconName: 'IconPlus',
+};
 
-export const Loading = Template.bind({})
+export const Loading = Template.bind({});
 Loading.args = {
   ...Basic.args,
   iconName: undefined,
   loading: true,
-  color: "primary",
-}
+  color: 'primary',
+};
 
-export const IconLoading = Template.bind({})
+export const IconLoading = Template.bind({});
 IconLoading.args = {
   ...Loading.args,
-  iconName: "IconPlus",
-}
+  iconName: 'IconPlus',
+};

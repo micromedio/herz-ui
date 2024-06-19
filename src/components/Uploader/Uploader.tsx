@@ -1,27 +1,27 @@
 /** @jsxImportSource theme-ui */
-import { Flex, Text } from "theme-ui"
-import React, { forwardRef, useState } from "react"
-import { DropzoneOptions, useDropzone } from "react-dropzone"
+import { Flex, Text } from 'theme-ui';
+import React, { forwardRef, useState } from 'react';
+import { DropzoneOptions, useDropzone } from 'react-dropzone';
 
-import { Button } from ".."
-import Icon from "../Icon/Icon"
+import { Button } from '..';
+import Icon from '../Icon/Icon';
 
 export interface UploaderProps extends DropzoneOptions {
-  name?: string
-  files?: File[]
-  onChange?(files: File[]): void
-  children: React.ReactNode
-  showFiles?: boolean
+  name?: string;
+  files?: File[];
+  onChange?(files: File[]): void;
+  children: React.ReactNode;
+  showFiles?: boolean;
 }
 
 const stateStyles = {
   resting: {
-    backgroundColor: "secondary.alpha.95",
+    backgroundColor: 'secondary.alpha.95',
   },
   hover: {
-    backgroundColor: "secondary.90",
+    backgroundColor: 'secondary.90',
   },
-}
+};
 
 /**
  * Component responsible for rendering a file input that accept files through dragging or browsing.
@@ -34,10 +34,10 @@ const stateStyles = {
  */
 const Uploader = forwardRef<HTMLInputElement, UploaderProps>(function Uploader(
   {
-    accept = "image/*",
+    accept = 'image/*',
     multiple = false,
     maxSize = 1_048_576,
-    name = "files",
+    name = 'files',
     files = [],
     onChange,
     children,
@@ -46,7 +46,7 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(function Uploader(
   }: UploaderProps,
   ref
 ) {
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const { isDragActive, isDragReject, getRootProps, getInputProps } =
     useDropzone({
       accept,
@@ -55,48 +55,48 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(function Uploader(
       ...restProps,
 
       onDrop: (acceptedFiles) => {
-        const newFiles = multiple ? files.concat(acceptedFiles) : acceptedFiles
+        const newFiles = multiple ? files.concat(acceptedFiles) : acceptedFiles;
 
-        onChange?.(newFiles)
+        onChange?.(newFiles);
       },
-    })
+    });
 
   function handleFileRemove(event: React.MouseEvent<HTMLButtonElement>): void {
-    const fileIndex = event.currentTarget.dataset.index
-    if (!fileIndex) return
+    const fileIndex = event.currentTarget.dataset.index;
+    if (!fileIndex) return;
 
-    const newFiles = files.filter((file, index) => index !== Number(fileIndex))
-    onChange?.(newFiles)
+    const newFiles = files.filter((file, index) => index !== Number(fileIndex));
+    onChange?.(newFiles);
   }
 
   return (
     <div
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        maxWidth: "460px",
-        textAlign: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        maxWidth: '460px',
+        textAlign: 'center',
       }}
     >
       <div
         sx={{
-          width: "100%",
+          width: '100%',
           paddingY: 4,
           paddingX: 6,
-          border: "1px dashed",
-          borderColor: "secondary.40",
-          borderRadius: " 12px",
-          cursor: "pointer",
-          transition: "all .2s linear",
+          border: '1px dashed',
+          borderColor: 'secondary.40',
+          borderRadius: ' 12px',
+          cursor: 'pointer',
+          transition: 'all .2s linear',
 
-          ...stateStyles[isDragActive ? "hover" : "resting"],
+          ...stateStyles[isDragActive ? 'hover' : 'resting'],
 
-          "&:hover": {
+          '&:hover': {
             ...stateStyles.hover,
           },
         }}
-        {...getRootProps({ className: "dropzone" })}
+        {...getRootProps({ className: 'dropzone' })}
       >
         <input
           type="file"
@@ -113,16 +113,16 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(function Uploader(
       {showFiles && files.length > 0 && (
         <Flex
           sx={{
-            justifyContent: "space-between",
-            alignItems: "center",
-            alignSelf: "stretch",
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            alignSelf: 'stretch',
             marginTop: 3,
             marginBottom: 2,
           }}
         >
           <Text
             sx={{
-              color: "text.40",
+              color: 'text.40',
               fontSize: 13,
             }}
           >
@@ -133,7 +133,7 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(function Uploader(
             color="secondary"
             onClick={() => setIsPreviewOpen((previous) => !previous)}
           >
-            {!isPreviewOpen ? "View & manage files" : "Hide files"}
+            {!isPreviewOpen ? 'View & manage files' : 'Hide files'}
           </Button>
         </Flex>
       )}
@@ -141,14 +141,14 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(function Uploader(
       {showFiles && (
         <div
           sx={{
-            display: "grid",
+            display: 'grid',
             opacity: isPreviewOpen ? 1 : 0,
-            visibility: isPreviewOpen ? "visible" : "hidden",
-            maxHeight: isPreviewOpen ? "9999px" : 0,
-            gridTemplateColumns: "1fr 1fr",
+            visibility: isPreviewOpen ? 'visible' : 'hidden',
+            maxHeight: isPreviewOpen ? '9999px' : 0,
+            gridTemplateColumns: '1fr 1fr',
             gap: 2,
-            alignSelf: "stretch",
-            transition: "all.2s",
+            alignSelf: 'stretch',
+            transition: 'all.2s',
           }}
         >
           {files.map(({ name }, index) => (
@@ -158,30 +158,30 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(function Uploader(
                 paddingX: 3,
                 paddingY: 2,
                 borderRadius: 2,
-                alignItems: "center",
-                justifyContent: "space-between",
-                backgroundColor: "secondary.alpha.95",
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                backgroundColor: 'secondary.alpha.95',
               }}
             >
               <span
                 sx={{
                   fontSize: 13,
-                  color: "secondary",
-                  textOverflow: "ellipsis",
-                  verticalAlign: "middle",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
+                  color: 'secondary',
+                  textOverflow: 'ellipsis',
+                  verticalAlign: 'middle',
+                  overflow: 'hidden',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {name}
               </span>
               <button
                 sx={{
-                  display: "inline-flex",
+                  display: 'inline-flex',
                   ml: 2,
-                  cursor: "pointer",
-                  background: "none",
-                  border: "none",
+                  cursor: 'pointer',
+                  background: 'none',
+                  border: 'none',
                   padding: 0,
                 }}
                 data-index={index}
@@ -190,8 +190,8 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(function Uploader(
               >
                 <Icon
                   sx={{
-                    color: "text.40",
-                    pointerEvents: "none",
+                    color: 'text.40',
+                    pointerEvents: 'none',
                   }}
                   name="IconX"
                   size={16}
@@ -202,7 +202,7 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(function Uploader(
         </div>
       )}
     </div>
-  )
-})
+  );
+});
 
-export default Uploader
+export default Uploader;

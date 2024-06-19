@@ -1,6 +1,7 @@
 Display user profile image or initials
 
 ## Usage
+
 ```jsx live
 <div style={{ display: 'flex', gap: 16 }}>
   <Avatar size={64} alt="Albert Einstein" src="/images/albert_einstein.webp" />
@@ -9,6 +10,7 @@ Display user profile image or initials
 ```
 
 ## Without Image
+
 If the `src` prop is not set, the first letter of the `alt` prop will be used as the text inside a colored circle. If the `alt` prop is not set, a "User" Icon will be displayed.
 
 ```jsx live
@@ -20,16 +22,22 @@ If the `src` prop is not set, the first letter of the `alt` prop will be used as
 ```
 
 ## Custom Text/Icon
+
 If the `children` prop is passed, it will be used as the text/element inside the circle.
 
 ```jsx live
 <div style={{ display: 'flex', gap: 8 }}>
-  <Avatar size={32} alt="Robert Stark">XY</Avatar>
-  <Avatar size={32} alt="Robert Stark"><Icon name="IconBuildingBank" /></Avatar>
+  <Avatar size={32} alt="Robert Stark">
+    XY
+  </Avatar>
+  <Avatar size={32} alt="Robert Stark">
+    <Icon name="IconBuildingBank" />
+  </Avatar>
 </div>
 ```
 
 ## Colors Array
+
 By default, the colors used for the circle are chosen from the `colorsArray` prop, which has a default value of `["secondary", "primary", "success", "warning", "#FFA53C", "#F700FC", "#3CD0FF", "#CCFF3C"]`. The color chosen depends on the first letter of the `alt` prop.
 
 ```jsx live
@@ -49,9 +57,17 @@ By default, the colors used for the circle are chosen from the `colorsArray` pro
 ```
 
 You can also pass a custom colors array to the `colorsArray` prop.
+
 ```jsx live
 function CustomColors(props) {
-  const colorsArray = ["blueviolet", "cadetblue", "coral", "indianred", "seagreen", "tomato"]
+  const colorsArray = [
+    'blueviolet',
+    'cadetblue',
+    'coral',
+    'indianred',
+    'seagreen',
+    'tomato',
+  ];
 
   return (
     <div style={{ display: 'flex', gap: 8 }}>
@@ -67,11 +83,12 @@ function CustomColors(props) {
       <Avatar size={32} alt="J" colorsArray={colorsArray} />
       <Avatar size={32} alt="K" colorsArray={colorsArray} />
     </div>
-  )
+  );
 }
 ```
 
 ## Size
+
 The `size` prop can be used to set the size of the circle.
 
 ```jsx live

@@ -1,11 +1,11 @@
-import * as React from "react"
-import { useDynamicImport } from "docusaurus-plugin-react-docgen-typescript/pkg/dist-src/hooks/useDynamicImport"
+import * as React from 'react';
+import { useDynamicImport } from 'docusaurus-plugin-react-docgen-typescript/pkg/dist-src/hooks/useDynamicImport';
 
 export const PropTable = ({ name }: { name: string }) => {
-  const props = useDynamicImport(name)
+  const props = useDynamicImport(name);
 
   if (!props) {
-    return null
+    return null;
   }
 
   return (
@@ -34,12 +34,12 @@ export const PropTable = ({ name }: { name: string }) => {
                   <code>{props[key].defaultValue.value}</code>
                 )}
               </td>
-              <td>{props[key].required ? "Yes" : "No"}</td>
+              <td>{props[key].required ? 'Yes' : 'No'}</td>
               <td>{props[key].description}</td>
             </tr>
-          )
+          );
         })}
       </tbody>
     </table>
-  )
-}
+  );
+};

@@ -1,40 +1,40 @@
-import React from "react"
-import { Meta, Story } from "@storybook/react/types-6-0"
+import React from 'react';
+import { Meta, Story } from '@storybook/react/types-6-0';
 
-import Tooltip, { TooltipProps } from "./Tooltip"
+import Tooltip, { TooltipProps } from './Tooltip';
 
 export default {
-  title: "Design System/Tooltip",
+  title: 'Design System/Tooltip',
   component: Tooltip,
   parameters: {
     creevey: {
       captureElement: null,
     },
   },
-} as Meta
+} as Meta;
 
-const Template: Story<TooltipProps> = (props) => <Tooltip {...props} />
+const Template: Story<TooltipProps> = (props) => <Tooltip {...props} />;
 
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 Default.args = {
   children: <button>I am the reference</button>,
   title: "I'm the title",
-}
-Default.parameters = { creevey: { skip: true } }
+};
+Default.parameters = { creevey: { skip: true } };
 
-export const TopPlacement = Template.bind({})
+export const TopPlacement = Template.bind({});
 TopPlacement.args = {
   children: <button style={{ marginTop: 100 }}>I am the reference</button>,
   title: "I'm the title",
-  placement: "top",
-}
-TopPlacement.parameters = { creevey: { skip: true } }
+  placement: 'top',
+};
+TopPlacement.parameters = { creevey: { skip: true } };
 
-export const AlwaysVisible = Template.bind({})
+export const AlwaysVisible = Template.bind({});
 AlwaysVisible.args = {
   children: <button>I am the reference</button>,
   title: "I'm the title",
-  placement: "bottom",
+  placement: 'bottom',
   isVisible: true,
   isInteractive: true,
-}
+};

@@ -1,93 +1,93 @@
 /** @jsxImportSource theme-ui */
 
-import { useMemo } from "react"
-import Button from "../Button/Button"
-import Icon from "../Icon/Icon"
-import Spinner from "../Spinner/Spinner"
+import { useMemo } from 'react';
+import Button from '../Button/Button';
+import Icon from '../Icon/Icon';
+import Spinner from '../Spinner/Spinner';
 
 export interface SnackbarProps {
-  type: "success" | "error" | "loading"
-  title: string
-  body?: React.ReactNode
-  onClose?: () => void
+  type: 'success' | 'error' | 'loading';
+  title: string;
+  body?: React.ReactNode;
+  onClose?: () => void;
   position?: {
-    horizontal: "left" | "center" | "right"
-    vertical: "top" | "bottom"
-  }
+    horizontal: 'left' | 'center' | 'right';
+    vertical: 'top' | 'bottom';
+  };
 }
 
 const Snackbar = ({ type, title, body, onClose, position }: SnackbarProps) => {
   const typeIcon = useMemo(() => {
     switch (type) {
-      case "success":
+      case 'success':
         return (
           <Icon
             name="IconCircleCheck"
             size={20}
             sx={{
-              fill: "success",
+              fill: 'success',
             }}
           />
-        )
-      case "error":
+        );
+      case 'error':
         return (
           <Icon
             name="IconCircleX"
             size={20}
             sx={{
-              fill: "primary",
+              fill: 'primary',
             }}
           />
-        )
-      case "loading":
-        return <Spinner size={20} color="secondary" />
+        );
+      case 'loading':
+        return <Spinner size={20} color="secondary" />;
     }
-  }, [type])
+  }, [type]);
 
   return (
     <div
       sx={{
-        animation: "moves  0.3s  ease-out 1",
-        "@keyframes moves": {
+        animation: 'moves  0.3s  ease-out 1',
+        '@keyframes moves': {
           from: {
-            ...(position?.horizontal === "right" && {
-              right: "-4rem",
+            ...(position?.horizontal === 'right' && {
+              right: '-4rem',
             }),
-            ...(position?.horizontal === "left" && {
-              left: "-4rem",
+            ...(position?.horizontal === 'left' && {
+              left: '-4rem',
             }),
           },
           to: {
-            ...(position?.horizontal === "right" && {
-              right: "0rem",
+            ...(position?.horizontal === 'right' && {
+              right: '0rem',
             }),
-            ...(position?.horizontal === "left" && {
-              left: "0rem",
+            ...(position?.horizontal === 'left' && {
+              left: '0rem',
             }),
           },
         },
-        display: "grid",
-        position: "relative",
+        display: 'grid',
+        position: 'relative',
         gridTemplateAreas: `
           "icon title close"
-          ${body ? `"icon body close"` : ""}
+          ${body ? `"icon body close"` : ''}
         `,
-        gridTemplateColumns: "auto 1fr auto",
+        gridTemplateColumns: 'auto 1fr auto',
         rowGap: 2,
         columnGap: 3,
         padding: 3,
-        width: "fit-content",
-        backgroundColor: "text",
-        boxShadow: "dark",
+        width: 'fit-content',
+        backgroundColor: 'text',
+        boxShadow: 'dark',
         borderRadius: 3,
-        color: "text.40",
+        color: 'text.40',
       }}
     >
       <div
         sx={{
-          display: "flex",
-          gridArea: "icon",
-          color: "text",
+          display: 'flex',
+          gridArea: 'icon',
+          color: 'text',
         }}
       >
         {typeIcon}
@@ -95,9 +95,9 @@ const Snackbar = ({ type, title, body, onClose, position }: SnackbarProps) => {
 
       <div
         sx={{
-          gridArea: "title",
-          color: "#fff",
-          variant: "text.heading3",
+          gridArea: 'title',
+          color: '#fff',
+          variant: 'text.heading3',
         }}
       >
         {title}
@@ -106,7 +106,7 @@ const Snackbar = ({ type, title, body, onClose, position }: SnackbarProps) => {
       {body && (
         <div
           sx={{
-            gridArea: "body",
+            gridArea: 'body',
           }}
         >
           {body}
@@ -116,7 +116,7 @@ const Snackbar = ({ type, title, body, onClose, position }: SnackbarProps) => {
       {onClose && (
         <div
           sx={{
-            gridArea: "close",
+            gridArea: 'close',
           }}
         >
           <Button
@@ -127,12 +127,12 @@ const Snackbar = ({ type, title, body, onClose, position }: SnackbarProps) => {
               p: 0,
               width: 20,
               height: 20,
-              color: "#fff",
-              backgroundColor: "transparent",
-              "&&:hover": {
-                backgroundColor: "text.70",
+              color: '#fff',
+              backgroundColor: 'transparent',
+              '&&:hover': {
+                backgroundColor: 'text.70',
               },
-              "> svg": {
+              '> svg': {
                 width: 20,
                 height: 20,
               },
@@ -142,7 +142,7 @@ const Snackbar = ({ type, title, body, onClose, position }: SnackbarProps) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Snackbar
+export default Snackbar;

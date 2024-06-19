@@ -1,16 +1,16 @@
 /** @jsxImportSource theme-ui */
-import React from "react"
+import React from 'react';
 
-import { useContext } from "react"
-import { SelectContext } from "./context"
-import Icon from "../Icon/Icon"
-import Checkbox from "../Checkbox/Checkbox"
-import { SelectValue } from "./Select"
+import { useContext } from 'react';
+import { SelectContext } from './context';
+import Icon from '../Icon/Icon';
+import Checkbox from '../Checkbox/Checkbox';
+import { SelectValue } from './Select';
 
 export interface SelectOptionProps<T = SelectValue> {
-  value: T
-  children?: React.ReactNode
-  disabled?: boolean
+  value: T;
+  children?: React.ReactNode;
+  disabled?: boolean;
 }
 
 export function SelectOption<T = SelectValue>({
@@ -18,9 +18,9 @@ export function SelectOption<T = SelectValue>({
   value,
   disabled = false,
 }: SelectOptionProps<T>) {
-  const context = useContext(SelectContext)
+  const context = useContext(SelectContext);
   if (context === null) {
-    throw "<Select.Option> needs to be inside a <Select> component"
+    throw '<Select.Option> needs to be inside a <Select> component';
   }
 
   const {
@@ -30,47 +30,47 @@ export function SelectOption<T = SelectValue>({
     multi,
     getItemProps,
     index,
-  } = context
+  } = context;
 
-  const isMultiSelected = multi && selectedItems.includes(value as SelectValue)
-  const isSelected = JSON.stringify(selectedItem) === JSON.stringify(value)
+  const isMultiSelected = multi && selectedItems.includes(value as SelectValue);
+  const isSelected = JSON.stringify(selectedItem) === JSON.stringify(value);
 
   return (
     <div
       key={`${value}${index}`}
       sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         gap: 2,
         padding: 2,
-        cursor: disabled ? "default" : "pointer",
+        cursor: disabled ? 'default' : 'pointer',
         opacity: disabled ? 0.3 : 1,
         borderRadius: 2,
-        color: isMultiSelected ? "text" : "text.40",
-        backgroundColor: "#fff",
-        whiteSpace: "nowrap",
+        color: isMultiSelected ? 'text' : 'text.40',
+        backgroundColor: '#fff',
+        whiteSpace: 'nowrap',
 
         ...(highlightedIndex === index
           ? {
-              color: "text",
-              backgroundColor: "text.alpha.95",
+              color: 'text',
+              backgroundColor: 'text.alpha.95',
             }
           : {}),
 
         ...(isSelected
           ? {
-              color: "secondary",
-              backgroundColor: "secondary.90",
-              fontWeight: "bold",
+              color: 'secondary',
+              backgroundColor: 'secondary.90',
+              fontWeight: 'bold',
               ...(highlightedIndex === index
                 ? {
-                    backgroundColor: "secondary.alpha.85",
+                    backgroundColor: 'secondary.alpha.85',
                   }
                 : {}),
             }
           : {}),
-        transition: "all .2s linear",
+        transition: 'all .2s linear',
       }}
       {...getItemProps({
         item: value as SelectValue,
@@ -85,8 +85,8 @@ export function SelectOption<T = SelectValue>({
           <span>{children}</span>
           <div
             sx={{
-              display: "flex",
-              alignItems: "center",
+              display: 'flex',
+              alignItems: 'center',
               width: 20,
               height: 20,
               p: 1,
@@ -97,6 +97,6 @@ export function SelectOption<T = SelectValue>({
         </React.Fragment>
       )}
     </div>
-  )
+  );
 }
-SelectOption.isSelectOption = true
+SelectOption.isSelectOption = true;

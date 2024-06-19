@@ -1,11 +1,11 @@
-import "@testing-library/jest-dom/extend-expect"
-import React, { useState } from "react"
-import { fireEvent, render } from "@testing-library/react"
+import '@testing-library/jest-dom/extend-expect';
+import React, { useState } from 'react';
+import { fireEvent, render } from '@testing-library/react';
 
-import Checkbox, { ICheckboxProps } from "./Checkbox"
+import Checkbox, { ICheckboxProps } from './Checkbox';
 
 const CheckboxTemplate = (props: ICheckboxProps) => {
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(false);
 
   return (
     <Checkbox
@@ -13,40 +13,42 @@ const CheckboxTemplate = (props: ICheckboxProps) => {
       onChange={() => setChecked((previous) => !previous)}
       {...props}
     />
-  )
-}
+  );
+};
 
-describe("Checkbox", () => {
-  it("can be checked", () => {
-    const mockedFunction = jest.fn()
-    const { getByRole } = render(<CheckboxTemplate onChange={mockedFunction} />)
+describe('Checkbox', () => {
+  it('can be checked', () => {
+    const mockedFunction = jest.fn();
+    const { getByRole } = render(
+      <CheckboxTemplate onChange={mockedFunction} />
+    );
 
-    const checkbox = getByRole("checkbox")
+    const checkbox = getByRole('checkbox');
 
-    expect(checkbox).toBeInTheDocument()
+    expect(checkbox).toBeInTheDocument();
 
-    fireEvent.click(checkbox)
+    fireEvent.click(checkbox);
 
-    expect(mockedFunction).toHaveBeenCalled()
-  })
+    expect(mockedFunction).toHaveBeenCalled();
+  });
 
-  it("renders the label succesfully", () => {
-    const label = "Check me"
-    const { getByText } = render(<CheckboxTemplate label={label} />)
+  it('renders the label succesfully', () => {
+    const label = 'Check me';
+    const { getByText } = render(<CheckboxTemplate label={label} />);
 
-    expect(getByText(label)).toBeInTheDocument()
-  })
+    expect(getByText(label)).toBeInTheDocument();
+  });
 
-  it("can be disabled", () => {
-    const mockedFunction = jest.fn()
+  it('can be disabled', () => {
+    const mockedFunction = jest.fn();
     const { getByRole } = render(
       <CheckboxTemplate disabled={true} onChange={() => mockedFunction()} />
-    )
+    );
 
-    const checkbox = getByRole("checkbox")
+    const checkbox = getByRole('checkbox');
 
-    fireEvent.click(checkbox)
+    fireEvent.click(checkbox);
 
-    expect(mockedFunction).not.toHaveBeenCalled()
-  })
-})
+    expect(mockedFunction).not.toHaveBeenCalled();
+  });
+});

@@ -1,13 +1,13 @@
-import React from "react"
-import { render, screen, waitFor } from "../../../tests/utils"
-import { axe } from "jest-axe"
-import EditableField from "../EditableField"
-import userEvent from "@testing-library/user-event"
+import React from 'react';
+import { render, screen, waitFor } from '../../../tests/utils';
+import { axe } from 'jest-axe';
+import EditableField from '../EditableField';
+import userEvent from '@testing-library/user-event';
 
-describe("EditableField.Text", () => {
-  test("onSave is called when save button is clicked", async () => {
+describe('EditableField.Text', () => {
+  test('onSave is called when save button is clicked', async () => {
     // Arrange
-    const onSave = jest.fn()
+    const onSave = jest.fn();
     render(
       <EditableField.Group onSave={onSave}>
         <EditableField.Text
@@ -22,22 +22,22 @@ describe("EditableField.Text", () => {
           controlsGroup
         />
       </EditableField.Group>
-    )
+    );
 
     // Act
-    userEvent.click(screen.getByLabelText("save"))
+    userEvent.click(screen.getByLabelText('save'));
 
-    expect(onSave).toHaveBeenCalledTimes(1)
+    expect(onSave).toHaveBeenCalledTimes(1);
     expect(onSave).toHaveBeenCalledWith({
-      FIRST_FIELD: "FIRST_VALUE_MODIFIED",
-      SECOND_FIELD: "SECOND_VALUE_MODIFIED",
-    })
-  })
+      FIRST_FIELD: 'FIRST_VALUE_MODIFIED',
+      SECOND_FIELD: 'SECOND_VALUE_MODIFIED',
+    });
+  });
 
-  test("input values are reset when reset button is clicked", async () => {
+  test('input values are reset when reset button is clicked', async () => {
     // Arrange
-    const onChangeFirst = jest.fn()
-    const onChangeSecond = jest.fn()
+    const onChangeFirst = jest.fn();
+    const onChangeSecond = jest.fn();
     render(
       <EditableField.Group>
         <EditableField.Text
@@ -54,30 +54,30 @@ describe("EditableField.Text", () => {
           controlsGroup
         />
       </EditableField.Group>
-    )
+    );
 
     // Act
-    userEvent.click(screen.getByLabelText("reset"))
+    userEvent.click(screen.getByLabelText('reset'));
 
     // Assert
     await waitFor(() => {
       expect(onChangeFirst).toHaveBeenCalledWith(
         expect.objectContaining({
-          target: expect.objectContaining({ value: "FIRST_VALUE" }),
+          target: expect.objectContaining({ value: 'FIRST_VALUE' }),
         })
-      )
+      );
       expect(onChangeSecond).toHaveBeenCalledWith(
         expect.objectContaining({
-          target: expect.objectContaining({ value: "SECOND_VALUE" }),
+          target: expect.objectContaining({ value: 'SECOND_VALUE' }),
         })
-      )
-    })
-  })
+      );
+    });
+  });
 
-  describe("saveOnBlur", () => {
-    test("onSave is called when input is unfocused if saveOnBlur is true", async () => {
+  describe('saveOnBlur', () => {
+    test('onSave is called when input is unfocused if saveOnBlur is true', async () => {
       // Arrange
-      const onSave = jest.fn()
+      const onSave = jest.fn();
       render(
         <EditableField.Group onSave={onSave} saveOnBlur resetOnBlur={false}>
           <EditableField.Text
@@ -92,26 +92,26 @@ describe("EditableField.Text", () => {
             controlsGroup
           />
         </EditableField.Group>
-      )
+      );
 
       // Act
-      const input = screen.queryAllByRole("textbox")[0]
-      input.focus()
-      input.blur()
+      const input = screen.queryAllByRole('textbox')[0];
+      input.focus();
+      input.blur();
 
       // Assert
       await waitFor(() => {
-        expect(onSave).toHaveBeenCalledTimes(1)
+        expect(onSave).toHaveBeenCalledTimes(1);
         expect(onSave).toHaveBeenCalledWith({
-          FIRST_FIELD: "FIRST_VALUE_MODIFIED",
-          SECOND_FIELD: "SECOND_VALUE_MODIFIED",
-        })
-      })
-    })
+          FIRST_FIELD: 'FIRST_VALUE_MODIFIED',
+          SECOND_FIELD: 'SECOND_VALUE_MODIFIED',
+        });
+      });
+    });
 
-    test("onSave is not called when input is unfocused if saveOnBlur is false", async () => {
+    test('onSave is not called when input is unfocused if saveOnBlur is false', async () => {
       // Arrange
-      const onSave = jest.fn()
+      const onSave = jest.fn();
       render(
         <EditableField.Group
           onSave={onSave}
@@ -130,25 +130,25 @@ describe("EditableField.Text", () => {
             controlsGroup
           />
         </EditableField.Group>
-      )
+      );
 
       // Act
-      const input = screen.queryAllByRole("textbox")[0]
-      input.focus()
-      input.blur()
+      const input = screen.queryAllByRole('textbox')[0];
+      input.focus();
+      input.blur();
 
       // Assert
       await waitFor(() => {
-        expect(onSave).not.toHaveBeenCalled()
-      })
-    })
-  })
+        expect(onSave).not.toHaveBeenCalled();
+      });
+    });
+  });
 
-  describe("resetOnBlur", () => {
-    test("input value is reset on blur if resetOnBlur is true", async () => {
+  describe('resetOnBlur', () => {
+    test('input value is reset on blur if resetOnBlur is true', async () => {
       // Arrange
-      const onChangeFirst = jest.fn()
-      const onChangeSecond = jest.fn()
+      const onChangeFirst = jest.fn();
+      const onChangeSecond = jest.fn();
       render(
         <EditableField.Group saveOnBlur={false} resetOnBlur={true}>
           <EditableField.Text
@@ -165,32 +165,32 @@ describe("EditableField.Text", () => {
             controlsGroup
           />
         </EditableField.Group>
-      )
+      );
 
       // Act
-      const input = screen.queryAllByRole("textbox")[0]
-      input.focus()
-      input.blur()
+      const input = screen.queryAllByRole('textbox')[0];
+      input.focus();
+      input.blur();
 
       // Assert
       await waitFor(() => {
         expect(onChangeFirst).toHaveBeenCalledWith(
           expect.objectContaining({
-            target: expect.objectContaining({ value: "FIRST_VALUE" }),
+            target: expect.objectContaining({ value: 'FIRST_VALUE' }),
           })
-        )
+        );
         expect(onChangeSecond).toHaveBeenCalledWith(
           expect.objectContaining({
-            target: expect.objectContaining({ value: "SECOND_VALUE" }),
+            target: expect.objectContaining({ value: 'SECOND_VALUE' }),
           })
-        )
-      })
-    })
+        );
+      });
+    });
 
-    test("input value is not reset on blur if resetOnBlur is false", async () => {
+    test('input value is not reset on blur if resetOnBlur is false', async () => {
       // Arrange
-      const onChangeFirst = jest.fn()
-      const onChangeSecond = jest.fn()
+      const onChangeFirst = jest.fn();
+      const onChangeSecond = jest.fn();
       render(
         <EditableField.Group saveOnBlur={false} resetOnBlur={true}>
           <EditableField.Text
@@ -207,22 +207,22 @@ describe("EditableField.Text", () => {
             controlsGroup
           />
         </EditableField.Group>
-      )
+      );
 
       // Act
-      const input = screen.queryAllByRole("textbox")[0]
-      input.focus()
-      input.blur()
+      const input = screen.queryAllByRole('textbox')[0];
+      input.focus();
+      input.blur();
 
       // Assert
       await waitFor(() => {
-        expect(onChangeFirst).not.toHaveBeenCalled()
-        expect(onChangeSecond).not.toHaveBeenCalled()
-      })
-    })
-  })
+        expect(onChangeFirst).not.toHaveBeenCalled();
+        expect(onChangeSecond).not.toHaveBeenCalled();
+      });
+    });
+  });
 
-  test("passes a11y check", async () => {
+  test('passes a11y check', async () => {
     // Arrange
     const { container } = render(
       <EditableField.Group>
@@ -238,10 +238,10 @@ describe("EditableField.Text", () => {
           controlsGroup
         />
       </EditableField.Group>
-    )
-    const results = await axe(container)
+    );
+    const results = await axe(container);
 
     // Assert
-    expect(results).toHaveNoViolations()
-  })
-})
+    expect(results).toHaveNoViolations();
+  });
+});

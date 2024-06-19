@@ -1,11 +1,11 @@
 /** @jsxImportSource theme-ui */
-import React from "react"
-import LinearProgress, { LinearProgressProps } from "./LinearProgress"
-import { Meta, Story } from "@storybook/react/types-6-0"
-import { CreeveyMeta } from "creevey"
+import React from 'react';
+import LinearProgress, { LinearProgressProps } from './LinearProgress';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import { CreeveyMeta } from 'creevey';
 
 export default {
-  title: "Design System/LinearProgress",
+  title: 'Design System/LinearProgress',
   component: LinearProgress,
   decorators: [
     (Story) => (
@@ -19,17 +19,17 @@ export default {
       skip: true,
     },
   },
-} as Meta & CreeveyMeta
+} as Meta & CreeveyMeta;
 
 const Template: Story<LinearProgressProps> = (props) => (
   <LinearProgress {...props} />
-)
+);
 
 const DeterminateTemplate: Story<LinearProgressProps> = (props) => (
   <div
     sx={{
-      display: "flex",
-      flexWrap: "wrap",
+      display: 'flex',
+      flexWrap: 'wrap',
       gap: 2,
     }}
   >
@@ -42,34 +42,34 @@ const DeterminateTemplate: Story<LinearProgressProps> = (props) => (
     100% - Progress = 1
     <LinearProgress {...props} progress={1} />
   </div>
-)
+);
 
 // Each story then reuses that template
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 
-export const Primary = Template.bind({})
+export const Primary = Template.bind({});
 Primary.args = {
-  color: "primary",
-}
+  color: 'primary',
+};
 
-export const Success = Template.bind({})
+export const Success = Template.bind({});
 Success.args = {
-  color: "success",
-}
+  color: 'success',
+};
 
-export const Warning = Template.bind({})
+export const Warning = Template.bind({});
 Warning.args = {
-  color: "warning",
-}
+  color: 'warning',
+};
 
-export const WithCustomHeight = Template.bind({})
+export const WithCustomHeight = Template.bind({});
 WithCustomHeight.args = {
   height: 8,
-}
+};
 
-export const WithProgress = DeterminateTemplate.bind({})
+export const WithProgress = DeterminateTemplate.bind({});
 WithProgress.parameters = {
   creevey: {
     skip: false,
   },
-}
+};

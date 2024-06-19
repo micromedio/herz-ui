@@ -1,57 +1,57 @@
 /** @jsxImportSource theme-ui */
 import EditableFieldGroup, {
   EditableFieldGroupProps,
-} from "./EditableFieldGroup"
-import { Meta, Story } from "@storybook/react/types-6-0"
-import EditableText from "../Text/EditableFieldText"
+} from './EditableFieldGroup';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import EditableText from '../Text/EditableFieldText';
 import EditableSelect, {
   EditableFieldSelectProps,
-} from "../Select/EditableFieldSelect"
-import EditableFieldAutocomplete from "../Autocomplete/EditableFieldAutocomplete"
-import { useState } from "react"
-import { mockedOptions } from "../../Autocomplete/__mocks__/options"
-import Highlight from "../../Highlight/Highlight"
+} from '../Select/EditableFieldSelect';
+import EditableFieldAutocomplete from '../Autocomplete/EditableFieldAutocomplete';
+import { useState } from 'react';
+import { mockedOptions } from '../../Autocomplete/__mocks__/options';
+import Highlight from '../../Highlight/Highlight';
 
-type AutocompleteItem = typeof mockedOptions[0]
+type AutocompleteItem = typeof mockedOptions[0];
 
 export default {
-  title: "Design System/EditableField/Group",
+  title: 'Design System/EditableField/Group',
   component: EditableFieldGroup,
-} as Meta
+} as Meta;
 
 const Template: Story<EditableFieldGroupProps> = (
   props: EditableFieldGroupProps
 ) => {
-  const [firstValue, setFirstValue] = useState("First")
-  const [secondValue, setSecondValue] = useState("Second")
+  const [firstValue, setFirstValue] = useState('First');
+  const [secondValue, setSecondValue] = useState('Second');
   const [thirdValue, setThirdValue] =
-    useState<EditableFieldSelectProps["value"]>("third")
+    useState<EditableFieldSelectProps['value']>('third');
   const [fourthValue, setFourthValue] = useState<
-    EditableFieldSelectProps["selectedItems"]
-  >(["fourth"])
+    EditableFieldSelectProps['selectedItems']
+  >(['fourth']);
 
-  const [firstDefaultValue, setFirstDefaultValue] = useState("First")
-  const [secondDefaultValue, setSecondDefaultValue] = useState("Second")
+  const [firstDefaultValue, setFirstDefaultValue] = useState('First');
+  const [secondDefaultValue, setSecondDefaultValue] = useState('Second');
   const [thirdDefaultValue, setThirdDefaultValue] =
-    useState<EditableFieldSelectProps["defaultValue"]>("third")
+    useState<EditableFieldSelectProps['defaultValue']>('third');
   const [fourthDefaultValue, setFourthDefaultValue] = useState<
-    EditableFieldSelectProps["defaultSelectedItems"]
-  >(["fourth"])
+    EditableFieldSelectProps['defaultSelectedItems']
+  >(['fourth']);
 
   return (
     <EditableFieldGroup
       {...props}
       onSave={(values) => {
-        props.onSave?.(values)
-        setFirstDefaultValue(values.first)
-        setSecondDefaultValue(values.second)
-        setThirdDefaultValue(values.third)
-        setFourthDefaultValue(values.fourth)
+        props.onSave?.(values);
+        setFirstDefaultValue(values.first);
+        setSecondDefaultValue(values.second);
+        setThirdDefaultValue(values.third);
+        setFourthDefaultValue(values.fourth);
       }}
     >
       <div
         style={{
-          display: "grid",
+          display: 'grid',
           gap: 6,
         }}
       >
@@ -92,30 +92,30 @@ const Template: Story<EditableFieldGroupProps> = (
         </EditableSelect>
       </div>
     </EditableFieldGroup>
-  )
-}
+  );
+};
 
 const TemplateWithTextArea: Story<EditableFieldGroupProps> = (
   props: EditableFieldGroupProps
 ) => {
-  const [firstValue, setFirstValue] = useState("First")
-  const [secondValue, setSecondValue] = useState("Second\n2")
+  const [firstValue, setFirstValue] = useState('First');
+  const [secondValue, setSecondValue] = useState('Second\n2');
 
-  const [firstDefaultValue, setFirstDefaultValue] = useState("First")
-  const [secondDefaultValue, setSecondDefaultValue] = useState("Second\n2")
+  const [firstDefaultValue, setFirstDefaultValue] = useState('First');
+  const [secondDefaultValue, setSecondDefaultValue] = useState('Second\n2');
 
   return (
     <EditableFieldGroup
       {...props}
       onSave={(values) => {
-        props.onSave?.(values)
-        setFirstDefaultValue(values.first)
-        setSecondDefaultValue(values.second)
+        props.onSave?.(values);
+        setFirstDefaultValue(values.first);
+        setSecondDefaultValue(values.second);
       }}
     >
       <div
         style={{
-          display: "grid",
+          display: 'grid',
           gap: 6,
         }}
       >
@@ -136,35 +136,35 @@ const TemplateWithTextArea: Story<EditableFieldGroupProps> = (
         />
       </div>
     </EditableFieldGroup>
-  )
-}
+  );
+};
 
 const TemplateWithAutocomplete: Story<EditableFieldGroupProps> = (
   props: EditableFieldGroupProps
 ) => {
-  const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions)
-  const [firstValue, setFirstValue] = useState("First")
+  const [items, setItems] = useState<AutocompleteItem[]>(mockedOptions);
+  const [firstValue, setFirstValue] = useState('First');
   const [secondValue, setSecondValue] = useState<
     AutocompleteItem[] | null | undefined
-  >([])
+  >([]);
 
-  const [firstDefaultValue, setFirstDefaultValue] = useState("First")
+  const [firstDefaultValue, setFirstDefaultValue] = useState('First');
   const [secondDefaultValue, setSecondDefaultValue] = useState<
     AutocompleteItem[] | undefined
-  >([])
+  >([]);
 
   return (
     <EditableFieldGroup
       {...props}
       onSave={(values) => {
-        props.onSave?.(values)
-        setFirstDefaultValue(values.first)
-        setSecondDefaultValue(values.autocomplete)
+        props.onSave?.(values);
+        setFirstDefaultValue(values.first);
+        setSecondDefaultValue(values.autocomplete);
       }}
     >
       <div
         style={{
-          display: "grid",
+          display: 'grid',
           gap: 6,
         }}
       >
@@ -189,15 +189,15 @@ const TemplateWithAutocomplete: Story<EditableFieldGroupProps> = (
                       .startsWith(inputValue.toLocaleLowerCase())
                   : true
               )
-            )
+            );
           }}
           onRemove={(option) => {
             setSecondValue(
               secondValue?.filter((selected) => selected.value !== option.value)
-            )
+            );
           }}
           onSelectedItemsChange={(options) => {
-            setSecondValue(options)
+            setSecondValue(options);
           }}
           options={items.slice(0, 5)}
           placeholder="Search by organization's name or handle"
@@ -205,9 +205,9 @@ const TemplateWithAutocomplete: Story<EditableFieldGroupProps> = (
             <div
               sx={{
                 ...defaultStyles,
-                alignContent: "center",
-                alignItems: "center",
-                display: "flex",
+                alignContent: 'center',
+                alignItems: 'center',
+                display: 'flex',
                 padding: 2,
               }}
             >
@@ -219,14 +219,14 @@ const TemplateWithAutocomplete: Story<EditableFieldGroupProps> = (
         />
       </div>
     </EditableFieldGroup>
-  )
-}
+  );
+};
 
 // Each story then reuses that template
-export const Default = Template.bind({})
-Default.args = {}
+export const Default = Template.bind({});
+Default.args = {};
 
-export const DefaultWithTextArea = TemplateWithTextArea.bind({})
-DefaultWithTextArea.args = {}
+export const DefaultWithTextArea = TemplateWithTextArea.bind({});
+DefaultWithTextArea.args = {};
 
-export const DefaultWithAutocomplete = TemplateWithAutocomplete.bind({})
+export const DefaultWithAutocomplete = TemplateWithAutocomplete.bind({});

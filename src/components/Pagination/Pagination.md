@@ -19,5 +19,10 @@
 #### Custom first and last text:
 
 ```js
-<Pagination defaultPage={21} count={50} firstText="Primeiro" lastText="Último" />
+<Pagination
+  defaultPage={21}
+  count={50}
+  firstText="Primeiro"
+  lastText="Último"
+/>
 ```

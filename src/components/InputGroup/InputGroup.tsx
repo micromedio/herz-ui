@@ -1,19 +1,19 @@
 /** @jsxImportSource theme-ui */
-import React from "react"
+import React from 'react';
 
-import { InputGroupContext } from "./Context"
+import { InputGroupContext } from './Context';
 
 export interface InputGroupProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const InputGroup = ({ children }: InputGroupProps) => {
-  const totalInputs = React.Children.count(children)
+  const totalInputs = React.Children.count(children);
 
   return (
-    <div sx={{ display: "flex" }}>
+    <div sx={{ display: 'flex' }}>
       {React.Children.map(children, (child, index) => {
-        if (!React.isValidElement(child)) return null
+        if (!React.isValidElement(child)) return null;
 
         return (
           <InputGroupContext.Provider
@@ -25,10 +25,10 @@ const InputGroup = ({ children }: InputGroupProps) => {
           >
             {child}
           </InputGroupContext.Provider>
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
-export default InputGroup
+export default InputGroup;

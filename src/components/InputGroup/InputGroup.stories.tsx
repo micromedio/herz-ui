@@ -1,14 +1,14 @@
-import InputGroup, { InputGroupProps } from "./InputGroup"
-import { Meta, Story } from "@storybook/react/types-6-0"
-import React from "react"
-import Input from "../Input/Input"
-import TextField from "../TextField/TextField"
-import Select from "../Select/Select"
+import InputGroup, { InputGroupProps } from './InputGroup';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import React from 'react';
+import Input from '../Input/Input';
+import TextField from '../TextField/TextField';
+import Select from '../Select/Select';
 
 export default {
-  title: "Design System/InputGroup",
+  title: 'Design System/InputGroup',
   component: InputGroup,
-} as Meta
+} as Meta;
 
 const Template: Story<InputGroupProps> = (props) => (
   <InputGroup {...props}>
@@ -20,10 +20,10 @@ const Template: Story<InputGroupProps> = (props) => (
     </Select>
     <Input placeholder="Success state" state="success" />
   </InputGroup>
-)
+);
 
-export const WithInputs = Template.bind({})
-WithInputs.args = {}
+export const WithInputs = Template.bind({});
+WithInputs.args = {};
 
 const TextFieldTemplate: Story<InputGroupProps> = (props) => (
   <InputGroup {...props}>
@@ -41,7 +41,7 @@ const TextFieldTemplate: Story<InputGroupProps> = (props) => (
     </TextField>
     <TextField helperText="Last Input" />
   </InputGroup>
-)
+);
 
-export const WithTextFields = TextFieldTemplate.bind({})
-WithTextFields.args = {}
+export const WithTextFields = TextFieldTemplate.bind({});
+WithTextFields.args = {};

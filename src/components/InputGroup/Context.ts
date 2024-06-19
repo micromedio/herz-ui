@@ -1,7 +1,7 @@
-import { createContext } from "react"
+import { createContext } from 'react';
 
 export const InputGroupContext = createContext<{
-  index: number
-  isFirst: boolean
-  isLast: boolean
-} | null>(null)
+  index: number;
+  isFirst: boolean;
+  isLast: boolean;
+} | null>(null);

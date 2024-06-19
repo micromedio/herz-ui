@@ -1,30 +1,30 @@
-import React, { RefObject, useCallback, useMemo, useReducer } from "react"
+import React, { RefObject, useCallback, useMemo, useReducer } from 'react';
 
 import {
   EditableFieldGroupContext,
   EditableFieldGroupContextArguments,
-} from "./Context"
+} from './Context';
 
 interface ReducerState {
-  isFocused: boolean
-  hasChanged: boolean
+  isFocused: boolean;
+  hasChanged: boolean;
   fields: Record<
     string,
     {
-      disableActionsOnBlur?: boolean
-      ref: RefObject<HTMLElement>
-      reset: () => void
-      value?: unknown
-      defaultValue?: unknown
+      disableActionsOnBlur?: boolean;
+      ref: RefObject<HTMLElement>;
+      reset: () => void;
+      value?: unknown;
+      defaultValue?: unknown;
     }
-  >
+  >;
 }
 
 const initialState: ReducerState = {
   isFocused: false,
   hasChanged: false,
   fields: {},
-}
+};
 
 export enum Actions {
   Focus,
@@ -37,72 +37,72 @@ export enum Actions {
 type ReducerAction =
   | { type: Actions.Focus }
   | {
-      type: Actions.Blur
-      payload: { event?: React.FocusEvent<HTMLElement>; reset?: boolean }
+      type: Actions.Blur;
+      payload: { event?: React.FocusEvent<HTMLElement>; reset?: boolean };
     }
   | {
-      type: Actions.Reset
+      type: Actions.Reset;
     }
   | {
-      type: Actions.Register
+      type: Actions.Register;
       payload: {
-        disableActionsOnBlur?: boolean
-        name: string
-        ref: React.RefObject<HTMLElement>
-        reset: () => void
-      }
+        disableActionsOnBlur?: boolean;
+        name: string;
+        ref: React.RefObject<HTMLElement>;
+        reset: () => void;
+      };
     }
   | {
-      type: Actions.Changed
+      type: Actions.Changed;
       payload: {
-        name: string
-        value: unknown
-        defaultValue: unknown
-      }
-    }
+        name: string;
+        value: unknown;
+        defaultValue: unknown;
+      };
+    };
 
 function reducer(state: ReducerState, action: ReducerAction) {
   switch (action.type) {
     case Actions.Focus: {
-      return { ...state, isFocused: true }
+      return { ...state, isFocused: true };
     }
     case Actions.Reset: {
-      Object.values(state.fields).forEach((field) => setTimeout(field.reset))
-      return { ...state, isFocused: false }
+      Object.values(state.fields).forEach((field) => setTimeout(field.reset));
+      return { ...state, isFocused: false };
     }
     case Actions.Blur: {
-      const { event, reset = false } = action.payload
+      const { event, reset = false } = action.payload;
       if (event) {
-        const toElement = event.relatedTarget
+        const toElement = event.relatedTarget;
         // const fromElement = event.target
 
         const blurredInside = Object.values(state.fields).some(
           (field) =>
             toElement && field.ref.current?.contains(toElement as Element)
-        )
+        );
 
         if (!blurredInside && reset) {
           // reset EditableFields values on next tick
           Object.values(state.fields).forEach((field) =>
             setTimeout(field.reset)
-          )
+          );
         }
-        return { ...state, isFocused: blurredInside }
+        return { ...state, isFocused: blurredInside };
       }
-      return { ...state, isFocused: false }
+      return { ...state, isFocused: false };
     }
     case Actions.Register: {
-      const { disableActionsOnBlur, name, ref, reset } = action.payload
+      const { disableActionsOnBlur, name, ref, reset } = action.payload;
       return {
         ...state,
         fields: {
           ...state.fields,
           [name]: { ...state.fields[name], ref, reset, disableActionsOnBlur },
         },
-      }
+      };
     }
     case Actions.Changed: {
-      const { name, value, defaultValue } = action.payload
+      const { name, value, defaultValue } = action.payload;
 
       const newState = {
         ...state,
@@ -110,29 +110,29 @@ function reducer(state: ReducerState, action: ReducerAction) {
           ...state.fields,
           [name]: { ...state.fields[name], value, defaultValue },
         },
-      }
+      };
       const hasChanged = Object.values(newState.fields).some(
         (field) =>
           JSON.stringify(field.value) !== JSON.stringify(field.defaultValue)
-      )
+      );
       return {
         ...newState,
         hasChanged,
-      }
+      };
     }
     default: {
-      return state
+      return state;
     }
   }
 }
 
 export interface EditableFieldGroupProps {
-  children: React.ReactNode
+  children: React.ReactNode;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSave?: (values: Record<string, any>) => void
-  saveOnBlur?: boolean
-  resetOnBlur?: boolean
-  status?: "error" | "success" | "loading"
+  onSave?: (values: Record<string, any>) => void;
+  saveOnBlur?: boolean;
+  resetOnBlur?: boolean;
+  status?: 'error' | 'success' | 'loading';
 }
 
 const EditableFieldGroup = ({
@@ -142,25 +142,25 @@ const EditableFieldGroup = ({
   resetOnBlur = true,
   status,
 }: EditableFieldGroupProps) => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const register = useCallback<
-    Required<EditableFieldGroupContextArguments>["register"]
+    Required<EditableFieldGroupContextArguments>['register']
   >(({ disableActionsOnBlur = false, name, ref, reset }) => {
     dispatch({
       type: Actions.Register,
       payload: { disableActionsOnBlur, name, ref, reset },
-    })
-  }, [])
+    });
+  }, []);
 
   const onFocus = useCallback<
-    Required<EditableFieldGroupContextArguments>["onFocus"]
+    Required<EditableFieldGroupContextArguments>['onFocus']
   >(() => {
-    dispatch({ type: Actions.Focus })
-  }, [])
+    dispatch({ type: Actions.Focus });
+  }, []);
 
   const onGroupSave = useCallback<
-    Required<EditableFieldGroupContextArguments>["onSave"]
+    Required<EditableFieldGroupContextArguments>['onSave']
   >(() => {
     onSave?.(
       // eslint-disable-next-line unicorn/no-array-reduce
@@ -168,20 +168,20 @@ const EditableFieldGroup = ({
         return {
           ...result,
           [name]: value,
-        }
+        };
       }, {})
-    )
-    dispatch({ type: Actions.Blur, payload: {} })
-  }, [onSave, state.fields])
+    );
+    dispatch({ type: Actions.Blur, payload: {} });
+  }, [onSave, state.fields]);
 
   const disableActionsOnBlur = useMemo(() => {
     return Object.keys(state.fields).some(
       (field) => state.fields[field].disableActionsOnBlur
-    )
-  }, [state.fields])
+    );
+  }, [state.fields]);
 
   const onBlur = useCallback<
-    Required<EditableFieldGroupContextArguments>["onBlur"]
+    Required<EditableFieldGroupContextArguments>['onBlur']
   >(
     (event) => {
       if (disableActionsOnBlur) {
@@ -189,20 +189,20 @@ const EditableFieldGroup = ({
           dispatch({
             type: Actions.Blur,
             payload: { event },
-          })
+          });
         if (saveOnBlur)
           console.warn(
             `An <EditableField.Autocomplete /> component wrapped in an <EditableField.Group /> cannot be saved/reset on blur`
-          )
-        return
+          );
+        return;
       }
       if (saveOnBlur) {
-        onGroupSave()
+        onGroupSave();
       } else {
         dispatch({
           type: Actions.Blur,
           payload: { event, reset: resetOnBlur },
-        })
+        });
       }
     },
     [
@@ -212,19 +212,19 @@ const EditableFieldGroup = ({
       saveOnBlur,
       state.hasChanged,
     ]
-  )
+  );
 
   const onChange = useCallback<
-    Required<EditableFieldGroupContextArguments>["onChange"]
+    Required<EditableFieldGroupContextArguments>['onChange']
   >(({ name, value, defaultValue }) => {
-    dispatch({ type: Actions.Changed, payload: { name, value, defaultValue } })
-  }, [])
+    dispatch({ type: Actions.Changed, payload: { name, value, defaultValue } });
+  }, []);
 
   const onReset = useCallback<
-    Required<EditableFieldGroupContextArguments>["onReset"]
+    Required<EditableFieldGroupContextArguments>['onReset']
   >(() => {
-    dispatch({ type: Actions.Reset })
-  }, [])
+    dispatch({ type: Actions.Reset });
+  }, []);
 
   return (
     <EditableFieldGroupContext.Provider
@@ -242,7 +242,7 @@ const EditableFieldGroup = ({
     >
       {children}
     </EditableFieldGroupContext.Provider>
-  )
-}
+  );
+};
 
-export default EditableFieldGroup
+export default EditableFieldGroup;

@@ -1,10 +1,10 @@
-import React from "react"
-import { render, screen } from "../../../tests/utils"
-import { axe } from "jest-axe"
-import EditableSelect from "./EditableFieldSelect"
-import userEvent from "@testing-library/user-event"
+import React from 'react';
+import { render, screen } from '../../../tests/utils';
+import { axe } from 'jest-axe';
+import EditableSelect from './EditableFieldSelect';
+import userEvent from '@testing-library/user-event';
 
-describe("EditableText", () => {
+describe('EditableText', () => {
   const options = [
     <EditableSelect.Option key="TEST_VALUE" value="TEST_VALUE">
       TEST_VALUE
@@ -12,25 +12,25 @@ describe("EditableText", () => {
     <EditableSelect.Option key="ANOTHER_TEST_VALUE" value="ANOTHER_TEST_VALUE">
       ANOTHER_TEST_VALUE
     </EditableSelect.Option>,
-  ]
+  ];
 
-  test("value is shown", () => {
+  test('value is shown', () => {
     // Arrange
     render(
       <EditableSelect value="TEST_VALUE" defaultValue="TEST_VALUE">
         {options}
       </EditableSelect>
-    )
+    );
 
     // Assert
-    const button = screen.getByRole("button", { name: "TEST_VALUE" })
-    expect(button).toBeInTheDocument()
-  })
+    const button = screen.getByRole('button', { name: 'TEST_VALUE' });
+    expect(button).toBeInTheDocument();
+  });
 
-  test("onSave is called when save button is clicked", async () => {
+  test('onSave is called when save button is clicked', async () => {
     // Arrange
-    const onSave = jest.fn()
-    const onChange = jest.fn()
+    const onSave = jest.fn();
+    const onChange = jest.fn();
     render(
       <EditableSelect
         value="TEST_VALUE_MODIFIED"
@@ -40,19 +40,19 @@ describe("EditableText", () => {
       >
         {options}
       </EditableSelect>
-    )
+    );
 
     // Act
-    expect(onSave).not.toHaveBeenCalled()
-    userEvent.click(screen.getByLabelText("save"))
+    expect(onSave).not.toHaveBeenCalled();
+    userEvent.click(screen.getByLabelText('save'));
 
-    expect(onSave).toHaveBeenCalledTimes(1)
-    expect(onSave).toHaveBeenCalledWith("TEST_VALUE_MODIFIED")
-  })
+    expect(onSave).toHaveBeenCalledTimes(1);
+    expect(onSave).toHaveBeenCalledWith('TEST_VALUE_MODIFIED');
+  });
 
-  test("select value is reset when reset button is clicked", async () => {
+  test('select value is reset when reset button is clicked', async () => {
     // Arrange
-    const onChange = jest.fn()
+    const onChange = jest.fn();
     render(
       <EditableSelect
         value="TEST_VALUE_MODIFIED"
@@ -61,20 +61,20 @@ describe("EditableText", () => {
       >
         {options}
       </EditableSelect>
-    )
+    );
 
     // Act
-    userEvent.click(screen.getByLabelText("reset"))
+    userEvent.click(screen.getByLabelText('reset'));
 
     // Assert
-    expect(onChange).toHaveBeenCalledWith("TEST_VALUE")
-  })
+    expect(onChange).toHaveBeenCalledWith('TEST_VALUE');
+  });
 
-  describe("saveOnBlur", () => {
-    test("onSave is called when select is unfocused if saveOnBlur is true", async () => {
+  describe('saveOnBlur', () => {
+    test('onSave is called when select is unfocused if saveOnBlur is true', async () => {
       // Arrange
-      const onSave = jest.fn()
-      const onChange = jest.fn()
+      const onSave = jest.fn();
+      const onChange = jest.fn();
 
       render(
         <EditableSelect
@@ -87,22 +87,22 @@ describe("EditableText", () => {
         >
           {options}
         </EditableSelect>
-      )
+      );
 
       // Act
-      const select = screen.getByRole("button", { name: "ANOTHER_TEST_VALUE" })
-      select.focus()
-      select.blur()
+      const select = screen.getByRole('button', { name: 'ANOTHER_TEST_VALUE' });
+      select.focus();
+      select.blur();
 
       // Assert
-      expect(onSave).toHaveBeenCalledTimes(1)
-      expect(onSave).toHaveBeenCalledWith("ANOTHER_TEST_VALUE")
-    })
+      expect(onSave).toHaveBeenCalledTimes(1);
+      expect(onSave).toHaveBeenCalledWith('ANOTHER_TEST_VALUE');
+    });
 
-    test("onSave is not called when select is unfocused if saveOnBlur is false", async () => {
+    test('onSave is not called when select is unfocused if saveOnBlur is false', async () => {
       // Arrange
-      const onSave = jest.fn()
-      const onChange = jest.fn()
+      const onSave = jest.fn();
+      const onChange = jest.fn();
       render(
         <EditableSelect
           value="ANOTHER_TEST_VALUE"
@@ -114,23 +114,23 @@ describe("EditableText", () => {
         >
           {options}
         </EditableSelect>
-      )
+      );
 
       // Act
-      const select = screen.getByRole("button", { name: "ANOTHER_TEST_VALUE" })
-      select.focus()
-      select.blur()
+      const select = screen.getByRole('button', { name: 'ANOTHER_TEST_VALUE' });
+      select.focus();
+      select.blur();
 
       // Assert
-      expect(onSave).not.toHaveBeenCalled()
-    })
-  })
+      expect(onSave).not.toHaveBeenCalled();
+    });
+  });
 
-  describe("resetOnBlur", () => {
-    test("select value is reset on blur if resetOnBlur is true", async () => {
+  describe('resetOnBlur', () => {
+    test('select value is reset on blur if resetOnBlur is true', async () => {
       // Arrange
-      const onSave = jest.fn()
-      const onChange = jest.fn()
+      const onSave = jest.fn();
+      const onChange = jest.fn();
       render(
         <EditableSelect
           value="ANOTHER_TEST_VALUE"
@@ -142,21 +142,21 @@ describe("EditableText", () => {
         >
           {options}
         </EditableSelect>
-      )
+      );
 
       // Act
-      const select = screen.getByRole("button", { name: "ANOTHER_TEST_VALUE" })
-      select.focus()
-      select.blur()
+      const select = screen.getByRole('button', { name: 'ANOTHER_TEST_VALUE' });
+      select.focus();
+      select.blur();
 
       // Assert
-      expect(onChange).toHaveBeenCalledWith("TEST_VALUE")
-    })
+      expect(onChange).toHaveBeenCalledWith('TEST_VALUE');
+    });
 
-    test("select value is not reset on blur if resetOnBlur is false", async () => {
+    test('select value is not reset on blur if resetOnBlur is false', async () => {
       // Arrange
-      const onSave = jest.fn()
-      const onChange = jest.fn()
+      const onSave = jest.fn();
+      const onChange = jest.fn();
       render(
         <EditableSelect
           value="ANOTHER_TEST_VALUE"
@@ -168,28 +168,28 @@ describe("EditableText", () => {
         >
           {options}
         </EditableSelect>
-      )
+      );
 
       // Act
-      const select = screen.getByRole("button", { name: "ANOTHER_TEST_VALUE" })
-      select.focus()
-      select.blur()
+      const select = screen.getByRole('button', { name: 'ANOTHER_TEST_VALUE' });
+      select.focus();
+      select.blur();
 
       // Assert
-      expect(onChange).not.toHaveBeenCalled()
-    })
-  })
+      expect(onChange).not.toHaveBeenCalled();
+    });
+  });
 
-  test("passes a11y check", async () => {
+  test('passes a11y check', async () => {
     // Arrange
     const { container } = render(
       <EditableSelect value="TEST_VALUE" defaultValue="TEST_VALUE">
         {options}
       </EditableSelect>
-    )
-    const results = await axe(container)
+    );
+    const results = await axe(container);
 
     // Assert
-    expect(results).toHaveNoViolations()
-  })
-})
+    expect(results).toHaveNoViolations();
+  });
+});

@@ -1,34 +1,34 @@
 /** @jsxImportSource theme-ui */
-import * as React from "react"
-import Icon from "../Icon/Icon"
+import * as React from 'react';
+import Icon from '../Icon/Icon';
 
 export interface ICheckboxProps {
-  checked?: boolean
-  indeterminate?: boolean
-  disabled?: boolean
-  id?: string
-  label?: React.ReactNode
-  name?: string
-  onChange?(event: React.ChangeEvent<HTMLInputElement>): void
+  checked?: boolean;
+  indeterminate?: boolean;
+  disabled?: boolean;
+  id?: string;
+  label?: React.ReactNode;
+  name?: string;
+  onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 const stateStyles = {
   resting: {
-    backgroundColor: "text.alpha.95",
+    backgroundColor: 'text.alpha.95',
   },
   hover: {
-    backgroundColor: "text.alpha.90",
+    backgroundColor: 'text.alpha.90',
   },
   active: {
-    backgroundColor: "text.alpha.90",
+    backgroundColor: 'text.alpha.90',
   },
   filled: {
-    backgroundColor: "secondary.alpha.90",
+    backgroundColor: 'secondary.alpha.90',
   },
   filledHover: {
-    backgroundColor: "secondary.alpha.85",
+    backgroundColor: 'secondary.alpha.85',
   },
-}
+};
 
 const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
   function Checkbox(props: ICheckboxProps, ref) {
@@ -41,16 +41,16 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
       name,
       onChange,
       ...restProps
-    } = props
+    } = props;
 
     return (
       <div
         sx={{
-          display: "inline-flex",
-          position: "relative",
-          alignItems: "center",
+          display: 'inline-flex',
+          position: 'relative',
+          alignItems: 'center',
           opacity: disabled ? 0.4 : 1,
-          cursor: disabled ? "auto" : "pointer",
+          cursor: disabled ? 'auto' : 'pointer',
         }}
       >
         <input
@@ -61,50 +61,50 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
           onChange={(!disabled && onChange) || undefined}
           ref={(input) => {
             if (input) {
-              input.checked = checked
-              input.indeterminate = indeterminate
-              input.disabled = disabled
+              input.checked = checked;
+              input.indeterminate = indeterminate;
+              input.disabled = disabled;
 
               if (ref) {
-                if (typeof ref === "function") {
-                  ref(input)
+                if (typeof ref === 'function') {
+                  ref(input);
                 } else {
-                  ref.current = input
+                  ref.current = input;
                 }
               }
             }
           }}
           sx={{
-            position: "relative",
+            position: 'relative',
             width: 20,
             height: 20,
-            appearance: "none",
+            appearance: 'none',
             borderRadius: 1,
-            border: "2px solid transparent",
-            outline: "none",
-            transition: "all 0.2s",
-            cursor: disabled ? "auto" : "pointer",
+            border: '2px solid transparent',
+            outline: 'none',
+            transition: 'all 0.2s',
+            cursor: disabled ? 'auto' : 'pointer',
 
             ...(checked || indeterminate
               ? stateStyles.filled
               : stateStyles.resting),
 
-            "&:hover": {
+            '&:hover': {
               ...(!disabled &&
                 (checked || indeterminate
                   ? stateStyles.filledHover
                   : stateStyles.hover)),
             },
 
-            "&:focus": {
+            '&:focus': {
               ...(!disabled &&
                 (checked || indeterminate
                   ? stateStyles.filledHover
                   : stateStyles.active)),
             },
 
-            "&:checked ~ div, &:indeterminate ~ div": {
-              visibility: "visible",
+            '&:checked ~ div, &:indeterminate ~ div': {
+              visibility: 'visible',
               opacity: 1,
             },
           }}
@@ -112,16 +112,16 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
         />
         <div
           sx={{
-            position: "absolute",
-            visibility: "hidden",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "20px",
-            width: "20px",
-            cursor: "pointer",
-            color: "secondary",
-            pointerEvents: "none",
+            position: 'absolute',
+            visibility: 'hidden',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '20px',
+            width: '20px',
+            cursor: 'pointer',
+            color: 'secondary',
+            pointerEvents: 'none',
           }}
         >
           {(checked && <Icon name="IconCheck" size={12} stroke={4} />) ||
@@ -133,8 +133,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
           <label
             sx={{
               marginLeft: 2,
-              width: "auto",
-              cursor: disabled ? "auto" : "pointer",
+              width: 'auto',
+              cursor: disabled ? 'auto' : 'pointer',
               flexGrow: 1,
             }}
             htmlFor={id}
@@ -143,8 +143,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
           </label>
         )}
       </div>
-    )
+    );
   }
-)
+);
 
-export default Checkbox
+export default Checkbox;

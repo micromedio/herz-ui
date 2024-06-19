@@ -15,7 +15,8 @@
   --ifm-color-primary-lightest: #ff9b9b;
   --ifm-code-font-size: 95%;
 
-  font: var(--ifm-font-size-base)/var(--ifm-line-height-base) var(--ifm-font-family-base) !important;
+  font: var(--ifm-font-size-base) / var(--ifm-line-height-base)
+    var(--ifm-font-family-base) !important;
   background-color: var(--ifm-background-color) !important;
   color: var(--ifm-font-color-base) !important;
 }

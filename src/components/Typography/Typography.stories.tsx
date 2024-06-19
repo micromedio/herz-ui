@@ -1,15 +1,15 @@
-import React from "react"
-import Typography from "./Typography"
-import { Meta, Story } from "@storybook/react/types-6-0"
+import React from 'react';
+import Typography from './Typography';
+import { Meta, Story } from '@storybook/react/types-6-0';
 
 export default {
-  title: "Design System/Typography",
+  title: 'Design System/Typography',
   component: Typography,
-} as Meta
+} as Meta;
 
 const Template: Story = () => {
-  return <Typography />
-}
+  return <Typography />;
+};
 
-export const Default = Template.bind({})
-Default.args = {}
+export const Default = Template.bind({});
+Default.args = {};

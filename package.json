@@ -30,7 +30,9 @@
     "build-storybook": "build-storybook",
     "chromatic": "npx chromatic",
     "build:styleguidist": "styleguidist build",
-    "plop": "plop"
+    "plop": "plop",
+    "prettier:check": "prettier --check .",
+    "prettier:format": "prettier --write ."
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",

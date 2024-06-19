@@ -46,9 +46,9 @@ import {
   UseSortByInstanceProps,
   UseSortByOptions,
   UseSortByState,
-} from "react-table"
+} from 'react-table';
 
-declare module "react-table" {
+declare module 'react-table' {
   // take this file as-is, or comment out the sections that don't apply to your plugin configuration
 
   export interface TableOptions<
@@ -69,7 +69,7 @@ declare module "react-table" {
 
   export type Hooks<
     D extends Record<string, unknown> = Record<string, unknown>
-  > = UseSortByHooks<D>
+  > = UseSortByHooks<D>;
 
   export interface TableInstance<
     D extends Record<string, unknown> = Record<string, unknown>
@@ -106,9 +106,9 @@ declare module "react-table" {
     /**
      * @enum start Aligns column text to the start of the column
      */
-    align?: "start" | "end" | "center"
-    highlight?: boolean
-    fixedWidth?: boolean
+    align?: 'start' | 'end' | 'center';
+    highlight?: boolean;
+    fixedWidth?: boolean;
   }
 
   export interface ColumnInstance<
@@ -120,9 +120,9 @@ declare module "react-table" {
 
   export type Cell<
     D extends Record<string, unknown> = Record<string, unknown>
-  > = UseRowStateCellProps<D>
+  > = UseRowStateCellProps<D>;
   // UseGroupByCellProps<D> {}
 
   export type Row<D extends Record<string, unknown> = Record<string, unknown>> =
-    UseRowStateRowProps<D>
+    UseRowStateRowProps<D>;
 }

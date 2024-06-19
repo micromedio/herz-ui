@@ -1,40 +1,40 @@
 import EditableFieldSelect, {
   EditableFieldSelectProps,
-} from "./EditableFieldSelect"
-import { Meta, Story } from "@storybook/react/types-6-0"
-import { useState } from "react"
-import { action } from "@storybook/addon-actions"
+} from './EditableFieldSelect';
+import { Meta, Story } from '@storybook/react/types-6-0';
+import { useState } from 'react';
+import { action } from '@storybook/addon-actions';
 
 export default {
-  title: "Design System/EditableField/Select",
+  title: 'Design System/EditableField/Select',
   component: EditableFieldSelect,
-} as Meta
+} as Meta;
 
 const mockedChildrenOptions = [
   {
-    label: "CPF",
-    value: "CPF",
+    label: 'CPF',
+    value: 'CPF',
   },
 
   {
-    label: "CNPJ",
-    value: "CNPJ",
+    label: 'CNPJ',
+    value: 'CNPJ',
   },
 ].map(({ label, value }) => (
   <EditableFieldSelect.Option key={value} value={value}>
     {label}
   </EditableFieldSelect.Option>
-))
+));
 
 const Template: Story<EditableFieldSelectProps> = (
   props: EditableFieldSelectProps
 ) => {
-  const [value, setValue] = useState<EditableFieldSelectProps["value"]>(
-    props.value || ""
-  )
+  const [value, setValue] = useState<EditableFieldSelectProps['value']>(
+    props.value || ''
+  );
   const [defaultValue, setDefaultValue] = useState<
-    EditableFieldSelectProps["defaultValue"]
-  >(props.defaultValue || "")
+    EditableFieldSelectProps['defaultValue']
+  >(props.defaultValue || '');
 
   return (
     <EditableFieldSelect
@@ -42,26 +42,26 @@ const Template: Story<EditableFieldSelectProps> = (
       value={value}
       defaultValue={defaultValue}
       onChange={(newValue) => {
-        props.onChange?.(newValue)
-        setValue(newValue)
+        props.onChange?.(newValue);
+        setValue(newValue);
       }}
       onSave={(newValue) => {
-        props.onSave?.(newValue)
-        setDefaultValue(newValue as EditableFieldSelectProps["value"])
+        props.onSave?.(newValue);
+        setDefaultValue(newValue as EditableFieldSelectProps['value']);
       }}
     />
-  )
-}
+  );
+};
 
 const MultiTemplate: Story<EditableFieldSelectProps> = (
   props: EditableFieldSelectProps
 ) => {
-  const [value, setValue] = useState<EditableFieldSelectProps["selectedItems"]>(
+  const [value, setValue] = useState<EditableFieldSelectProps['selectedItems']>(
     props.selectedItems || []
-  )
+  );
   const [defaultValue, setDefaultValue] = useState<
-    EditableFieldSelectProps["defaultSelectedItems"]
-  >(props.defaultSelectedItems || [])
+    EditableFieldSelectProps['defaultSelectedItems']
+  >(props.defaultSelectedItems || []);
 
   return (
     <EditableFieldSelect
@@ -70,55 +70,55 @@ const MultiTemplate: Story<EditableFieldSelectProps> = (
       selectedItems={value}
       defaultSelectedItems={defaultValue}
       onSelectedItemsChange={(newValue) => {
-        props.onSelectedItemsChange?.(newValue)
-        setValue(newValue)
+        props.onSelectedItemsChange?.(newValue);
+        setValue(newValue);
       }}
       onSave={(newValue) => {
-        props.onSave?.(newValue)
-        setDefaultValue(newValue as EditableFieldSelectProps["selectedItems"])
+        props.onSave?.(newValue);
+        setDefaultValue(newValue as EditableFieldSelectProps['selectedItems']);
       }}
     />
-  )
-}
+  );
+};
 
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 Default.args = {
-  value: "CPF",
-  defaultValue: "CPF",
-  helperText: "",
+  value: 'CPF',
+  defaultValue: 'CPF',
+  helperText: '',
   status: undefined,
-  onChange: action("onChange"),
-  onSave: action("onSave"),
+  onChange: action('onChange'),
+  onSave: action('onSave'),
   saveOnBlur: false,
   resetOnBlur: true,
   children: mockedChildrenOptions,
-}
+};
 
-export const Error = Template.bind({})
+export const Error = Template.bind({});
 Error.args = {
   ...Default.args,
-  status: "error",
-}
+  status: 'error',
+};
 
-export const Success = Template.bind({})
+export const Success = Template.bind({});
 Success.args = {
   ...Default.args,
-  status: "success",
-}
+  status: 'success',
+};
 
-export const Loading = Template.bind({})
+export const Loading = Template.bind({});
 Loading.args = {
   ...Default.args,
-  status: "loading",
-}
+  status: 'loading',
+};
 
-export const Multi = MultiTemplate.bind({})
+export const Multi = MultiTemplate.bind({});
 Multi.args = {
-  selectedItems: ["CPF"],
-  defaultSelectedItems: ["CPF"],
-  onChange: action("onChange"),
-  onSave: action("onSave"),
+  selectedItems: ['CPF'],
+  defaultSelectedItems: ['CPF'],
+  onChange: action('onChange'),
+  onSave: action('onSave'),
   saveOnBlur: false,
   resetOnBlur: true,
   children: mockedChildrenOptions,
-}
+};

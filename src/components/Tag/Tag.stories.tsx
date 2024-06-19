@@ -1,45 +1,45 @@
-import Tag, { TagProps } from "./Tag"
-import { Meta, Story } from "@storybook/react/types-6-0"
+import Tag, { TagProps } from './Tag';
+import { Meta, Story } from '@storybook/react/types-6-0';
 
 export default {
-  title: "Design System/Tag",
+  title: 'Design System/Tag',
   component: Tag,
-} as Meta
+} as Meta;
 
-const Template: Story<TagProps> = (props) => <Tag {...props} />
+const Template: Story<TagProps> = (props) => <Tag {...props} />;
 
 // Each story then reuses that template
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 Default.args = {
-  children: "FLEURY",
-}
+  children: 'FLEURY',
+};
 
-export const Primary = Template.bind({})
+export const Primary = Template.bind({});
 Primary.args = {
   ...Default.args,
-  color: "primary",
-}
+  color: 'primary',
+};
 
-export const Secondary = Template.bind({})
+export const Secondary = Template.bind({});
 Secondary.args = {
   ...Default.args,
-  color: "secondary",
-}
+  color: 'secondary',
+};
 
-export const Success = Template.bind({})
+export const Success = Template.bind({});
 Success.args = {
   ...Default.args,
-  color: "success",
-}
+  color: 'success',
+};
 
-export const Text = Template.bind({})
+export const Text = Template.bind({});
 Text.args = {
   ...Default.args,
-  color: "text",
-}
+  color: 'text',
+};
 
-export const WithRemoveButton = Template.bind({})
+export const WithRemoveButton = Template.bind({});
 WithRemoveButton.args = {
-  children: "FLEURY",
+  children: 'FLEURY',
   showRemove: true,
-}
+};

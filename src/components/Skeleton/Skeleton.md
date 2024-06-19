@@ -7,11 +7,7 @@ The Skeleton component is to be used when you want to display placeholder conten
 This is the basic and default shape, used to render any rectangular content.
 
 ```jsx
-<Skeleton
-  variant="rect"
-  width={60}
-  height={20}
-/>
+<Skeleton variant="rect" width={60} height={20} />
 ```
 
 #### Circle
@@ -19,11 +15,7 @@ This is the basic and default shape, used to render any rectangular content.
 With the `circle` variant, the border radius will be set to 50%.
 
 ```jsx
-<Skeleton
-  variant="circle"
-  width={60}
-  height={60}
-/>
+<Skeleton variant="circle" width={60} height={60} />
 ```
 
 #### Text
@@ -31,8 +23,5 @@ With the `circle` variant, the border radius will be set to 50%.
 When the variant is set to `text`, the Skeleton height will infer the height according to the font-size of where it's located.
 
 ```jsx
-<Skeleton
-  variant="text"
-  width={80}
-/>
+<Skeleton variant="text" width={80} />
 ```

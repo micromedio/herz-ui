@@ -1,10 +1,10 @@
 ### Example
 
 ```jsx
-import Button from "../Button/Button"
-const [isOpen, setModalOpen] = React.useState(false)
+import Button from '../Button/Button';
+const [isOpen, setModalOpen] = React.useState(false);
 
-;<>
+<>
   <Button onClick={() => setModalOpen(!isOpen)}>Toggle Open</Button>
   <DesktopModal isOpen={isOpen}>
     <DesktopModal.Header>
@@ -29,5 +29,5 @@ const [isOpen, setModalOpen] = React.useState(false)
       <Button>Primary Action</Button>
     </DesktopModal.Actions>
   </DesktopModal>
-</>
+</>;
 ```

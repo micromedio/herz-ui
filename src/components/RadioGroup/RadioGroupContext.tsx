@@ -1,12 +1,12 @@
-import { ChangeEvent, createContext, ReactNode } from "react"
+import { ChangeEvent, createContext, ReactNode } from 'react';
 
 const RadioGroupContext = createContext<{
-  name: string | undefined
-  value: string
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void
-  children?: ReactNode
-} | null>(null)
+  name: string | undefined;
+  value: string;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  children?: ReactNode;
+} | null>(null);
 
-RadioGroupContext.displayName = "RadioGroupContext"
+RadioGroupContext.displayName = 'RadioGroupContext';
 
-export default RadioGroupContext
+export default RadioGroupContext;

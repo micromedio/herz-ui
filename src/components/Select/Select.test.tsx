@@ -1,18 +1,18 @@
-import { useState } from "react"
-import { fireEvent, render, waitFor } from "../../tests/utils"
+import { useState } from 'react';
+import { fireEvent, render, waitFor } from '../../tests/utils';
 
-import { mockedOptions } from "./__mocks__/options"
-import Select, { SelectProps } from "./Select"
+import { mockedOptions } from './__mocks__/options';
+import Select, { SelectProps } from './Select';
 const children = mockedOptions.map(({ label, value }) => (
   <Select.Option key={value} value={value}>
     {label}
   </Select.Option>
-))
+));
 
 const ControlledMultiSelectTemplate = (props: SelectProps) => {
   const [selectedItems, setSelectedItems] = useState<
-    SelectProps["selectedItems"]
-  >([])
+    SelectProps['selectedItems']
+  >([]);
 
   return (
     <Select
@@ -20,88 +20,88 @@ const ControlledMultiSelectTemplate = (props: SelectProps) => {
       multi={true}
       {...props}
       onSelectedItemsChange={(selectedItems) => {
-        setSelectedItems(selectedItems)
-        props.onSelectedItemsChange?.(selectedItems)
+        setSelectedItems(selectedItems);
+        props.onSelectedItemsChange?.(selectedItems);
       }}
     />
-  )
-}
+  );
+};
 
-describe("Select", () => {
-  it("renders successfully", () => {
-    const { getByRole } = render(<Select>{children}</Select>)
+describe('Select', () => {
+  it('renders successfully', () => {
+    const { getByRole } = render(<Select>{children}</Select>);
 
     /**
      * Check if the element exists
      */
     expect(
-      getByRole("button", { name: "Select an option" })
-    ).toBeInTheDocument()
-  })
+      getByRole('button', { name: 'Select an option' })
+    ).toBeInTheDocument();
+  });
 
-  it("renders the label succesfully", () => {
+  it('renders the label succesfully', () => {
     const { getByText } = render(
       <Select label="Select an element:">{children}</Select>
-    )
+    );
 
-    expect(getByText("Select an element:")).toBeInTheDocument()
-  })
+    expect(getByText('Select an element:')).toBeInTheDocument();
+  });
 
-  it("renders all the options and allows to select", async () => {
-    const onChangeMock = jest.fn()
+  it('renders all the options and allows to select', async () => {
+    const onChangeMock = jest.fn();
     const { getByText, queryByTitle, getByRole } = render(
       <Select onChange={onChangeMock}>{children}</Select>
-    )
+    );
 
     /** Act: enable the options by clicking on the button */
-    const button = getByRole("button")
-    fireEvent.click(button)
+    const button = getByRole('button');
+    fireEvent.click(button);
 
     /**
      * Check if the options are rendered
      */
     await waitFor(() =>
       mockedOptions.forEach((option) => {
-        expect(getByText(option.label)).toBeInTheDocument()
+        expect(getByText(option.label)).toBeInTheDocument();
       })
-    )
+    );
     /**
      * Check for an invalid option
      */
-    expect(queryByTitle("Random")).not.toBeInTheDocument()
+    expect(queryByTitle('Random')).not.toBeInTheDocument();
 
     /** Try to select an option */
-    const option = getByText(mockedOptions[1].label)
-    fireEvent.click(option)
+    const option = getByText(mockedOptions[1].label);
+    fireEvent.click(option);
 
-    expect(onChangeMock).toHaveBeenCalled()
-  })
+    expect(onChangeMock).toHaveBeenCalled();
+  });
 
   it("works with 'number' values in the options", async () => {
-    const onChangeMock = jest.fn()
+    const onChangeMock = jest.fn();
     const { getByText, getByRole } = render(
       <Select onChange={onChangeMock}>
         <Select.Option value={0}>Zero</Select.Option>
         <Select.Option value={1}>One</Select.Option>
       </Select>
-    )
+    );
 
     /** Act: enable the options by clicking on the button */
-    const button = getByRole("button")
-    fireEvent.click(button)
+    const button = getByRole('button');
+    fireEvent.click(button);
 
-    const option1 = getByText("One")
-    fireEvent.click(option1)
-    expect(onChangeMock).toHaveBeenCalledWith(1)
+    const option1 = getByText('One');
+    fireEvent.click(option1);
+    expect(onChangeMock).toHaveBeenCalledWith(1);
 
-    const option0 = getByText("Zero")
-    fireEvent.click(option0)
-    expect(onChangeMock).toHaveBeenCalledWith(0)
-  })
+    const option0 = getByText('Zero');
+    fireEvent.click(option0);
+    expect(onChangeMock).toHaveBeenCalledWith(0);
+  });
 
-  describe("onSelectedItemsChange", () => {
-    it("allows to add and remove a multi select item", async () => {
-      const onSelectedItemsChangeMock = jest.fn()
+  describe('onSelectedItemsChange', () => {
+    it('allows to add and remove a multi select item', async () => {
+      const onSelectedItemsChangeMock = jest.fn();
 
       const { findByText, getByRole } = render(
         <ControlledMultiSelectTemplate
@@ -109,27 +109,27 @@ describe("Select", () => {
         >
           {children}
         </ControlledMultiSelectTemplate>
-      )
+      );
 
       /** Act: enable the options by clicking on the button */
-      const button = getByRole("button")
-      fireEvent.click(button)
+      const button = getByRole('button');
+      fireEvent.click(button);
 
       /** Try to select an option */
-      const option = await findByText(mockedOptions[1].label)
+      const option = await findByText(mockedOptions[1].label);
 
-      fireEvent.click(option)
+      fireEvent.click(option);
 
       /** Select again to remove it */
-      fireEvent.click(option)
+      fireEvent.click(option);
 
-      expect(onSelectedItemsChangeMock).toHaveBeenCalledTimes(2)
-    })
-  })
+      expect(onSelectedItemsChangeMock).toHaveBeenCalledTimes(2);
+    });
+  });
 
-  describe("handleBulkAction", () => {
-    it("allows to user to perform bulk actions to select and deselect items", async () => {
-      const onSelectedItemsChangeMock = jest.fn()
+  describe('handleBulkAction', () => {
+    it('allows to user to perform bulk actions to select and deselect items', async () => {
+      const onSelectedItemsChangeMock = jest.fn();
 
       const { getByText, findByText, getByRole } = render(
         <ControlledMultiSelectTemplate
@@ -137,20 +137,20 @@ describe("Select", () => {
         >
           {children}
         </ControlledMultiSelectTemplate>
-      )
+      );
 
       /** Act: enable the options by clicking on the button */
-      const button = getByRole("button")
-      fireEvent.click(button)
+      const button = getByRole('button');
+      fireEvent.click(button);
 
       /** Trigger bulk actions */
-      const selectAllOption = await findByText("Selecionar todos")
-      fireEvent.click(selectAllOption)
+      const selectAllOption = await findByText('Selecionar todos');
+      fireEvent.click(selectAllOption);
 
-      const deselectAllOptions = getByText("Limpar seleções")
-      fireEvent.click(deselectAllOptions)
+      const deselectAllOptions = getByText('Limpar seleções');
+      fireEvent.click(deselectAllOptions);
 
-      expect(onSelectedItemsChangeMock).toHaveBeenCalledTimes(2)
-    })
-  })
-})
+      expect(onSelectedItemsChangeMock).toHaveBeenCalledTimes(2);
+    });
+  });
+});

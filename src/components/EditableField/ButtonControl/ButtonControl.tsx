@@ -1,15 +1,15 @@
 /** @jsxImportSource theme-ui */
-import React, { MouseEvent, useMemo } from "react"
-import { ThemeUICSSObject } from "theme-ui"
-import Button from "../../Button/Button"
-import Spinner from "../../Spinner/Spinner"
+import React, { MouseEvent, useMemo } from 'react';
+import { ThemeUICSSObject } from 'theme-ui';
+import Button from '../../Button/Button';
+import Spinner from '../../Spinner/Spinner';
 
 export interface ButtonControlProps {
-  isLoading?: boolean
-  showButtons?: boolean
-  onReset?: (event: MouseEvent<HTMLButtonElement>) => void
-  onSave?: () => void
-  children: React.ReactNode
+  isLoading?: boolean;
+  showButtons?: boolean;
+  onReset?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onSave?: () => void;
+  children: React.ReactNode;
 }
 
 const ButtonControl = ({
@@ -21,21 +21,21 @@ const ButtonControl = ({
 }: ButtonControlProps) => {
   const buttonStyles: ThemeUICSSObject = useMemo(
     () => ({
-      backgroundColor: "#FFF",
-      boxShadow: "dark",
+      backgroundColor: '#FFF',
+      boxShadow: 'dark',
       borderRadius: 2,
 
-      "&:hover": {
-        backgroundColor: "text.alpha.95",
+      '&:hover': {
+        backgroundColor: 'text.alpha.95',
       },
     }),
     []
-  )
+  );
 
   return (
     <div
       sx={{
-        position: "relative",
+        position: 'relative',
       }}
     >
       {children}
@@ -43,9 +43,9 @@ const ButtonControl = ({
       {showButtons && (
         <div
           sx={{
-            display: "flex",
-            position: "absolute",
-            top: "100%",
+            display: 'flex',
+            position: 'absolute',
+            top: '100%',
             right: 0,
             gap: 1,
             pt: 2,
@@ -55,10 +55,10 @@ const ButtonControl = ({
           {isLoading ? (
             <div
               sx={{
-                display: "flex",
+                display: 'flex',
                 p: 1,
                 ...buttonStyles,
-                "&:hover": {},
+                '&:hover': {},
               }}
             >
               <Spinner size={16} />
@@ -86,7 +86,7 @@ const ButtonControl = ({
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ButtonControl
+export default ButtonControl;

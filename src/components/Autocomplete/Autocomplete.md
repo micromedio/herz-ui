@@ -6,20 +6,19 @@ Autocomplete example:
 
 ```js
 const mockedOptions = [
-  { value: 1, label: "Neptunium", symbol: "Np", A: 237, Z: 93 },
-  { value: 2, label: "Plutonium", symbol: "Pu", A: 244, Z: 94 },
-  { value: 3, label: "Americium Darmstad", symbol: "Am", A: 243, Z: 95 },
-  { value: 4, label: "Curium", symbol: "Cm", A: 247, Z: 96 },
-  { value: 5, label: "Berkelium Flerovios", symbol: "Bk", A: 247, Z: 97 },
-  { value: 6, label: "Californium Copernicus", symbol: "Cf", A: 251, Z: 98 },
-  { value: 7, label: "Einsteinium", symbol: "Es", A: 252, Z: 99 },
-  { value: 8, label: "Fermium", symbol: "Fm", A: 257, Z: 100 },
-  { value: 9, label: "Mendelevium", symbol: "Md", A: 258, Z: 101 },
-  { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
-]
-const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState()
-;(
+  { value: 1, label: 'Neptunium', symbol: 'Np', A: 237, Z: 93 },
+  { value: 2, label: 'Plutonium', symbol: 'Pu', A: 244, Z: 94 },
+  { value: 3, label: 'Americium Darmstad', symbol: 'Am', A: 243, Z: 95 },
+  { value: 4, label: 'Curium', symbol: 'Cm', A: 247, Z: 96 },
+  { value: 5, label: 'Berkelium Flerovios', symbol: 'Bk', A: 247, Z: 97 },
+  { value: 6, label: 'Californium Copernicus', symbol: 'Cf', A: 251, Z: 98 },
+  { value: 7, label: 'Einsteinium', symbol: 'Es', A: 252, Z: 99 },
+  { value: 8, label: 'Fermium', symbol: 'Fm', A: 257, Z: 100 },
+  { value: 9, label: 'Mendelevium', symbol: 'Md', A: 258, Z: 101 },
+  { value: 10, label: 'Nobelium', symbol: 'No', A: 259, Z: 102 },
+];
+const [items, setItems] = React.useState(mockedOptions);
+const [value, setValue] = React.useState();
 <Autocomplete
   onInputValueChange={({ inputValue }) => {
     setItems(
@@ -30,19 +29,20 @@ const [value, setValue] = React.useState()
               .startsWith(inputValue.toLocaleLowerCase())
           : true
       )
-    )
+    );
   }}
   options={items.slice(0, 5)}
-  optionToString={(option) => (option ? option.label : "")}
+  optionToString={(option) => (option ? option.label : '')}
   placeholder="Search by organization's name or handle"
   renderOption={({ defaultStyles, option }) => (
     <div
       style={{
         ...defaultStyles,
-        alignContent: "center",
-        alignItems: "center",
-        backgroundColor: defaultStyles.backgroundColor && "rgba(0,130,252,0.05)",
-        display: "flex",
+        alignContent: 'center',
+        alignItems: 'center',
+        backgroundColor:
+          defaultStyles.backgroundColor && 'rgba(0,130,252,0.05)',
+        display: 'flex',
         padding: 8,
       }}
     >
@@ -50,32 +50,30 @@ const [value, setValue] = React.useState()
     </div>
   )}
   onSelectedItemChange={(selectedOption) => {
-    setValue(selectedOption)
+    setValue(selectedOption);
   }}
   selectedOption={value}
   totalCount={items.length}
-/>
-)
+/>;
 ```
 
 #### With Label And Helper Text
 
 ```js
 const mockedOptions = [
-  { value: 1, label: "Neptunium", symbol: "Np", A: 237, Z: 93 },
-  { value: 2, label: "Plutonium", symbol: "Pu", A: 244, Z: 94 },
-  { value: 3, label: "Americium Darmstad", symbol: "Am", A: 243, Z: 95 },
-  { value: 4, label: "Curium", symbol: "Cm", A: 247, Z: 96 },
-  { value: 5, label: "Berkelium Flerovios", symbol: "Bk", A: 247, Z: 97 },
-  { value: 6, label: "Californium Copernicus", symbol: "Cf", A: 251, Z: 98 },
-  { value: 7, label: "Einsteinium", symbol: "Es", A: 252, Z: 99 },
-  { value: 8, label: "Fermium", symbol: "Fm", A: 257, Z: 100 },
-  { value: 9, label: "Mendelevium", symbol: "Md", A: 258, Z: 101 },
-  { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
-]
-const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState()
-;(
+  { value: 1, label: 'Neptunium', symbol: 'Np', A: 237, Z: 93 },
+  { value: 2, label: 'Plutonium', symbol: 'Pu', A: 244, Z: 94 },
+  { value: 3, label: 'Americium Darmstad', symbol: 'Am', A: 243, Z: 95 },
+  { value: 4, label: 'Curium', symbol: 'Cm', A: 247, Z: 96 },
+  { value: 5, label: 'Berkelium Flerovios', symbol: 'Bk', A: 247, Z: 97 },
+  { value: 6, label: 'Californium Copernicus', symbol: 'Cf', A: 251, Z: 98 },
+  { value: 7, label: 'Einsteinium', symbol: 'Es', A: 252, Z: 99 },
+  { value: 8, label: 'Fermium', symbol: 'Fm', A: 257, Z: 100 },
+  { value: 9, label: 'Mendelevium', symbol: 'Md', A: 258, Z: 101 },
+  { value: 10, label: 'Nobelium', symbol: 'No', A: 259, Z: 102 },
+];
+const [items, setItems] = React.useState(mockedOptions);
+const [value, setValue] = React.useState();
 <Autocomplete
   helperText="This is a helper text"
   label="Label"
@@ -88,20 +86,21 @@ const [value, setValue] = React.useState()
               .startsWith(inputValue.toLocaleLowerCase())
           : true
       )
-    )
+    );
   }}
   optionalText="optional"
   options={items.slice(0, 5)}
-  optionToString={(option) => (option ? option.label : "")}
+  optionToString={(option) => (option ? option.label : '')}
   placeholder="Search by organization's name or handle"
   renderOption={({ highlightedIndex, defaultStyles, option }) => (
     <div
       style={{
         ...defaultStyles,
-        alignContent: "center",
-        alignItems: "center",
-        backgroundColor: defaultStyles.backgroundColor && "rgba(0,130,252,0.05)",
-        display: "flex",
+        alignContent: 'center',
+        alignItems: 'center',
+        backgroundColor:
+          defaultStyles.backgroundColor && 'rgba(0,130,252,0.05)',
+        display: 'flex',
         padding: 8,
       }}
     >
@@ -109,53 +108,49 @@ const [value, setValue] = React.useState()
     </div>
   )}
   onSelectedItemChange={(selectedOption) => {
-    setValue(selectedOption)
+    setValue(selectedOption);
   }}
   selectedOption={value}
   totalCount={items.length}
-/>
-)
+/>;
 ```
 
 #### With Action Buttons
 
 ```js
 const mockedOptions = [
-  { value: 1, label: "Neptunium", symbol: "Np", A: 237, Z: 93 },
-  { value: 2, label: "Plutonium", symbol: "Pu", A: 244, Z: 94 },
-  { value: 3, label: "Americium Darmstad", symbol: "Am", A: 243, Z: 95 },
-  { value: 4, label: "Curium", symbol: "Cm", A: 247, Z: 96 },
-  { value: 5, label: "Berkelium Flerovios", symbol: "Bk", A: 247, Z: 97 },
-  { value: 6, label: "Californium Copernicus", symbol: "Cf", A: 251, Z: 98 },
-  { value: 7, label: "Einsteinium", symbol: "Es", A: 252, Z: 99 },
-  { value: 8, label: "Fermium", symbol: "Fm", A: 257, Z: 100 },
-  { value: 9, label: "Mendelevium", symbol: "Md", A: 258, Z: 101 },
-  { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
-]
-const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState(mockedOptions[0])
-;(
+  { value: 1, label: 'Neptunium', symbol: 'Np', A: 237, Z: 93 },
+  { value: 2, label: 'Plutonium', symbol: 'Pu', A: 244, Z: 94 },
+  { value: 3, label: 'Americium Darmstad', symbol: 'Am', A: 243, Z: 95 },
+  { value: 4, label: 'Curium', symbol: 'Cm', A: 247, Z: 96 },
+  { value: 5, label: 'Berkelium Flerovios', symbol: 'Bk', A: 247, Z: 97 },
+  { value: 6, label: 'Californium Copernicus', symbol: 'Cf', A: 251, Z: 98 },
+  { value: 7, label: 'Einsteinium', symbol: 'Es', A: 252, Z: 99 },
+  { value: 8, label: 'Fermium', symbol: 'Fm', A: 257, Z: 100 },
+  { value: 9, label: 'Mendelevium', symbol: 'Md', A: 258, Z: 101 },
+  { value: 10, label: 'Nobelium', symbol: 'No', A: 259, Z: 102 },
+];
+const [items, setItems] = React.useState(mockedOptions);
+const [value, setValue] = React.useState(mockedOptions[0]);
 <Autocomplete
-  buttons={
-    [
-      {
-        color: "secondary",
-        children: "More info",
-        onClick: () => {
-          alert("Clicked on more info!")
-        },
-        variant: "plain",
+  buttons={[
+    {
+      color: 'secondary',
+      children: 'More info',
+      onClick: () => {
+        alert('Clicked on more info!');
       },
-      {
-        color: "secondary",
-        children: "Clear",
-        onClick: () => {
-          setValue(null)
-        },
-        variant: "plain",
+      variant: 'plain',
+    },
+    {
+      color: 'secondary',
+      children: 'Clear',
+      onClick: () => {
+        setValue(null);
       },
-    ]
-  }
+      variant: 'plain',
+    },
+  ]}
   helperText="This is a helper text"
   label="Label"
   onInputValueChange={({ inputValue }) => {
@@ -167,20 +162,21 @@ const [value, setValue] = React.useState(mockedOptions[0])
               .startsWith(inputValue.toLocaleLowerCase())
           : true
       )
-    )
+    );
   }}
   optionalText="optional"
   options={items.slice(0, 5)}
-  optionToString={(option) => (option ? option.label : "")}
+  optionToString={(option) => (option ? option.label : '')}
   placeholder="Search by organization's name or handle"
   renderOption={({ highlightedIndex, defaultStyles, option }) => (
     <div
       style={{
         ...defaultStyles,
-        alignContent: "center",
-        alignItems: "center",
-        backgroundColor: defaultStyles.backgroundColor && "rgba(0,130,252,0.05)",
-        display: "flex",
+        alignContent: 'center',
+        alignItems: 'center',
+        backgroundColor:
+          defaultStyles.backgroundColor && 'rgba(0,130,252,0.05)',
+        display: 'flex',
         padding: 8,
       }}
     >
@@ -188,52 +184,49 @@ const [value, setValue] = React.useState(mockedOptions[0])
     </div>
   )}
   onSelectedItemChange={(selectedOption) => {
-    setValue(selectedOption)
+    setValue(selectedOption);
   }}
   selectedOption={value}
   totalCount={items.length}
-/>
-)
+/>;
 ```
+
 #### With Custom Selected Option Render
 
 ```js
 const mockedOptions = [
-  { value: 1, label: "Neptunium", symbol: "Np", A: 237, Z: 93 },
-  { value: 2, label: "Plutonium", symbol: "Pu", A: 244, Z: 94 },
-  { value: 3, label: "Americium Darmstad", symbol: "Am", A: 243, Z: 95 },
-  { value: 4, label: "Curium", symbol: "Cm", A: 247, Z: 96 },
-  { value: 5, label: "Berkelium Flerovios", symbol: "Bk", A: 247, Z: 97 },
-  { value: 6, label: "Californium Copernicus", symbol: "Cf", A: 251, Z: 98 },
-  { value: 7, label: "Einsteinium", symbol: "Es", A: 252, Z: 99 },
-  { value: 8, label: "Fermium", symbol: "Fm", A: 257, Z: 100 },
-  { value: 9, label: "Mendelevium", symbol: "Md", A: 258, Z: 101 },
-  { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
-]
-const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState(mockedOptions[5])
-;(
+  { value: 1, label: 'Neptunium', symbol: 'Np', A: 237, Z: 93 },
+  { value: 2, label: 'Plutonium', symbol: 'Pu', A: 244, Z: 94 },
+  { value: 3, label: 'Americium Darmstad', symbol: 'Am', A: 243, Z: 95 },
+  { value: 4, label: 'Curium', symbol: 'Cm', A: 247, Z: 96 },
+  { value: 5, label: 'Berkelium Flerovios', symbol: 'Bk', A: 247, Z: 97 },
+  { value: 6, label: 'Californium Copernicus', symbol: 'Cf', A: 251, Z: 98 },
+  { value: 7, label: 'Einsteinium', symbol: 'Es', A: 252, Z: 99 },
+  { value: 8, label: 'Fermium', symbol: 'Fm', A: 257, Z: 100 },
+  { value: 9, label: 'Mendelevium', symbol: 'Md', A: 258, Z: 101 },
+  { value: 10, label: 'Nobelium', symbol: 'No', A: 259, Z: 102 },
+];
+const [items, setItems] = React.useState(mockedOptions);
+const [value, setValue] = React.useState(mockedOptions[5]);
 <Autocomplete
-  buttons={
-    [
-      {
-        color: "secondary",
-        children: "More info",
-        onClick: () => {
-          alert("Clicked on more info!")
-        },
-        variant: "plain",
+  buttons={[
+    {
+      color: 'secondary',
+      children: 'More info',
+      onClick: () => {
+        alert('Clicked on more info!');
       },
-      {
-        color: "secondary",
-        children: "Clear",
-        onClick: () => {
-          setValue(null)
-        },
-        variant: "plain",
+      variant: 'plain',
+    },
+    {
+      color: 'secondary',
+      children: 'Clear',
+      onClick: () => {
+        setValue(null);
       },
-    ]
-  }
+      variant: 'plain',
+    },
+  ]}
   helperText="This is a helper text"
   label="Label"
   onInputValueChange={({ inputValue }) => {
@@ -245,20 +238,21 @@ const [value, setValue] = React.useState(mockedOptions[5])
               .startsWith(inputValue.toLocaleLowerCase())
           : true
       )
-    )
+    );
   }}
   optionalText="optional"
   options={items.slice(0, 5)}
-  optionToString={(option) => (option ? option.label : "")}
+  optionToString={(option) => (option ? option.label : '')}
   placeholder="Search by organization's name or handle"
   renderOption={({ highlightedIndex, defaultStyles, option }) => (
     <div
       style={{
         ...defaultStyles,
-        alignContent: "center",
-        alignItems: "center",
-        backgroundColor: defaultStyles.backgroundColor && "rgba(0,130,252,0.05)",
-        display: "flex",
+        alignContent: 'center',
+        alignItems: 'center',
+        backgroundColor:
+          defaultStyles.backgroundColor && 'rgba(0,130,252,0.05)',
+        display: 'flex',
         padding: 8,
       }}
     >
@@ -268,14 +262,14 @@ const [value, setValue] = React.useState(mockedOptions[5])
   renderSelectedItem={(selectedOption) => {
     return (
       <span>
-        {selectedOption.label}{" "}
+        {selectedOption.label}{' '}
         <strong>
-          <sup style={{ position: "relative", left: 12, top: -5 }}>
+          <sup style={{ position: 'relative', left: 12, top: -5 }}>
             {selectedOption.A}
           </sup>
           <sub
             style={{
-              position: "relative",
+              position: 'relative',
               top: 5,
             }}
           >
@@ -284,56 +278,53 @@ const [value, setValue] = React.useState(mockedOptions[5])
           {selectedOption.symbol}
         </strong>
       </span>
-    )
+    );
   }}
   onSelectedItemChange={(selectedOption) => {
-    setValue(selectedOption)
+    setValue(selectedOption);
   }}
   selectedOption={value}
   totalCount={items.length}
-/>
-)
+/>;
 ```
+
 #### With Highlight
 
 ```js
-import Highlight from "../Highlight/Highlight"
+import Highlight from '../Highlight/Highlight';
 const mockedOptions = [
-  { value: 1, label: "Neptunium", symbol: "Np", A: 237, Z: 93 },
-  { value: 2, label: "Plutonium", symbol: "Pu", A: 244, Z: 94 },
-  { value: 3, label: "Americium Darmstad", symbol: "Am", A: 243, Z: 95 },
-  { value: 4, label: "Curium", symbol: "Cm", A: 247, Z: 96 },
-  { value: 5, label: "Berkelium Flerovios", symbol: "Bk", A: 247, Z: 97 },
-  { value: 6, label: "Californium Copernicus", symbol: "Cf", A: 251, Z: 98 },
-  { value: 7, label: "Einsteinium", symbol: "Es", A: 252, Z: 99 },
-  { value: 8, label: "Fermium", symbol: "Fm", A: 257, Z: 100 },
-  { value: 9, label: "Mendelevium", symbol: "Md", A: 258, Z: 101 },
-  { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
-]
-const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState()
-;(
+  { value: 1, label: 'Neptunium', symbol: 'Np', A: 237, Z: 93 },
+  { value: 2, label: 'Plutonium', symbol: 'Pu', A: 244, Z: 94 },
+  { value: 3, label: 'Americium Darmstad', symbol: 'Am', A: 243, Z: 95 },
+  { value: 4, label: 'Curium', symbol: 'Cm', A: 247, Z: 96 },
+  { value: 5, label: 'Berkelium Flerovios', symbol: 'Bk', A: 247, Z: 97 },
+  { value: 6, label: 'Californium Copernicus', symbol: 'Cf', A: 251, Z: 98 },
+  { value: 7, label: 'Einsteinium', symbol: 'Es', A: 252, Z: 99 },
+  { value: 8, label: 'Fermium', symbol: 'Fm', A: 257, Z: 100 },
+  { value: 9, label: 'Mendelevium', symbol: 'Md', A: 258, Z: 101 },
+  { value: 10, label: 'Nobelium', symbol: 'No', A: 259, Z: 102 },
+];
+const [items, setItems] = React.useState(mockedOptions);
+const [value, setValue] = React.useState();
 <Autocomplete
-  buttons={
-    [
-      {
-        color: "secondary",
-        children: "More info",
-        onClick: () => {
-          alert("Clicked on more info!")
-        },
-        variant: "plain",
+  buttons={[
+    {
+      color: 'secondary',
+      children: 'More info',
+      onClick: () => {
+        alert('Clicked on more info!');
       },
-      {
-        color: "secondary",
-        children: "Clear",
-        onClick: () => {
-          setValue(null)
-        },
-        variant: "plain",
+      variant: 'plain',
+    },
+    {
+      color: 'secondary',
+      children: 'Clear',
+      onClick: () => {
+        setValue(null);
       },
-    ]
-  }
+      variant: 'plain',
+    },
+  ]}
   helperText="This is a helper text"
   label="Label"
   onInputValueChange={({ inputValue }) => {
@@ -345,20 +336,21 @@ const [value, setValue] = React.useState()
               .startsWith(inputValue.toLocaleLowerCase())
           : true
       )
-    )
+    );
   }}
   optionalText="optional"
   options={items.slice(0, 5)}
-  optionToString={(option) => (option ? option.label : "")}
+  optionToString={(option) => (option ? option.label : '')}
   placeholder="Search by organization's name or handle"
   renderOption={({ highlightedIndex, defaultStyles, option, inputValue }) => (
     <div
       style={{
         ...defaultStyles,
-        alignContent: "center",
-        alignItems: "center",
-        backgroundColor: defaultStyles.backgroundColor && "rgba(0,130,252,0.05)",
-        display: "flex",
+        alignContent: 'center',
+        alignItems: 'center',
+        backgroundColor:
+          defaultStyles.backgroundColor && 'rgba(0,130,252,0.05)',
+        display: 'flex',
         padding: 8,
       }}
     >
@@ -368,14 +360,14 @@ const [value, setValue] = React.useState()
   renderSelectedItem={(selectedOption) => {
     return (
       <span>
-        {selectedOption.label}{" "}
+        {selectedOption.label}{' '}
         <strong>
-          <sup style={{ position: "relative", left: 12, top: -5 }}>
+          <sup style={{ position: 'relative', left: 12, top: -5 }}>
             {selectedOption.A}
           </sup>
           <sub
             style={{
-              position: "relative",
+              position: 'relative',
               top: 5,
             }}
           >
@@ -384,15 +376,14 @@ const [value, setValue] = React.useState()
           {selectedOption.symbol}
         </strong>
       </span>
-    )
+    );
   }}
   onSelectedItemChange={(selectedOption) => {
-    setValue(selectedOption)
+    setValue(selectedOption);
   }}
   selectedOption={value}
   totalCount={items.length}
-/>
-)
+/>;
 ```
 
 ### Multi Select
@@ -400,22 +391,21 @@ const [value, setValue] = React.useState()
 #### With Tags
 
 ```js
-import Highlight from "../Highlight/Highlight"
+import Highlight from '../Highlight/Highlight';
 const mockedOptions = [
-  { value: 1, label: "Neptunium", symbol: "Np", A: 237, Z: 93 },
-  { value: 2, label: "Plutonium", symbol: "Pu", A: 244, Z: 94 },
-  { value: 3, label: "Americium Darmstad", symbol: "Am", A: 243, Z: 95 },
-  { value: 4, label: "Curium", symbol: "Cm", A: 247, Z: 96 },
-  { value: 5, label: "Berkelium Flerovios", symbol: "Bk", A: 247, Z: 97 },
-  { value: 6, label: "Californium Copernicus", symbol: "Cf", A: 251, Z: 98 },
-  { value: 7, label: "Einsteinium", symbol: "Es", A: 252, Z: 99 },
-  { value: 8, label: "Fermium", symbol: "Fm", A: 257, Z: 100 },
-  { value: 9, label: "Mendelevium", symbol: "Md", A: 258, Z: 101 },
-  { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
-]
-const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState([])
-;(
+  { value: 1, label: 'Neptunium', symbol: 'Np', A: 237, Z: 93 },
+  { value: 2, label: 'Plutonium', symbol: 'Pu', A: 244, Z: 94 },
+  { value: 3, label: 'Americium Darmstad', symbol: 'Am', A: 243, Z: 95 },
+  { value: 4, label: 'Curium', symbol: 'Cm', A: 247, Z: 96 },
+  { value: 5, label: 'Berkelium Flerovios', symbol: 'Bk', A: 247, Z: 97 },
+  { value: 6, label: 'Californium Copernicus', symbol: 'Cf', A: 251, Z: 98 },
+  { value: 7, label: 'Einsteinium', symbol: 'Es', A: 252, Z: 99 },
+  { value: 8, label: 'Fermium', symbol: 'Fm', A: 257, Z: 100 },
+  { value: 9, label: 'Mendelevium', symbol: 'Md', A: 258, Z: 101 },
+  { value: 10, label: 'Nobelium', symbol: 'No', A: 259, Z: 102 },
+];
+const [items, setItems] = React.useState(mockedOptions);
+const [value, setValue] = React.useState([]);
 <Autocomplete
   getOptionLabel={(option) => option.label}
   multiSelect
@@ -428,7 +418,7 @@ const [value, setValue] = React.useState([])
               .startsWith(inputValue.toLocaleLowerCase())
           : true
       )
-    )
+    );
   }}
   options={items.slice(0, 5)}
   placeholder="Search by organization's name or handle"
@@ -436,10 +426,11 @@ const [value, setValue] = React.useState([])
     <div
       style={{
         ...defaultStyles,
-        alignContent: "center",
-        alignItems: "center",
-        backgroundColor: defaultStyles.backgroundColor && "rgba(0,130,252,0.05)",
-        display: "flex",
+        alignContent: 'center',
+        alignItems: 'center',
+        backgroundColor:
+          defaultStyles.backgroundColor && 'rgba(0,130,252,0.05)',
+        display: 'flex',
         padding: 8,
       }}
     >
@@ -447,33 +438,31 @@ const [value, setValue] = React.useState([])
     </div>
   )}
   onSelectedItemsChange={(selectedOptions) => {
-    setValue(selectedOptions)
+    setValue(selectedOptions);
   }}
   selectedOption={value}
   totalCount={items.length}
-/>
-)
+/>;
 ```
 
 #### With Remove
 
 ```js
-import Highlight from "../Highlight/Highlight"
+import Highlight from '../Highlight/Highlight';
 const mockedOptions = [
-  { value: 1, label: "Neptunium", symbol: "Np", A: 237, Z: 93 },
-  { value: 2, label: "Plutonium", symbol: "Pu", A: 244, Z: 94 },
-  { value: 3, label: "Americium Darmstad", symbol: "Am", A: 243, Z: 95 },
-  { value: 4, label: "Curium", symbol: "Cm", A: 247, Z: 96 },
-  { value: 5, label: "Berkelium Flerovios", symbol: "Bk", A: 247, Z: 97 },
-  { value: 6, label: "Californium Copernicus", symbol: "Cf", A: 251, Z: 98 },
-  { value: 7, label: "Einsteinium", symbol: "Es", A: 252, Z: 99 },
-  { value: 8, label: "Fermium", symbol: "Fm", A: 257, Z: 100 },
-  { value: 9, label: "Mendelevium", symbol: "Md", A: 258, Z: 101 },
-  { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
-]
-const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState([mockedOptions[0], mockedOptions[1]])
-;(
+  { value: 1, label: 'Neptunium', symbol: 'Np', A: 237, Z: 93 },
+  { value: 2, label: 'Plutonium', symbol: 'Pu', A: 244, Z: 94 },
+  { value: 3, label: 'Americium Darmstad', symbol: 'Am', A: 243, Z: 95 },
+  { value: 4, label: 'Curium', symbol: 'Cm', A: 247, Z: 96 },
+  { value: 5, label: 'Berkelium Flerovios', symbol: 'Bk', A: 247, Z: 97 },
+  { value: 6, label: 'Californium Copernicus', symbol: 'Cf', A: 251, Z: 98 },
+  { value: 7, label: 'Einsteinium', symbol: 'Es', A: 252, Z: 99 },
+  { value: 8, label: 'Fermium', symbol: 'Fm', A: 257, Z: 100 },
+  { value: 9, label: 'Mendelevium', symbol: 'Md', A: 258, Z: 101 },
+  { value: 10, label: 'Nobelium', symbol: 'No', A: 259, Z: 102 },
+];
+const [items, setItems] = React.useState(mockedOptions);
+const [value, setValue] = React.useState([mockedOptions[0], mockedOptions[1]]);
 <Autocomplete
   getOptionLabel={(option) => option.label}
   multiSelect
@@ -486,10 +475,10 @@ const [value, setValue] = React.useState([mockedOptions[0], mockedOptions[1]])
               .startsWith(inputValue.toLocaleLowerCase())
           : true
       )
-    )
+    );
   }}
   onRemove={(option) => {
-    setValue(value.filter((selected) => selected.value !== option.value))
+    setValue(value.filter((selected) => selected.value !== option.value));
   }}
   options={items.slice(0, 5)}
   placeholder="Search by organization's name or handle"
@@ -497,10 +486,11 @@ const [value, setValue] = React.useState([mockedOptions[0], mockedOptions[1]])
     <div
       style={{
         ...defaultStyles,
-        alignContent: "center",
-        alignItems: "center",
-        backgroundColor: defaultStyles.backgroundColor && "rgba(0,130,252,0.05)", 
-        display: "flex",
+        alignContent: 'center',
+        alignItems: 'center',
+        backgroundColor:
+          defaultStyles.backgroundColor && 'rgba(0,130,252,0.05)',
+        display: 'flex',
         padding: 8,
       }}
     >
@@ -508,33 +498,31 @@ const [value, setValue] = React.useState([mockedOptions[0], mockedOptions[1]])
     </div>
   )}
   onSelectedItemsChange={(selectedOptions) => {
-    setValue(selectedOptions)
+    setValue(selectedOptions);
   }}
   selectedOption={value}
   totalCount={items.length}
-/>
-)
+/>;
 ```
 
 #### With Custom Render
 
 ```js
-import Highlight from "../Highlight/Highlight"
+import Highlight from '../Highlight/Highlight';
 const mockedOptions = [
-  { value: 1, label: "Neptunium", symbol: "Np", A: 237, Z: 93 },
-  { value: 2, label: "Plutonium", symbol: "Pu", A: 244, Z: 94 },
-  { value: 3, label: "Americium Darmstad", symbol: "Am", A: 243, Z: 95 },
-  { value: 4, label: "Curium", symbol: "Cm", A: 247, Z: 96 },
-  { value: 5, label: "Berkelium Flerovios", symbol: "Bk", A: 247, Z: 97 },
-  { value: 6, label: "Californium Copernicus", symbol: "Cf", A: 251, Z: 98 },
-  { value: 7, label: "Einsteinium", symbol: "Es", A: 252, Z: 99 },
-  { value: 8, label: "Fermium", symbol: "Fm", A: 257, Z: 100 },
-  { value: 9, label: "Mendelevium", symbol: "Md", A: 258, Z: 101 },
-  { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
-]
-const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState([mockedOptions[0]])
-;(
+  { value: 1, label: 'Neptunium', symbol: 'Np', A: 237, Z: 93 },
+  { value: 2, label: 'Plutonium', symbol: 'Pu', A: 244, Z: 94 },
+  { value: 3, label: 'Americium Darmstad', symbol: 'Am', A: 243, Z: 95 },
+  { value: 4, label: 'Curium', symbol: 'Cm', A: 247, Z: 96 },
+  { value: 5, label: 'Berkelium Flerovios', symbol: 'Bk', A: 247, Z: 97 },
+  { value: 6, label: 'Californium Copernicus', symbol: 'Cf', A: 251, Z: 98 },
+  { value: 7, label: 'Einsteinium', symbol: 'Es', A: 252, Z: 99 },
+  { value: 8, label: 'Fermium', symbol: 'Fm', A: 257, Z: 100 },
+  { value: 9, label: 'Mendelevium', symbol: 'Md', A: 258, Z: 101 },
+  { value: 10, label: 'Nobelium', symbol: 'No', A: 259, Z: 102 },
+];
+const [items, setItems] = React.useState(mockedOptions);
+const [value, setValue] = React.useState([mockedOptions[0]]);
 <Autocomplete
   getOptionLabel={(option) => option.label}
   multiSelect
@@ -547,10 +535,10 @@ const [value, setValue] = React.useState([mockedOptions[0]])
               .startsWith(inputValue.toLocaleLowerCase())
           : true
       )
-    )
+    );
   }}
   onRemove={(option) => {
-    setValue(value.filter((selected) => selected.value !== option.value))
+    setValue(value.filter((selected) => selected.value !== option.value));
   }}
   options={items.slice(0, 5)}
   placeholder="Search by organization's name or handle"
@@ -558,10 +546,11 @@ const [value, setValue] = React.useState([mockedOptions[0]])
     <div
       style={{
         ...defaultStyles,
-        alignContent: "center",
-        alignItems: "center",
-        backgroundColor: defaultStyles.backgroundColor && "rgba(0,130,252,0.05)", 
-        display: "flex",
+        alignContent: 'center',
+        alignItems: 'center',
+        backgroundColor:
+          defaultStyles.backgroundColor && 'rgba(0,130,252,0.05)',
+        display: 'flex',
         padding: 8,
       }}
     >
@@ -571,15 +560,15 @@ const [value, setValue] = React.useState([mockedOptions[0]])
   renderSelectedItems={(options) => {
     return options.map((option) => (
       <span key={option.value}>
-        {option.label}{" "}
+        {option.label}{' '}
         <strong>
-          <sup sx={{ position: "relative", left: 3, top: "-5px" }}>
+          <sup sx={{ position: 'relative', left: 3, top: '-5px' }}>
             {option.A}
           </sup>
           <sub
             sx={{
-              position: "relative",
-              top: "5px",
+              position: 'relative',
+              top: '5px',
             }}
           >
             {option.Z}
@@ -587,36 +576,34 @@ const [value, setValue] = React.useState([mockedOptions[0]])
           {option.symbol}
         </strong>
       </span>
-    ))
+    ));
   }}
   onSelectedItemsChange={(selectedOptions) => {
-    setValue(selectedOptions)
+    setValue(selectedOptions);
   }}
   selectedOption={value}
   totalCount={items.length}
-/>
-)
+/>;
 ```
 
 #### Keep Search After Select
 
 ```js
-import Highlight from "../Highlight/Highlight"
+import Highlight from '../Highlight/Highlight';
 const mockedOptions = [
-  { value: 1, label: "Neptunium", symbol: "Np", A: 237, Z: 93 },
-  { value: 2, label: "Plutonium", symbol: "Pu", A: 244, Z: 94 },
-  { value: 3, label: "Americium Darmstad", symbol: "Am", A: 243, Z: 95 },
-  { value: 4, label: "Curium", symbol: "Cm", A: 247, Z: 96 },
-  { value: 5, label: "Berkelium Flerovios", symbol: "Bk", A: 247, Z: 97 },
-  { value: 6, label: "Californium Copernicus", symbol: "Cf", A: 251, Z: 98 },
-  { value: 7, label: "Einsteinium", symbol: "Es", A: 252, Z: 99 },
-  { value: 8, label: "Fermium", symbol: "Fm", A: 257, Z: 100 },
-  { value: 9, label: "Mendelevium", symbol: "Md", A: 258, Z: 101 },
-  { value: 10, label: "Nobelium", symbol: "No", A: 259, Z: 102 },
-]
-const [items, setItems] = React.useState(mockedOptions)
-const [value, setValue] = React.useState([mockedOptions[0], mockedOptions[1]])
-;(
+  { value: 1, label: 'Neptunium', symbol: 'Np', A: 237, Z: 93 },
+  { value: 2, label: 'Plutonium', symbol: 'Pu', A: 244, Z: 94 },
+  { value: 3, label: 'Americium Darmstad', symbol: 'Am', A: 243, Z: 95 },
+  { value: 4, label: 'Curium', symbol: 'Cm', A: 247, Z: 96 },
+  { value: 5, label: 'Berkelium Flerovios', symbol: 'Bk', A: 247, Z: 97 },
+  { value: 6, label: 'Californium Copernicus', symbol: 'Cf', A: 251, Z: 98 },
+  { value: 7, label: 'Einsteinium', symbol: 'Es', A: 252, Z: 99 },
+  { value: 8, label: 'Fermium', symbol: 'Fm', A: 257, Z: 100 },
+  { value: 9, label: 'Mendelevium', symbol: 'Md', A: 258, Z: 101 },
+  { value: 10, label: 'Nobelium', symbol: 'No', A: 259, Z: 102 },
+];
+const [items, setItems] = React.useState(mockedOptions);
+const [value, setValue] = React.useState([mockedOptions[0], mockedOptions[1]]);
 <Autocomplete
   getOptionLabel={(option) => option.label}
   keepSearchAfterSelect
@@ -630,10 +617,10 @@ const [value, setValue] = React.useState([mockedOptions[0], mockedOptions[1]])
               .startsWith(inputValue.toLocaleLowerCase())
           : true
       )
-    )
+    );
   }}
   onRemove={(option) => {
-    setValue(value.filter((selected) => selected.value !== option.value))
+    setValue(value.filter((selected) => selected.value !== option.value));
   }}
   options={items.slice(0, 5)}
   placeholder="Search by organization's name or handle"
@@ -641,10 +628,11 @@ const [value, setValue] = React.useState([mockedOptions[0], mockedOptions[1]])
     <div
       style={{
         ...defaultStyles,
-        alignContent: "center",
-        alignItems: "center",
-        backgroundColor: defaultStyles.backgroundColor && "rgba(0,130,252,0.05)", 
-        display: "flex",
+        alignContent: 'center',
+        alignItems: 'center',
+        backgroundColor:
+          defaultStyles.backgroundColor && 'rgba(0,130,252,0.05)',
+        display: 'flex',
         padding: 8,
       }}
     >
@@ -652,10 +640,9 @@ const [value, setValue] = React.useState([mockedOptions[0], mockedOptions[1]])
     </div>
   )}
   onSelectedItemsChange={(selectedOptions) => {
-    setValue(selectedOptions)
+    setValue(selectedOptions);
   }}
   selectedOption={value}
   totalCount={items.length}
-/>
-)
+/>;
 ```

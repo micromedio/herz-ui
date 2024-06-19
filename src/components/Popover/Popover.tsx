@@ -1,72 +1,72 @@
 /** @jsxImportSource theme-ui */
-import { ThemeUICSSObject } from "theme-ui"
-import React, { useCallback, useRef, useState } from "react"
-import { TippyProps } from "@tippyjs/react"
-import { roundArrow } from "tippy.js"
-import ReactDOM from "react-dom"
-import { ssrSafeCreateDiv } from "../../helpers/ssr"
-import LazyTippy from "./LazyTippy"
+import { ThemeUICSSObject } from 'theme-ui';
+import React, { useCallback, useRef, useState } from 'react';
+import { TippyProps } from '@tippyjs/react';
+import { roundArrow } from 'tippy.js';
+import ReactDOM from 'react-dom';
+import { ssrSafeCreateDiv } from '../../helpers/ssr';
+import LazyTippy from './LazyTippy';
 
 export interface PopoverProps {
   /** Content is always rendered, even when the Popover is not mounted or hidden */
-  alwaysRenderContent?: boolean
+  alwaysRenderContent?: boolean;
   /** Popover content */
-  content: React.ReactNode
+  content: React.ReactNode;
   /** Reference element */
-  children: TippyProps["children"]
+  children: TippyProps['children'];
   /** Used to control where the popover will be positioned in relation to the reference element */
-  placement?: TippyProps["placement"]
+  placement?: TippyProps['placement'];
   /** List of events that can trigger the popover showing. Only used if the element is not controlled (if `isVisible` is not used) */
-  trigger?: Array<"mouseenter" | "focus" | "focusin" | "click" | "manual">
+  trigger?: Array<'mouseenter' | 'focus' | 'focusin' | 'click' | 'manual'>;
   /** Element in wich the Popover should be appended to */
-  appendTo?: TippyProps["appendTo"]
+  appendTo?: TippyProps['appendTo'];
 
   /** Popover color theme */
-  theme?: "light" | "dark"
+  theme?: 'light' | 'dark';
   /** Popover border radius */
-  borderRadius?: number
+  borderRadius?: number;
   /** Popover content style */
-  contentStyle?: ThemeUICSSObject
+  contentStyle?: ThemeUICSSObject;
   /** Popover box style */
-  boxStyle?: ThemeUICSSObject
+  boxStyle?: ThemeUICSSObject;
 
   /** Use to control the visibility of the popover from the parent component. Most of the time this is not needed when choosing the right triggers for your situation */
-  isVisible?: boolean
+  isVisible?: boolean;
   /** If `true` removes padding from the content container */
-  noPadding?: boolean
+  noPadding?: boolean;
   /** If `true` the popover will remain visible while the mouse is hovering over the content */
-  isInteractive?: boolean
+  isInteractive?: boolean;
   /** If `true` the popover has an arrow pointing to the reference element */
-  hasArrow?: boolean
+  hasArrow?: boolean;
   /** If `true` shows a background overlay to fade the rest of the application when the popover is open */
-  hasBackgroundOverlay?: boolean
+  hasBackgroundOverlay?: boolean;
   /** `true` if popover should hide on click. Only used if the element is not controlled (if `isVisible` is not used) */
-  hideOnClick?: boolean
+  hideOnClick?: boolean;
 
   /** Callback called when there's a click outside the popover */
-  onClickOutside?: TippyProps["onClickOutside"]
+  onClickOutside?: TippyProps['onClickOutside'];
   /** Callback called when popover is hidden */
-  onHide?: TippyProps["onHide"]
+  onHide?: TippyProps['onHide'];
   /** Callback called when popover is shown */
-  onShow?: TippyProps["onShow"]
+  onShow?: TippyProps['onShow'];
   /** Callback called when popover is created, can be used to access the underlying tippy.js instance */
-  onCreate?: TippyProps["onCreate"]
+  onCreate?: TippyProps['onCreate'];
 
   /** z-index of the popover element */
-  zIndexPopper?: number
+  zIndexPopper?: number;
   /** z-index of the background overlay element */
-  zIndexOverlay?: number
+  zIndexOverlay?: number;
 }
 
 const Popover = ({
   alwaysRenderContent = false,
   content,
   children,
-  placement = "auto",
-  trigger = ["mouseenter", "focus"],
+  placement = 'auto',
+  trigger = ['mouseenter', 'focus'],
   appendTo,
 
-  theme = "light",
+  theme = 'light',
   borderRadius = 4,
   contentStyle,
   boxStyle,
@@ -86,91 +86,91 @@ const Popover = ({
   zIndexPopper = 9000,
   zIndexOverlay = 8000,
 }: PopoverProps) => {
-  const [visible, setVisible] = useState(false)
-  const overlayRef = useRef<HTMLDivElement>(ssrSafeCreateDiv())
+  const [visible, setVisible] = useState(false);
+  const overlayRef = useRef<HTMLDivElement>(ssrSafeCreateDiv());
 
-  const isControlled = isVisible !== undefined
+  const isControlled = isVisible !== undefined;
 
   const arrowStyles: ThemeUICSSObject = {
-    ".tippy-svg-arrow": {
+    '.tippy-svg-arrow': {
       width: 16,
       height: 16,
-      textAlign: "initial",
-      "& > svg": {
-        position: "absolute",
+      textAlign: 'initial',
+      '& > svg': {
+        position: 'absolute',
       },
     },
 
     "&[data-placement^='top'] > .tippy-svg-arrow": {
       bottom: 0,
-      "& > svg": {
-        top: "16px",
-        transform: "rotate(180deg) scale(1.2, 1.5)",
+      '& > svg': {
+        top: '16px',
+        transform: 'rotate(180deg) scale(1.2, 1.5)',
       },
     },
     "&[data-placement^='bottom'] > .tippy-svg-arrow": {
       top: 0,
-      "& > svg": {
-        bottom: "16px",
-        transform: "scale(1.2, 1.5)",
+      '& > svg': {
+        bottom: '16px',
+        transform: 'scale(1.2, 1.5)',
       },
     },
     "&[data-placement^='left'] > .tippy-svg-arrow": {
       right: 0,
-      "& > svg": {
-        left: "11px",
-        top: "calc(50% - 3px)",
-        transform: "rotate(90deg) scale(1.1, 1.6)",
+      '& > svg': {
+        left: '11px',
+        top: 'calc(50% - 3px)',
+        transform: 'rotate(90deg) scale(1.1, 1.6)',
       },
     },
     "&[data-placement^='right'] > .tippy-svg-arrow": {
       left: 0,
-      "& > svg": {
-        right: "11px",
-        top: "calc(50% - 3px)",
-        transform: "rotate(-90deg) scale(1.1, 1.6)",
+      '& > svg': {
+        right: '11px',
+        top: 'calc(50% - 3px)',
+        transform: 'rotate(-90deg) scale(1.1, 1.6)',
       },
     },
-  }
+  };
 
   const themeStyles: ThemeUICSSObject = {
     "&[data-theme~='light']": {
-      backgroundColor: "#fff",
-      color: "text",
-      "& > .tippy-svg-arrow": {
-        fill: "#fff",
+      backgroundColor: '#fff',
+      color: 'text',
+      '& > .tippy-svg-arrow': {
+        fill: '#fff',
       },
     },
 
     "&[data-theme~='dark']": {
-      backgroundColor: "text",
-      color: "#fff",
-      "& > .tippy-svg-arrow": {
-        fill: "text",
+      backgroundColor: 'text',
+      color: '#fff',
+      '& > .tippy-svg-arrow': {
+        fill: 'text',
       },
     },
-  }
+  };
 
   const calculateArrowPadding = useCallback(
     ({
       popper,
       placement,
     }: {
-      popper: { width: number; height: number }
-      placement: string
+      popper: { width: number; height: number };
+      placement: string;
     }) => {
-      const arrowSize = 16
-      const defaultPadding = (borderRadius + 2) * 2
-      if (placement.startsWith("left") || placement.startsWith("right")) {
-        return Math.min((popper.height - arrowSize) / 2, defaultPadding)
+      const arrowSize = 16;
+      const defaultPadding = (borderRadius + 2) * 2;
+      if (placement.startsWith('left') || placement.startsWith('right')) {
+        return Math.min((popper.height - arrowSize) / 2, defaultPadding);
       }
-      if (placement.startsWith("top") || placement.startsWith("bottom")) {
-        return Math.min((popper.width - arrowSize) / 2, defaultPadding)
+      if (placement.startsWith('top') || placement.startsWith('bottom')) {
+        return Math.min((popper.width - arrowSize) / 2, defaultPadding);
       }
-      return defaultPadding
+      return defaultPadding;
     },
     [borderRadius]
-  )
+  );
 
   return (
     <React.Fragment>
@@ -182,32 +182,32 @@ const Popover = ({
         interactive={isInteractive}
         arrow={hasArrow && roundArrow}
         hideOnClick={isControlled ? undefined : hideOnClick}
-        trigger={isControlled ? undefined : trigger.join(" ")}
+        trigger={isControlled ? undefined : trigger.join(' ')}
         placement={placement}
         interactiveBorder={16}
         zIndex={zIndexPopper}
         onClickOutside={(instance, event) => onClickOutside?.(instance, event)}
         onCreate={onCreate}
         onShow={(instance) => {
-          setVisible(true)
+          setVisible(true);
           if (overlayRef.current) {
-            document.body.append(overlayRef.current)
+            document.body.append(overlayRef.current);
           }
-          onShow?.(instance)
+          onShow?.(instance);
         }}
         onHide={(instance) => {
-          setVisible(false)
+          setVisible(false);
 
           setTimeout(() => {
-            if (overlayRef.current) overlayRef.current.remove()
-          })
-          onHide?.(instance)
+            if (overlayRef.current) overlayRef.current.remove();
+          });
+          onHide?.(instance);
         }}
         {...(appendTo ? { appendTo } : {})}
         popperOptions={{
           modifiers: [
             {
-              name: "arrow",
+              name: 'arrow',
               options: {
                 padding: calculateArrowPadding,
               },
@@ -215,15 +215,15 @@ const Popover = ({
           ],
         }}
         sx={{
-          "&&": {
-            maxWidth: "none !important",
-            position: "relative",
+          '&&': {
+            maxWidth: 'none !important',
+            position: 'relative',
             outline: 0,
-            transitionProperty: "transform,visibility,opacity",
+            transitionProperty: 'transform,visibility,opacity',
             borderRadius,
-            boxShadow: "dark",
-            ".tippy-content": {
-              position: "relative",
+            boxShadow: 'dark',
+            '.tippy-content': {
+              position: 'relative',
               ...(noPadding
                 ? { padding: 0 }
                 : {
@@ -232,7 +232,7 @@ const Popover = ({
                   }),
               ...contentStyle,
             },
-            "&[data-animation=fade][data-state=hidden]": {
+            '&[data-animation=fade][data-state=hidden]': {
               opacity: 0,
             },
             ...arrowStyles,
@@ -247,32 +247,32 @@ const Popover = ({
         ? ReactDOM.createPortal(
             <div
               sx={{
-                "@keyframes fadeIn": {
-                  "0%": {
+                '@keyframes fadeIn': {
+                  '0%': {
                     opacity: 0,
                   },
-                  "100%": {
+                  '100%': {
                     opacity: 1,
                   },
                 },
-                "@keyframes fadeOut": {
-                  "0%": {
+                '@keyframes fadeOut': {
+                  '0%': {
                     opacity: 1,
                   },
-                  "100%": {
+                  '100%': {
                     opacity: 0,
                   },
                 },
                 animation: visible
                   ? `0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards fadeIn`
                   : `0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards fadeOut`,
-                position: "fixed",
+                position: 'fixed',
                 top: 0,
                 left: 0,
-                width: "100vw",
-                height: "100vh",
-                backgroundColor: "rgba(0, 0, 0, 0.6)",
-                pointerEvents: "none",
+                width: '100vw',
+                height: '100vh',
+                backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                pointerEvents: 'none',
                 zIndex: zIndexOverlay,
               }}
             />,
@@ -280,7 +280,7 @@ const Popover = ({
           )
         : undefined}
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default Popover
+export default Popover;

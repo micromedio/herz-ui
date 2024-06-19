@@ -1,28 +1,28 @@
-import * as TablerIcons from "@tabler/icons-react"
-import React, { SVGAttributes } from "react"
+import * as TablerIcons from '@tabler/icons-react';
+import React, { SVGAttributes } from 'react';
 
-type IconType = typeof import("@tabler/icons-react")
+type IconType = typeof import('@tabler/icons-react');
 
 export interface IconProps {
-  name: keyof Omit<IconType, "iconsList" | "icons" | "createReactComponent">
+  name: keyof Omit<IconType, 'iconsList' | 'icons' | 'createReactComponent'>;
 
   // set custom `width` and `height`
-  size?: number
+  size?: number;
 
   // set the thickness stroke
-  stroke?: number
-  className?: SVGAttributes<SVGElement>["className"]
-  style?: SVGAttributes<SVGElement>["style"]
+  stroke?: number;
+  className?: SVGAttributes<SVGElement>['className'];
+  style?: SVGAttributes<SVGElement>['style'];
 }
 
 const Icon = ({
-  name = "IconAlertTriangle",
+  name = 'IconAlertTriangle',
   size = 20,
   stroke = 2,
   className,
   style,
 }: IconProps) => {
-  const Component = TablerIcons[name]
+  const Component = TablerIcons[name];
 
   if (Component)
     return (
@@ -32,8 +32,8 @@ const Icon = ({
         className={className}
         style={style}
       />
-    )
-  return <React.Fragment />
-}
+    );
+  return <React.Fragment />;
+};
 
-export default Icon
+export default Icon;

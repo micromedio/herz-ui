@@ -1,15 +1,15 @@
 /** @jsxImportSource theme-ui */
-import React, { forwardRef, HTMLAttributes, useMemo } from "react"
+import React, { forwardRef, HTMLAttributes, useMemo } from 'react';
 
 export interface PaperProps {
   /** Paper elevation */
-  elevation?: number
+  elevation?: number;
   /** Paper inside padding */
-  padding?: number
+  padding?: number;
   /** The content of the component */
-  children?: React.ReactNode
-  className?: HTMLAttributes<HTMLDivElement>["className"]
-  onClick?: HTMLAttributes<HTMLDivElement>["onClick"]
+  children?: React.ReactNode;
+  className?: HTMLAttributes<HTMLDivElement>['className'];
+  onClick?: HTMLAttributes<HTMLDivElement>['onClick'];
 }
 
 const Paper = forwardRef<HTMLDivElement, PaperProps>(function PaperWithRef(
@@ -17,11 +17,11 @@ const Paper = forwardRef<HTMLDivElement, PaperProps>(function PaperWithRef(
   ref
 ) {
   const boxShadow = useMemo(() => {
-    if (elevation === 1) return "main"
-    if (elevation >= 2) return "dark"
+    if (elevation === 1) return 'main';
+    if (elevation >= 2) return 'dark';
 
-    return "none"
-  }, [elevation])
+    return 'none';
+  }, [elevation]);
 
   return (
     <div
@@ -30,14 +30,14 @@ const Paper = forwardRef<HTMLDivElement, PaperProps>(function PaperWithRef(
         p: padding,
         borderRadius: 4,
         boxShadow,
-        backgroundColor: "#FFF",
+        backgroundColor: '#FFF',
       }}
       className={className}
       onClick={onClick}
     >
       {children}
     </div>
-  )
-})
+  );
+});
 
-export default Paper
+export default Paper;

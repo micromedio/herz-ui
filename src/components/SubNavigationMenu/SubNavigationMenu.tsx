@@ -6,20 +6,20 @@ import {
   useEffect,
   useMemo,
   useState,
-} from "react"
-import { jsx as TUIjsx, ThemeUICSSObject } from "theme-ui"
-import Button from "../Button/Button"
-import { SubNavigationMenuContext, useSubNavigationMenu } from "./Context"
+} from 'react';
+import { jsx as TUIjsx, ThemeUICSSObject } from 'theme-ui';
+import Button from '../Button/Button';
+import { SubNavigationMenuContext, useSubNavigationMenu } from './Context';
 
 interface SubNavigationMenuItemProps {
-  children: ReactElement | string
-  collapsedItem?: ReactElement | string
-  onClick?: MouseEventHandler<HTMLLIElement>
-  selected?: boolean
+  children: ReactElement | string;
+  collapsedItem?: ReactElement | string;
+  onClick?: MouseEventHandler<HTMLLIElement>;
+  selected?: boolean;
   styles?: {
-    root: ThemeUICSSObject
-    anchor: ThemeUICSSObject
-  }
+    root: ThemeUICSSObject;
+    anchor: ThemeUICSSObject;
+  };
 }
 
 const SubNavigationMenuItem = ({
@@ -29,25 +29,25 @@ const SubNavigationMenuItem = ({
   selected,
   styles,
 }: SubNavigationMenuItemProps) => {
-  const subNavigationMenuContext = useSubNavigationMenu()
+  const subNavigationMenuContext = useSubNavigationMenu();
   if (subNavigationMenuContext === null) {
-    throw "<SubNavigationMenu.MenuItem> needs to be inside a <SubNavigationMenu> component"
+    throw '<SubNavigationMenu.MenuItem> needs to be inside a <SubNavigationMenu> component';
   }
-  const { collapsedHidden, isCollapsed } = subNavigationMenuContext
+  const { collapsedHidden, isCollapsed } = subNavigationMenuContext;
 
   useEffect(() => {
     if (!collapsedHidden && typeof children !== typeof collapsedItem)
       console.warn(
-        "You must be consistent with the properties of children and the collapsed item, both strings or both elements"
-      )
-  }, [children, collapsedHidden, collapsedItem])
+        'You must be consistent with the properties of children and the collapsed item, both strings or both elements'
+      );
+  }, [children, collapsedHidden, collapsedItem]);
 
   const menuItem = useMemo((): ReactElement => {
     const defaultStyles: ThemeUICSSObject = {
       py: 2,
-      whiteSpace: "nowrap",
-      width: "100%",
-      wordWrap: "initial",
+      whiteSpace: 'nowrap',
+      width: '100%',
+      wordWrap: 'initial',
       ...({
         default: {
           paddingLeft: 3,
@@ -55,49 +55,49 @@ const SubNavigationMenuItem = ({
         },
         collapsed: {
           px: 2,
-          textAlign: "center",
+          textAlign: 'center',
         },
-      }[isCollapsed ? "collapsed" : "default"] as ThemeUICSSObject),
-    }
+      }[isCollapsed ? 'collapsed' : 'default'] as ThemeUICSSObject),
+    };
     const item = (
       isCollapsed && !collapsedHidden ? collapsedItem : children
-    ) as string | ReactElement
-    if (typeof item === "string") {
-      return <span sx={defaultStyles}>{item}</span>
+    ) as string | ReactElement;
+    if (typeof item === 'string') {
+      return <span sx={defaultStyles}>{item}</span>;
     }
     return TUIjsx(item.type, {
       ...item.props,
       sx: { ...defaultStyles, ...item.props.sx },
-    })
-  }, [children, collapsedHidden, collapsedItem, isCollapsed])
+    });
+  }, [children, collapsedHidden, collapsedItem, isCollapsed]);
 
   return (
     <li
       onClick={onClick}
       sx={{
         ...styles?.root,
-        backgroundColor: selected ? "primary.alpha.90" : undefined,
-        color: selected ? "primary" : "text.40",
-        cursor: "pointer",
-        display: "flex",
-        transition: "0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-        transitionProperty: "background-color, color, padding, width",
-        variant: selected ? "text.button1" : "text.body1",
-        "&:hover": {
-          backgroundColor: !selected ? "text.90" : undefined,
+        backgroundColor: selected ? 'primary.alpha.90' : undefined,
+        color: selected ? 'primary' : 'text.40',
+        cursor: 'pointer',
+        display: 'flex',
+        transition: '0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+        transitionProperty: 'background-color, color, padding, width',
+        variant: selected ? 'text.button1' : 'text.body1',
+        '&:hover': {
+          backgroundColor: !selected ? 'text.90' : undefined,
         },
-        "& > a": {
-          color: "inherit",
-          textDecoration: "none",
+        '& > a': {
+          color: 'inherit',
+          textDecoration: 'none',
         },
         ...{
           default: {
             borderTopLeftRadius: 2,
             borderBottomLeftRadius: 2,
-            "&:after": selected
+            '&:after': selected
               ? {
                   content: '""',
-                  backgroundColor: "primary",
+                  backgroundColor: 'primary',
                   borderTopLeftRadius: 1,
                   borderBottomLeftRadius: 1,
                   width: 4,
@@ -107,40 +107,40 @@ const SubNavigationMenuItem = ({
           collapsed: {
             borderRadius: 2,
           },
-        }[isCollapsed ? "collapsed" : "default"],
+        }[isCollapsed ? 'collapsed' : 'default'],
       }}
     >
       {menuItem}
     </li>
-  )
-}
+  );
+};
 
 export interface SubNavigationMenuProps {
   /** Description content */
-  children: ReactElement[]
+  children: ReactElement[];
 
   /** Whether the component is hidden when collapsed or not */
-  collapsedHidden?: boolean
+  collapsedHidden?: boolean;
 
   /** The amount of width for the collapsed menu */
-  collapsedWidth?: number
+  collapsedWidth?: number;
 
   /** Whether the menu is collapsible or not */
-  collapsible?: boolean
+  collapsible?: boolean;
 
   /** Callback for collapse button click */
-  onCollapseButtonClick?: (collapsed: boolean) => void
+  onCollapseButtonClick?: (collapsed: boolean) => void;
 
   /** Callback for collapse button hover */
-  onCollapseButtonHover?: (isHovering: boolean) => void
+  onCollapseButtonHover?: (isHovering: boolean) => void;
 
   styles?: {
-    root?: ThemeUICSSObject
-    list?: ThemeUICSSObject
-  }
+    root?: ThemeUICSSObject;
+    list?: ThemeUICSSObject;
+  };
 
   /** The amount of width for the non collapsed menu */
-  width?: number
+  width?: number;
 }
 
 const SubNavigationMenu = ({
@@ -153,13 +153,13 @@ const SubNavigationMenu = ({
   styles,
   width = 164,
 }: SubNavigationMenuProps) => {
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
 
   return (
     <nav
       sx={{
-        backgroundColor: "transparent",
-        position: "relative",
+        backgroundColor: 'transparent',
+        position: 'relative',
         ...styles?.root,
       }}
     >
@@ -168,20 +168,20 @@ const SubNavigationMenu = ({
       >
         <ul
           sx={{
-            backgroundColor: "transparent",
-            borderColor: "text.90",
-            display: "flex",
+            backgroundColor: 'transparent',
+            borderColor: 'text.90',
+            display: 'flex',
             gap: 2,
-            flexDirection: "column",
+            flexDirection: 'column',
             flexGrow: 1,
-            flexWrap: "nowrap",
-            listStyle: "none",
+            flexWrap: 'nowrap',
+            listStyle: 'none',
             margin: 0,
-            minHeight: "100%",
-            overflowX: "hidden",
-            overflowY: "auto",
+            minHeight: '100%',
+            overflowX: 'hidden',
+            overflowY: 'auto',
             paddingInlineStart: 6,
-            transition: "opacity, width 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+            transition: 'opacity, width 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
             ...({
               default: {
                 width,
@@ -192,7 +192,7 @@ const SubNavigationMenu = ({
                 opacity: collapsedHidden ? 0 : 1,
                 width: collapsedWidth,
               },
-            }[isCollapsed ? "collapsed" : "default"] as ThemeUICSSObject),
+            }[isCollapsed ? 'collapsed' : 'default'] as ThemeUICSSObject),
             ...styles?.list,
           }}
         >
@@ -207,40 +207,40 @@ const SubNavigationMenu = ({
           color="text"
           iconName="IconArrowBarLeft"
           onClick={() => {
-            onCollapseButtonClick?.(!isCollapsed)
-            setIsCollapsed(!isCollapsed)
+            onCollapseButtonClick?.(!isCollapsed);
+            setIsCollapsed(!isCollapsed);
           }}
           onMouseEnter={() => {
-            onCollapseButtonHover?.(true)
+            onCollapseButtonHover?.(true);
           }}
           onMouseLeave={() => {
-            onCollapseButtonHover?.(false)
+            onCollapseButtonHover?.(false);
           }}
           size="small"
           styles={{
             icon: {
-              transform: isCollapsed ? "scale(-1, 1)" : "scale(1, 1)",
-              transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+              transform: isCollapsed ? 'scale(-1, 1)' : 'scale(1, 1)',
+              transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
             },
           }}
           sx={{
-            backgroundColor: "#ffffff",
-            boxShadow: "dark",
-            padding: "6px",
-            position: "absolute",
-            right: "-14px",
-            top: "calc(50% - 14px)",
-            "&:hover": {
-              color: "secondary",
+            backgroundColor: '#ffffff',
+            boxShadow: 'dark',
+            padding: '6px',
+            position: 'absolute',
+            right: '-14px',
+            top: 'calc(50% - 14px)',
+            '&:hover': {
+              color: 'secondary',
             },
           }}
           variant="filled"
         />
       )}
     </nav>
-  )
-}
+  );
+};
 
-SubNavigationMenu.MenuItem = SubNavigationMenuItem
+SubNavigationMenu.MenuItem = SubNavigationMenuItem;
 
-export default SubNavigationMenu
+export default SubNavigationMenu;
