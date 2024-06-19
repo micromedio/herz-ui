@@ -12,7 +12,6 @@ export const decorators = [
 ];
 
 export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
   backgrounds: {
     default: 'white',
     values: [
@@ -34,3 +33,4 @@ export const parameters = {
     captureElement: '#root > *',
   },
 };
+export const tags = ['autodocs'];
