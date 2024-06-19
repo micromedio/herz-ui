@@ -1,4 +1,4 @@
-import { render, screen } from '../../tests/utils';
+import { render, screen, waitFor } from '../../tests/utils';
 import { axe } from 'jest-axe';
 import { Switch } from './Switch';
 import userEvent from '@testing-library/user-event';
@@ -11,7 +11,8 @@ describe('Switch', () => {
 
     // Assert
     expect(onChange).not.toHaveBeenCalled();
-    userEvent.click(screen.getByRole('checkbox'));
+    await waitFor(() => userEvent.click(screen.getByRole('checkbox')));
+
     expect(onChange).toHaveBeenCalled();
   });
 

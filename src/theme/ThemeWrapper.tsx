@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ThemeProvider } from 'theme-ui';
+import { ThemeProvider, ThemeUIProvider } from 'theme-ui';
 
 import { theme } from './theme';
 
@@ -10,7 +10,7 @@ export interface IThemeWrapperProps {
 const ThemeWrapper = function (props: IThemeWrapperProps) {
   const { children } = props;
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return <ThemeUIProvider theme={theme}>{children}</ThemeUIProvider>;
 };
 
 export default ThemeWrapper;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { axe } from 'jest-axe';
-import { fireEvent, render } from '../../tests/utils';
+import { fireEvent, render, waitFor } from '../../tests/utils';
 import MobileModal from './MobileModal';
 
 const mockedClientRects = {
@@ -286,7 +286,8 @@ describe('MobileModalDraggable', () => {
     fireEvent.touchMove(element, {
       touches: [{ clientY: viewportHeight - 21 }],
     });
-    fireEvent.touchEnd(element);
+    await waitFor(() => fireEvent.touchEnd(element));
+    await new Promise((resolve) => setTimeout(resolve, 1300));
 
     const elementTopPositionAfterTryToOpen = Number.parseInt(
       window
@@ -331,7 +332,8 @@ describe('MobileModalDraggable', () => {
     fireEvent.touchMove(element, {
       touches: [{ clientY: 21 }],
     });
-    fireEvent.touchEnd(element);
+    await waitFor(() => fireEvent.touchEnd(element));
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
     const elementTopPositionAfterTryToClose = Number.parseInt(
       window

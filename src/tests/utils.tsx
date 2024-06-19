@@ -1,20 +1,20 @@
 import React, { FC, ReactElement, ReactNode } from 'react';
-import { render, RenderOptions } from '@testing-library/react';
+import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import ThemeWrapper from '../theme/ThemeWrapper';
 
 export interface IThemeWrapperProps {
   children?: ReactNode;
 }
 
-const AllTheProviders: FC = (props: IThemeWrapperProps) => {
-  const { children } = props;
+const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
   return <ThemeWrapper>{children}</ThemeWrapper>;
 };
 
 const customRender = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, 'queries'>
-) => render(ui, { wrapper: AllTheProviders, ...options });
+  options?: Omit<RenderOptions, 'wrapper'>
+): RenderResult =>
+  render(ui, { wrapper: AllTheProviders as React.ComponentType, ...options });
 
 export * from '@testing-library/react';
 

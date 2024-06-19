@@ -1,12 +1,18 @@
 import DateSelect, { DateSelectProps } from './DateSelect';
-import { Meta, Story } from '@storybook/react/types-6-0';
+import { Meta, StoryFn } from '@storybook/react/types-6-0';
 
-export default {
+import { fn } from '@storybook/test';
+
+const meta: Meta<typeof DateSelect> = {
   title: 'Design System/DateSelect',
   component: DateSelect,
-} as Meta;
+  // 👇 Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked
+  args: { onChange: fn() },
+};
 
-const Template: Story<DateSelectProps> = (props) => <DateSelect {...props} />;
+export default meta;
+
+const Template: StoryFn<DateSelectProps> = (props) => <DateSelect {...props} />;
 
 // Each story then reuses that template
 export const Default = Template.bind({});

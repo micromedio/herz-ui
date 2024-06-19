@@ -8,12 +8,12 @@ describe('Table', () => {
   const columns = [
     {
       Header: 'ID',
-      accessor: 'id',
+      accessor: 'id' as const,
       highlight: true,
     },
     {
       Header: 'NAME',
-      accessor: 'name',
+      accessor: 'name' as const,
     },
   ];
 

@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { fireEvent, render, waitFor } from '../../tests/utils';
 
 import { Autocomplete } from '..';

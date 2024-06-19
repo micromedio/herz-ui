@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '../../tests/utils';
 import DateSelect from './DateSelect';
 import userEvent from '@testing-library/user-event';
+
 import { axe } from 'jest-axe';
 
 describe('DateSelect', () => {
@@ -145,7 +146,8 @@ describe('DateSelect', () => {
     fireEvent.change(toInput, { target: { value: '02/03/2022' } });
     expect(setButton).not.toBeDisabled();
     expect(onChange).not.toHaveBeenCalled();
-    userEvent.click(setButton);
+    await waitFor(() => userEvent.click(setButton));
+
     expect(onChange).toHaveBeenCalledWith({
       from: '05/09/2020',
       to: '02/03/2022',

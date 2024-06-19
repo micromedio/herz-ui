@@ -1,10 +1,10 @@
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import React, { useState } from 'react';
 import { fireEvent, render } from '../../tests/utils';
 
-import Uploader, { IUploaderProps } from './Uploader';
+import Uploader, { UploaderProps } from './Uploader';
 
-const DefaultTemplate = (props: IUploaderProps) => {
+const DefaultTemplate = (props: UploaderProps) => {
   const [files, setFiles] = useState<File[]>([]);
 
   return (
