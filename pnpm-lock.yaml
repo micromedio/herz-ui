@@ -219,9 +219,6 @@ importers:
       eslint-plugin-unicorn:
         specifier: ^54.0.0
         version: 54.0.0(eslint@9.5.0)
-      extend-expect:
-        specifier: link:@testing-library/jest-dom/extend-expect
-        version: link:@testing-library/jest-dom/extend-expect
       faker:
         specifier: ^5.5.3
         version: 5.5.3

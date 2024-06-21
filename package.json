@@ -146,7 +146,6 @@
     "eslint-plugin-react": "7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-unicorn": "^54.0.0",
-    "extend-expect": "link:@testing-library/jest-dom/extend-expect",
     "faker": "^5.5.3",
     "generate-changelog": "^1.8.0",
     "husky": "^9.0.11",
