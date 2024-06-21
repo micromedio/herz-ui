@@ -32,7 +32,8 @@
     "build:styleguidist": "styleguidist build",
     "plop": "plop",
     "prettier:check": "prettier --check .",
-    "prettier:format": "prettier --write ."
+    "prettier:format": "prettier --write .",
+    "postinstall": "pnpm run build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
