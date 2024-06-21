@@ -28,7 +28,8 @@ build-storybook.log*
 /styleguide
 /components
 /theme
-/lib
+# TODO: remover isso depois de publica no npm
+# /lib
 .vscode
 
 .vercel
