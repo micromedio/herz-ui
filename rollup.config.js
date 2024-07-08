@@ -16,14 +16,7 @@ export default {
       preserveModulesRoot: 'src',
     },
   ],
-  external: [
-    'classnames',
-    'debounce',
-    'lodash/memoize',
-    'prop-types',
-    'react',
-    'react-dom',
-  ],
+  external: ['react', 'react-dom'],
   plugins: [
     cleaner({
       targets: ['lib'],
