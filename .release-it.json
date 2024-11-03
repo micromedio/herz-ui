@@ -1,7 +1,7 @@
 {
   "git": {
     "commitMessage": "chore: release v${version}",
-    "requireBranch": "master"
+    "requireBranch": "herz-ui-v2"
   },
   "github": {
     "release": true
