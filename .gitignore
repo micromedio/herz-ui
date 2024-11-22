@@ -37,3 +37,4 @@ build-storybook.log*
 __diff_output__
 
 /report
+/lib

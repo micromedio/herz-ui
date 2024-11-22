@@ -4,12 +4,21 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import cleaner from 'rollup-plugin-cleaner';
 import babel from '@rollup/plugin-babel';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
+import packageJson from './package.json';
 
 export default {
   input: ['src/components/index.ts'],
   output: [
     {
-      dir: `./lib`,
+      dir: `${packageJson.main.replace('components/index.js', '')}`,
+      exports: 'named',
+      format: 'cjs',
+      sourcemap: true,
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+    },
+    {
+      dir: `${packageJson.module.replace('components/index.js', '')}`,
       format: 'esm',
       sourcemap: true,
       preserveModules: true,

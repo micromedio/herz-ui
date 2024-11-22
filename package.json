@@ -2,8 +2,9 @@
   "name": "@micromed/herz-ui",
   "version": "2.0.0",
   "description": "Herz UI (/hɛrʦ/ - Hérts) is a design system containing a styleguide(colors, grid, icons, typography) and library of UI components",
-  "main": "./lib/components/index.js",
+  "main": "./lib/cjs/components/index.js",
   "typings": "./lib/types/components/index.d.ts",
+  "module": "./lib/es/components/index.js",
   "files": [
     "lib"
   ],
