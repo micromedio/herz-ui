@@ -25,7 +25,7 @@ export default {
       preserveModulesRoot: 'src',
     },
   ],
-  external: ['react', 'react-dom'],
+  external: ['react', 'react-dom', 'theme-ui'],
   plugins: [
     cleaner({
       targets: ['lib'],
