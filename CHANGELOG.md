@@ -1,3 +1,9 @@
+#### 2.0.4 (2025-04-11)
+
+##### Chores
+
+*  release v2.0.4 ([f4f6ad9f](https://github.com/micromed-dev/herz-ui/commit/f4f6ad9f537d98de127db60c2d42be5fcad191b4))
+
 #### 2.0.3 (2024-11-22)
 
 #### 2.0.2 (2024-11-22)

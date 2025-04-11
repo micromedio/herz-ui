@@ -1,6 +1,6 @@
 {
   "name": "@micromed/herz-ui",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Herz UI (/hɛrʦ/ - Hérts) is a design system containing a styleguide(colors, grid, icons, typography) and library of UI components",
   "main": "./lib/cjs/components/index.js",
   "typings": "./lib/types/components/index.d.ts",
@@ -23,7 +23,7 @@
     "test": "react-scripts test",
     "img-test": "creevey --ui",
     "build": "rollup -c",
-    "release": "yarn build && dotenv release-it --",
+    "release": "yarn build && dotenv release-it -- ",
     "changelog": "changelog",
     "lint": "eslint .",
     "lint:fix": "yarn lint --fix",
