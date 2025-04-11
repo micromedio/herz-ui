@@ -78,7 +78,7 @@ export const theme: Theme = {
     body: 'Herz, Gilroy',
   },
 
-  fontSizes: [14, 15, 16, 17, 18, 20, 22],
+  fontSizes: [12, 13, 14, 15, 16, 18, 20],
 
   fontWeights: {
     bold: 700,
