@@ -4,7 +4,7 @@
     "requireBranch": "main"
   },
   "github": {
-    "release": true
+    "release": false
   },
   "hooks": {
     "after:bump": "npm run changelog"
