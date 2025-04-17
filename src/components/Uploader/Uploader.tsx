@@ -4,7 +4,7 @@ import React, { forwardRef, useState } from 'react';
 import { DropzoneOptions, useDropzone } from 'react-dropzone';
 
 import { Button } from '..';
-import Icon from '../Icon/Icon';
+import { IconX } from '@tabler/icons-react';
 
 export interface UploaderProps extends DropzoneOptions {
   name?: string;
@@ -188,12 +188,11 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(function Uploader(
                 title="Remove file"
                 onClick={handleFileRemove}
               >
-                <Icon
+                <IconX
                   sx={{
                     color: 'text.40',
                     pointerEvents: 'none',
                   }}
-                  name="IconX"
                   size={16}
                 />
               </button>

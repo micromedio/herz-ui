@@ -11,8 +11,8 @@ import {
 import { Pagination, Select, Skeleton } from '../';
 import { HTMLAttributes, memo, ReactElement, useEffect, useMemo } from 'react';
 import useRowSelection from './useRowSelection';
-import Icon from '../Icon/Icon';
 import Checkbox from '../Checkbox/Checkbox';
+import { IconArrowNarrowDown, IconArrowNarrowUp } from '@tabler/icons-react';
 
 const INTERNAL_SELECTION_COLUMN_ID = 'INTERNAL_SELECTION_COLUMN_ID';
 const INTERNAL_ACTIVE_COLUMN_ID = 'INTERNAL_ACTIVE_COLUMN_ID';
@@ -309,14 +309,12 @@ function Table<
                             {column.render('Header')}
                             {column.isSorted ? (
                               column.isSortedDesc ? (
-                                <Icon
-                                  name="IconArrowNarrowDown"
+                                <IconArrowNarrowDown
                                   size={16}
                                   sx={{ color: 'text' }}
                                 />
                               ) : (
-                                <Icon
-                                  name="IconArrowNarrowUp"
+                                <IconArrowNarrowUp
                                   size={16}
                                   sx={{ color: 'text' }}
                                 />

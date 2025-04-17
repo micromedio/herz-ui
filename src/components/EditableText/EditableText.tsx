@@ -12,7 +12,12 @@ import {
 } from 'react';
 import Button from '../Button/Button';
 import Spinner from '../Spinner/Spinner';
-import Icon from '../Icon/Icon';
+import {
+  IconCircleCheck,
+  IconAlertCircle,
+  IconX,
+  IconCheck,
+} from '@tabler/icons-react';
 
 export interface EditableTextProps {
   /** The text value and initial value of the `input` element */
@@ -177,21 +182,9 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
           {
             {
               default: '',
-              error: (
-                <Icon
-                  name="IconAlertCircle"
-                  size={16}
-                  sx={{ color: 'primary' }}
-                />
-              ),
+              error: <IconAlertCircle size={16} sx={{ color: 'primary' }} />,
               loading: <Spinner />,
-              success: (
-                <Icon
-                  name="IconCircleCheck"
-                  size={16}
-                  sx={{ color: 'success' }}
-                />
-              ),
+              success: <IconCircleCheck size={16} sx={{ color: 'success' }} />,
             }[state]
           }
           {value !== defaultValue && (
@@ -205,7 +198,7 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
               <Button
                 size="small"
                 color="text"
-                iconName="IconX"
+                iconComponent={IconX}
                 aria-label="reset"
                 onClick={(_event) => {
                   handleOnChange(defaultValue, _event);
@@ -216,7 +209,7 @@ const EditableText = forwardRef<HTMLInputElement, EditableTextProps>(
               <Button
                 size="small"
                 color="text"
-                iconName="IconCheck"
+                iconComponent={IconCheck}
                 aria-label="save"
                 onClick={() => onSave?.(value)}
               />

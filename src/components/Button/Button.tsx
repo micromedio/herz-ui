@@ -1,7 +1,6 @@
 /** @jsxImportSource theme-ui */
 import { get, ThemeUICSSObject } from 'theme-ui';
 import { MouseEvent, ButtonHTMLAttributes, forwardRef, useMemo } from 'react';
-import Icon, { IconProps } from '../Icon/Icon';
 import { Spinner } from '..';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -18,7 +17,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 
-  iconName?: IconProps['name'];
+  iconComponent?: React.ElementType;
 
   styles?: {
     childrenWrapper?: ThemeUICSSObject;
@@ -38,7 +37,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     size = 'large',
     disabled,
     loading = false,
-    iconName,
+    iconComponent: IconComponent,
     styles,
     type = 'button',
     ...htmlProps
@@ -147,21 +146,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
         ...styles?.root,
       }}
     >
-      {iconName &&
+      {IconComponent &&
         (loading ? (
           <Spinner sx={spinnerStyles} />
         ) : (
-          <Icon
-            name={iconName}
-            size={size === 'small' ? 16 : 20}
-            sx={styles?.icon}
-          />
+          <IconComponent size={size === 'small' ? 16 : 20} sx={styles?.icon} />
         ))}
       {children && (
         <span
           sx={{
             ...styles?.childrenWrapper,
-            ...(loading && !iconName
+            ...(loading && !IconComponent
               ? {
                   color: 'transparent',
                   display: 'flex',
@@ -171,7 +166,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
               : {}),
           }}
         >
-          {loading && !iconName && (
+          {loading && !IconComponent && (
             <Spinner
               sx={{
                 ...spinnerStyles,

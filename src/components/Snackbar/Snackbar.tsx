@@ -2,8 +2,8 @@
 
 import { useMemo } from 'react';
 import Button from '../Button/Button';
-import Icon from '../Icon/Icon';
 import Spinner from '../Spinner/Spinner';
+import { IconCircleCheck, IconCircleX, IconX } from '@tabler/icons-react';
 
 export interface SnackbarProps {
   type: 'success' | 'error' | 'loading';
@@ -21,8 +21,7 @@ const Snackbar = ({ type, title, body, onClose, position }: SnackbarProps) => {
     switch (type) {
       case 'success':
         return (
-          <Icon
-            name="IconCircleCheck"
+          <IconCircleCheck
             size={20}
             sx={{
               fill: 'success',
@@ -31,8 +30,7 @@ const Snackbar = ({ type, title, body, onClose, position }: SnackbarProps) => {
         );
       case 'error':
         return (
-          <Icon
-            name="IconCircleX"
+          <IconCircleX
             size={20}
             sx={{
               fill: 'primary',
@@ -120,7 +118,7 @@ const Snackbar = ({ type, title, body, onClose, position }: SnackbarProps) => {
           }}
         >
           <Button
-            iconName="IconX"
+            iconComponent={IconX}
             size="small"
             aria-label="close"
             sx={{

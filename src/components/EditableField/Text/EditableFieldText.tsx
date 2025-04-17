@@ -10,7 +10,7 @@ import {
   useEffect,
   RefObject,
 } from 'react';
-import Icon from '../../Icon/Icon';
+import { IconAlertCircle, IconCircleCheck } from '@tabler/icons-react';
 import useEditableFieldGroup from '../hooks/useEditableFieldGroup';
 import ButtonControl from '../ButtonControl/ButtonControl';
 import { autoExpander } from '../../Input/Input';
@@ -296,21 +296,9 @@ const EditableText = forwardRef<
           {
             {
               default: '',
-              error: (
-                <Icon
-                  name="IconAlertCircle"
-                  size={16}
-                  sx={{ color: 'primary' }}
-                />
-              ),
+              error: <IconAlertCircle size={16} sx={{ color: 'primary' }} />,
               loading: '',
-              success: (
-                <Icon
-                  name="IconCircleCheck"
-                  size={16}
-                  sx={{ color: 'success' }}
-                />
-              ),
+              success: <IconCircleCheck size={16} sx={{ color: 'success' }} />,
             }[state]
           }
         </div>
