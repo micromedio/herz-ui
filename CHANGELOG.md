@@ -1,3 +1,20 @@
+#### 2.0.7 (2025-04-17)
+
+##### Chores
+
+*  release v2.0.6 and remove Icon component in favor of Tabler icons ([f67f90d0](https://github.com/micromed-dev/herz-ui/commit/f67f90d0bae71cfe1873e7e7cc282e8c3202709a))
+*  release v2.0.4 ([cca9c836](https://github.com/micromed-dev/herz-ui/commit/cca9c8363c475c803bce9e915c14d2ac46361d64))
+*  release v2.0.4 ([f4f6ad9f](https://github.com/micromed-dev/herz-ui/commit/f4f6ad9f537d98de127db60c2d42be5fcad191b4))
+
+##### New Features
+
+* **Autocomplete:**  update icon usage to use Tabler's IconSearch component ([7ef4b516](https://github.com/micromed-dev/herz-ui/commit/7ef4b516e395fd97c2c8d0d4491b3042f06b6fe9))
+
+##### Refactors
+
+*  update Button component to use iconComponent prop for Tabler icons ([7d1bd230](https://github.com/micromed-dev/herz-ui/commit/7d1bd230418ea182e4032307e8b7ca7e33d124e2))
+*  replace Icon component with Tabler icons across multiple components ([c27a662c](https://github.com/micromed-dev/herz-ui/commit/c27a662c6817f9cb85d9dbda502fd75ae0cd8e21))
+
 #### 2.0.4 (2025-04-11)
 
 ##### Chores
