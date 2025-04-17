@@ -10,6 +10,7 @@ import {
 import { jsx as TUIjsx, ThemeUICSSObject } from 'theme-ui';
 import Button from '../Button/Button';
 import { SubNavigationMenuContext, useSubNavigationMenu } from './Context';
+import { IconArrowBarLeft } from '@tabler/icons-react';
 
 interface SubNavigationMenuItemProps {
   children: ReactElement | string;
@@ -205,7 +206,7 @@ const SubNavigationMenu = ({
         <Button
           aria-label="toggle-collapse-navigation"
           color="text"
-          iconName="IconArrowBarLeft"
+          iconComponent={IconArrowBarLeft}
           onClick={() => {
             onCollapseButtonClick?.(!isCollapsed);
             setIsCollapsed(!isCollapsed);

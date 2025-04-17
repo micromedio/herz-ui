@@ -3,6 +3,7 @@ import { HTMLAttributes, ReactNode, useState } from 'react';
 import Popover, { PopoverProps } from '../Popover/Popover';
 import Button from '../Button/Button';
 import { Instance } from 'tippy.js';
+import { IconX } from '@tabler/icons-react';
 
 export interface FloatingCardProps {
   /** Card title */
@@ -78,7 +79,7 @@ const FloatingCard = ({
             </div>
             {showClose && (
               <Button
-                iconName="IconX"
+                iconComponent={IconX}
                 color="text"
                 onClick={() => {
                   if (!isControlled) tippy?.hide();

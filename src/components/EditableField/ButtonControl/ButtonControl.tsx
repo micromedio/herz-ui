@@ -3,6 +3,7 @@ import React, { MouseEvent, useMemo } from 'react';
 import { ThemeUICSSObject } from 'theme-ui';
 import Button from '../../Button/Button';
 import Spinner from '../../Spinner/Spinner';
+import { IconCheck, IconX } from '@tabler/icons-react';
 
 export interface ButtonControlProps {
   isLoading?: boolean;
@@ -68,7 +69,7 @@ const ButtonControl = ({
               <Button
                 size="small"
                 color="text"
-                iconName="IconX"
+                iconComponent={IconX}
                 aria-label="reset"
                 onClick={onReset}
                 sx={buttonStyles}
@@ -76,7 +77,7 @@ const ButtonControl = ({
               <Button
                 size="small"
                 color="text"
-                iconName="IconCheck"
+                iconComponent={IconCheck}
                 aria-label="save"
                 onClick={onSave}
                 sx={buttonStyles}

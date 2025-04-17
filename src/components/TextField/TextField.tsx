@@ -32,7 +32,7 @@ interface BaseTextFieldProps {
   /** Text at the end of the input */
   unit?: string;
 
-  iconName?: InputProps['iconName'];
+  iconComponent?: React.ElementType;
 
   /** Will render a textarea instead of an input if `true` */
   multiline?: boolean;
@@ -86,7 +86,7 @@ const TextField = forwardRef<
     readOnly = false,
     requiredText = 'required',
     optionalText = 'optional',
-    iconName,
+    iconComponent,
     unit,
     multiline,
     autoExpand = true,
@@ -170,7 +170,7 @@ const TextField = forwardRef<
             type={type}
             ref={ref}
             placeholder={placeholder}
-            iconName={iconName}
+            iconComponent={iconComponent}
             value={props.value}
             disabled={disabled}
             onChange={props.onChange}
