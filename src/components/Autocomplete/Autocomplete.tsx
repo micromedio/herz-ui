@@ -19,6 +19,7 @@ import Button, { ButtonProps } from '../Button/Button';
 import Popover from '../Popover/Popover';
 import Tag, { TagProps } from '../Tag/Tag';
 import { isBrowser } from '../../helpers/ssr';
+import { IconSearch } from '@tabler/icons-react';
 
 interface CommonProps<T extends unknown> {
   /** An array of button props, each one corresponds to a Button rendered at the input end. */
@@ -587,7 +588,7 @@ export default forwardRef(function Autocomplete<T>(
                 {...inputArias}
                 aria-label="Search"
                 color="text"
-                iconName="IconSearch"
+                iconComponent={IconSearch}
                 onClick={() => {
                   inputRef.current?.focus();
                 }}
