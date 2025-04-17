@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import React, { HTMLAttributes } from 'react';
-import Icon from '../Icon/Icon';
+import { IconChevronRight } from '@tabler/icons-react';
 
 export interface BreadcrumbsProps {
   children?: React.ReactNode;
@@ -10,7 +10,7 @@ export interface BreadcrumbsProps {
 const BreadcrumbsSeparator = () => {
   return (
     <li sx={{ display: 'flex' }}>
-      <Icon name="IconChevronRight" sx={{ color: 'text.40', mx: 1 }} />
+      <IconChevronRight sx={{ color: 'text.40', mx: 1 }} />
     </li>
   );
 };

@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import React, { forwardRef, HTMLProps } from 'react';
-import Icon from '../Icon/Icon';
+import { IconCheck } from '@tabler/icons-react';
 
 export interface CheckableTagProps
   extends Omit<HTMLProps<HTMLInputElement>, 'label' | 'ref'> {
@@ -116,7 +116,7 @@ const CheckableTag = forwardRef<HTMLInputElement, CheckableTagProps>(
               visibility: !checked ? 'hidden' : undefined,
             }}
           >
-            <Icon name="IconCheck" size={12} stroke={4} />
+            <IconCheck size={12} stroke={4} />
           </div>
         )) ||
           null}

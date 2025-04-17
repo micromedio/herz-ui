@@ -50,9 +50,6 @@ export type { FloatingCardProps } from './FloatingCard/FloatingCard';
 export { default as Highlight } from './Highlight/Highlight';
 export type { HighlightProps } from './Highlight/Highlight';
 
-export { default as Icon } from './Icon/Icon';
-export type { IconProps } from './Icon/Icon';
-
 export { default as Input } from './Input/Input';
 export type { InputProps } from './Input/Input';
 

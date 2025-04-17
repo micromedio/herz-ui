@@ -2,7 +2,7 @@
 import { Fragment, ReactNode, useMemo } from 'react';
 
 import Divider from '../Divider/Divider';
-import Icon from '../Icon/Icon';
+import { IconCheck } from '@tabler/icons-react';
 
 type SelectOption = {
   label: ReactNode;
@@ -88,7 +88,7 @@ const ListSelect = ({
                     p: 1,
                   }}
                 >
-                  <Icon name="IconCheck" size={12} stroke={4} />
+                  <IconCheck size={12} stroke={4} />
                 </span>
               ) : (
                 <span

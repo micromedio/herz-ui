@@ -8,8 +8,8 @@ import {
   ReactNode,
   useMemo,
 } from 'react';
-import { Icon } from '..';
 import { useLoadedImage } from './hooks/useLoadedImage';
+import { IconUser } from '@tabler/icons-react';
 
 export interface AvatarProps {
   /**
@@ -95,7 +95,7 @@ const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar(
         };
       }
     }
-    return { children: <Icon name="IconUser" size={size * 0.625} /> };
+    return { children: <IconUser size={size * 0.625} /> };
   }, [alt, children, colorsArray, loaded, size]);
 
   return (

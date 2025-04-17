@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from 'react';
 
 import Button from '../Button/Button';
-import Icon from '../Icon/Icon';
+import { IconCheck } from '@tabler/icons-react';
 import Popover from '../Popover/Popover';
 import { SelectContext } from './context';
 import { SelectValue } from './Select';
@@ -126,7 +126,7 @@ export const SelectOptionCustom = ({
               p: 1,
             }}
           >
-            {isSelected && <Icon name="IconCheck" size={12} stroke={4} />}
+            {isSelected && <IconCheck size={12} stroke={4} />}
           </div>
         </div>
       </Button>

@@ -1,7 +1,7 @@
 /** @jsxImportSource theme-ui */
 import React from 'react';
 import { get } from 'theme-ui';
-import Icon from '../Icon/Icon';
+import { IconX } from '@tabler/icons-react';
 
 export interface TagProps {
   color?: 'primary' | 'secondary' | 'text' | 'success';
@@ -52,7 +52,7 @@ const Tag = ({
             cursor: 'pointer',
           }}
         >
-          <Icon name="IconX" size={12} stroke={3} />
+          <IconX size={12} stroke={3} />
         </span>
       )}
     </span>

@@ -1,11 +1,11 @@
 /** @jsxImportSource theme-ui */
 
 import React, { HTMLAttributes, useCallback, useState } from 'react';
-import Icon from '../Icon/Icon';
 import Divider from '../Divider/Divider';
 import { AccordionContext, useAccordionContext } from './context';
 import { AnimatePresence, motion } from 'framer-motion';
 import { get } from 'theme-ui';
+import { IconChevronDown } from '@tabler/icons-react';
 
 const insertDivider = (items: Array<React.ReactNode>) => {
   let result: Array<React.ReactNode> = [];
@@ -103,8 +103,7 @@ const AccordionItem = ({ title, children, className }: AccordionItemProps) => {
         onClick={() => toggleOpen(index)}
       >
         <span>{title}</span>
-        <Icon
-          name="IconChevronDown"
+        <IconChevronDown
           sx={{
             transition: 'transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
             transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',

@@ -14,8 +14,8 @@ import {
   useRef,
   useState,
 } from 'react';
-import Icon, { IconProps } from '../Icon/Icon';
 import { InputGroupContext } from '../InputGroup/Context';
+import { IconEye, IconEyeOff } from '@tabler/icons-react';
 
 export type InputProps = {
   /** Input type */
@@ -43,8 +43,8 @@ export type InputProps = {
   /** Text at the end of the input */
   unit?: string;
   /** Name of the icon to be placed at the end of the input */
-  iconName?: IconProps['name'];
-
+  // iconName?: IconProps['name'];
+  iconComponent?: React.ElementType;
   /** Will render a textarea instead of an input if `true` */
   multiline?: boolean;
   /** If true, the textarea will grow as the user types */
@@ -70,7 +70,7 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
       disabled = false,
       state = 'default',
       required = false,
-      iconName,
+      iconComponent: IconComponent,
       unit,
       className,
       style,
@@ -260,9 +260,7 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
               {unit}
             </label>
           )}
-          {iconName && (
-            <Icon name={iconName} size={16} sx={{ color: 'text.40' }} />
-          )}
+          {IconComponent && <IconComponent />}
           {type === 'password' && (
             <div
               onClick={() => setPasswordVisible((value) => !value)}
@@ -272,10 +270,11 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
                 cursor: 'pointer',
               }}
             >
-              <Icon
-                name={passwordVisible ? 'IconEye' : 'IconEyeOff'}
-                size={16}
-              />
+              {passwordVisible ? (
+                <IconEye size={16} />
+              ) : (
+                <IconEyeOff size={16} />
+              )}
             </div>
           )}
         </div>

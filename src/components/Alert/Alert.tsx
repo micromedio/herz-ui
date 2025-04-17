@@ -1,7 +1,6 @@
 /** @jsxImportSource theme-ui */
 
 import { ReactNode } from 'react';
-import Icon, { IconProps } from '../Icon/Icon';
 import Paper from '../Paper/Paper';
 
 export interface AlertProps {
@@ -12,7 +11,7 @@ export interface AlertProps {
   children: ReactNode;
 
   /** The alert icon from tabler */
-  iconName?: IconProps['name'];
+  iconComponent?: React.ElementType;
 
   /** custom Alert icon */
   iconSVG?: ReactNode;
@@ -25,7 +24,7 @@ export interface AlertProps {
 const Alert = ({
   title,
   children,
-  iconName,
+  iconComponent: IconComponent,
   iconSVG,
   color,
   position = 'relative',
@@ -62,7 +61,7 @@ const Alert = ({
       }
     >
       <span sx={{ width: 20, height: 20, color: `${color}.40` }}>
-        {iconName ? <Icon name={iconName} /> : iconSVG ? iconSVG : ''}
+        {IconComponent ? <IconComponent /> : iconSVG ? iconSVG : ''}
       </span>
       <div sx={{ width: '100%' }}>
         <h2 sx={{ variant: 'text.heading2', margin: 0, paddingBottom: 3 }}>

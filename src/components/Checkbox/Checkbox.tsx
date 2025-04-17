@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import * as React from 'react';
-import Icon from '../Icon/Icon';
+import { IconCheck, IconMinus } from '@tabler/icons-react';
 
 export interface ICheckboxProps {
   checked?: boolean;
@@ -124,8 +124,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
             pointerEvents: 'none',
           }}
         >
-          {(checked && <Icon name="IconCheck" size={12} stroke={4} />) ||
-            (indeterminate && <Icon name="IconMinus" size={12} stroke={4} />) ||
+          {(checked && <IconCheck size={12} stroke={4} />) ||
+            (indeterminate && <IconMinus size={12} stroke={4} />) ||
             null}
         </div>
 

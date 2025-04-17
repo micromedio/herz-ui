@@ -7,7 +7,8 @@ import {
   SELECT_BULK_ACTIONS,
   UseSelectProps,
 } from './hooks/useSelect';
-import { Button, Popover, Icon } from '..';
+import { Button, Popover } from '..';
+import { IconChevronDown } from '@tabler/icons-react';
 import { InputGroupContext } from '../InputGroup/Context';
 import { getDataFromChildren, isArrayEqual } from './utils';
 import { SelectOption } from './SelectOption';
@@ -385,7 +386,7 @@ const Select = ({
             {renderButtonLabel?.({ selectedItems, selectedOption, value }) ??
               defaultRenderButtonLabel()}
           </span>
-          <Icon name="IconChevronDown" size={12} stroke={3} />
+          <IconChevronDown size={12} stroke={3} />
         </button>
       </Popover>
     </div>

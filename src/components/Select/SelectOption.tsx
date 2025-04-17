@@ -3,7 +3,8 @@ import React from 'react';
 
 import { useContext } from 'react';
 import { SelectContext } from './context';
-import Icon from '../Icon/Icon';
+import { IconCheck } from '@tabler/icons-react';
+
 import Checkbox from '../Checkbox/Checkbox';
 import { SelectValue } from './Select';
 
@@ -92,7 +93,7 @@ export function SelectOption<T = SelectValue>({
               p: 1,
             }}
           >
-            {isSelected && <Icon name="IconCheck" size={12} stroke={4} />}
+            {isSelected && <IconCheck size={12} stroke={4} />}
           </div>
         </React.Fragment>
       )}
